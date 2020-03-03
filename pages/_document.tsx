@@ -1,12 +1,6 @@
-import NextDocument, {
-  DocumentContext,
-  DocumentInitialProps,
-  Html,
-  Head,
-  Main,
-  NextScript
-} from "next/document";
-import { ServerStyleSheet } from "styled-components";
+import NextDocument, { DocumentContext, DocumentInitialProps, Html, Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
+import * as React from 'react';
 
 export default class Document extends NextDocument {
   render() {
@@ -23,9 +17,7 @@ export default class Document extends NextDocument {
     );
   }
 
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
