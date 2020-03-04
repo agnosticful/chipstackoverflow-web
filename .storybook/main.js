@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   stories: ['../**/*.stories.(tsx|mdx)'],
   addons: ['@storybook/addon-docs'],
@@ -11,7 +13,13 @@ module.exports = {
           test: /\.tsx?$/,
           use: [
             {
-              loader: require.resolve('ts-loader')
+              loader: require.resolve('ts-loader'),
+              options: {
+                compilerOptions: {
+                  ...require('../tsconfig.json').compilerOptions,
+                  jsx: 'react'
+                }
+              }
             },
             {
               loader: require.resolve('react-docgen-typescript-loader')
