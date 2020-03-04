@@ -21,6 +21,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "^5.0.1",
+    "prettier": "1.19.1",
     "jest": "^25.1.0",
     "react-test-renderer": "^16.13.0",
     "ts-jest": "^25.2.1",
@@ -28,6 +29,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "format": "prettier --write '**/*.{ts,tsx}'",
     "test": "jest"
   },
   "homepage": "https://github.com/agnosticful/chipstackoverflow#readme",
