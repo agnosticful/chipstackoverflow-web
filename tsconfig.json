@@ -10,7 +10,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "rootDirs": ["pages"],
     "forceConsistentCasingInFileNames": true,
     "allowJs": false,
     "skipLibCheck": true,

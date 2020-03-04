@@ -1,6 +1,6 @@
 module.exports = {
-  stories: ['../pages/**/*.stories.tsx'],
-  addons: ['@storybook/addon-storysource'],
+  stories: ['../**/*.stories.(tsx|mdx)'],
+  addons: ['@storybook/addon-docs'],
   webpackFinal: async config => ({
     ...config,
     module: {
