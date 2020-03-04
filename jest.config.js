@@ -1,9 +1,5 @@
 module.exports = {
-  verbose: true,
-  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
-  },
+  preset: 'ts-jest',
   globals: {
     'ts-jest': {
       tsConfig: {
@@ -11,7 +7,5 @@ module.exports = {
         jsx: 'react'
       }
     }
-  },
-  testMatch: ['**/__tests__/**/*.spec.+(ts|tsx|js)'],
-  preset: 'ts-jest'
+  }
 };

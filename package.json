@@ -29,8 +29,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest"
   },
   "homepage": "https://github.com/agnosticful/chipstackoverflow#readme",
   "bugs": {
