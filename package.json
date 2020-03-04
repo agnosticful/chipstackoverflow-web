@@ -29,7 +29,6 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "format": "prettier --write '**/*.{ts,tsx}'",
     "test": "jest"
   },
