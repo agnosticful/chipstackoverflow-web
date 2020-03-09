@@ -7,6 +7,7 @@ import NextDocument, {
   NextScript
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
+import * as React from "react";
 
 export default class Document extends NextDocument {
   render() {
