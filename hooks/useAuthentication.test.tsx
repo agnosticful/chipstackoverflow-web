@@ -1,8 +1,8 @@
 import * as React from "react";
 import { act, create } from "react-test-renderer";
 import { empty, of } from "rxjs";
-import { RepositoryProvider } from "../core/useRepository";
 import useAuthentication from "./useAuthentication";
+import { RepositoryProvider } from "./useRepository";
 
 describe("useAuthentication()", () => {
   it("returns { isFirstChecking=true, ...rest } until it finishes checking session", async () => {

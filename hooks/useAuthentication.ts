@@ -1,5 +1,5 @@
 import * as React from "react";
-import useRepository from "../core/useRepository";
+import useRepository from "./useRepository";
 
 export default function useAuthentication(): {
   isSignedIn: boolean;

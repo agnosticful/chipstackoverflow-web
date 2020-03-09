@@ -1,7 +1,7 @@
 import * as firebase from "firebase";
 import { AppProps } from "next/app";
 import * as React from "react";
-import { Repository, RepositoryProvider } from "../core/useRepository";
+import { Repository, RepositoryProvider } from "../hooks/useRepository";
 import { createOnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
