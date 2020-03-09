@@ -9,9 +9,11 @@
     "Ryo Togashi <ryo.togashi.ca@gmail.com> (https://ryotogashi.com/)"
   ],
   "dependencies": {
+    "firebase": "^7.10.0",
     "next": "9.2.2",
     "react": "16.13.0",
     "react-dom": "16.13.0",
+    "rxjs": "^6.5.4",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
