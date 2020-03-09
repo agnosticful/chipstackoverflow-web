@@ -1,3 +1,4 @@
+import "antd/dist/antd.css";
 import * as firebase from "firebase";
 import { AppProps } from "next/app";
 import * as React from "react";
