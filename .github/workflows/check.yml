@@ -1,0 +1,36 @@
+name: Check
+on:
+  push:
+    branches:
+      - "*"
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - run: npm ci
+      - run: npx --no-install prettier --check '**/*.{ts,tsx}'
+  test:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - run: npm ci
+      - run: npx --no-install jest -- --ci
+  dry-build:
+    name: Dry Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "10.x"
+      - run: npm ci
+      - run: npx --no-install next build
