@@ -8,17 +8,10 @@ import { createOnAuthenticationStateChanged } from "../repositories/onAuthentica
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
+import getFirebaseApp from "../utilities/getFirebaseApp";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const firebaseApp = React.useMemo(() => {
-    try {
-      return firebase.app();
-    } catch (_) {
-      return firebase.initializeApp(
-        JSON.parse(process.env.firebaseAppOptions!)
-      );
-    }
-  }, []);
+  const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
