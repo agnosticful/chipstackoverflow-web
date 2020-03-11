@@ -1,3 +1,4 @@
+import * as firebase from "firebase";
 import Post from "../models/Post";
 import firestoreSnapshotToPost from "../serializers/firestoreSnapshotToPost";
 
