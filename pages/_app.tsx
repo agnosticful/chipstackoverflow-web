@@ -6,17 +6,10 @@ import { Repository, RepositoryProvider } from "../hooks/useRepository";
 import { createOnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
+import getFirebaseApp from "../utilities/getFirebaseApp";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const firebaseApp = React.useMemo(() => {
-    try {
-      return firebase.app();
-    } catch (_) {
-      return firebase.initializeApp(
-        JSON.parse(process.env.firebaseAppOptions!)
-      );
-    }
-  }, []);
+  const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
