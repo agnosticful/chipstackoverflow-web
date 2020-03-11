@@ -1,31 +1,33 @@
+import { NextPageContext } from "next";
 import * as React from "react";
-import styled from "styled-components";
-import useAuthentication from "../hooks/useAuthentication";
+import IndexPage from "../components/IndexPage";
+import { createGetRecentPosts } from "../repositories/getRecentPosts";
+import jsonToPost from "../serializers/jsonToPost";
+import postToJSON from "../serializers/postToJSON";
+import getFirebaseApp from "../utilities/getFirebaseApp";
 
-export default function Home() {
-  const { isFirstChecking, isSignedIn, signIn, signOut } = useAuthentication();
-
-  if (isFirstChecking) {
-    return <div>checking in...</div>;
-  }
-
-  if (isSignedIn) {
-    return (
-      <div>
-        Welcome back.
-        <button onClick={() => signOut()}>sign out</button>
-      </div>
-    );
-  }
-
-  return (
-    <Root>
-      Hello!
-      <button onClick={() => signIn()}>sign in</button>
-    </Root>
-  );
+interface Props {
+  recentPostsJSON?: Record<string, any>[];
 }
 
-const Root = styled.span`
-  color: red;
-`;
+export default function Page({ recentPostsJSON }: Props) {
+  const recentPosts = recentPostsJSON
+    ? recentPostsJSON.map(item => jsonToPost(item))
+    : undefined;
+
+  return <IndexPage initialRecentPosts={recentPosts} />;
+}
+
+Page.getInitialProps = async (context: NextPageContext) => {
+  let recentPostsJSON: Record<string, any>[] | void;
+
+  if (context.req && context.res) {
+    const firebaseApp = getFirebaseApp();
+    const getRecentPosts = createGetRecentPosts({ firebaseApp });
+    const recentPosts = await getRecentPosts({ limit: 10 });
+
+    recentPostsJSON = recentPosts.map(post => postToJSON(post));
+  }
+
+  return { recentPostsJSON };
+};
