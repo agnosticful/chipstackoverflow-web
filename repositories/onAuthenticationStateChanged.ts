@@ -1,5 +1,5 @@
 import * as firebase from "firebase";
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable } from "rxjs";
 
 export type OnAuthenticationStateChanged = Observable<boolean>;
 
@@ -8,13 +8,9 @@ export function createOnAuthenticationStateChanged({
 }: {
   firebaseApp: firebase.app.App;
 }): OnAuthenticationStateChanged {
-  const onAuthenticationStateChanged = new BehaviorSubject<boolean>(
-    !!firebaseApp.auth().currentUser
-  );
+  return new Observable(subscriber => {
+    firebaseApp.auth().onAuthStateChanged(user => subscriber.next(!!user));
 
-  firebaseApp
-    .auth()
-    .onAuthStateChanged(user => onAuthenticationStateChanged.next(!!user));
-
-  return onAuthenticationStateChanged;
+    return () => subscriber.unsubscribe();
+  });
 }
