@@ -1,4 +1,5 @@
-import { addParameters } from "@storybook/react";
+import { withKnobs } from "@storybook/addon-knobs";
+import { addDecorator, addParameters } from "@storybook/react";
 
 addParameters({
   viewport: {
@@ -34,3 +35,5 @@ addParameters({
     ]
   }
 });
+
+addDecorator(withKnobs);
