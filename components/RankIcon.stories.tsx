@@ -1,14 +1,13 @@
-import { Description, Meta, Preview, Props } from '@storybook/addon-docs/blocks';
+import * as React from "react";
 import { Rank, Suit } from "../models/PlayingCard";
 import RankIcon from "./RankIcon";
 
-<Meta title="RankIcon" component={RankIcon} />
+export default {
+  title: "RankIcon",
+  component: RankIcon
+};
 
-# RankIcon
-
-<Description of={RankIcon} />
-
-<Preview>
+export const example = () => (
   <div
     style={{
       display: "grid",
@@ -30,15 +29,9 @@ import RankIcon from "./RankIcon";
     <RankIcon rank={Rank.queen} />
     <RankIcon rank={Rank.king} />
   </div>
-</Preview>
+);
 
-## Props
-
-<Props of={RankIcon} />
-
-## Coloring by a Suit
-
-<Preview>
+export const coloringBySuit = () => (
   <div
     style={{
       display: "grid",
@@ -51,4 +44,4 @@ import RankIcon from "./RankIcon";
     <RankIcon rank={Rank.queen} suit={Suit.diamond} />
     <RankIcon rank={Rank.jack} suit={Suit.club} />
   </div>
-</Preview>
+);

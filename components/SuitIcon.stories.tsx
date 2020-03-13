@@ -1,14 +1,13 @@
-import { Description, Meta, Preview, Props } from '@storybook/addon-docs/blocks';
+import * as React from "react";
 import { Suit } from "../models/PlayingCard";
 import SuitIcon from "./SuitIcon";
 
-<Meta title="SuitIcon" component={SuitIcon} />
+export default {
+  title: "SuitIcon",
+  component: SuitIcon
+};
 
-# SuitIcon
-
-<Description of={SuitIcon} />
-
-<Preview>
+export const example = () => (
   <div
     style={{
       display: "grid",
@@ -21,8 +20,4 @@ import SuitIcon from "./SuitIcon";
     <SuitIcon suit={Suit.diamond} />
     <SuitIcon suit={Suit.club} />
   </div>
-</Preview>
-
-## Props
-
-<Props of={SuitIcon} />
+);
