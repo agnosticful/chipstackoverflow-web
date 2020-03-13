@@ -15,6 +15,7 @@ interface Props extends React.Attributes {
    */
   rank?: Rank;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 /**
