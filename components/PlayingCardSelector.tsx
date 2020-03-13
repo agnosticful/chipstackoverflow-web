@@ -7,27 +7,28 @@ import {
   DIAMOND_COLOR,
   CLUB_COLOR
 } from "../constants/color";
-import PlayingCard, { Rank, Suit } from "../models/PlayingCard";
+import { Rank, Suit } from "../models/PlayingCard";
 import SuitIcon from "./SuitIcon";
 import RankIcon from "./RankIcon";
 
 interface Props extends React.Attributes {
-  initialValue?: PlayingCard;
+  initialRank?: Rank;
+  initialSuit?: Suit;
   onChange?: (playingCard: { rank: Rank; suit: Suit }) => void;
+  className?: string;
+  style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
 export default function PlayingCardSelector({
-  initialValue,
+  initialRank = Rank.ace,
+  initialSuit = Suit.spade,
   onChange = () => {},
-  children
+  children,
+  ...props
 }: Props) {
-  const [rank, setRank] = React.useState(
-    initialValue ? initialValue.rank : Rank.ace
-  );
-  const [suit, setSuit] = React.useState(
-    initialValue ? initialValue.suit : Suit.spade
-  );
+  const [rank, setRank] = React.useState(initialRank);
+  const [suit, setSuit] = React.useState(initialSuit);
 
   return (
     <Popover
@@ -67,6 +68,7 @@ export default function PlayingCardSelector({
       trigger="click"
       placement="topLeft"
       arrowPointAtCenter
+      {...props}
     >
       {children}
     </Popover>
@@ -93,9 +95,16 @@ const SuitButton = styled.div<{ suit: Suit; active: boolean }>`
   justify-content: center;
   height: 40px;
   cursor: pointer;
-
   background-color: ${({ suit, active }) =>
     active ? `${SUIT_COLORS[suit]}1f` : "transparent"};
+
+  :first-of-type {
+    border-top-left-radius: 2px;
+  }
+
+  :last-of-type {
+    border-top-left-radius: 2px;
+  }
 
   :hover {
     background-color: ${({ suit }) => SUIT_COLORS[suit]}1f;
@@ -111,7 +120,6 @@ const RankButton = styled.div<{ suit: Suit; active: boolean }>`
   padding: 8px 8px 0px 8px;
   border-radius: 4px;
   cursor: pointer;
-
   background-color: ${({ suit, active }) =>
     active ? `${SUIT_COLORS[suit]}1f` : "transparent"};
 
