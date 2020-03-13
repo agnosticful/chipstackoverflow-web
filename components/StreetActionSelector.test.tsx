@@ -35,6 +35,7 @@ describe("<StreetActionSelector>", () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
 
+  // TODO: (https://github.com/agnosticful/chipstackoverflow-web/issues/49)
   it.todo(
     "throws when props.previousBetSize that more than props.tableMaxBetSize given"
   );
