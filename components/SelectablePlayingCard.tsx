@@ -1,9 +1,9 @@
 import { Button } from "antd";
 import * as React from "react";
 import styled from "styled-components";
-import PlayingCardSelector from "./PlayingCardSelector";
-import PlayingCard from "./PlayingCard";
 import { Rank, Suit } from "../models/PlayingCard";
+import PlayingCard from "./PlayingCard";
+import PlayingCardSelector from "./PlayingCardSelector";
 
 interface Props extends React.Attributes {
   initialRank?: Rank;
