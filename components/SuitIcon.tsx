@@ -15,6 +15,7 @@ interface Props extends React.Attributes {
    */
   suit: Suit;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 /**

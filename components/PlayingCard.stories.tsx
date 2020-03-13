@@ -1,14 +1,13 @@
-import { Description, Meta, Preview, Props } from '@storybook/addon-docs/blocks';
+import * as React from "react";
 import { Rank, Suit } from "../models/PlayingCard";
 import PlayingCard from "./PlayingCard";
 
-<Meta title="PlayingCard" component={PlayingCard} />
+export default {
+  title: "PlayingCard",
+  component: PlayingCard
+};
 
-# PlayingCard
-
-<Description of={PlayingCard} />
-
-<Preview>
+export const example = () => (
   <div
     style={{
       display: "grid",
@@ -69,15 +68,9 @@ import PlayingCard from "./PlayingCard";
     <PlayingCard suit={Suit.club} rank={Rank.queen} />
     <PlayingCard suit={Suit.club} rank={Rank.king} />
   </div>
-</Preview>
+);
 
-## Props
-
-<Props of={PlayingCard} />
-
-## without Suit
-
-<Preview>
+export const noSuit = () => (
   <div
     style={{
       display: "grid",
@@ -99,11 +92,9 @@ import PlayingCard from "./PlayingCard";
     <PlayingCard rank={Rank.queen} />
     <PlayingCard rank={Rank.king} />
   </div>
-</Preview>
+);
 
-## without Rank
-
-<Preview>
+export const noRank = () => (
   <div
     style={{
       display: "grid",
@@ -116,4 +107,4 @@ import PlayingCard from "./PlayingCard";
     <PlayingCard suit={Suit.diamond} />
     <PlayingCard suit={Suit.club} />
   </div>
-</Preview>
+);
