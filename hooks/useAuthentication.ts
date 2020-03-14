@@ -14,7 +14,7 @@ export default function useAuthentication(): {
     onAuthenticationStateChanged,
     setUserIdForLogging,
     signIn: _signIn,
-    signOut,
+    signOut: _signOut,
     subscribeUserById
   } = useRepository();
   const [user, setUser] = React.useState<User | null>(null);
@@ -24,6 +24,12 @@ export default function useAuthentication(): {
     logEvent("sign_in", { object_id: objectId });
 
     _signIn();
+  }, []);
+
+  const signOut = React.useCallback(() => {
+    logEvent("sign_out");
+
+    _signOut();
   }, []);
 
   React.useEffect(() => {
