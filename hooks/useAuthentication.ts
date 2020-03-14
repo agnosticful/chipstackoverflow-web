@@ -35,6 +35,8 @@ export default function useAuthentication(): {
       }
 
       if (userId) {
+        setUserIdForLogging(userId);
+
         const onUserChanged = subscribeUserById(userId);
 
         userSubscription = onUserChanged.subscribe(user => {
