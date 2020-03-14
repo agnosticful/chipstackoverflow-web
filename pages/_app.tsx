@@ -17,7 +17,7 @@ import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts
 import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps) {
   const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
@@ -40,6 +40,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }),
     []
   );
+
+  React.useEffect(() => {
+    firebaseApp.analytics().setCurrentScreen(router.pathname);
+  }, [router.pathname]);
 
   return (
     <RepositoryProvider repository={repository}>
