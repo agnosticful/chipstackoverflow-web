@@ -4,10 +4,10 @@ export default interface User {
   profileImageURL: URL;
 }
 
-export interface UserId extends String {
+export type UserId = string & {
   _UserIdBrand: never;
-}
+};
 
-export interface UserName extends String {
+export type UserName = string & {
   _UserNameBrand: never;
-}
+};
