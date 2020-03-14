@@ -1,16 +1,16 @@
-import * as React from 'react';
+import * as React from "react";
 
-import RecentPostCardList from './RecentPostCardList';
-import { Suit, Rank } from '../models/PlayingCard';
-import Position from '../models/Position';
-import Round from '../models/Round';
+import PostCardList from "./PostCardList";
+import { Suit, Rank } from "../models/PlayingCard";
+import Position from "../models/Position";
+import Round from "../models/Round";
 
 export default {
-  title: 'RecentPosts',
-  component: RecentPostCardList
+  title: "Posts",
+  component: PostCardList
 };
 
-export const recentPostItem = () => {
+export const postItem = () => {
   const postData: {
     id: string;
     hand: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
@@ -22,7 +22,7 @@ export const recentPostItem = () => {
     posted: Date;
   }[] = [
     {
-      id: 'fawegewaugwegj23452fse',
+      id: "fawegewaugwegj23452fse",
       hand: [
         {
           suit: Suit.heart,
@@ -33,7 +33,7 @@ export const recentPostItem = () => {
           rank: Rank.ace
         }
       ],
-      title: 'This is post title this is post title this is post title',
+      title: "This is post title this is post title this is post title",
       likes: 125,
       playAt: Position.UTG,
       endedAt: Round.PREFLOP,
@@ -41,7 +41,7 @@ export const recentPostItem = () => {
       posted: new Date(2020, 2, 10, 12, 15, 43, 100)
     },
     {
-      id: 'fawegewaugwegj2345agewagfse',
+      id: "fawegewaugwegj2345agewagfse",
       hand: [
         {
           suit: Suit.club,
@@ -52,7 +52,7 @@ export const recentPostItem = () => {
           rank: Rank.deuce
         }
       ],
-      title: 'This is post title this is post title this is post title',
+      title: "This is post title this is post title this is post title",
       likes: 125,
       playAt: Position.UTG,
       endedAt: Round.PREFLOP,
@@ -60,7 +60,7 @@ export const recentPostItem = () => {
       posted: new Date(2020, 2, 14, 0, 15, 43, 100)
     },
     {
-      id: 'faweeeeeugwegj23452fse',
+      id: "faweeeeeugwegj23452fse",
       hand: [
         {
           suit: Suit.diamond,
@@ -71,7 +71,7 @@ export const recentPostItem = () => {
           rank: Rank.king
         }
       ],
-      title: 'This is post title this is post title this is post title',
+      title: "This is post title this is post title this is post title",
       likes: 125,
       playAt: Position.UTG,
       endedAt: Round.PREFLOP,
@@ -79,7 +79,7 @@ export const recentPostItem = () => {
       posted: new Date(2020, 1, 4, 12, 15, 43, 100)
     },
     {
-      id: 'fawegewaugwg423452fse',
+      id: "fawegewaugwg423452fse",
       hand: [
         {
           suit: Suit.club,
@@ -90,7 +90,7 @@ export const recentPostItem = () => {
           rank: Rank.ace
         }
       ],
-      title: 'This is post title this is post title this is post title',
+      title: "This is post title this is post title this is post title",
       likes: 125,
       playAt: Position.UTG,
       endedAt: Round.PREFLOP,
@@ -98,7 +98,7 @@ export const recentPostItem = () => {
       posted: new Date(2019, 3, 4, 12, 15, 43, 100)
     },
     {
-      id: 'h55hs5h5s4hg',
+      id: "h55hs5h5s4hg",
       hand: [
         {
           suit: Suit.club,
@@ -109,7 +109,7 @@ export const recentPostItem = () => {
           rank: Rank.ace
         }
       ],
-      title: 'This is post title this is post title this is post title',
+      title: "This is post title this is post title this is post title",
       likes: 125,
       playAt: Position.UTG,
       endedAt: Round.PREFLOP,
@@ -117,7 +117,7 @@ export const recentPostItem = () => {
       posted: new Date(2020, 2, 4, 12, 15, 43, 100)
     },
     {
-      id: 'j7j7jrdruths',
+      id: "j7j7jrdruths",
       hand: [
         {
           suit: Suit.club,
@@ -128,7 +128,7 @@ export const recentPostItem = () => {
           rank: Rank.ace
         }
       ],
-      title: 'This is post title this is post title this is post title',
+      title: "This is post title this is post title this is post title",
       likes: 125,
       playAt: Position.UTG,
       endedAt: Round.PREFLOP,
@@ -137,8 +137,8 @@ export const recentPostItem = () => {
     }
   ];
   return (
-    <RecentPostCardList
-      recentPostData={postData}
+    <PostCardList
+      postData={postData}
       handleClick={id => {
         console.log(`${id} is clicked`);
       }}
