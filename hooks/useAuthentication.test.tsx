@@ -5,8 +5,25 @@ import useAuthentication from "./useAuthentication";
 import { RepositoryProvider } from "./useRepository";
 
 describe("useAuthentication()", () => {
+  const subscribeUserById = jest.fn();
+
+  beforeEach(() => {
+    subscribeUserById.mockName("subscribeUserById");
+  });
+
+  afterEach(() => {
+    subscribeUserById.mockReset();
+  });
+
   it("returns { isFirstChecking=true, ...rest } until it finishes checking session", async () => {
-    const onAuthenticationStateChanged = of(true);
+    const onAuthenticationStateChanged = of("loremipsum");
+    subscribeUserById.mockReturnValue(
+      of({
+        id: "loremipsum",
+        name: "Lorem Ipsum",
+        profileImageURL: new URL("https://example.kohei.dev/example.png")
+      })
+    );
     const returnedValue: any[] = [];
 
     function Component() {
@@ -18,7 +35,9 @@ describe("useAuthentication()", () => {
     await act(async () => {
       create(
         <RepositoryProvider
-          repository={{ onAuthenticationStateChanged } as any}
+          repository={
+            { onAuthenticationStateChanged, subscribeUserById } as any
+          }
         >
           <Component />
         </RepositoryProvider>
@@ -29,13 +48,20 @@ describe("useAuthentication()", () => {
   });
 
   it("returns { isSignedIn=true, ...rest } while onAuthenticationStateChanged() repository emits true", async () => {
-    const onAuthenticationStateChanged = of(true);
+    const onAuthenticationStateChanged = of("loremipsum");
+    subscribeUserById.mockReturnValue(
+      of({
+        id: "loremipsum",
+        name: "Lorem Ipsum",
+        profileImageURL: new URL("https://example.kohei.dev/example.png")
+      })
+    );
     const returnedValue: any[] = [];
 
     function Component() {
-      const { isSignedIn } = useAuthentication();
+      const { user } = useAuthentication();
 
-      returnedValue.push(isSignedIn);
+      returnedValue.push(user);
 
       return null;
     }
@@ -43,14 +69,23 @@ describe("useAuthentication()", () => {
     await act(async () => {
       create(
         <RepositoryProvider
-          repository={{ onAuthenticationStateChanged } as any}
+          repository={
+            { onAuthenticationStateChanged, subscribeUserById } as any
+          }
         >
           <Component />
         </RepositoryProvider>
       );
     });
 
-    expect(returnedValue).toEqual([false, true]);
+    expect(returnedValue).toEqual([
+      null,
+      {
+        id: "loremipsum",
+        name: "Lorem Ipsum",
+        profileImageURL: new URL("https://example.kohei.dev/example.png")
+      }
+    ]);
   });
 
   it("returns { signIn(), ...rest } that directly calls signIn() repository", async () => {
@@ -68,7 +103,9 @@ describe("useAuthentication()", () => {
     await act(async () => {
       create(
         <RepositoryProvider
-          repository={{ onAuthenticationStateChanged, signIn } as any}
+          repository={
+            { onAuthenticationStateChanged, subscribeUserById, signIn } as any
+          }
         >
           <Component />
         </RepositoryProvider>
@@ -93,7 +130,9 @@ describe("useAuthentication()", () => {
     await act(async () => {
       create(
         <RepositoryProvider
-          repository={{ onAuthenticationStateChanged, signOut } as any}
+          repository={
+            { onAuthenticationStateChanged, subscribeUserById, signOut } as any
+          }
         >
           <Component />
         </RepositoryProvider>

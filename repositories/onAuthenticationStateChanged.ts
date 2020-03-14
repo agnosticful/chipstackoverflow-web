@@ -1,7 +1,8 @@
 import * as firebase from "firebase";
 import { Observable } from "rxjs";
+import { UserId } from "../models/User";
 
-export type OnAuthenticationStateChanged = Observable<boolean>;
+export type OnAuthenticationStateChanged = Observable<UserId | null>;
 
 export function createOnAuthenticationStateChanged({
   firebaseApp
@@ -9,7 +10,11 @@ export function createOnAuthenticationStateChanged({
   firebaseApp: firebase.app.App;
 }): OnAuthenticationStateChanged {
   return new Observable(subscriber => {
-    firebaseApp.auth().onAuthStateChanged(user => subscriber.next(!!user));
+    firebaseApp
+      .auth()
+      .onAuthStateChanged(user =>
+        subscriber.next(user ? (user.uid as UserId) : null)
+      );
 
     return () => subscriber.unsubscribe();
   });
