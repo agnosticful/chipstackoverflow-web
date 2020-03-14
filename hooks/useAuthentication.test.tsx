@@ -5,13 +5,19 @@ import useAuthentication from "./useAuthentication";
 import { RepositoryProvider } from "./useRepository";
 
 describe("useAuthentication()", () => {
+  const logEvent = jest.fn();
+  const setUserIdForLogging = jest.fn();
   const subscribeUserById = jest.fn();
 
   beforeEach(() => {
+    logEvent.mockName("logEvent");
+    setUserIdForLogging.mockName("setUserIdForLogging");
     subscribeUserById.mockName("subscribeUserById");
   });
 
   afterEach(() => {
+    logEvent.mockReset();
+    setUserIdForLogging.mockReset();
     subscribeUserById.mockReset();
   });
 
@@ -36,7 +42,12 @@ describe("useAuthentication()", () => {
       create(
         <RepositoryProvider
           repository={
-            { onAuthenticationStateChanged, subscribeUserById } as any
+            {
+              logEvent,
+              onAuthenticationStateChanged,
+              setUserIdForLogging,
+              subscribeUserById
+            } as any
           }
         >
           <Component />
@@ -70,7 +81,12 @@ describe("useAuthentication()", () => {
       create(
         <RepositoryProvider
           repository={
-            { onAuthenticationStateChanged, subscribeUserById } as any
+            {
+              logEvent,
+              onAuthenticationStateChanged,
+              setUserIdForLogging,
+              subscribeUserById
+            } as any
           }
         >
           <Component />
@@ -88,14 +104,14 @@ describe("useAuthentication()", () => {
     ]);
   });
 
-  it("returns { signIn(), ...rest } that directly calls signIn() repository", async () => {
+  it("returns { signIn(), ...rest } that calls signIn() repository", async () => {
     const onAuthenticationStateChanged = empty();
     const signIn = jest.fn().mockName("signIn");
 
     function Component() {
       const { signIn } = useAuthentication();
 
-      React.useEffect(() => signIn(), []);
+      React.useEffect(() => signIn("THIS_IS_OBJECT_ID"), []);
 
       return null;
     }
@@ -104,7 +120,13 @@ describe("useAuthentication()", () => {
       create(
         <RepositoryProvider
           repository={
-            { onAuthenticationStateChanged, subscribeUserById, signIn } as any
+            {
+              logEvent,
+              onAuthenticationStateChanged,
+              setUserIdForLogging,
+              subscribeUserById,
+              signIn
+            } as any
           }
         >
           <Component />
@@ -113,9 +135,12 @@ describe("useAuthentication()", () => {
     });
 
     expect(signIn).toHaveBeenCalledTimes(1);
+    expect(logEvent).toHaveBeenCalledWith("sign_in", {
+      object_id: "THIS_IS_OBJECT_ID"
+    });
   });
 
-  it("returns { signOut(), ...rest } that directly calls signOut() repository", async () => {
+  it("returns { signOut(), ...rest } that calls signOut() repository", async () => {
     const onAuthenticationStateChanged = empty();
     const signOut = jest.fn().mockName("signOut");
 
@@ -131,7 +156,13 @@ describe("useAuthentication()", () => {
       create(
         <RepositoryProvider
           repository={
-            { onAuthenticationStateChanged, subscribeUserById, signOut } as any
+            {
+              logEvent,
+              onAuthenticationStateChanged,
+              setUserIdForLogging,
+              subscribeUserById,
+              signOut
+            } as any
           }
         >
           <Component />
@@ -140,5 +171,6 @@ describe("useAuthentication()", () => {
     });
 
     expect(signOut).toHaveBeenCalledTimes(1);
+    expect(logEvent).toHaveBeenCalledWith("sign_out");
   });
 });

@@ -1,7 +1,9 @@
 import * as React from "react";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
 import { GetUserById } from "../repositories/getUserById";
+import { LogEvent } from "../repositories/logEvent";
 import { OnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
+import { SetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { SignIn } from "../repositories/signIn";
 import { SignOut } from "../repositories/signOut";
 import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
@@ -10,7 +12,9 @@ import { SubscribeUserById } from "../repositories/subscribeUserById";
 export interface Repository {
   getRecentPosts: GetRecentPosts;
   getUserById: GetUserById;
+  logEvent: LogEvent;
   onAuthenticationStateChanged: OnAuthenticationStateChanged;
+  setUserIdForLogging: SetUserIdForLogging;
   signIn: SignIn;
   signOut: SignOut;
   subscribeRecentPosts: SubscribeRecentPosts;

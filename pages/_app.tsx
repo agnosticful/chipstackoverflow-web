@@ -8,22 +8,26 @@ import * as React from "react";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
+import { createLogEvent } from "../repositories/logEvent";
 import { createOnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
+import { createSetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, router }: AppProps) {
   const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
+      logEvent: createLogEvent({ firebaseApp }),
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp
       }),
       getUserById: createGetUserById({ firebaseApp }),
+      setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({
         firebaseApp
       }),
@@ -36,6 +40,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }),
     []
   );
+
+  React.useEffect(() => {
+    firebaseApp.analytics().setCurrentScreen(router.pathname);
+  }, [router.pathname]);
 
   return (
     <RepositoryProvider repository={repository}>

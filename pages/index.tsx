@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <Root>
       Hello!
-      <button onClick={() => signIn()}>sign in</button>
+      <button onClick={() => signIn("example_sign_in_button")}>sign in</button>
     </Root>
   );
 }
