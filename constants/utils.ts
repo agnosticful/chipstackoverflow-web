@@ -1,0 +1,1 @@
+export const INITIAL_RECENT_POST_NUMBER = 6;
