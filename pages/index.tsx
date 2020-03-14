@@ -1,31 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import useAuthentication from "../hooks/useAuthentication";
+import HeadBar from "../components/HeadBar";
 
 export default function Home() {
-  const { isFirstChecking, signIn, signOut, user } = useAuthentication();
-
-  if (isFirstChecking) {
-    return <div>checking in...</div>;
-  }
-
-  if (user) {
-    return (
-      <div>
-        Welcome back, {user.name}!
-        <button onClick={() => signOut()}>sign out</button>
-      </div>
-    );
-  }
-
   return (
     <Root>
-      Hello!
-      <button onClick={() => signIn("example_sign_in_button")}>sign in</button>
+      <HeadBar />
     </Root>
   );
 }
 
-const Root = styled.span`
-  color: red;
-`;
+const Root = styled.div``;
