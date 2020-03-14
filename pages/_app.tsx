@@ -8,7 +8,9 @@ import * as React from "react";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
+import { createLogEvent } from "../repositories/logEvent";
 import { createOnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
+import { createSetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
@@ -20,10 +22,12 @@ export default function App({ Component, pageProps }: AppProps) {
   const repository = React.useMemo<Repository>(
     () => ({
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
+      logEvent: createLogEvent({ firebaseApp }),
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp
       }),
       getUserById: createGetUserById({ firebaseApp }),
+      setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({
         firebaseApp
       }),
