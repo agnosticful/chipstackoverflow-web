@@ -19,6 +19,23 @@ export default class Document extends NextDocument {
           <Main />
 
           <NextScript />
+
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
+          ></script>
+          <script
+            // set send_page_view false to prevent sending page_view when the firebase app initializes
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${
+                  JSON.parse(process.env.firebaseAppOptions!).measurementId
+                }', { 'send_page_view': false });`
+            }}
+          ></script>
         </body>
       </Html>
     );

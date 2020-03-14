@@ -6,17 +6,31 @@ import useRepository from "./useRepository";
 export default function useAuthentication(): {
   user: User | null;
   isFirstChecking: boolean;
-  signIn: () => void;
+  signIn: (objectId: string) => void;
   signOut: () => void;
 } {
   const {
+    logEvent,
     onAuthenticationStateChanged,
-    signIn,
-    signOut,
+    setUserIdForLogging,
+    signIn: _signIn,
+    signOut: _signOut,
     subscribeUserById
   } = useRepository();
   const [user, setUser] = React.useState<User | null>(null);
   const [isFirstChecking, setFirstChecking] = React.useState(true);
+
+  const signIn = React.useCallback((objectId: string) => {
+    logEvent("sign_in", { object_id: objectId });
+
+    _signIn();
+  }, []);
+
+  const signOut = React.useCallback(() => {
+    logEvent("sign_out");
+
+    _signOut();
+  }, []);
 
   React.useEffect(() => {
     let userSubscription: Subscription | void;
@@ -27,6 +41,8 @@ export default function useAuthentication(): {
       }
 
       if (userId) {
+        setUserIdForLogging(userId);
+
         const onUserChanged = subscribeUserById(userId);
 
         userSubscription = onUserChanged.subscribe(user => {
