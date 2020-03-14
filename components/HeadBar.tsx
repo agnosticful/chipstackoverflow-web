@@ -44,11 +44,17 @@ export default function HeadBar({ noLogo, ...props }: Props) {
     </Dropdown>
   ) : (
     <>
-      <SignUpButton type="primary" onClick={signIn}>
+      <SignUpButton
+        type="primary"
+        onClick={() => signIn("head_bar_sign_up_button")}
+      >
         Sign up with Google
       </SignUpButton>
 
-      <ShortSignUpButton type="primary" onClick={signIn}>
+      <ShortSignUpButton
+        type="primary"
+        onClick={() => signIn("head_bar_sign_up_button")}
+      >
         Sign up
       </ShortSignUpButton>
     </>
