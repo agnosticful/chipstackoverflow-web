@@ -1,3 +1,4 @@
+import "antd/dist/antd.css";
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
 import AuthenticationRepositoryStub from "../testUtilities/AuthenticationRepositoryStub";
