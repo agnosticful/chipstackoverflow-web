@@ -1,57 +1,53 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Rank, Suit } from "../models/PlayingCard";
-import Position from "../models/Position";
+import Post from "../models/Post";
 import Round from "../models/Round";
+import { Rank, Suit } from "../models/PlayingCard";
 import PostCardListItem from "./PostCardListItem";
+import getFinalPodOfTheGame from "../utilities/getFinalPodOfTheGame";
+import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
 
 interface Props {
-  postCardList: {
-    id: string;
-    hand: [
-      {
-        rank: Rank;
-        suit: Suit;
-      },
-      {
-        rank: Rank;
-        suit: Suit;
-      }
-    ];
-    title: string;
-    likes: number;
-    playAt: Position;
-    endedAt: Round;
-    finalPod: number;
-    posted: Date;
-  }[];
+  posts: Post[];
   handleClick: (id: string) => void;
 }
 
-const PostCardList = ({ postCardList, handleClick }: Props) => {
+export default function PostCardList({ posts, handleClick }: Props) {
   return (
     <PostCardListGrid>
-      {postCardList.map(
-        ({ id, hand, title, likes, playAt, endedAt, finalPod, posted }) => (
-          <PostCardListItem
-            key={id}
-            hand={hand}
-            title={title}
-            likes={likes}
-            playAt={playAt}
-            endedAt={endedAt}
-            finalPod={finalPod}
-            posted={posted}
-            isRecentPost
-            onClick={() => {
-              handleClick(id);
-            }}
-          />
-        )
-      )}
+      {posts.map(({ id, title, likes, createdAt, gameSituation }) => (
+        <PostCardListItem
+          key={id}
+          hand={[
+            { rank: Rank.king, suit: Suit.spade },
+            { rank: Rank.king, suit: Suit.heart }
+          ]} // TODO
+          title={title}
+          likes={likes}
+          playAt={getPositionByPlayerAndIndex(
+            gameSituation.players,
+            gameSituation.heroIndex
+          )}
+          endedAt={
+            gameSituation.river
+              ? Round.RIVER
+              : gameSituation.turn
+              ? Round.TURN
+              : gameSituation.flop
+              ? Round.FLOP
+              : Round.PREFLOP
+          }
+          finalPod={getFinalPodOfTheGame(gameSituation)}
+          posted={createdAt}
+          isRecentPost
+          onClick={() => {
+            handleClick(id);
+          }}
+        />
+      ))}
     </PostCardListGrid>
   );
-};
+}
 
 const PostCardListGrid = styled.div`
   display: grid;
@@ -62,5 +58,3 @@ const PostCardListGrid = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
-
-export default PostCardList;
