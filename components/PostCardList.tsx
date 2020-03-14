@@ -6,7 +6,7 @@ import Round from "../models/Round";
 import PostCardListItem from "./PostCardListItem";
 
 interface Props {
-  postData: {
+  postCardList: {
     id: string;
     hand: [
       {
@@ -28,10 +28,10 @@ interface Props {
   handleClick: (id: string) => void;
 }
 
-const postCardList = ({ postData, handleClick }: Props) => {
+const PostCardList = ({ postCardList, handleClick }: Props) => {
   return (
-    <PostCardListDiv>
-      {postData.map(
+    <PostCardListGrid>
+      {postCardList.map(
         ({ id, hand, title, likes, playAt, endedAt, finalPod, posted }) => (
           <PostCardListItem
             key={id}
@@ -49,11 +49,11 @@ const postCardList = ({ postData, handleClick }: Props) => {
           />
         )
       )}
-    </PostCardListDiv>
+    </PostCardListGrid>
   );
 };
 
-const PostCardListDiv = styled.div`
+const PostCardListGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 500px);
   gap: 16px;
@@ -63,4 +63,4 @@ const PostCardListDiv = styled.div`
   }
 `;
 
-export default postCardList;
+export default PostCardList;
