@@ -27,7 +27,7 @@ interface Props {
   finalPod: number;
   posted: Date;
   isRecentPost: boolean;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const PostCardListItem = ({
@@ -112,9 +112,5 @@ const CenterItem = styled.div`
   height: 100%;
   width: 100%;
 `;
-
-PostCardListItem.defaultProps = {
-  onClick: null
-};
 
 export default PostCardListItem;
