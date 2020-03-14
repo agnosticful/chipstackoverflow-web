@@ -1,9 +1,10 @@
-import { Avatar, Button, Dropdown, Menu } from "antd";
+import { Avatar, Dropdown, Menu } from "antd";
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../constants/mediaquery";
 import useAuthentication from "../hooks/useAuthentication";
+import Button, { ButtonSize, ButtonVariant } from "./Button";
 import { SignOutIcon } from "./Icon";
 
 interface Props extends React.Attributes {
@@ -45,14 +46,16 @@ export default function HeadBar({ noLogo, ...props }: Props) {
   ) : (
     <>
       <SignUpButton
-        type="primary"
+        variant={ButtonVariant.primary}
+        size={ButtonSize.small}
         onClick={() => signIn("head_bar_sign_up_button")}
       >
         Sign up with Google
       </SignUpButton>
 
       <ShortSignUpButton
-        type="primary"
+        variant={ButtonVariant.primary}
+        size={ButtonSize.small}
         onClick={() => signIn("head_bar_sign_up_button")}
       >
         Sign up
