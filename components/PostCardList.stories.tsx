@@ -11,7 +11,7 @@ export default {
 };
 
 export const postItem = () => {
-  const postData: {
+  const postCardList: {
     id: string;
     hand: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
     title: string;
@@ -138,7 +138,7 @@ export const postItem = () => {
   ];
   return (
     <PostCardList
-      postData={postData}
+      postCardList={postCardList}
       handleClick={id => {
         console.log(`${id} is clicked`);
       }}
