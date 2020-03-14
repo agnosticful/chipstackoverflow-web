@@ -13,14 +13,14 @@ export default interface Post {
   lastUpdatedAt: Date;
 }
 
-export interface PostId extends String {
+export type PostId = string & {
   _PostIdBrand: never;
-}
+};
 
-export interface PostTitle extends String {
+export type PostTitle = string & {
   _PostTitleBrand: never;
-}
+};
 
-export interface PostBody extends String {
+export type PostBody = string & {
   _PostBodyBrand: never;
-}
+};

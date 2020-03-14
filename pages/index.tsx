@@ -3,16 +3,16 @@ import styled from "styled-components";
 import useAuthentication from "../hooks/useAuthentication";
 
 export default function Home() {
-  const { isFirstChecking, isSignedIn, signIn, signOut } = useAuthentication();
+  const { isFirstChecking, signIn, signOut, user } = useAuthentication();
 
   if (isFirstChecking) {
     return <div>checking in...</div>;
   }
 
-  if (isSignedIn) {
+  if (user) {
     return (
       <div>
-        Welcome back.
+        Welcome back, {user.name}!
         <button onClick={() => signOut()}>sign out</button>
       </div>
     );
