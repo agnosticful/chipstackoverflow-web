@@ -1,16 +1,20 @@
 import * as React from "react";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
+import { GetUserById } from "../repositories/getUserById";
 import { OnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
 import { SignIn } from "../repositories/signIn";
 import { SignOut } from "../repositories/signOut";
 import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
+import { SubscribeUserById } from "../repositories/subscribeUserById";
 
 export interface Repository {
   getRecentPosts: GetRecentPosts;
+  getUserById: GetUserById;
   onAuthenticationStateChanged: OnAuthenticationStateChanged;
   signIn: SignIn;
   signOut: SignOut;
   subscribeRecentPosts: SubscribeRecentPosts;
+  subscribeUserById: SubscribeUserById;
 }
 
 const RepositoryContext = React.createContext<Repository>(null as any);
