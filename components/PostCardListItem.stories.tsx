@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 
-import PostCardListItem from './PostCardListItem';
-import { Suit, Rank } from '../models/PlayingCard';
-import Position from '../models/Position';
-import Round from '../models/Round';
+import PostCardListItem from "./PostCardListItem";
+import { Suit, Rank } from "../models/PlayingCard";
+import Position from "../models/Position";
+import Round from "../models/Round";
 
 export default {
-  title: 'PostCardListItem',
+  title: "PostCardListItem",
   component: PostCardListItem
 };
 
@@ -22,7 +22,7 @@ export const postCardListItem = () => (
         rank: Rank.ace
       }
     ]}
-    title='This is post title this is post title this is post title'
+    title="This is post title this is post title this is post title"
     likes={125}
     playAt={Position.UTG}
     endedAt={Round.PREFLOP}
