@@ -1,5 +1,8 @@
 import "antd/dist/antd.css";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/analytics";
+import "firebase/auth";
+import "firebase/firestore";
 import { AppProps } from "next/app";
 import * as React from "react";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
