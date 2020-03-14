@@ -18,11 +18,12 @@ export default function AuthenticationRepositoryStub({
 }) {
   const repositoryBase = useRepository();
   const repository = {
-    ...repositoryBase,
+    logEvent: () => undefined,
     subscribeUserById: () => of(user as User),
     onAuthenticationStateChanged: signingIn
       ? of<UserId | null>()
       : of<UserId | null>(user ? (user.id as UserId) : null),
+    setUserIdForLogging: () => undefined,
     signIn: () => {
       signIn();
 
@@ -32,7 +33,8 @@ export default function AuthenticationRepositoryStub({
       signOut();
 
       return Promise.resolve();
-    }
+    },
+    ...repositoryBase
   };
 
   return (
