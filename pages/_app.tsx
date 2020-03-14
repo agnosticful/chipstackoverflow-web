@@ -4,10 +4,12 @@ import { AppProps } from "next/app";
 import * as React from "react";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
+import { createGetUserById } from "../repositories/getUserById";
 import { createOnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
+import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -18,9 +20,11 @@ export default function App({ Component, pageProps }: AppProps) {
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp
       }),
+      getUserById: createGetUserById({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({
         firebaseApp
       }),
+      subscribeUserById: createSubscribeUserById({ firebaseApp }),
       signIn: createSignIn({
         firebaseApp,
         googleAuthProvider: new firebase.auth.GoogleAuthProvider()

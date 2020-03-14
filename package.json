@@ -40,7 +40,7 @@
   "scripts": {
     "dev": "next dev",
     "format": "prettier --write '**/*.{ts,tsx}'",
-    "story": "start-storybook -p 6006 -c .storybook",
+    "story": "start-storybook -s ./public",
     "test": "jest"
   },
   "homepage": "https://github.com/agnosticful/chipstackoverflow#readme",
