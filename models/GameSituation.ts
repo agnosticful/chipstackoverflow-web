@@ -2,7 +2,12 @@ import PlayingCard from "./PlayingCard";
 
 export default interface GameSituation {
   type: GameType;
-  players: number;
+  playerLength: number;
+  playerStackSizes: number[];
+  playerCards: {
+    left: PlayingCard;
+    right: PlayingCard;
+  }[];
   heroIndex: number;
   smallBlindSize: number;
   antiSize: number;
