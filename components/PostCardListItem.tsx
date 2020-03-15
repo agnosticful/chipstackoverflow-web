@@ -3,13 +3,13 @@ import * as React from "react";
 import styled from "styled-components";
 import LikeIcon from "./LikeIcon";
 import PlayingCard from "./PlayingCard";
-import { Rank, Suit } from "../models/PlayingCard";
 import Post from "../models/Post";
 import Round from "../models/Round";
 import getAgoByDate from "../utilities/getAgoByDate";
 import getFinalPodOfTheGame from "../utilities/getFinalPodOfTheGame";
 import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
 import getSIMetricPrefixData from "../utilities/getSIMetricPrefixData";
+import getHeroHand from "../utilities/getHeroHand";
 
 interface Props {
   isRecentPost: boolean;
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const PostCardListItem = ({ isRecentPost, post, onClick }: Props) => {
+  const [left, right] = getHeroHand(post.gameSituation);
   return (
     <Card
       hoverable
@@ -29,13 +30,13 @@ const PostCardListItem = ({ isRecentPost, post, onClick }: Props) => {
         <Col span={5}>
           <PlayerHand>
             <PlayingCard
-              suit={Suit.spade} // TODO
-              rank={Rank.king}
+              suit={left.suit}
+              rank={left.rank}
               style={{ width: "40%", margin: "2px" }}
             />
             <PlayingCard
-              suit={Suit.heart} // TODO
-              rank={Rank.king}
+              suit={right.suit}
+              rank={right.rank}
               style={{ width: "40%", margin: "2px" }}
             />
           </PlayerHand>
@@ -59,7 +60,7 @@ const PostCardListItem = ({ isRecentPost, post, onClick }: Props) => {
         <Attribute
           title="PLAY AT"
           value={getPositionByPlayerAndIndex(
-            post.gameSituation.players,
+            post.gameSituation.playerLength,
             post.gameSituation.heroIndex
           )}
         />

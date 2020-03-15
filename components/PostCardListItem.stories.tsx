@@ -24,8 +24,20 @@ export const postCardListItem = () => {
     dislikes: 12,
     gameSituation: {
       type: GameType.cash,
-      players: 2,
+      playerLength: 2,
       heroIndex: 0,
+      playerCards: [
+        {
+          left: {
+            rank: Rank.seven,
+            suit: Suit.diamond
+          } as PlayingCard,
+          right: {
+            rank: Rank.eight,
+            suit: Suit.diamond
+          } as PlayingCard
+        }
+      ],
       smallBlindSize: 0.05,
       antiSize: 0,
       preflop: {

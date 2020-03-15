@@ -1,13 +1,13 @@
 import Position from "../models/Position";
 
 export default function getPositionByPlayerAndIndex(
-  players: number,
+  playerLength: number,
   index: number
 ): Position {
-  if (players < 2 || 10 < players)
+  if (playerLength < 2 || 10 < playerLength)
     throw new Error("Player number must be 2 - 10.");
-  if (index < 0 || players < index)
-    throw new Error(`Index number must be 0 - player number(${players})`);
+  if (index < 0 || playerLength < index)
+    throw new Error(`Index number must be 0 - player number(${playerLength})`);
 
   const playerNumberAndPoositionCorrespondenceMap = new Map([
     [2, [Position.SB, Position.BB]],
@@ -80,6 +80,5 @@ export default function getPositionByPlayerAndIndex(
       ]
     ]
   ]);
-
-  return playerNumberAndPoositionCorrespondenceMap.get(players)![index];
+  return playerNumberAndPoositionCorrespondenceMap.get(playerLength)![index];
 }
