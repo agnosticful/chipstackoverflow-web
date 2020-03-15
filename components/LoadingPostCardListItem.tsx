@@ -1,7 +1,7 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import Card from './Card';
-import { MOBILE_MEDIA } from '../constants/mediaquery';
+import * as React from "react";
+import styled from "styled-components";
+import Card from "./Card";
+import { MOBILE_MEDIA } from "../constants/mediaquery";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -10,7 +10,7 @@ interface Props extends React.Attributes {
 
 export default function PostCardListItem({ ...props }: Props) {
   return (
-    <PostCard style={{ maxWidth: '496px' }} {...props}>
+    <PostCard style={{ maxWidth: "496px" }} {...props}>
       <PlayerHandArea>
         <CardLoading />
         <CardLoading />

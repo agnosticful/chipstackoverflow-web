@@ -10,7 +10,6 @@ import getAgoByDate from "../utilities/getAgoByDate";
 import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
 import getSIMetricPrefixData from "../utilities/getSIMetricPrefixData";
 import GameSituation from "../models/GameSituation";
-import { Suit, Rank } from "../models/PlayingCard";
 
 interface Props extends React.Attributes {
   isRecentPost: boolean;
@@ -26,8 +25,8 @@ export default function PostCardListItem({
   onClick,
   ...props
 }: Props) {
-  //   const { heroIndex, playerCards } = post.gameSituation;
-  //   const { left, right } = playerCards[heroIndex];
+  const { heroIndex, playerCards } = post.gameSituation;
+  const { left, right } = playerCards[heroIndex];
   return (
     <PostCard
       hoverable
@@ -37,16 +36,14 @@ export default function PostCardListItem({
     >
       <div>
         <PlayerHand>
-          {/* <PlayingCard suit={left.suit} rank={left.rank} style={{ width: '40%', margin: '2px' }} />
-            <PlayingCard suit={right.suit} rank={right.rank} style={{ width: '40%', margin: '2px' }} /> */}
           <PlayingCard
-            suit={Suit.diamond}
-            rank={Rank.seven}
+            suit={left.suit}
+            rank={left.rank}
             style={{ width: "40%", margin: "2px" }}
           />
           <PlayingCard
-            suit={Suit.diamond}
-            rank={Rank.eight}
+            suit={right.suit}
+            rank={right.rank}
             style={{ width: "40%", margin: "2px" }}
           />
         </PlayerHand>
@@ -69,9 +66,8 @@ export default function PostCardListItem({
           {isRecentPost ? "POSTED" : "Last Update"}
         </AttributeTitle>
         <AttributeValue>
-          {/* getPositionByPlayerAndIndex(post.gameSituation.playerLength, post.gameSituation.heroIndex) */}
           {getPositionByPlayerAndIndex(
-            post.gameSituation.players,
+            post.gameSituation.playerLength,
             post.gameSituation.heroIndex
           )}
         </AttributeValue>
