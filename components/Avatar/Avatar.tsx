@@ -8,7 +8,7 @@ interface Props extends React.Attributes {
 }
 
 /**
- * Write the description for this component here.
+ * Shows an image in a circle.
  */
 export default function Avatar({ src, ...props }: Props) {
   return <Root src={src} {...props} />;
