@@ -48,7 +48,6 @@ const Root = styled.button<{
   border-radius: 4px;
   outline: none;
   font: inherit;
-  -webkit-font-smoothing: antialiased;
   cursor: pointer;
   transition: background 200ms ease, border 200ms ease, color 200ms ease,
     box-shadow 200ms ease, transform 200ms ease;
