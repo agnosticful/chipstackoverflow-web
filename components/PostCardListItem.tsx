@@ -27,25 +27,16 @@ export default function PostCardListItem({
 }: Props) {
   const { heroIndex, playerCards } = post.gameSituation;
   const { left, right } = playerCards[heroIndex];
+  const [nAgo, mobileTerm, term] = getAgoByDate(
+    isRecentPost ? post.createdAt : post.lastUpdatedAt
+  );
+
   return (
-    <PostCard
-      hoverable
-      style={{ maxWidth: "496px" }}
-      onClick={onClick}
-      {...props}
-    >
+    <PostCard hoverable style={{ padding: 0 }} onClick={onClick} {...props}>
       <div>
         <PlayerHand>
-          <PlayingCard
-            suit={left.suit}
-            rank={left.rank}
-            style={{ width: "40%", margin: "2px" }}
-          />
-          <PlayingCard
-            suit={right.suit}
-            rank={right.rank}
-            style={{ width: "40%", margin: "2px" }}
-          />
+          <HandCard suit={left.suit} rank={left.rank} />
+          <HandCard suit={right.suit} rank={right.rank} />
         </PlayerHand>
       </div>
       <div>
@@ -81,9 +72,10 @@ export default function PostCardListItem({
           getFinalPodOfTheGame(post.gameSituation)
         )} BB`}</AttributeValue>
         <AttributeValue>
-          {isRecentPost
-            ? getAgoByDate(post.createdAt)
-            : getAgoByDate(post.lastUpdatedAt)}
+          {nAgo}
+          <MobileTermSpan>{mobileTerm}</MobileTermSpan>
+          <TermSpan>{term}</TermSpan>
+          &nbsp;ago
         </AttributeValue>
       </Attributes>
     </PostCard>
@@ -92,20 +84,49 @@ export default function PostCardListItem({
 
 const PostCard = styled(Card)`
   display: grid;
+  max-width: 496px;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1.5fr 1fr;
   column-gap: 8px;
   row-gap: 8px;
 `;
 
+const HandCard = styled(PlayingCard)`
+  position: absolute;
+  width: 40%;
+
+  &:first-child {
+    top: 15%;
+    left 16%;
+
+    transform: rotate(-15deg);
+    -moz-transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+  }
+
+  &:last-child {
+    top: 15%;
+    right 16%;
+
+    transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+  }
+`;
+
 const PlayerHand = styled.div`
   height: 100%;
   min-width: 72px;
   text-align: center;
+  background-color: #f5f6f7;
+  border-radius: 4px 0 4px 0;
+  padding-top: 8px;
+
+  position: relative;
 `;
 
 const PostTitle = styled.h2`
-  margin: 0;
+  margin: 8px 8px 0 0;
   line-height: 1.2;
 
   ${MOBILE_MEDIA} {
@@ -114,12 +135,14 @@ const PostTitle = styled.h2`
 `;
 
 const LikeArea = styled.div`
+  margin: 0 0 8px 8px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Attributes = styled.div`
+  margin: 0 8px 8px 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -145,6 +168,21 @@ const AttributeValue = styled.p`
 
   ${MOBILE_MEDIA} {
     font-size: 12px;
+  }
+`;
+
+const MobileTermSpan = styled.span`
+  display: none;
+
+  ${MOBILE_MEDIA} {
+    display: inline;
+  }
+`;
+const TermSpan = styled.span`
+  display: inline;
+
+  ${MOBILE_MEDIA} {
+    display: none;
   }
 `;
 
