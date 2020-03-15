@@ -9,6 +9,7 @@
     "Ryo Togashi <ryo.togashi.ca@gmail.com> (https://ryotogashi.com/)"
   ],
   "dependencies": {
+    "@tippyjs/react": "^4.0.0-alpha.3",
     "antd": "^4.0.2",
     "firebase": "^7.10.0",
     "next": "9.2.2",
