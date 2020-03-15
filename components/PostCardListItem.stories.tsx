@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import PostCardListItem from "./PostCardListItem";
 import Post, { PostId, PostTitle, PostBody } from "../models/Post";
 import { UserId } from "../models/User";
