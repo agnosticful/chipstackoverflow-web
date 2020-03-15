@@ -75,30 +75,32 @@ const Attributes = styled.div`
   row-gap: 4px;
 `;
 
+const colorChange = `
+animation: color-change 2s linear infinite;
+@keyframes color-change {
+  0% {
+    background-color: #bfbfbf;
+  }
+  20%,
+  100% {
+    background-color: #848484;
+  }
+  40%,
+  80% {
+    background-color: #7e7e7e;
+  }
+  60% {
+    background-color: #5d5d5d;
+  }
+`;
+
 const LikesLoading = styled.div`
   display: inline-block;
   height: 16px;
   width: 30px;
   margin: 4px;
   background-color: #bfbfbf;
-  animation: color-change 4s linear infinite;
-
-  @keyframes color-change {
-    0% {
-      background-color: #bfbfbf;
-    }
-    20%,
-    100% {
-      background-color: #848484;
-    }
-    40%,
-    80% {
-      background-color: #7e7e7e;
-    }
-    60% {
-      background-color: #5d5d5d;
-    }
-  }
+  ${colorChange}
 `;
 
 const Word = styled.div`
@@ -107,24 +109,7 @@ const Word = styled.div`
   width: ${(Math.floor(Math.random() * (9 - 5)) + 5) * 10}px;
   margin: 4px;
   background-color: #bfbfbf;
-  animation: color-change 4s linear infinite;
-
-  @keyframes color-change {
-    0% {
-      background-color: #bfbfbf;
-    }
-    20%,
-    100% {
-      background-color: #848484;
-    }
-    40%,
-    80% {
-      background-color: #7e7e7e;
-    }
-    60% {
-      background-color: #5d5d5d;
-    }
-  }
+  ${colorChange}
 
   ${MOBILE_MEDIA} {
     height: 12px;
@@ -137,24 +122,7 @@ const AttributeTextLoading = styled.div`
   width: 60px;
   margin: 2px;
   background-color: #bfbfbf;
-  animation: color-change 2s linear infinite;
-
-  @keyframes color-change {
-    0% {
-      background-color: #bfbfbf;
-    }
-    20%,
-    100% {
-      background-color: #848484;
-    }
-    40%,
-    80% {
-      background-color: #7e7e7e;
-    }
-    60% {
-      background-color: #5d5d5d;
-    }
-  }
+  ${colorChange}
 
   ${MOBILE_MEDIA} {
     height: 10px;
@@ -167,23 +135,8 @@ const CardLoading = styled.div`
   width: 40%;
   margin: 4px;
   background-color: #bfbfbf;
-  animation: color-change 4s linear infinite;
+  ${colorChange}
 
-  @keyframes color-change {
-    0% {
-      background-color: #bfbfbf;
-    }
-    20%,
-    100% {
-      background-color: #848484;
-    }
-    40%,
-    80% {
-      background-color: #7e7e7e;
-    }
-    60% {
-      background-color: #5d5d5d;
-    }
   }
 `;
 
@@ -193,23 +146,8 @@ const IconLoading = styled.div`
   width: 30px;
   margin: 2px;
   background-color: #bfbfbf;
-  animation: color-change 4s linear infinite;
+  ${colorChange}
 
-  @keyframes color-change {
-    0% {
-      background-color: #bfbfbf;
-    }
-    20%,
-    100% {
-      background-color: #848484;
-    }
-    40%,
-    80% {
-      background-color: #7e7e7e;
-    }
-    60% {
-      background-color: #5d5d5d;
-    }
   }
 `;
 
