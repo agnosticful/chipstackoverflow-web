@@ -1,9 +1,13 @@
 import * as React from "react";
 
 import PostCardList from "./PostCardList";
-import { Suit, Rank } from "../models/PlayingCard";
-import Position from "../models/Position";
-import Round from "../models/Round";
+import PlayingCard, { Suit, Rank } from "../models/PlayingCard";
+import Post, { PostId, PostTitle, PostBody } from "../models/Post";
+import { UserId } from "../models/User";
+import GameSituation, {
+  GameType,
+  GameStreetAction
+} from "../models/GameSituation";
 
 export default {
   title: "Posts",
@@ -11,134 +15,341 @@ export default {
 };
 
 export const postItem = () => {
-  const postCardList: {
-    id: string;
-    hand: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
-    title: string;
-    likes: number;
-    playAt: Position;
-    endedAt: Round;
-    finalPod: number;
-    posted: Date;
-  }[] = [
+  const postCardList: Post[] = [
     {
-      id: "fawegewaugwegj23452fse",
-      hand: [
-        {
-          suit: Suit.heart,
-          rank: Rank.jack
-        },
-        {
-          suit: Suit.diamond,
-          rank: Rank.ace
-        }
-      ],
-      title: "This is post title this is post title this is post title",
+      id: "rgaergba" as PostId,
+      user: "gagaegaerga" as UserId,
+      title: "suspendisse interdum consectetur libero id" as PostTitle,
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." as PostBody,
       likes: 125,
-      playAt: Position.UTG,
-      endedAt: Round.PREFLOP,
-      finalPod: 2550.5,
-      posted: new Date(2020, 2, 10, 12, 15, 43, 100)
+      dislikes: 12,
+      gameSituation: {
+        type: GameType.cash,
+        players: 2,
+        heroIndex: 0,
+        smallBlindSize: 0.05,
+        antiSize: 0,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        },
+        flop: {
+          communityCards: [
+            {
+              suit: Suit.diamond,
+              rank: Rank.five
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.six
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            } as PlayingCard
+          ] as PlayingCard[],
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        }
+      } as GameSituation,
+      createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+      lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
     },
     {
-      id: "fawegewaugwegj2345agewagfse",
-      hand: [
-        {
-          suit: Suit.club,
-          rank: Rank.ace
-        },
-        {
-          suit: Suit.club,
-          rank: Rank.deuce
-        }
-      ],
-      title: "This is post title this is post title this is post title",
+      id: "rgaergba" as PostId,
+      user: "gagaegaerga" as UserId,
+      title: "suspendisse interdum consectetur libero id" as PostTitle,
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." as PostBody,
       likes: 125,
-      playAt: Position.UTG,
-      endedAt: Round.PREFLOP,
-      finalPod: 255000000.5,
-      posted: new Date(2020, 2, 14, 0, 15, 43, 100)
+      dislikes: 12,
+      gameSituation: {
+        type: GameType.cash,
+        players: 2,
+        heroIndex: 0,
+        smallBlindSize: 0.05,
+        antiSize: 0,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        },
+        flop: {
+          communityCards: [
+            {
+              suit: Suit.diamond,
+              rank: Rank.five
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.six
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            } as PlayingCard
+          ] as PlayingCard[],
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        }
+      } as GameSituation,
+      createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+      lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
     },
     {
-      id: "faweeeeeugwegj23452fse",
-      hand: [
-        {
-          suit: Suit.diamond,
-          rank: Rank.ace
-        },
-        {
-          suit: Suit.spade,
-          rank: Rank.king
-        }
-      ],
-      title: "This is post title this is post title this is post title",
+      id: "rgaergba" as PostId,
+      user: "gagaegaerga" as UserId,
+      title: "suspendisse interdum consectetur libero id" as PostTitle,
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." as PostBody,
       likes: 125,
-      playAt: Position.UTG,
-      endedAt: Round.PREFLOP,
-      finalPod: 255000000000.5,
-      posted: new Date(2020, 1, 4, 12, 15, 43, 100)
+      dislikes: 12,
+      gameSituation: {
+        type: GameType.cash,
+        players: 2,
+        heroIndex: 0,
+        smallBlindSize: 0.05,
+        antiSize: 0,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        },
+        flop: {
+          communityCards: [
+            {
+              suit: Suit.diamond,
+              rank: Rank.five
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.six
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            } as PlayingCard
+          ] as PlayingCard[],
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        }
+      } as GameSituation,
+      createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+      lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
     },
     {
-      id: "fawegewaugwg423452fse",
-      hand: [
-        {
-          suit: Suit.club,
-          rank: Rank.ace
-        },
-        {
-          suit: Suit.diamond,
-          rank: Rank.ace
-        }
-      ],
-      title: "This is post title this is post title this is post title",
+      id: "rgaergba" as PostId,
+      user: "gagaegaerga" as UserId,
+      title: "suspendisse interdum consectetur libero id" as PostTitle,
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." as PostBody,
       likes: 125,
-      playAt: Position.UTG,
-      endedAt: Round.PREFLOP,
-      finalPod: 255000000000000.5,
-      posted: new Date(2019, 3, 4, 12, 15, 43, 100)
+      dislikes: 12,
+      gameSituation: {
+        type: GameType.cash,
+        players: 2,
+        heroIndex: 0,
+        smallBlindSize: 0.05,
+        antiSize: 0,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        },
+        flop: {
+          communityCards: [
+            {
+              suit: Suit.diamond,
+              rank: Rank.five
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.six
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            } as PlayingCard
+          ] as PlayingCard[],
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        }
+      } as GameSituation,
+      createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+      lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
     },
     {
-      id: "h55hs5h5s4hg",
-      hand: [
-        {
-          suit: Suit.club,
-          rank: Rank.ace
-        },
-        {
-          suit: Suit.diamond,
-          rank: Rank.ace
-        }
-      ],
-      title: "This is post title this is post title this is post title",
+      id: "rgaergba" as PostId,
+      user: "gagaegaerga" as UserId,
+      title: "suspendisse interdum consectetur libero id" as PostTitle,
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." as PostBody,
       likes: 125,
-      playAt: Position.UTG,
-      endedAt: Round.PREFLOP,
-      finalPod: 255000000000000000.5,
-      posted: new Date(2020, 2, 4, 12, 15, 43, 100)
+      dislikes: 12,
+      gameSituation: {
+        type: GameType.cash,
+        players: 2,
+        heroIndex: 0,
+        smallBlindSize: 0.05,
+        antiSize: 0,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        },
+        flop: {
+          communityCards: [
+            {
+              suit: Suit.diamond,
+              rank: Rank.five
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.six
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            } as PlayingCard
+          ] as PlayingCard[],
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        }
+      } as GameSituation,
+      createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+      lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
     },
     {
-      id: "j7j7jrdruths",
-      hand: [
-        {
-          suit: Suit.club,
-          rank: Rank.ace
-        },
-        {
-          suit: Suit.diamond,
-          rank: Rank.ace
-        }
-      ],
-      title: "This is post title this is post title this is post title",
+      id: "rgaergba" as PostId,
+      user: "gagaegaerga" as UserId,
+      title: "suspendisse interdum consectetur libero id" as PostTitle,
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." as PostBody,
       likes: 125,
-      playAt: Position.UTG,
-      endedAt: Round.PREFLOP,
-      finalPod: 255.5,
-      posted: new Date(2020, 2, 4, 12, 15, 43, 100)
+      dislikes: 12,
+      gameSituation: {
+        type: GameType.cash,
+        players: 2,
+        heroIndex: 0,
+        smallBlindSize: 0.05,
+        antiSize: 0,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        },
+        flop: {
+          communityCards: [
+            {
+              suit: Suit.diamond,
+              rank: Rank.five
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.six
+            } as PlayingCard,
+            {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            } as PlayingCard
+          ] as PlayingCard[],
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            } as GameStreetAction,
+            {
+              playerIndex: 1,
+              betSize: 0
+            } as GameStreetAction
+          ] as GameStreetAction[]
+        }
+      } as GameSituation,
+      createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+      lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
     }
   ];
   return (
     <PostCardList
-      postCardList={postCardList}
+      posts={postCardList}
       handleClick={id => {
         console.log(`${id} is clicked`);
       }}
