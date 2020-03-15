@@ -6,10 +6,10 @@ import PlayingCard from "./PlayingCard";
 import { MOBILE_MEDIA } from "../constants/mediaquery";
 import Post from "../models/Post";
 import Round from "../models/Round";
+import GameSituation from "../models/GameSituation";
 import getAgoByDate from "../utilities/getAgoByDate";
 import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
 import getSIMetricPrefixData from "../utilities/getSIMetricPrefixData";
-import GameSituation from "../models/GameSituation";
 
 interface Props extends React.Attributes {
   isRecentPost: boolean;
