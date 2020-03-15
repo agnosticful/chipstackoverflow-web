@@ -137,8 +137,8 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     }
 
     & > svg {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
     }
   `,
