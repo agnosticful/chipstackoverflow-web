@@ -1,9 +1,11 @@
-import * as React from 'react';
-import LikeIcon from './LikeIcon';
+import * as React from "react";
+import LikeIcon from "./LikeIcon";
 
 export default {
-  title: 'like',
+  title: "like",
   component: LikeIcon
 };
 
-export const icon = () => <LikeIcon color='gray' style={{ width: 25, height: 25 }} />;
+export const icon = () => (
+  <LikeIcon color="gray" style={{ width: 25, height: 25 }} />
+);
