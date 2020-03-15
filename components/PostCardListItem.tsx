@@ -33,12 +33,11 @@ export default function PostCardListItem({
 
   return (
     <PostCard hoverable style={{ padding: 0 }} onClick={onClick} {...props}>
-      <div>
-        <PlayerHand>
-          <HandCard suit={left.suit} rank={left.rank} />
-          <HandCard suit={right.suit} rank={right.rank} />
-        </PlayerHand>
-      </div>
+      <PlayerHandArea>
+        <PlayerHandAreaBackGround />
+        <HandCard suit={left.suit} rank={left.rank} />
+        <HandCard suit={right.suit} rank={right.rank} />
+      </PlayerHandArea>
       <div>
         <PostTitle>{post.title}</PostTitle>
       </div>
@@ -91,11 +90,29 @@ const PostCard = styled(Card)`
   row-gap: 8px;
 `;
 
+const PlayerHandArea = styled.div`
+  position: relative;
+  width: 100%;
+  background-color: #f5f6f7;
+  border-radius: 4px 0 4px 0;
+
+  &: before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+`;
+
+const PlayerHandAreaBackGround = styled.div`
+  padding-top: 8px;
+  position: absolute;
+`;
+
 const HandCard = styled(PlayingCard)`
   position: absolute;
   width: 40%;
 
-  &:first-child {
+  &:first-of-type {
     top: 15%;
     left 16%;
 
@@ -104,7 +121,7 @@ const HandCard = styled(PlayingCard)`
     -webkit-transform: rotate(-15deg);
   }
 
-  &:last-child {
+  &:last-of-type {
     top: 15%;
     right 16%;
 
@@ -112,17 +129,6 @@ const HandCard = styled(PlayingCard)`
     -moz-transform: rotate(15deg);
     -webkit-transform: rotate(15deg);
   }
-`;
-
-const PlayerHand = styled.div`
-  height: 100%;
-  min-width: 72px;
-  text-align: center;
-  background-color: #f5f6f7;
-  border-radius: 4px 0 4px 0;
-  padding-top: 8px;
-
-  position: relative;
 `;
 
 const PostTitle = styled.h2`
