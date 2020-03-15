@@ -1,5 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
+import Button from "../Button";
 import { SignOutIcon } from "../Icon";
 import PopoverMenu from "./PopoverMenu";
 import PopoverMenuItem from "./PopoverMenuItem";
@@ -30,7 +31,7 @@ export const example = () => (
         </>
       }
     >
-      <button>Click me to show</button>
+      <Button>Click me to show</Button>
     </PopoverMenu>
   </div>
 );
@@ -63,7 +64,7 @@ export const scrollPlayground = () => (
         </>
       }
     >
-      <button>Click me to show</button>
+      <Button>Click me to show</Button>
     </PopoverMenu>
   </div>
 );
