@@ -1,37 +1,55 @@
-import { Popover } from "antd";
+import Tippy from "@tippyjs/react";
 import * as React from "react";
 import styled from "styled-components";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/shift-away-subtle.css";
+import "tippy.js/themes/light.css";
 import {
   SPADE_COLOR,
   HEART_COLOR,
   DIAMOND_COLOR,
   CLUB_COLOR
-} from "../constants/color";
-import { Rank, Suit } from "../models/PlayingCard";
-import SuitIcon from "./SuitIcon";
-import RankIcon from "./RankIcon";
+} from "../../constants/color";
+import { Rank, Suit } from "../../models/PlayingCard";
+import SuitIcon from "../SuitIcon";
+import RankIcon from "../RankIcon";
 
 interface Props extends React.Attributes {
   initialRank?: Rank;
   initialSuit?: Suit;
   onChange?: (playingCard: { rank: Rank; suit: Suit }) => void;
   className?: string;
+  /** The className will be attached on the popover element. */
+  popoverClassName?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
+/**
+ * An UI component to select rank and suit for a playing card.
+ */
 export default function PlayingCardSelector({
   initialRank = Rank.ace,
   initialSuit = Suit.spade,
   onChange = () => {},
+  popoverClassName,
   children,
   ...props
 }: Props) {
   const [rank, setRank] = React.useState(initialRank);
   const [suit, setSuit] = React.useState(initialSuit);
+  const [isPopoverShown, setPopoverShown] = React.useState(false);
+  const onRequestShow = React.useCallback(() => setPopoverShown(true), []);
+  const onRequestHide = React.useCallback(() => setPopoverShown(false), []);
 
   return (
-    <Popover
+    <_Tippy
+      theme="light"
+      animation="shift-away-subtle"
+      trigger="manual"
+      interactive
+      placement="top-start"
+      arrow
       content={
         <Content>
           <SuitButtons>
@@ -65,45 +83,54 @@ export default function PlayingCardSelector({
           </RankButtons>
         </Content>
       }
-      trigger="click"
-      placement="topLeft"
-      arrowPointAtCenter
-      {...props}
+      visible={isPopoverShown}
+      onHide={onRequestHide}
+      className={popoverClassName}
     >
-      {children}
-    </Popover>
+      <Wrapper onClick={onRequestShow} {...props}>
+        {children}
+      </Wrapper>
+    </_Tippy>
   );
 }
 
+const _Tippy = styled(Tippy)`
+  padding: 0;
+
+  & > .tippy-content {
+    padding: 0;
+  }
+`;
+
 const Content = styled.div`
   position: relative;
-  padding-top: 36px;
+`;
+
+const Wrapper = styled.div`
+  display: inline-block;
 `;
 
 const SuitButtons = styled.div`
-  position: absolute;
-  top: -12px;
-  left: -16px;
   display: grid;
   grid-template-columns: repeat(4, 25%);
-  width: calc(100% + 32px);
+  width: 100%;
 `;
 
 const SuitButton = styled.div<{ suit: Suit; active: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   cursor: pointer;
   background-color: ${({ suit, active }) =>
     active ? `${SUIT_COLORS[suit]}1f` : "transparent"};
 
   :first-of-type {
-    border-top-left-radius: 2px;
+    border-top-left-radius: 4px;
   }
 
   :last-of-type {
-    border-top-left-radius: 2px;
+    border-top-right-radius: 4px;
   }
 
   :hover {
@@ -114,6 +141,7 @@ const SuitButton = styled.div<{ suit: Suit; active: boolean }>`
 const RankButtons = styled.div`
   display: grid;
   grid-template-columns: repeat(7, auto);
+  padding: 16px;
 `;
 
 const RankButton = styled.div<{ suit: Suit; active: boolean }>`
