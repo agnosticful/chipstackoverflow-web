@@ -7,5 +7,5 @@ export default {
 };
 
 export const icon = () => (
-  <DislikeIcon color="gray" style={{ width: 25, height: 25 }} />
+  <DislikeIcon color="gray" style={{ width: 25, height: 25, margin: "16px" }} />
 );
