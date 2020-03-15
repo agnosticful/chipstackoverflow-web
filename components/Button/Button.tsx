@@ -42,9 +42,6 @@ const Root = styled.button<{
   variant: ButtonVariant;
   size: ButtonSize;
 }>`
-  ${({ variant }) => VARIANT_CSS[variant]}
-  ${({ size }) => SIZE_CSS[size]}
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,6 +62,9 @@ const Root = styled.button<{
     color: inherit;
     text-decoration: none;
   }
+
+  ${({ variant }) => VARIANT_CSS[variant]}
+  ${({ size }) => SIZE_CSS[size]}
 `;
 
 const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
