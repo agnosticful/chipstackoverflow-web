@@ -18,7 +18,12 @@ interface Props extends React.Attributes {
   onClick?: () => void;
 }
 
-const PostCardListItem = ({ isRecentPost, post, onClick, ...props }: Props) => {
+export default function PostCardListItem({
+  isRecentPost,
+  post,
+  onClick,
+  ...props
+}: Props) {
   //   const { heroIndex, playerCards } = post.gameSituation;
   //   const { left, right } = playerCards[heroIndex];
   return (
@@ -88,7 +93,7 @@ const PostCardListItem = ({ isRecentPost, post, onClick, ...props }: Props) => {
       </Attributes>
     </PostCard>
   );
-};
+}
 
 const PostCard = styled(Card)`
   display: grid;
@@ -165,5 +170,3 @@ function getFinalPodOfTheGame(gameSituation: GameSituation): number {
 
   return preflopPod + flopPod + turnPod + riverPod;
 }
-
-export default PostCardListItem;
