@@ -109,27 +109,3 @@ const ShortSignUpButton = styled(Button)`
     display: block;
   }
 `;
-
-// const UserMenu = styled(Menu)`
-//   width: 192px;
-// `;
-
-// const UserMenuItem = styled(Menu.Item)`
-//   display: grid;
-//   grid-template-columns: auto 16px;
-//   grid-template-areas: "label icon";
-//   column-gap: 8px;
-//   align-items: center;
-//   padding: 8px 24px;
-// `;
-
-// const UserMenuItemLabel = styled.div`
-//   grid-area: label;
-// `;
-
-// const UserMenuItemIcon = styled.svg`
-//   grid-area: icon;
-//   width: 16px;
-//   height: 16px;
-//   margin-right: 4px;
-// `;
