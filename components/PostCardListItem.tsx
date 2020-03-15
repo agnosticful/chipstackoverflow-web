@@ -52,10 +52,7 @@ export default function PostCardListItem({
         <PostTitle>{post.title}</PostTitle>
       </div>
       <LikeArea>
-        <LikeIcon
-          color="gray"
-          style={{ width: 25, height: 25, margin: "4px" }}
-        />
+        <LikeIcon style={{ width: 25, height: 25, margin: "4px" }} />
         {post.likes}
       </LikeArea>
       <Attributes>

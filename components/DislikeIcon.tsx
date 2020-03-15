@@ -1,19 +1,25 @@
 import * as React from "react";
 
 interface Props extends React.Attributes {
-  color: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function DislikeIcon({ color, ...props }: Props) {
+export default function DislikeIcon({ ...props }: Props) {
   return (
-    <svg viewBox="0 0 59 56" {...props}>
-      <g stroke="none" strokeWidth="1" fillRule="evenodd">
-        <g transform="translate(-2.000000, -2.000000)" fill={color}>
-          <path d="M49.3673686,2.42533188 C51.7098868,2.42533188 55.990549,5.85950286 56.7271949,8.9005221 L56.7718646,9.10721017 L59.7383139,28.0981763 C59.7383139,34.2225593 56.2353262,38.0832572 51.0391834,38.9809512 L50.7540891,39.0269736 L34.1442892,39.0269736 L34.1442892,53.2188778 C34.1442892,54.1769855 33.2492936,57.4096687 31.402907,59.4043381 C29.5994595,61.3526199 25.1801598,61.3979288 24.5246223,59.5402647 L17.0456877,34.3339117 L17.0456877,2.42533188 L49.3673686,2.42533188 Z M12.2161499,2.42533188 L12.2161499,34.1747481 L4.43829109,34.1747481 C3.33372159,34.1747481 2.43829109,33.2793176 2.43829109,32.1747481 L2.43829109,4.42533188 C2.43829109,3.32076238 3.33372159,2.42533188 4.43829109,2.42533188 L12.2161499,2.42533188 Z" />
-        </g>
-      </g>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17" />
     </svg>
   );
 }

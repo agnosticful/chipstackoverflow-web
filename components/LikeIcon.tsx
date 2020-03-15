@@ -1,19 +1,25 @@
 import * as React from "react";
 
 interface Props extends React.Attributes {
-  color: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function LikeIcon({ color, ...props }: Props) {
+export default function LikeIcon({ ...props }: Props) {
   return (
-    <svg viewBox="0 0 59 56" {...props}>
-      <g stroke="none" strokeWidth="1" fillRule="evenodd">
-        <g transform="translate(-3.000000, -5.000000)" fill={color}>
-          <path d="M9.6960241,27 C11.3528784,27 12.6960241,28.3431458 12.6960241,30 L12.6960241,61 L6,61 C4.34314575,61 3,59.6568542 3,58 L3,30 C3,28.3431458 4.34314575,27 6,27 L9.6960241,27 Z M29.3594804,5.49611784 L29.8250496,5.49979444 C31.4022443,5.53059732 33.2536731,5.80979752 36.017139,8.22505374 C37.9592415,9.92244213 39.0610948,12.171606 39.3226988,14.9725454 L39.3520559,15.3410145 L39.3520559,24.8237206 L55.7433291,24.8237206 C58.5683279,25.4213773 61.0178999,27.9064633 61.1277849,32.5908724 L61.1316305,32.921264 L53.6848082,56.8229583 C53.0137732,59.9819468 52.0753559,60.9549078 48.4876053,60.9984533 L17.5724813,61 L17.5724813,30.7114711 L27.2725736,19.0061058 L27.2725736,7.50002267 C27.2725736,6.33583912 27.677882,5.49611784 29.3594804,5.49611784 Z" />
-        </g>
-      </g>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
     </svg>
   );
 }

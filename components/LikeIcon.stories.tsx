@@ -7,5 +7,5 @@ export default {
 };
 
 export const icon = () => (
-  <LikeIcon color="gray" style={{ width: 25, height: 25, margin: "16px" }} />
+  <LikeIcon style={{ width: 25, height: 25, margin: "16px" }} />
 );
