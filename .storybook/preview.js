@@ -1,5 +1,8 @@
 import { withKnobs } from "@storybook/addon-knobs";
 import { addDecorator, addParameters } from "@storybook/react";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/animations/shift-away-subtle.css";
+import "tippy.js/themes/light.css";
 
 addParameters({
   viewport: {
