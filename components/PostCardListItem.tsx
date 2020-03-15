@@ -16,6 +16,8 @@ interface Props extends React.Attributes {
   isRecentPost: boolean;
   post: Post;
   onClick?: () => void;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function PostCardListItem({
