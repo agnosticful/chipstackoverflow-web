@@ -1,9 +1,6 @@
 import Tippy from "@tippyjs/react";
 import * as React from "react";
 import styled from "styled-components";
-import "tippy.js/dist/tippy.css";
-import "tippy.js/animations/shift-away-subtle.css";
-import "tippy.js/themes/light.css";
 import PopoverMenuControlContext from "./PopoverMenuControlContext";
 
 interface Props extends React.Attributes {
