@@ -1,27 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<StreetActionSelector> matches with the previous snapshot (big blind in preflop) 1`] = `
-<RadioGroup
-  buttonStyle="outline"
-  onChange={[Function]}
-  size="large"
-  value={null}
->
-  <ForwardRef(RadioButton)
-    value="f"
+<styled.div>
+  <styled.button
+    active={false}
+    onClick={[Function]}
   >
     Fold
-  </ForwardRef(RadioButton)>
-  <ForwardRef(RadioButton)
-    value="c"
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
   >
     Check
-  </ForwardRef(RadioButton)>
-  <Styled(Component)
+  </styled.button>
+  <styled.button
     active={false}
     onClick={[Function]}
     tabIndex={0}
-    value="r"
   >
     Raise
     <styled.input
@@ -34,32 +30,28 @@ exports[`<StreetActionSelector> matches with the previous snapshot (big blind in
       tabIndex={-1}
       type="number"
     />
-  </Styled(Component)>
-</RadioGroup>
+  </styled.button>
+</styled.div>
 `;
 
 exports[`<StreetActionSelector> matches with the previous snapshot (someone raised) 1`] = `
-<RadioGroup
-  buttonStyle="outline"
-  onChange={[Function]}
-  size="large"
-  value={null}
->
-  <ForwardRef(RadioButton)
-    value="f"
+<styled.div>
+  <styled.button
+    active={false}
+    onClick={[Function]}
   >
     Fold
-  </ForwardRef(RadioButton)>
-  <ForwardRef(RadioButton)
-    value="c"
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
   >
     Call
-  </ForwardRef(RadioButton)>
-  <Styled(Component)
+  </styled.button>
+  <styled.button
     active={false}
     onClick={[Function]}
     tabIndex={0}
-    value="r"
   >
     Raise
     <styled.input
@@ -72,32 +64,28 @@ exports[`<StreetActionSelector> matches with the previous snapshot (someone rais
       tabIndex={-1}
       type="number"
     />
-  </Styled(Component)>
-</RadioGroup>
+  </styled.button>
+</styled.div>
 `;
 
 exports[`<StreetActionSelector> matches with the previous snapshot 1`] = `
-<RadioGroup
-  buttonStyle="outline"
-  onChange={[Function]}
-  size="large"
-  value={null}
->
-  <ForwardRef(RadioButton)
-    value="f"
+<styled.div>
+  <styled.button
+    active={false}
+    onClick={[Function]}
   >
     Fold
-  </ForwardRef(RadioButton)>
-  <ForwardRef(RadioButton)
-    value="c"
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
   >
     Check
-  </ForwardRef(RadioButton)>
-  <Styled(Component)
+  </styled.button>
+  <styled.button
     active={false}
     onClick={[Function]}
     tabIndex={0}
-    value="r"
   >
     Bet
     <styled.input
@@ -110,6 +98,6 @@ exports[`<StreetActionSelector> matches with the previous snapshot 1`] = `
       tabIndex={-1}
       type="number"
     />
-  </Styled(Component)>
-</RadioGroup>
+  </styled.button>
+</styled.div>
 `;
