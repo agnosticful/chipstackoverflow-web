@@ -50,6 +50,7 @@ const Root = styled.button<{
   justify-content: center;
   border-radius: 4px;
   outline: none;
+  font: inherit;
   -webkit-font-smoothing: antialiased;
   cursor: pointer;
   transition: background 200ms ease, border 200ms ease, color 200ms ease,
@@ -136,8 +137,8 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     }
 
     & > svg {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
     }
   `,
