@@ -1,5 +1,5 @@
-import * as React from 'react';
-import styled from 'styled-components';
+import * as React from "react";
+import styled from "styled-components";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -9,7 +9,12 @@ interface Props extends React.Attributes {
   hoverable?: boolean;
 }
 
-export default function Card({ children, onClick, hoverable, ...props }: Props) {
+export default function Card({
+  children,
+  onClick,
+  hoverable,
+  ...props
+}: Props) {
   const CardDiv = styled.div`
     margin: 16px;
     padding: 8px;
@@ -24,7 +29,7 @@ export default function Card({ children, onClick, hoverable, ...props }: Props) 
           box-shadow: 0px 0px 8px 4px #969696;
         }
     `
-      : ''}
+      : ""}
   `;
 
   return (
