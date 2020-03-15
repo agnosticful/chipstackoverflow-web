@@ -1,20 +1,19 @@
 import * as React from "react";
-
 import PostCardList from "./PostCardList";
-import PlayingCard, { Suit, Rank } from "../models/PlayingCard";
-import Post, { PostId, PostTitle, PostBody } from "../models/Post";
-import { UserId } from "../models/User";
 import GameSituation, {
   GameType,
   GameStreetAction
 } from "../models/GameSituation";
+import PlayingCard, { Suit, Rank } from "../models/PlayingCard";
+import Post, { PostId, PostTitle, PostBody } from "../models/Post";
+import { UserId } from "../models/User";
 
 export default {
-  title: "Posts",
+  title: "PostCardList",
   component: PostCardList
 };
 
-export const postItem = () => {
+export const postCardList = () => {
   const postCardList: Post[] = [
     {
       id: "rgaergba" as PostId,

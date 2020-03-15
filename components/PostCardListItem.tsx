@@ -1,15 +1,15 @@
 import { Row, Col, Card, Typography } from "antd";
 import * as React from "react";
 import styled from "styled-components";
+import LikeIcon from "./LikeIcon";
 import PlayingCard from "./PlayingCard";
 import { Rank, Suit } from "../models/PlayingCard";
-import Round from "../models/Round";
-import LikeIcon from "./LikeIcon";
-import getAgoByDate from "../utilities/getAgoByDate";
-import getSIMetricPrefixData from "../utilities/getSIMetricPrefixData";
 import Post from "../models/Post";
-import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
+import Round from "../models/Round";
+import getAgoByDate from "../utilities/getAgoByDate";
 import getFinalPodOfTheGame from "../utilities/getFinalPodOfTheGame";
+import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
+import getSIMetricPrefixData from "../utilities/getSIMetricPrefixData";
 
 interface Props {
   isRecentPost: boolean;

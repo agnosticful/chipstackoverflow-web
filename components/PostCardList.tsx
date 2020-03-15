@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import Post from "../models/Post";
 import PostCardListItem from "./PostCardListItem";
+import Post from "../models/Post";
 
 interface Props {
   posts: Post[];
@@ -25,7 +25,7 @@ export default function PostCardList({ posts, handleClick }: Props) {
   );
 }
 
-const PostCardListGrid = styled.div`
+const PostCardListGrid = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 500px);
   gap: 16px;
