@@ -11,10 +11,9 @@ export default function RecentPosts() {
 
   React.useEffect(() => {
     (async () => {
-      const teste = await getRecentPosts({ limit: INITIAL_RECENT_POST_NUMBER });
-      console.log("test");
-      console.log(teste);
-      setRecentPostList(teste);
+      setRecentPostList(
+        await getRecentPosts({ limit: INITIAL_RECENT_POST_NUMBER })
+      );
     })();
   }, []);
   const handleClick = (id: string) => {
