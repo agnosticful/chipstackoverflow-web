@@ -1,11 +1,10 @@
-import { Avatar, Dropdown, Menu } from "antd";
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
-import { MOBILE_MEDIA } from "../constants/mediaquery";
-import useAuthentication from "../hooks/useAuthentication";
-import Button, { ButtonSize, ButtonVariant } from "./Button";
-import { SignOutIcon } from "./Icon";
+import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import useAuthentication from "../../hooks/useAuthentication";
+import Button, { ButtonSize, ButtonVariant } from "../Button";
+import SignedInRight from "./SignedInRight";
 
 interface Props extends React.Attributes {
   noLogo?: boolean;
@@ -14,7 +13,7 @@ interface Props extends React.Attributes {
 }
 
 export default function HeadBar({ noLogo, ...props }: Props) {
-  const { isFirstChecking, signIn, signOut, user } = useAuthentication();
+  const { isFirstChecking, signIn, user } = useAuthentication();
 
   const logo = noLogo ? null : (
     <Link href="/" passHref>
@@ -27,22 +26,8 @@ export default function HeadBar({ noLogo, ...props }: Props) {
     </Link>
   );
 
-  const menu = (
-    <UserMenu onClick={signOut}>
-      <UserMenuItem>
-        <UserMenuItemLabel>Sign out</UserMenuItemLabel>
-
-        <UserMenuItemIcon as={SignOutIcon} />
-      </UserMenuItem>
-    </UserMenu>
-  );
-
   const right = isFirstChecking ? null : user ? (
-    <Dropdown overlay={menu}>
-      <AvatarWrapper>
-        <_Avatar src={user.profileImageURL.href} />
-      </AvatarWrapper>
-    </Dropdown>
+    <_SignedInRight user={user} />
   ) : (
     <>
       <SignUpButton
@@ -99,13 +84,10 @@ const Logo = styled.img`
   }
 `;
 
-const _Avatar = styled(Avatar)`
+const _SignedInRight = styled(SignedInRight)`
+  grid-area: right;
   width: 40px;
   height: 40px;
-`;
-
-const AvatarWrapper = styled.div`
-  grid-area: right;
   cursor: pointer;
 `;
 
@@ -128,26 +110,26 @@ const ShortSignUpButton = styled(Button)`
   }
 `;
 
-const UserMenu = styled(Menu)`
-  width: 192px;
-`;
+// const UserMenu = styled(Menu)`
+//   width: 192px;
+// `;
 
-const UserMenuItem = styled(Menu.Item)`
-  display: grid;
-  grid-template-columns: auto 16px;
-  grid-template-areas: "label icon";
-  column-gap: 8px;
-  align-items: center;
-  padding: 8px 24px;
-`;
+// const UserMenuItem = styled(Menu.Item)`
+//   display: grid;
+//   grid-template-columns: auto 16px;
+//   grid-template-areas: "label icon";
+//   column-gap: 8px;
+//   align-items: center;
+//   padding: 8px 24px;
+// `;
 
-const UserMenuItemLabel = styled.div`
-  grid-area: label;
-`;
+// const UserMenuItemLabel = styled.div`
+//   grid-area: label;
+// `;
 
-const UserMenuItemIcon = styled.svg`
-  grid-area: icon;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-`;
+// const UserMenuItemIcon = styled.svg`
+//   grid-area: icon;
+//   width: 16px;
+//   height: 16px;
+//   margin-right: 4px;
+// `;
