@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import * as firebase from "firebase/app";
 import "firebase/analytics";
 import "firebase/auth";
