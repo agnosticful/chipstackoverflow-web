@@ -3,6 +3,8 @@ import { addDecorator, addParameters } from "@storybook/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
+import "../global.css";
+import "./storybook-global.css";
 
 addParameters({
   viewport: {

@@ -7,6 +7,7 @@ import * as React from "react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
+import "../global.css";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
