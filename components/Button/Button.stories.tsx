@@ -1,7 +1,7 @@
+import { select } from "@storybook/addon-knobs";
 import * as React from "react";
 import { SignOutIcon } from "../Icon";
 import Button, { ButtonSize, ButtonVariant } from "./Button";
-import { select } from "@storybook/addon-knobs";
 
 export default {
   title: "Button",

@@ -55,7 +55,8 @@ const Root = styled.button<{
   transition: background 200ms ease, border 200ms ease, color 200ms ease,
     box-shadow 200ms ease, transform 200ms ease;
 
-  :hover {
+  :hover,
+  :focus {
     transform: translate3d(0px, -2px, 0px);
   }
 
@@ -71,7 +72,8 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     border: 1px transparent solid;
     color: #fff;
 
-    :hover {
+    :hover,
+    :focus {
       background: #fff;
       border: 1px #0f151c solid;
       color: #0f151c;
@@ -82,7 +84,8 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     border: 1px transparent solid;
     color: #fff;
 
-    :hover {
+    :hover,
+    :focus {
       background: #fff;
       border: 1px #0773fa solid;
       color: #0773fa;
@@ -93,7 +96,8 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     border: 1px #c8d6e5 solid;
     color: #576574;
 
-    :hover {
+    :hover,
+    :focus {
       border: 1px #0f151c solid;
       color: #0f151c;
     }
@@ -108,7 +112,8 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     font-size: 16px;
     box-shadow: 0px 0px 12px #222f3e1f, 0px 12px 24px #222f3e0f;
 
-    :hover {
+    :hover,
+    :focus {
       box-shadow: 0px 0px 12px #222f3e3f, 0px 12px 24px #222f3e1f;
     }
 
@@ -125,7 +130,8 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     font-size: 16px;
     box-shadow: 0px 0px 10px #222f3e1f, 0px 10px 20px #222f3e0f;
 
-    :hover {
+    :hover,
+    :focus {
       box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
     }
 
@@ -142,7 +148,8 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     font-size: 14px;
     box-shadow: 0px 0px 8px #222f3e1f, 0px 8px 16px #222f3e0f;
 
-    :hover {
+    :hover,
+    :focus {
       box-shadow: 0px 0px 8px #222f3e3f, 0px 8px 16px #222f3e1f;
     }
 
