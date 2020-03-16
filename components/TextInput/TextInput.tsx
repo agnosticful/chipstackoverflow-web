@@ -2,21 +2,35 @@ import * as React from "react";
 import styled, { FlattenSimpleInterpolation, css } from "styled-components";
 
 interface Props extends React.Attributes {
+  multiline?: boolean;
+  rows?: number;
   placeholder?: string;
   size?: TextInputSize;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function InputText({
+  multiline = false,
   placeholder = "",
+  rows = 0,
   size = TextInputSize.regular,
   onChange,
   ...props
 }: Props) {
-  return (
-    <Root
+  return multiline ? (
+    <TextAreaRoot
+      rows={rows}
+      placeholder={placeholder}
+      size={size}
+      onChange={onChange}
+      {...props}
+    />
+  ) : (
+    <TextInputRoot
       type="text"
       placeholder={placeholder}
       size={size}
@@ -33,15 +47,33 @@ export enum TextInputSize {
   small
 }
 
-const Root = styled.input<{
+const TextInputRoot = styled.input<{
   size: TextInputSize;
 }>`
+  background-color: #fff;
+  border: solid 1px #576574;
+  border-radius: 4px;
+  color: #576574;
+  font-size: 16px;
   height: 32px;
   padding-left: 4px;
-  border: solid 1px #576574;
-  color: #576574;
+
+  &:: placeholder {
+    font-size: 16px;
+  }
+
+  ${({ size }) => SIZE_CSS[size]}
+`;
+
+const TextAreaRoot = styled.textarea<{
+  size: TextInputSize;
+}>`
   background-color: #fff;
+  border: solid 1px #576574;
   border-radius: 4px;
+  color: #576574;
+  font-size: 16px;
+  padding-left: 4px;
 
   &:: placeholder {
     font-size: 16px;
