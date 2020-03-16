@@ -6,8 +6,8 @@ import {
   DIAMOND_COLOR,
   CLUB_COLOR,
   INVERSE_SPADE_COLOR
-} from "../constants/color";
-import { Rank, Suit } from "../models/PlayingCard";
+} from "../../constants/color";
+import { Rank, Suit } from "../../models/PlayingCard";
 
 interface Props extends React.Attributes {
   /**
