@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
+import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Eyecatch from "./Eyecatch";
 
@@ -18,6 +19,8 @@ export default function IndexPage({ children, ...props }: Props) {
       <Content>
         <Eyecatch />
       </Content>
+
+      <FootBar />
     </Root>
   );
 }
