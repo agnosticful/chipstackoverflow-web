@@ -80,15 +80,15 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     }
   `,
   [ButtonVariant.primary]: css`
-    background: #0773fa;
+    background: #f53333;
     border: 1px transparent solid;
     color: #fff;
 
     :hover,
     :focus {
       background: #fff;
-      border: 1px #0773fa solid;
-      color: #0773fa;
+      border: 1px #f53333 solid;
+      color: #f53333;
     }
   `,
   [ButtonVariant.secondary]: css`
