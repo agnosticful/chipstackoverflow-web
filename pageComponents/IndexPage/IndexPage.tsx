@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import Eyecatch from "./Eyecatch";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -14,7 +15,9 @@ export default function IndexPage({ children, ...props }: Props) {
     <Root {...props}>
       <HeadBar />
 
-      <Content>content comes here</Content>
+      <Content>
+        <Eyecatch />
+      </Content>
     </Root>
   );
 }
