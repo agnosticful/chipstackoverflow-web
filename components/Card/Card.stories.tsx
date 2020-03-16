@@ -7,5 +7,10 @@ export default {
 };
 
 export const card = () => (
-  <Card hoverable style={{ width: "500px", height: "150px" }} />
+  <Card
+    onClick={() => {
+      console.log("clicked");
+    }}
+    style={{ width: "500px", height: "150px" }}
+  />
 );
