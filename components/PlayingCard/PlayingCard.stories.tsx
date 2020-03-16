@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Rank, Suit } from "../models/PlayingCard";
+import { Rank, Suit } from "../../models/PlayingCard";
 import PlayingCard from "./PlayingCard";
 
 export default {
