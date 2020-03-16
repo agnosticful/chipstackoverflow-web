@@ -38,7 +38,7 @@ export default function Eyecatch(props: Props) {
             variant={ButtonVariant.primary}
             onClick={() => signIn("eyecatch_sign_up_button")}
           >
-            {isFirstChecking ? "Loading..." : "Sign up with Google"}
+            {isFirstChecking ? "Loading..." : "Become a shark"}
           </Button>
         )}
       </EyecatchSignUpButton>
@@ -46,11 +46,12 @@ export default function Eyecatch(props: Props) {
   );
 }
 
-const SIGNED_IN_HEADLINE = "Welcome back, Shark!";
+const SIGNED_IN_HEADLINE = "Welcome back!";
 const SIGNED_OUT_HEADLINE = "A Place Spanws Sharks";
-const SIGNED_IN_DESCRIPTION = "Hey hey hey";
+const SIGNED_IN_DESCRIPTION =
+  "Why don't you post hands you've played? A cycle of playing and reviewing with great poker players is the fastest way to be a shark!";
 const SIGNED_OUT_DESCRIPTION =
-  "Join the community to catch up what really goes on the tables. Probably this sentence is too short. It should be this length. Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+  "Join the community to catch up the latest practices on the real tables. A cycle of playing and reviewing with great poker players is the fastest way to be a shark!";
 
 const Root = styled.div`
   display: grid;
