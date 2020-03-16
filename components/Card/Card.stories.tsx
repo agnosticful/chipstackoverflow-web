@@ -1,4 +1,5 @@
 import * as React from "react";
+import { action } from "@storybook/addon-actions";
 import Card from "./Card";
 
 export default {
@@ -8,9 +9,7 @@ export default {
 
 export const card = () => (
   <Card
-    onClick={() => {
-      console.log("clicked");
-    }}
+    onClick={action("clicked")}
     style={{ width: "500px", height: "150px" }}
   />
 );

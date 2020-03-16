@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 interface Props extends React.Attributes {
-  onClick?: () => void;
+  onClick?: () => void | undefined;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
