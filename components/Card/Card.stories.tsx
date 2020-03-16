@@ -1,5 +1,5 @@
-import * as React from "react";
 import { action } from "@storybook/addon-actions";
+import * as React from "react";
 import Card from "./Card";
 
 export default {
@@ -7,9 +7,14 @@ export default {
   component: Card
 };
 
-export const card = () => (
-  <Card
-    onClick={action("clicked")}
-    style={{ width: "500px", height: "150px" }}
-  />
+export const example = () => <Card onClick={action("clicked")} />;
+
+export const WithContent = () => (
+  <Card onClick={action("clicked")} style={{ width: "400px" }}>
+    <h3>nibh tortor id</h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.{" "}
+    </p>
+  </Card>
 );
