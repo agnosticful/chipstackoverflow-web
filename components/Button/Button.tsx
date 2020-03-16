@@ -42,15 +42,12 @@ const Root = styled.button<{
   variant: ButtonVariant;
   size: ButtonSize;
 }>`
-  ${({ variant }) => VARIANT_CSS[variant]}
-  ${({ size }) => SIZE_CSS[size]}
-
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 4px;
   outline: none;
-  -webkit-font-smoothing: antialiased;
+  font: inherit;
   cursor: pointer;
   transition: background 200ms ease, border 200ms ease, color 200ms ease,
     box-shadow 200ms ease, transform 200ms ease;
@@ -64,6 +61,9 @@ const Root = styled.button<{
     color: inherit;
     text-decoration: none;
   }
+
+  ${({ variant }) => VARIANT_CSS[variant]}
+  ${({ size }) => SIZE_CSS[size]}
 `;
 
 const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
@@ -80,15 +80,15 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     }
   `,
   [ButtonVariant.primary]: css`
-    background: #0773fa;
+    background: #f53333;
     border: 1px transparent solid;
     color: #fff;
 
     :hover,
     :focus {
       background: #fff;
-      border: 1px #0773fa solid;
-      color: #0773fa;
+      border: 1px #f53333 solid;
+      color: #f53333;
     }
   `,
   [ButtonVariant.secondary]: css`
@@ -136,8 +136,8 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     }
 
     & > svg {
-      width: 16px;
-      height: 16px;
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
     }
   `,

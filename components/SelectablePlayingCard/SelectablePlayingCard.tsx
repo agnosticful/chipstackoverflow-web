@@ -60,7 +60,7 @@ const Wrapper = styled.button`
 
   :hover,
   :focus {
-    border-color: #0773fa;
+    border-color: #f53333;
     box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
     transform: translate3d(0px, -2px, 0px);
   }
