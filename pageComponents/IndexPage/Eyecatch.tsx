@@ -60,6 +60,7 @@ const Root = styled.div`
   row-gap: 32px;
   align-content: center;
   height: 75vh;
+  min-height: 640px;
 
   ${MOBILE_MEDIA} {
     grid-template-columns: 100%;
@@ -68,6 +69,7 @@ const Root = styled.div`
     row-gap: 16px;
     justify-items: center;
     height: auto;
+    min-height: auto;
     padding-top: 32px;
   }
 `;
