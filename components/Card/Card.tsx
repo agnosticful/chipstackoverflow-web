@@ -8,12 +8,8 @@ interface Props extends React.Attributes {
   children?: React.ReactNode;
 }
 
-export default function Card({ onClick, children, ...props }: Props) {
-  return (
-    <Root onClick={onClick} {...props}>
-      {children}
-    </Root>
-  );
+export default function Card({ children, ...props }: Props) {
+  return <Root {...props}>{children}</Root>;
 }
 
 const Root = styled.div<{
