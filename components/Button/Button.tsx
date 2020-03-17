@@ -15,7 +15,7 @@ interface Props extends React.Attributes {
  */
 export default function Button({
   variant = ButtonVariant.default,
-  size = ButtonSize.regular,
+  size = ButtonSize.medium,
   children,
   ...props
 }: Props) {
@@ -28,7 +28,7 @@ export default function Button({
 
 export enum ButtonSize {
   large,
-  regular,
+  medium,
   small
 }
 
@@ -123,7 +123,7 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
       margin-right: 8px;
     }
   `,
-  [ButtonSize.regular]: css`
+  [ButtonSize.medium]: css`
     min-width: 160px;
     height: 40px;
     padding: 0 16px;
