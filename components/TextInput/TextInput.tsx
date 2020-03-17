@@ -11,7 +11,7 @@ interface Props extends React.Attributes {
   style?: React.CSSProperties;
 }
 
-export default function InputText({
+export default function TextInput({
   fullWidth = false,
   rows = 1,
   placeholder = "",
