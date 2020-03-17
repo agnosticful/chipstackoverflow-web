@@ -50,7 +50,7 @@ export const sizes = () => (
     </Button>
     <Button
       variant={select("variant", VARIANTS, undefined)}
-      size={ButtonSize.regular}
+      size={ButtonSize.medium}
     >
       Regular Button
     </Button>
@@ -89,6 +89,6 @@ const VARIANTS = {
 
 const SIZES = {
   "ButtonSize.large": ButtonSize.large,
-  "ButtonSize.regular": ButtonSize.regular,
+  "ButtonSize.medium": ButtonSize.medium,
   "ButtonSize.small": ButtonSize.small
 };
