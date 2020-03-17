@@ -17,10 +17,7 @@ const Root = styled.div<{
 }>`
   border-radius: 4px;
   box-shadow: 0px 0px 12px #222f3e1f, 0px 12px 24px #222f3e0f;
-  display: inline-block;
-  min-height: 80px;
-  min-width: 80px;
-  padding: 8px;
+  display: block;
   transition: box-shadow 200ms ease, transform 200ms ease;
 
   ${onClick =>
