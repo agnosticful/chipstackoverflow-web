@@ -21,6 +21,7 @@ const Root = styled.div<{
   min-height: 80px;
   min-width: 80px;
   padding: 8px;
+  transition: box-shadow 200ms ease, transform 200ms ease;
 
   ${onClick =>
     onClick
