@@ -1,12 +1,13 @@
 import * as React from "react";
 import styled, { FlattenSimpleInterpolation, css } from "styled-components";
-import TextInput, { InputSize } from "./TextInput";
+import TextInput, { InputSize, InputType } from "./TextInput";
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
   rows?: number;
   placeholder?: string;
   size?: InputSize;
+  type?: InputType;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   className?: string;
   style?: React.CSSProperties;
@@ -16,13 +17,19 @@ interface Props extends React.Attributes {
 export default function TextInputWithIcon({
   placeholder,
   size = InputSize.medium,
+  type = InputType.text,
   onChange,
   children,
   ...props
 }: Props) {
   return (
     <Root size={size} {...props}>
-      <TextInput rows={1} placeholder={placeholder} onChange={onChange} />
+      <TextInput
+        rows={1}
+        placeholder={placeholder}
+        type={type}
+        onChange={onChange}
+      />
       {children}
     </Root>
   );

@@ -3,9 +3,10 @@ import styled, { FlattenSimpleInterpolation, css } from "styled-components";
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
-  rows?: number;
   placeholder?: string;
+  rows?: number;
   size?: InputSize;
+  type?: InputType;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   className?: string;
   style?: React.CSSProperties;
@@ -13,22 +14,34 @@ interface Props extends React.Attributes {
 
 export default function TextInput({
   fullWidth = false,
-  rows = 1,
   placeholder = "",
+  rows = 1,
   size = InputSize.medium,
+  type = InputType.text,
+  onChange,
   ...props
 }: Props) {
+  const [value, setValue] = React.useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const val = e.currentTarget.value;
+    if (type === InputType.number && !val.match(/[^0-9]/)) setValue(val);
+    else setValue(val);
+    if (onChange) onChange(e);
+  };
+
   return 1 < rows ? (
     <TextAreaRoot
       fullWidth={fullWidth}
-      rows={rows}
       placeholder={placeholder}
+      rows={rows}
       size={size}
+      value={value}
+      onChange={handleChange}
       {...props}
     />
   ) : (
     <TextInputRoot
-      type="text"
+      type={type}
       fullWidth={fullWidth}
       placeholder={placeholder}
       size={size}
@@ -41,6 +54,11 @@ export enum InputSize {
   large,
   medium,
   small
+}
+
+export enum InputType {
+  text = "text",
+  number = "number"
 }
 
 const TextInputRoot = styled.input<{
