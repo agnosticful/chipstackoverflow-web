@@ -1,5 +1,5 @@
-import * as React from 'react';
-import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
+import * as React from "react";
+import styled, { FlattenSimpleInterpolation, css } from "styled-components";
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
@@ -13,13 +13,21 @@ interface Props extends React.Attributes {
 
 export default function TextInput({
   fullWidth = false,
-  placeholder = '',
+  placeholder = "",
   size = InputSize.medium,
   type = InputType.text,
   onChange,
   ...props
 }: Props) {
-  return <TextInputRoot type={type} fullWidth={fullWidth} placeholder={placeholder} size={size} {...props} />;
+  return (
+    <TextInputRoot
+      type={type}
+      fullWidth={fullWidth}
+      placeholder={placeholder}
+      size={size}
+      {...props}
+    />
+  );
 }
 
 export enum InputSize {
@@ -29,8 +37,8 @@ export enum InputSize {
 }
 
 export enum InputType {
-  text = 'text',
-  number = 'number'
+  text = "text",
+  number = "number"
 }
 
 const TextInputRoot = styled.input<{
@@ -45,6 +53,16 @@ const TextInputRoot = styled.input<{
   height: 32px;
   padding: 0 0 0 8px;
 
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   &:focus {
     outline: solid 1px #576574;
   }
@@ -53,7 +71,7 @@ const TextInputRoot = styled.input<{
     font-size: 16px;
   }
 
-  ${({ fullWidth }) => (fullWidth ? 'width: 100%;' : '')}
+  ${({ fullWidth }) => (fullWidth ? "width: 100%;" : "")}
   ${({ size }) => SIZE_CSS[size]}
 `;
 

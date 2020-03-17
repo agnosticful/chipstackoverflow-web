@@ -1,6 +1,6 @@
-import * as React from 'react';
-import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
-import TextInput, { InputSize, InputType } from './TextInput';
+import * as React from "react";
+import styled, { FlattenSimpleInterpolation, css } from "styled-components";
+import TextInput, { InputSize, InputType } from "./TextInput";
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
