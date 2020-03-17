@@ -1,6 +1,6 @@
-import * as React from "react";
-import styled, { FlattenSimpleInterpolation, css } from "styled-components";
-import TextInput, { InputSize, InputType } from "./TextInput";
+import * as React from 'react';
+import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
+import TextInput, { InputSize, InputType } from './TextInput';
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
@@ -24,12 +24,7 @@ export default function TextInputWithIcon({
 }: Props) {
   return (
     <Root size={size} {...props}>
-      <TextInput
-        rows={1}
-        placeholder={placeholder}
-        type={type}
-        onChange={onChange}
-      />
+      <TextInput placeholder={placeholder} type={type} onChange={onChange} />
       {children}
     </Root>
   );

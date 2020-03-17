@@ -1,10 +1,9 @@
-import * as React from "react";
-import styled, { FlattenSimpleInterpolation, css } from "styled-components";
+import * as React from 'react';
+import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
   placeholder?: string;
-  rows?: number;
   size?: InputSize;
   type?: InputType;
   onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -14,40 +13,13 @@ interface Props extends React.Attributes {
 
 export default function TextInput({
   fullWidth = false,
-  placeholder = "",
-  rows = 1,
+  placeholder = '',
   size = InputSize.medium,
   type = InputType.text,
   onChange,
   ...props
 }: Props) {
-  const [value, setValue] = React.useState("");
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.currentTarget.value;
-    if (type === InputType.number && !val.match(/[^0-9]/)) setValue(val);
-    else setValue(val);
-    if (onChange) onChange(e);
-  };
-
-  return 1 < rows ? (
-    <TextAreaRoot
-      fullWidth={fullWidth}
-      placeholder={placeholder}
-      rows={rows}
-      size={size}
-      value={value}
-      onChange={handleChange}
-      {...props}
-    />
-  ) : (
-    <TextInputRoot
-      type={type}
-      fullWidth={fullWidth}
-      placeholder={placeholder}
-      size={size}
-      {...props}
-    />
-  );
+  return <TextInputRoot type={type} fullWidth={fullWidth} placeholder={placeholder} size={size} {...props} />;
 }
 
 export enum InputSize {
@@ -57,8 +29,8 @@ export enum InputSize {
 }
 
 export enum InputType {
-  text = "text",
-  number = "number"
+  text = 'text',
+  number = 'number'
 }
 
 const TextInputRoot = styled.input<{
@@ -81,30 +53,7 @@ const TextInputRoot = styled.input<{
     font-size: 16px;
   }
 
-  ${({ fullWidth }) => (fullWidth ? "width: 100%;" : "")}
-  ${({ size }) => SIZE_CSS[size]}
-`;
-
-const TextAreaRoot = styled.textarea<{
-  fullWidth: boolean;
-  size: InputSize;
-}>`
-  background-color: #fff;
-  border: solid 1px #576574;
-  border-radius: 4px;
-  color: #576574;
-  font-size: 16px;
-  padding: 8px 0 0 8px;
-
-  &:focus {
-    outline: solid 1px #576574;
-  }
-
-  &:: placeholder {
-    font-size: 16px;
-  }
-
-  ${({ fullWidth }) => (fullWidth ? "width: 100%;" : "")}
+  ${({ fullWidth }) => (fullWidth ? 'width: 100%;' : '')}
   ${({ size }) => SIZE_CSS[size]}
 `;
 
