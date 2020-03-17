@@ -1,5 +1,5 @@
-import * as React from 'react';
-import styled, { FlattenSimpleInterpolation, css } from 'styled-components';
+import * as React from "react";
+import styled, { FlattenSimpleInterpolation, css } from "styled-components";
 
 interface Props extends React.Attributes {
   fullWidth?: boolean;
@@ -13,13 +13,21 @@ interface Props extends React.Attributes {
 
 export default function TextArea({
   fullWidth = false,
-  placeholder = '',
+  placeholder = "",
   rows = 1,
   size = InputSize.medium,
   onChange,
   ...props
 }: Props) {
-  return <TextAreaRoot fullWidth={fullWidth} placeholder={placeholder} rows={rows} size={size} {...props} />;
+  return (
+    <TextAreaRoot
+      fullWidth={fullWidth}
+      placeholder={placeholder}
+      rows={rows}
+      size={size}
+      {...props}
+    />
+  );
 }
 
 export enum InputSize {
@@ -48,7 +56,7 @@ const TextAreaRoot = styled.textarea<{
   }
 
   ${({ size }) => SIZE_CSS[size]}
-  ${({ fullWidth }) => (fullWidth ? 'width: 100%;' : '')}
+  ${({ fullWidth }) => (fullWidth ? "width: 100%;" : "")}
 `;
 
 const SIZE_CSS: Record<InputSize, FlattenSimpleInterpolation> = {
