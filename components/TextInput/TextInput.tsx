@@ -2,53 +2,50 @@ import * as React from "react";
 import styled, { FlattenSimpleInterpolation, css } from "styled-components";
 
 interface Props extends React.Attributes {
-  multiline?: boolean;
+  fullWidth?: boolean;
   rows?: number;
   placeholder?: string;
-  size?: TextInputSize;
-  onChange?: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  size?: InputSize;
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function InputText({
-  multiline = false,
+  fullWidth = false,
+  rows = 1,
   placeholder = "",
-  rows = 0,
-  size = TextInputSize.regular,
-  onChange,
+  size = InputSize.medium,
   ...props
 }: Props) {
-  return multiline ? (
+  return 1 < rows ? (
     <TextAreaRoot
+      fullWidth={fullWidth}
       rows={rows}
       placeholder={placeholder}
       size={size}
-      onChange={onChange}
       {...props}
     />
   ) : (
     <TextInputRoot
       type="text"
+      fullWidth={fullWidth}
       placeholder={placeholder}
       size={size}
-      onChange={onChange}
       {...props}
     />
   );
 }
 
-export enum TextInputSize {
-  fullWidth,
+export enum InputSize {
   large,
-  regular,
+  medium,
   small
 }
 
 const TextInputRoot = styled.input<{
-  size: TextInputSize;
+  fullWidth: boolean;
+  size: InputSize;
 }>`
   background-color: #fff;
   border: solid 1px #576574;
@@ -56,43 +53,54 @@ const TextInputRoot = styled.input<{
   color: #576574;
   font-size: 16px;
   height: 32px;
-  padding-left: 4px;
+  padding: 0 0 0 8px;
+
+  &:focus {
+    outline: solid 1px #576574;
+  }
 
   &:: placeholder {
     font-size: 16px;
   }
 
+  ${({ fullWidth }) => (fullWidth ? "width: 100%;" : "")}
   ${({ size }) => SIZE_CSS[size]}
 `;
 
 const TextAreaRoot = styled.textarea<{
-  size: TextInputSize;
+  fullWidth: boolean;
+  size: InputSize;
 }>`
   background-color: #fff;
   border: solid 1px #576574;
   border-radius: 4px;
   color: #576574;
   font-size: 16px;
-  padding-left: 4px;
+  padding: 8px 0 0 8px;
+
+  &:focus {
+    outline: solid 1px #576574;
+  }
 
   &:: placeholder {
     font-size: 16px;
   }
 
+  ${({ fullWidth }) => (fullWidth ? "width: 100%;" : "")}
   ${({ size }) => SIZE_CSS[size]}
 `;
 
-const SIZE_CSS: Record<TextInputSize, FlattenSimpleInterpolation> = {
-  [TextInputSize.fullWidth]: css`
-    width: 100%;
+const SIZE_CSS: Record<InputSize, FlattenSimpleInterpolation> = {
+  [InputSize.large]: css`
+    min-width: 224px;
+    height: 46px;
   `,
-  [TextInputSize.large]: css`
-    width: 320px;
+  [InputSize.medium]: css`
+    min-width: 160px;
+    height: 38px;
   `,
-  [TextInputSize.regular]: css`
-    width: 160px;
-  `,
-  [TextInputSize.small]: css`
-    width: 80px;
+  [InputSize.small]: css`
+    min-width: 96px;
+    height: 30px;
   `
 };

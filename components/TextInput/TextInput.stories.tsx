@@ -1,6 +1,7 @@
 import { action } from "@storybook/addon-actions";
+import { select } from "@storybook/addon-knobs";
 import * as React from "react";
-import TextInput, { TextInputSize } from "./TextInput";
+import TextInput, { InputSize } from "./TextInput";
 
 export default {
   title: "TextInput",
@@ -8,37 +9,59 @@ export default {
 };
 
 export const example = () => (
-  <TextInput placeholder="text input" onChange={action("inputed")} />
+  <TextInput
+    size={select("size", SIZES, undefined)}
+    placeholder="text input"
+    onChange={action("inputed")}
+  />
 );
 
 export const Sizes = () => (
   <>
     <TextInput
-      size={TextInputSize.small}
+      size={InputSize.small}
       style={{ display: "block" }}
       placeholder="Small"
     />
     <TextInput
-      size={TextInputSize.regular}
+      size={InputSize.medium}
       style={{ display: "block" }}
-      placeholder="Regular"
+      placeholder="Medium"
     />
     <TextInput
-      size={TextInputSize.large}
+      size={InputSize.large}
       style={{ display: "block" }}
       placeholder="Large"
     />
+  </>
+);
+
+export const fullWidthInput = () => (
+  <>
     <TextInput
-      size={TextInputSize.fullWidth}
+      fullWidth
+      size={InputSize.small}
       style={{ display: "block" }}
-      placeholder="Full Width"
+      placeholder="Small"
+    />
+    <TextInput
+      fullWidth
+      size={InputSize.medium}
+      style={{ display: "block" }}
+      placeholder="Medium"
+    />
+    <TextInput
+      fullWidth
+      size={InputSize.large}
+      style={{ display: "block" }}
+      placeholder="Large"
     />
   </>
 );
 
 export const multiline = () => (
   <TextInput
-    multiline
+    size={select("size", SIZES, undefined)}
     placeholder="textarea"
     rows={5}
     onChange={action("inputed")}
@@ -48,32 +71,54 @@ export const multiline = () => (
 export const multilineSizes = () => (
   <>
     <TextInput
-      multiline
-      size={TextInputSize.small}
+      size={InputSize.small}
       style={{ display: "block" }}
       placeholder="Small"
       rows={5}
     />
     <TextInput
-      multiline
-      size={TextInputSize.regular}
+      size={InputSize.medium}
       style={{ display: "block" }}
-      placeholder="Regular"
+      placeholder="Medium"
       rows={5}
     />
     <TextInput
-      multiline
-      size={TextInputSize.large}
+      size={InputSize.large}
       style={{ display: "block" }}
       placeholder="Large"
       rows={5}
     />
+  </>
+);
+
+export const fullWidthMultiline = () => (
+  <>
     <TextInput
-      multiline
-      size={TextInputSize.fullWidth}
+      fullWidth
+      size={InputSize.small}
       style={{ display: "block" }}
-      placeholder="Full Width"
+      placeholder="Small"
+      rows={5}
+    />
+    <TextInput
+      fullWidth
+      size={InputSize.medium}
+      style={{ display: "block" }}
+      placeholder="Medium"
+      rows={5}
+    />
+    <TextInput
+      fullWidth
+      size={InputSize.large}
+      style={{ display: "block" }}
+      placeholder="Large"
       rows={5}
     />
   </>
 );
+
+const SIZES = {
+  "InputSize.large": InputSize.large,
+  "InputSize.regular": InputSize.medium,
+  "InputSize.small": InputSize.small
+};
