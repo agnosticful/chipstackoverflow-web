@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
-import Card from "./Card";
 import styled from "styled-components";
+import Card from "./Card";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 
 export default {
@@ -28,6 +28,7 @@ export const withContent = () => (
     </p>
   </CardWithContent>
 );
+
 export const inGrid = () => (
   <Layout>
     <Card onClick={action("onClick")}>
