@@ -8,13 +8,13 @@ export interface PostData {
   gameSituation: GameSituation;
 }
 
-export type CreateNewPost = (postData: PostData) => Promise<PostId>;
+export type CreatePost = (postData: PostData) => Promise<PostId>;
 
-export function createCreateNewPost({
+export function createCreatePost({
   firebaseApp
 }: {
   firebaseApp: firebase.app.App;
-}): CreateNewPost {
+}): CreatePost {
   return async ({ title, body, gameSituation }: PostData) => {
     const createPost = firebaseApp.functions().httpsCallable("createPost");
     const id = await createPost({
