@@ -1,9 +1,9 @@
-import { Button } from "antd";
 import * as React from "react";
 import styled from "styled-components";
-import { Rank, Suit } from "../models/PlayingCard";
-import PlayingCard from "./PlayingCard";
-import PlayingCardSelector from "./PlayingCardSelector";
+import { Rank, Suit } from "../../models/PlayingCard";
+import PlayingCard from "../PlayingCard";
+import PlayingCardSelector from "../PlayingCardSelector";
+import { CARD_BACKGROUND } from "../../constants/color";
 
 interface Props extends React.Attributes {
   initialRank?: Rank;
@@ -35,33 +35,33 @@ export default function SelectablePlayingCard({
     >
       <Wrapper>
         <_PlayingCard rank={rank} suit={suit} {...props} />
-        <_Button />
       </Wrapper>
     </PlayingCardSelector>
   );
 }
 
 const _PlayingCard = styled(PlayingCard)`
+  margin: -1px;
   vertical-align: top;
 `;
 
-const Wrapper = styled.span`
+const Wrapper = styled.button`
   display: inline-block;
   position: relative;
-  cursor: pointer;
-`;
-
-const _Button = styled(Button)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+  padding: 0;
+  border: 1px ${CARD_BACKGROUND} solid;
   border-radius: 15%/9.642857143%;
   background: transparent;
+  box-shadow: 0px 0px 10px #222f3e1f, 0px 10px 20px #222f3e0f;
+  outline: none;
+  cursor: pointer;
+  transition: border 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  overflow: hidden;
 
-  :hover {
-    background: transparent;
+  :hover,
+  :focus {
+    border-color: #f53333;
+    box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
+    transform: translate3d(0px, -2px, 0px);
   }
 `;

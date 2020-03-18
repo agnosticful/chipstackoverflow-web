@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import Post, { PostId } from "../models/Post";
 
 export default function firestoreDataToPost(

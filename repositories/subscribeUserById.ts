@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import { Observable } from "rxjs";
 import User, { UserId } from "../models/User";
 import firestoreSnapshotToUser from "../serializers/firestoreSnapshotToUser";
