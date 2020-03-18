@@ -4,10 +4,10 @@ export default interface GameSituation {
   type: GameType;
   playerLength: number;
   playerStackSizes: number[];
-  playerCards: {
+  playerCards: ({
     left: PlayingCard;
     right: PlayingCard;
-  }[];
+  } | null)[];
   heroIndex: number;
   smallBlindSize: number;
   antiSize: number;
@@ -15,15 +15,19 @@ export default interface GameSituation {
     actions: GameStreetAction[];
   };
   flop?: {
-    communityCards: PlayingCard[];
+    communityCards: {
+      left: PlayingCard;
+      center: PlayingCard;
+      right: PlayingCard;
+    };
     actions: GameStreetAction[];
   };
   turn?: {
-    communityCards: PlayingCard[];
+    communityCard: PlayingCard;
     actions: GameStreetAction[];
   };
   river?: {
-    communityCards: PlayingCard[];
+    communityCard: PlayingCard;
     actions: GameStreetAction[];
   };
 }
