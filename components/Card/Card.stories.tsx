@@ -10,13 +10,17 @@ export default {
 };
 
 export const example = () => (
-  <Card onClick={action("clicked")} style={{ height: "200px", width: "400px" }}>
+  <Card style={{ height: "200px", width: "400px" }}>200 * 400</Card>
+);
+
+export const clickable = () => (
+  <Card onClick={action("onClick")} style={{ height: "200px", width: "400px" }}>
     200 * 400
   </Card>
 );
 
-export const WithContent = () => (
-  <CardWithContent onClick={action("clicked")}>
+export const withContent = () => (
+  <CardWithContent onClick={action("onClick")}>
     <h3>nibh tortor id</h3>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -24,44 +28,44 @@ export const WithContent = () => (
     </p>
   </CardWithContent>
 );
-export const InGrid = () => (
+export const inGrid = () => (
   <Layout>
-    <Card onClick={action("clicked")}>
+    <Card onClick={action("onClick")}>
       <h3>nibh tortor id</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </Card>
-    <Card onClick={action("clicked")}>
+    <Card onClick={action("onClick")}>
       <h3>nibh tortor id</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </Card>
-    <Card onClick={action("clicked")}>
+    <Card onClick={action("onClick")}>
       <h3>nibh tortor id</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </Card>
-    <Card onClick={action("clicked")}>
+    <Card onClick={action("onClick")}>
       <h3>nibh tortor id</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </Card>
-    <Card onClick={action("clicked")}>
+    <Card onClick={action("onClick")}>
       <h3>nibh tortor id</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </Card>
-    <Card onClick={action("clicked")}>
+    <Card onClick={action("onClick")}>
       <h3>nibh tortor id</h3>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

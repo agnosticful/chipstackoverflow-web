@@ -20,14 +20,13 @@ const Root = styled.div<{
   display: block;
   transition: box-shadow 200ms ease, transform 200ms ease;
 
-  ${onClick =>
+  ${({ onClick }) =>
     onClick
       ? `
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0px 0px 12px #222f3e3f, 0px 12px 24px #222f3e1f;
-      transform: translate3d(0px, -2px, 0px);
-    }
-`
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0px 0px 12px #222f3e3f, 0px 12px 24px #222f3e1f;
+        transform: translate3d(0px, -2px, 0px);
+      }`
       : ""}
 `;
