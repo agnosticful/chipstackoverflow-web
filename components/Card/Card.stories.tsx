@@ -10,11 +10,11 @@ export default {
 };
 
 export const example = () => (
-  <Card style={{ height: "200px", width: "400px" }}>400 x 200</Card>
+  <Card style={{ width: "400px", height: "200px" }}>400 x 200</Card>
 );
 
 export const clickable = () => (
-  <Card onClick={action("onClick")} style={{ height: "200px", width: "400px" }}>
+  <Card onClick={action("onClick")} style={{ width: "400px", height: "200px" }}>
     400 x 200
   </Card>
 );
