@@ -1,4 +1,5 @@
 import { action } from "@storybook/addon-actions";
+import { boolean } from "@storybook/addon-knobs";
 import * as React from "react";
 import styled from "styled-components";
 import GameSituation, {
@@ -17,7 +18,11 @@ export default {
 };
 
 export const example = () => (
-  <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
+  <PostCardListItem
+    isRecentPost={boolean("isRecentPost", false)}
+    post={post}
+    onClick={action("onClick")}
+  />
 );
 
 export const isRecentPost = () => (
@@ -29,12 +34,36 @@ export const isRecentPost = () => (
 
 export const inGrid = () => (
   <Layout>
-    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
-    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
-    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
-    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
-    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
-    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
+    <PostCardListItem
+      isRecentPost={boolean("isRecentPost", false)}
+      post={post}
+      onClick={action("onClick")}
+    />
+    <PostCardListItem
+      isRecentPost={boolean("isRecentPost", false)}
+      post={post}
+      onClick={action("onClick")}
+    />
+    <PostCardListItem
+      isRecentPost={boolean("isRecentPost", false)}
+      post={post}
+      onClick={action("onClick")}
+    />
+    <PostCardListItem
+      isRecentPost={boolean("isRecentPost", false)}
+      post={post}
+      onClick={action("onClick")}
+    />
+    <PostCardListItem
+      isRecentPost={boolean("isRecentPost", false)}
+      post={post}
+      onClick={action("onClick")}
+    />
+    <PostCardListItem
+      isRecentPost={boolean("isRecentPost", false)}
+      post={post}
+      onClick={action("onClick")}
+    />
   </Layout>
 );
 
