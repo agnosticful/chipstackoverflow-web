@@ -31,25 +31,23 @@ export default function PostCardListItem({
   );
 
   return (
-    <PostCard {...props}>
+    <Root {...props}>
       <PlayerHandArea>
         <PlayerHandAreaBackGround />
         <HandCard suit={left.suit} rank={left.rank} />
         <HandCard suit={right.suit} rank={right.rank} />
       </PlayerHandArea>
-      <div>
-        <PostTitle>{post.title}</PostTitle>
-      </div>
+      <PostTitle>{post.title}</PostTitle>
       <LikeArea>
-        <LikeIcon style={{ width: 25, height: 25, margin: "4px" }} />
+        <LikeIcon />
         {post.likes}
       </LikeArea>
-      <Attributes>
-        <AttributeTitle>PLAY AT</AttributeTitle>
-        <AttributeTitle>ENDED AT</AttributeTitle>
-        <AttributeTitle>FINAL POT</AttributeTitle>
+      <AttributeArea>
+        <AttributeTitle>Play at</AttributeTitle>
+        <AttributeTitle>Ended at</AttributeTitle>
+        <AttributeTitle>Final Pod</AttributeTitle>
         <AttributeTitle>
-          {isRecentPost ? "POSTED" : "Last Update"}
+          {isRecentPost ? "Posted" : "Last Update"}
         </AttributeTitle>
         <AttributeValue>
           {getPositionByPlayerAndIndex(
@@ -75,14 +73,14 @@ export default function PostCardListItem({
           <TermSpan>{term}</TermSpan>
           &nbsp;ago
         </AttributeValue>
-      </Attributes>
-    </PostCard>
+      </AttributeArea>
+    </Root>
   );
 }
 
-const PostCard = styled(Card)`
+const Root = styled(Card)`
   display: grid;
-  max-width: 496px;
+  max-width: 440px;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1.5fr 1fr;
   column-gap: 8px;
@@ -144,12 +142,16 @@ const LikeArea = styled.div`
   margin: 0 0 8px 8px;
   justify-content: center;
   align-items: center;
+
+  & > svg {
+    margin: 4px;
+  }
 `;
 
-const Attributes = styled.div`
+const AttributeArea = styled.div`
   display: grid;
   margin: 0 8px 8px 0;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.8fr 0.9fr 1fr 1.3fr;
   grid-template-rows: 1fr 1fr;
   column-gap: 4px;
   row-gap: 4px;
@@ -165,6 +167,7 @@ const AttributeTitle = styled.h5`
     font-size: 12px;
   }
 `;
+
 const AttributeValue = styled.p`
   margin: 0;
   font-size: 14px;
@@ -183,6 +186,7 @@ const MobileTermSpan = styled.span`
     display: inline;
   }
 `;
+
 const TermSpan = styled.span`
   display: inline;
 
