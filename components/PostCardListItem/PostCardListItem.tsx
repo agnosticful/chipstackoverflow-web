@@ -12,15 +12,15 @@ import { LikeIcon } from "../Icon";
 import PlayingCard from "../PlayingCard";
 
 interface Props extends React.Attributes {
-  isRecentPost: boolean;
   post: Post;
+  isRecentPost?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function PostCardListItem({
-  isRecentPost,
+  isRecentPost = false,
   post,
   ...props
 }: Props) {

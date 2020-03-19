@@ -20,6 +20,13 @@ export const example = () => (
   <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
 );
 
+export const isRecentPost = () => (
+  <>
+    <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
+    <PostCardListItem post={post} onClick={action("onClick")} />
+  </>
+);
+
 export const inGrid = () => (
   <Layout>
     <PostCardListItem isRecentPost post={post} onClick={action("onClick")} />
