@@ -32,7 +32,8 @@ const Root = styled.input<{ size: TextInputSize }>`
   box-sizing: border-box;
   width: 100%;
   line-height: var(--line-height);
-  padding: calc(var(--padding-size) - 1em * (var(--line-height) - 1) / 2) var(--padding-size);
+  padding: calc(var(--padding-size) - 1em * (var(--line-height) - 1) / 2)
+    var(--padding-size);
   background-color: #fff;
   border: 1px #c8d6e5 solid;
   border-radius: 4px;
