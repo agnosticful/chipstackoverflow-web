@@ -1,4 +1,4 @@
-export enum Position {
+enum Position {
   SB = "SB",
   BB = "BB",
   UTG = "UTG",
