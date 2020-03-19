@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import * as React from "react";
-import { ChevronDownIcon, SendIcon, SignOutIcon, ThumbsDownIcon, ThumbsUpIcon } from "./Icon";
+import {
+  ChevronDownIcon,
+  SendIcon,
+  SignOutIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon
+} from "./Icon";
 
 export default {
   title: "Icon",
