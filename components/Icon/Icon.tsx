@@ -16,7 +16,7 @@ export function SignOutIcon(props: Props) {
   );
 }
 
-export function ThumbsUp(props: Props) {
+export function ThumbsUpIcon(props: Props) {
   return (
     <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
@@ -24,7 +24,7 @@ export function ThumbsUp(props: Props) {
   );
 }
 
-export function ThumbsDown(props: Props) {
+export function ThumbsDownIcon(props: Props) {
   return (
     <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
@@ -32,7 +32,7 @@ export function ThumbsDown(props: Props) {
   );
 }
 
-export function Send(props: Props) {
+export function SendIcon(props: Props) {
   return (
     <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -41,7 +41,7 @@ export function Send(props: Props) {
   );
 }
 
-export function ChevronDown(props: Props) {
+export function ChevronDownIcon(props: Props) {
   return (
     <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <polyline points="6 9 12 15 18 9"></polyline>

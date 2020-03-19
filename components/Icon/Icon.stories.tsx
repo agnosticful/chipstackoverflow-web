@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import * as React from "react";
-import { ChevronDown, Send, SignOutIcon, ThumbsDown, ThumbsUp } from "./Icon";
+import { ChevronDownIcon, SendIcon, SignOutIcon, ThumbsDownIcon, ThumbsUpIcon } from "./Icon";
 
 export default {
   title: "Icon",
@@ -9,15 +9,15 @@ export default {
 
 export const example = () => (
   <Catalog>
-    <ChevronDown />
+    <ChevronDownIcon />
 
-    <Send />
+    <SendIcon />
 
     <SignOutIcon />
 
-    <ThumbsDown />
+    <ThumbsDownIcon />
 
-    <ThumbsUp />
+    <ThumbsUpIcon />
   </Catalog>
 );
 
@@ -26,7 +26,7 @@ export const withColor = () => {
 
   return (
     <div>
-      <ThumbsUp style={{ color: "#1dd1a1" }} />
+      <ThumbsUpIcon style={{ color: "#1dd1a1" }} />
 
       <div
         onClick={() => setActive(!isActive)}
@@ -40,7 +40,7 @@ export const withColor = () => {
       >
         {"Click to change "}
 
-        <ThumbsDown />
+        <ThumbsDownIcon />
       </div>
     </div>
   );
