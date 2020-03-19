@@ -15,9 +15,9 @@ export default function Card({ children, ...props }: Props) {
 const Root = styled.div<{
   onClick?: React.MouseEventHandler<HTMLElement>;
 }>`
+  display: block;
   border-radius: 4px;
   box-shadow: 0px 0px 12px #222f3e1f, 0px 12px 24px #222f3e0f;
-  display: block;
   cursor: pointer;
   transition: box-shadow 200ms ease, transform 200ms ease;
 
