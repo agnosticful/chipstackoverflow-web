@@ -15,7 +15,7 @@ export function createCreatePost({
 }: {
   firebaseApp: firebase.app.App;
 }): CreatePost {
-  return async ({ title, body, gameSituation }: PostData) => {
+  return async ({ title, body, gameSituation }) => {
     const createPost = firebaseApp.functions().httpsCallable("createPost");
     const id = await createPost({
       title: title,
