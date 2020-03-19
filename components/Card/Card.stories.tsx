@@ -1,8 +1,8 @@
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
 import styled from "styled-components";
-import Card from "./Card";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import Card from "./Card";
 
 export default {
   title: "Card",
