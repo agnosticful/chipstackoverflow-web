@@ -10,7 +10,7 @@ import {
 
 export default {
   title: "Icon",
-  component: Send
+  component: SendIcon
 };
 
 export const example = () => (
