@@ -1,20 +1,20 @@
 import * as React from "react";
 import styled from "styled-components";
-import Card from "./Card";
-import LikeIcon from "./LikeIcon";
-import PlayingCard from "./PlayingCard";
-import { MOBILE_MEDIA } from "../constants/mediaquery";
-import Post from "../models/Post";
-import Round from "../models/Round";
-import GameSituation from "../models/GameSituation";
-import getAgoByDate from "../utilities/getAgoByDate";
-import getPositionByPlayerAndIndex from "../utilities/getPositionByPlayerAndIndex";
-import getSIMetricPrefixData from "../utilities/getSIMetricPrefixData";
+import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import Post from "../../models/Post";
+import Round from "../../models/Round";
+import GameSituation from "../../models/GameSituation";
+import getAgoByDate from "../../utilities/getAgoByDate";
+import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
+import getSIMetricPrefixData from "../../utilities/getSIMetricPrefixData";
+import Card from "../Card";
+import { LikeIcon } from "../Icon";
+import PlayingCard from "../PlayingCard";
 
 interface Props extends React.Attributes {
   isRecentPost: boolean;
   post: Post;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLElement>;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -22,17 +22,16 @@ interface Props extends React.Attributes {
 export default function PostCardListItem({
   isRecentPost,
   post,
-  onClick,
   ...props
 }: Props) {
   const { heroIndex, playerCards } = post.gameSituation;
-  const { left, right } = playerCards[heroIndex];
+  const { left, right } = playerCards[heroIndex]!;
   const [nAgo, mobileTerm, term] = getAgoByDate(
     isRecentPost ? post.createdAt : post.lastUpdatedAt
   );
 
   return (
-    <PostCard hoverable style={{ padding: 0 }} onClick={onClick} {...props}>
+    <PostCard {...props}>
       <PlayerHandArea>
         <PlayerHandAreaBackGround />
         <HandCard suit={left.suit} rank={left.rank} />
@@ -141,15 +140,15 @@ const PostTitle = styled.h2`
 `;
 
 const LikeArea = styled.div`
-  margin: 0 0 8px 8px;
   display: flex;
+  margin: 0 0 8px 8px;
   justify-content: center;
   align-items: center;
 `;
 
 const Attributes = styled.div`
-  margin: 0 8px 8px 0;
   display: grid;
+  margin: 0 8px 8px 0;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   column-gap: 4px;
