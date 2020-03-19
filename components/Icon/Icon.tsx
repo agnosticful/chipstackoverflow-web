@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled from "styled-components";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -7,21 +8,21 @@ interface Props extends React.Attributes {
 
 export function SignOutIcon(props: Props) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
+    <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
       <polyline points="16 17 21 12 16 7"></polyline>
       <line x1="21" y1="12" x2="9" y2="12"></line>
-    </svg>
+    </Root>
   );
 }
+
+const Root = styled.svg`
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: width 200ms ease, height 200ms ease;
+`;
