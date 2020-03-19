@@ -18,7 +18,7 @@ export default function AuthenticationRepositoryStub({
 }) {
   const repositoryBase = useRepository();
   const repository = {
-    logEvent: () => undefined,
+    logEvent: (...args: any[]) => console.info("logEvent", ...args),
     subscribeUserById: () => of(user as User),
     onAuthenticationStateChanged: signingIn
       ? of<UserId | null>()

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StreetActionSelector> matches with the previous snapshot (big blind in preflop) 1`] = `
+<styled.div>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+  >
+    Fold
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+  >
+    Check
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+    tabIndex={0}
+  >
+    Raise
+    <styled.input
+      active={false}
+      defaultValue={2}
+      max={99999999}
+      min={2}
+      onChange={[Function]}
+      placeholder="1"
+      tabIndex={-1}
+      type="number"
+    />
+  </styled.button>
+</styled.div>
+`;
+
+exports[`<StreetActionSelector> matches with the previous snapshot (someone raised) 1`] = `
+<styled.div>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+  >
+    Fold
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+  >
+    Call
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+    tabIndex={0}
+  >
+    Raise
+    <styled.input
+      active={false}
+      defaultValue={23.5}
+      max={99999999}
+      min={23.5}
+      onChange={[Function]}
+      placeholder="22.5"
+      tabIndex={-1}
+      type="number"
+    />
+  </styled.button>
+</styled.div>
+`;
+
+exports[`<StreetActionSelector> matches with the previous snapshot 1`] = `
+<styled.div>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+  >
+    Fold
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+  >
+    Check
+  </styled.button>
+  <styled.button
+    active={false}
+    onClick={[Function]}
+    tabIndex={0}
+  >
+    Bet
+    <styled.input
+      active={false}
+      defaultValue={1}
+      max={99999999}
+      min={1}
+      onChange={[Function]}
+      placeholder="0"
+      tabIndex={-1}
+      type="number"
+    />
+  </styled.button>
+</styled.div>
+`;

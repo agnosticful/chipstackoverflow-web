@@ -1,13 +1,6 @@
 import * as React from "react";
-import styled from "styled-components";
-import HeadBar from "../components/HeadBar";
+import IndexPage from "../pageComponents/IndexPage";
 
-export default function Home() {
-  return (
-    <Root>
-      <HeadBar />
-    </Root>
-  );
+export default function Page() {
+  return <IndexPage />;
 }
-
-const Root = styled.div``;

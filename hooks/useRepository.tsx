@@ -1,4 +1,5 @@
 import * as React from "react";
+import { CreatePost } from "../repositories/createPost";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
 import { GetUserById } from "../repositories/getUserById";
 import { LogEvent } from "../repositories/logEvent";
@@ -10,6 +11,7 @@ import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { SubscribeUserById } from "../repositories/subscribeUserById";
 
 export interface Repository {
+  createPost: CreatePost;
   getRecentPosts: GetRecentPosts;
   getUserById: GetUserById;
   logEvent: LogEvent;
