@@ -37,43 +37,43 @@ export default function PostCardListItem({
         <HandCard suit={left.suit} rank={left.rank} />
         <HandCard suit={right.suit} rank={right.rank} />
       </PlayerHandArea>
-      <PostTitle>{post.title}</PostTitle>
+      <PostTitle>
+        {post.title.length <= 65
+          ? post.title
+          : `${post.title.substring(0, 63)}...`}
+      </PostTitle>
       <LikeArea>
         <LikeIcon />
         {post.likes}
       </LikeArea>
-      <AttributeArea>
-        <AttributeTitle>Play at</AttributeTitle>
-        <AttributeTitle>Ended at</AttributeTitle>
-        <AttributeTitle>Final Pod</AttributeTitle>
-        <AttributeTitle>
-          {isRecentPost ? "Posted" : "Last Update"}
-        </AttributeTitle>
-        <AttributeValue>
-          {getPositionByPlayerAndIndex(
-            post.gameSituation.playerLength,
-            post.gameSituation.heroIndex
-          )}
-        </AttributeValue>
-        <AttributeValue>
-          {post.gameSituation.river
-            ? Round.RIVER
-            : post.gameSituation.turn
-            ? Round.TURN
-            : post.gameSituation.flop
-            ? Round.FLOP
-            : Round.PREFLOP}
-        </AttributeValue>
-        <AttributeValue>{`${getSIMetricPrefixData(
-          getFinalPodOfTheGame(post.gameSituation)
-        )} BB`}</AttributeValue>
-        <AttributeValue>
-          {nAgo}
-          <MobileTermSpan>{mobileTerm}</MobileTermSpan>
-          <TermSpan>{term}</TermSpan>
-          &nbsp;ago
-        </AttributeValue>
-      </AttributeArea>
+      <AttributeTitle>Play at</AttributeTitle>
+      <AttributeTitle>Ended at</AttributeTitle>
+      <AttributeTitle>Final Pod</AttributeTitle>
+      <AttributeTitle>{isRecentPost ? "Posted" : "Last Update"}</AttributeTitle>
+      <AttributeValue>
+        {getPositionByPlayerAndIndex(
+          post.gameSituation.playerLength,
+          post.gameSituation.heroIndex
+        )}
+      </AttributeValue>
+      <AttributeValue>
+        {post.gameSituation.river
+          ? Round.RIVER
+          : post.gameSituation.turn
+          ? Round.TURN
+          : post.gameSituation.flop
+          ? Round.FLOP
+          : Round.PREFLOP}
+      </AttributeValue>
+      <AttributeValue>{`${getSIMetricPrefixData(
+        getFinalPodOfTheGame(post.gameSituation)
+      )} BB`}</AttributeValue>
+      <AttributeValue>
+        {nAgo}
+        <MobileTermSpan>{mobileTerm}</MobileTermSpan>
+        <TermSpan>{term}</TermSpan>
+        &nbsp;ago
+      </AttributeValue>
     </Root>
   );
 }
@@ -81,13 +81,15 @@ export default function PostCardListItem({
 const Root = styled(Card)`
   display: grid;
   max-width: 440px;
-  grid-template-columns: 1fr 4fr;
-  grid-template-rows: 1.5fr 1fr;
+  grid-template-rows: 1fr 0.25fr 0.25fr;
+  grid-template-columns: 1.3fr 0.7fr 0.9fr 0.9fr 1.2fr;
+  row-gap: 4px;
   column-gap: 8px;
-  row-gap: 8px;
 `;
 
 const PlayerHandArea = styled.div`
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
   position: relative;
   width: 100%;
   background-color: #f5f6f7;
@@ -129,15 +131,21 @@ const HandCard = styled(PlayingCard)`
 `;
 
 const PostTitle = styled.h2`
+  grid-row: 1 / 2;
+  grid-column: 2 / 6;
+  font-size: 1.3em;
   margin: 8px 8px 0 0;
-  line-height: 1.2;
+  line-height: 1.4;
 
   ${MOBILE_MEDIA} {
     font-weight: 400;
+    line-height: 1.2;
   }
 `;
 
 const LikeArea = styled.div`
+  grid-row: 2 / 4;
+  grid-column: 1 / 2;
   display: flex;
   margin: 0 0 8px 8px;
   justify-content: center;
@@ -148,16 +156,8 @@ const LikeArea = styled.div`
   }
 `;
 
-const AttributeArea = styled.div`
-  display: grid;
-  margin: 0 8px 8px 0;
-  grid-template-columns: 0.8fr 0.9fr 1fr 1.3fr;
-  grid-template-rows: 1fr 1fr;
-  column-gap: 4px;
-  row-gap: 4px;
-`;
-
 const AttributeTitle = styled.h5`
+  grid-row: 2 / 3;
   margin: 0;
   font-size: 14px;
   color: #595959;
@@ -169,6 +169,7 @@ const AttributeTitle = styled.h5`
 `;
 
 const AttributeValue = styled.p`
+  grid-row: 3 / 4;
   margin: 0;
   font-size: 14px;
   color: #595959;
