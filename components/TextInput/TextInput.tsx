@@ -27,17 +27,17 @@ export enum TextInputSize {
 }
 
 const Root = styled.input<{ size: TextInputSize }>`
+  --line-height: 1.5;
+  --padding-size: 0.75em;
   box-sizing: border-box;
   width: 100%;
-  height: calc(1.5em + 0.75em * 2 + 2px);
-  line-height: 1.5;
-  padding: 0.75em 1em;
+  line-height: var(--line-height);
+  padding: calc(var(--padding-size) - 1em * (var(--line-height) - 1) / 2) var(--padding-size);
   background-color: #fff;
   border: 1px #c8d6e5 solid;
   border-radius: 4px;
   outline: none;
   color: #0f151c;
-  font-size: 16px;
   font-family: inherit;
   resize: vertical;
   transition: border 200ms ease, transform 200ms ease, box-shadow 200ms ease,
