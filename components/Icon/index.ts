@@ -1,1 +1,1 @@
-export { SignOutIcon, LikeIcon, DislikeIcon } from "./Icon";
+export * from "./Icon";
