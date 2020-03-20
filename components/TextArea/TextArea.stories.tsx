@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import { text, number, boolean } from "@storybook/addon-knobs";
+import { boolean, number, text } from "@storybook/addon-knobs";
 import * as React from "react";
 import TextArea from "./TextArea";
 

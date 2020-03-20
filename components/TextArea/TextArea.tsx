@@ -35,19 +35,27 @@ const Root = styled.textarea<{
   maxRows: number;
   resizable: boolean;
 }>`
+  --line-height: 1.5;
+  --padding: 1em;
+  --vertical-padding: calc(
+    var(--padding) - (1em * (var(--line-height) - 1) / 2)
+  );
+  --height: calc(
+    1.5em * ${({ _rows }) => _rows} + var(--vertical-padding) * 2 + 2px
+  );
   box-sizing: border-box;
   width: 100%;
-  min-height: calc(1.5em * ${({ _rows }) => _rows} + (16px - 0.25em) * 2 + 2px);
+  min-height: var(--height);
   max-height: ${({ _rows, maxRows }) =>
     maxRows === Infinity
       ? "none"
       : `calc(1.5em * ${Math.max(
           _rows,
           maxRows
-        )} + (16px - 0.25em) * 2 + 2px)`};
-  height: calc(1.5em * ${({ _rows }) => _rows} + (16px - 0.25em) * 2 + 2px);
-  line-height: 1.5;
-  padding: calc(16px - 0.25em) 16px;
+        )} + var(--vertical-padding) * 2 + 2px)`};
+  height: var(--height);
+  line-height: var(--line-height);
+  padding: var(--vertical-padding) var(--padding);
   background-color: #fff;
   border: 1px #c8d6e5 solid;
   border-radius: 4px;
