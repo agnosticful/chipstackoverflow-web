@@ -1,8 +1,8 @@
 import * as React from "react";
 import { GameStreetAction, GameType } from "../models/GameSituation";
 import PlayingCard, { Suit, Rank } from "../models/PlayingCard";
-import { PostData, PostingGameSituation } from "../repositories/createPost";
 import { PostTitle, PostBody } from "../models/Post";
+import { PostData, PostingGameSituation } from "../repositories/createPost";
 
 export type UseForm = {
   formData: PostData;
