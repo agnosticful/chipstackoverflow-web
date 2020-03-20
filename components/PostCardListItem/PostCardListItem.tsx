@@ -12,21 +12,21 @@ import PlayingCard from "../PlayingCard";
 
 interface Props extends React.Attributes {
   post: Post;
-  isRecentPost?: boolean;
+  recent?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function PostCardListItem({
-  isRecentPost = false,
+  recent = false,
   post,
   ...props
 }: Props) {
   const { heroIndex, playerCards } = post.gameSituation;
   const { left, right } = playerCards[heroIndex]!;
   const [nAgo, mobileTerm, term] = getAgoByDate(
-    isRecentPost ? post.createdAt : post.lastUpdatedAt
+    recent ? post.createdAt : post.lastUpdatedAt
   );
 
   return (
@@ -48,7 +48,7 @@ export default function PostCardListItem({
       <AttributeTitle>Play at</AttributeTitle>
       <AttributeTitle>Ended at</AttributeTitle>
       <AttributeTitle>Final Pod</AttributeTitle>
-      <AttributeTitle>{isRecentPost ? "Posted" : "Last Update"}</AttributeTitle>
+      <AttributeTitle>{recent ? "Posted" : "Last Update"}</AttributeTitle>
       <AttributeValue>
         {getPositionByPlayerAndIndex(
           post.gameSituation.playerLength,
