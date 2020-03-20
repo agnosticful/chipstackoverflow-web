@@ -1,7 +1,7 @@
-import * as firebase from 'firebase';
-import { GameType, GameStreetAction } from '../models/GameSituation';
-import { PostTitle, PostBody, PostId } from '../models/Post';
-import PlayingCard from '../models/PlayingCard';
+import * as firebase from "firebase";
+import { GameType, GameStreetAction } from "../models/GameSituation";
+import { PostTitle, PostBody, PostId } from "../models/Post";
+import PlayingCard from "../models/PlayingCard";
 
 export interface PostData {
   title: PostTitle;
@@ -43,9 +43,13 @@ export interface PostingGameSituation {
 
 export type CreatePost = (postData: PostData) => Promise<PostId>;
 
-export function createCreatePost({ firebaseApp }: { firebaseApp: firebase.app.App }): CreatePost {
+export function createCreatePost({
+  firebaseApp
+}: {
+  firebaseApp: firebase.app.App;
+}): CreatePost {
   return async ({ title, body, gameSituation }) => {
-    const createPost = firebaseApp.functions().httpsCallable('createPost');
+    const createPost = firebaseApp.functions().httpsCallable("createPost");
     const id = await createPost({
       title: title,
       body: body,

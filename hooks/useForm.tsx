@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { GameStreetAction, GameType } from '../models/GameSituation';
-import PlayingCard, { Suit, Rank } from '../models/PlayingCard';
-import { PostData, PostingGameSituation } from '../repositories/createPost';
-import { PostTitle, PostBody } from '../models/Post';
+import * as React from "react";
+import { GameStreetAction, GameType } from "../models/GameSituation";
+import PlayingCard, { Suit, Rank } from "../models/PlayingCard";
+import { PostData, PostingGameSituation } from "../repositories/createPost";
+import { PostTitle, PostBody } from "../models/Post";
 
 export type UseForm = {
   formData: PostData;
@@ -13,27 +13,42 @@ export type UseForm = {
     setGameType: (type: GameType) => void;
     setSmallBlindSize: (smallBlindSize: number) => void;
     setAntiSize: (antiSize: number) => void;
-    setPlayerHand: (playerIndex: number, playerHand: PlayerHand, playingHand: PlayingCard) => void;
+    setPlayerHand: (
+      playerIndex: number,
+      playerHand: PlayerHand,
+      playingHand: PlayingCard
+    ) => void;
     setHeroPosition: (index: number) => void;
-    setPreflopActions: (index: number, gameStreetAction: GameStreetAction) => void;
-    setFlopCommunityCard: (flopCommunityCard: FlopCommunityCard, playingHand: PlayingCard) => void;
+    setPreflopActions: (
+      index: number,
+      gameStreetAction: GameStreetAction
+    ) => void;
+    setFlopCommunityCard: (
+      flopCommunityCard: FlopCommunityCard,
+      playingHand: PlayingCard
+    ) => void;
     setFlopActions: (index: number, gameStreetAction: GameStreetAction) => void;
-    deleteRound: (round: Round) => void;
+    deleteStreet: (street: Street) => void;
     setTurnCommunityCard: (playingHand: PlayingCard) => void;
     setTurnActions: (index: number, gameStreetAction: GameStreetAction) => void;
     setRiverCommunityCard: (playingHand: PlayingCard) => void;
-    setRiverActions: (index: number, gameStreetAction: GameStreetAction) => void;
+    setRiverActions: (
+      index: number,
+      gameStreetAction: GameStreetAction
+    ) => void;
   };
 };
 
 export default function useForm(): UseForm {
-  const [title, setTitle] = React.useState<string>('');
-  const [body, setBody] = React.useState<string>('');
-  const [gameSituation, setGameSituation] = React.useState<PostingGameSituation>(initialPostData);
+  const [title, setTitle] = React.useState<string>("");
+  const [body, setBody] = React.useState<string>("");
+  const [gameSituation, setGameSituation] = React.useState<
+    PostingGameSituation
+  >(initialPostData);
 
-  const deleteRound = React.useCallback((round: Round) => {
+  const deleteStreet = React.useCallback((street: Street) => {
     setGameSituation(prev => {
-      delete prev[round];
+      delete prev[street];
 
       return { ...prev };
     });
@@ -67,27 +82,30 @@ export default function useForm(): UseForm {
     }));
   }, []);
 
-  const setPlayerHand = React.useCallback((playerIndex: number, playerHand: PlayerHand, playingHand: PlayingCard) => {
-    setGameSituation(prev => {
-      if (!prev.playerCards[playerIndex])
-        prev.playerCards[playerIndex] = {
-          left: null,
-          right: null
-        } as { left: null; right: null };
+  const setPlayerHand = React.useCallback(
+    (playerIndex: number, playerHand: PlayerHand, playingHand: PlayingCard) => {
+      setGameSituation(prev => {
+        if (!prev.playerCards[playerIndex])
+          prev.playerCards[playerIndex] = {
+            left: null,
+            right: null
+          } as { left: null; right: null };
 
-      return {
-        ...prev,
-        playerCards: prev.playerCards.map((hand, index) =>
-          prev.heroIndex === index
-            ? {
-                ...hand!,
-                [playerHand]: playingHand
-              }
-            : hand
-        )
-      };
-    });
-  }, []);
+        return {
+          ...prev,
+          playerCards: prev.playerCards.map((hand, index) =>
+            prev.heroIndex === index
+              ? {
+                  ...hand!,
+                  [playerHand]: playingHand
+                }
+              : hand
+          )
+        };
+      });
+    },
+    []
+  );
 
   const setHeroPosition = React.useCallback((index: number) => {
     setGameSituation(prev => {
@@ -104,52 +122,61 @@ export default function useForm(): UseForm {
     });
   }, []);
 
-  const setPreflopActions = React.useCallback((index: number, gameStreetAction: GameStreetAction) => {
-    setGameSituation(prev => {
-      if (prev.preflop.actions.length - 1 < index) {
-        prev.preflop.actions.push(gameStreetAction);
-      } else {
-        prev.preflop.actions[index] = gameStreetAction;
-      }
+  const setPreflopActions = React.useCallback(
+    (index: number, gameStreetAction: GameStreetAction) => {
+      setGameSituation(prev => {
+        if (prev.preflop.actions.length - 1 < index) {
+          prev.preflop.actions.push(gameStreetAction);
+        } else {
+          prev.preflop.actions[index] = gameStreetAction;
+        }
 
-      return { ...prev };
-    });
-  }, []);
+        return { ...prev };
+      });
+    },
+    []
+  );
 
-  const setFlopCommunityCard = React.useCallback((flopCommunityCard: FlopCommunityCard, playingHand: PlayingCard) => {
-    setGameSituation(prev => {
-      if (!prev.flop)
-        prev.flop = {
-          actions: [],
-          communityCards: {
-            left: null,
-            center: null,
-            right: null
-          }
-        };
+  const setFlopCommunityCard = React.useCallback(
+    (flopCommunityCard: FlopCommunityCard, playingHand: PlayingCard) => {
+      setGameSituation(prev => {
+        if (!prev.flop)
+          prev.flop = {
+            actions: [],
+            communityCards: {
+              left: null,
+              center: null,
+              right: null
+            }
+          };
 
-      prev.flop.communityCards[flopCommunityCard] = playingHand;
+        prev.flop.communityCards[flopCommunityCard] = playingHand;
 
-      return { ...prev };
-    });
-  }, []);
+        return { ...prev };
+      });
+    },
+    []
+  );
 
-  const setFlopActions = React.useCallback((index: number, gameStreetAction: GameStreetAction) => {
-    setGameSituation(prev => {
-      if (!prev.flop)
-        prev.flop = {
-          communityCards: {
-            left: null,
-            center: null,
-            right: null
-          },
-          actions: [] as GameStreetAction[]
-        };
-      prev.flop.actions[index] = gameStreetAction;
+  const setFlopActions = React.useCallback(
+    (index: number, gameStreetAction: GameStreetAction) => {
+      setGameSituation(prev => {
+        if (!prev.flop)
+          prev.flop = {
+            communityCards: {
+              left: null,
+              center: null,
+              right: null
+            },
+            actions: [] as GameStreetAction[]
+          };
+        prev.flop.actions[index] = gameStreetAction;
 
-      return { ...prev };
-    });
-  }, []);
+        return { ...prev };
+      });
+    },
+    []
+  );
 
   const setTurnCommunityCard = React.useCallback((playingHand: PlayingCard) => {
     setGameSituation(prev => {
@@ -169,43 +196,52 @@ export default function useForm(): UseForm {
     });
   }, []);
 
-  const setTurnActions = React.useCallback((index: number, gameStreetAction: GameStreetAction) => {
-    setGameSituation(prev => {
-      if (!prev.turn)
-        prev.turn = {
-          communityCard: null,
-          actions: [] as GameStreetAction[]
-        };
-      prev.turn.actions[index] = gameStreetAction;
+  const setTurnActions = React.useCallback(
+    (index: number, gameStreetAction: GameStreetAction) => {
+      setGameSituation(prev => {
+        if (!prev.turn)
+          prev.turn = {
+            communityCard: null,
+            actions: [] as GameStreetAction[]
+          };
+        prev.turn.actions[index] = gameStreetAction;
 
-      return { ...prev };
-    });
-  }, []);
+        return { ...prev };
+      });
+    },
+    []
+  );
 
-  const setRiverCommunityCard = React.useCallback((playingHand: PlayingCard) => {
-    setGameSituation(prev => {
-      if (!prev.river)
-        prev.river = {
-          communityCard: playingHand,
-          actions: [] as GameStreetAction[]
-        };
+  const setRiverCommunityCard = React.useCallback(
+    (playingHand: PlayingCard) => {
+      setGameSituation(prev => {
+        if (!prev.river)
+          prev.river = {
+            communityCard: playingHand,
+            actions: [] as GameStreetAction[]
+          };
 
-      return { ...prev };
-    });
-  }, []);
+        return { ...prev };
+      });
+    },
+    []
+  );
 
-  const setRiverActions = React.useCallback((index: number, gameStreetAction: GameStreetAction) => {
-    setGameSituation(prev => {
-      if (!prev.river)
-        prev.river = {
-          communityCard: null,
-          actions: [] as GameStreetAction[]
-        };
-      prev.river.actions[index] = gameStreetAction;
+  const setRiverActions = React.useCallback(
+    (index: number, gameStreetAction: GameStreetAction) => {
+      setGameSituation(prev => {
+        if (!prev.river)
+          prev.river = {
+            communityCard: null,
+            actions: [] as GameStreetAction[]
+          };
+        prev.river.actions[index] = gameStreetAction;
 
-      return { ...prev };
-    });
-  }, []);
+        return { ...prev };
+      });
+    },
+    []
+  );
 
   const gameSituationSetter = {
     setPlayerLength: setPlayerLength,
@@ -217,7 +253,7 @@ export default function useForm(): UseForm {
     setPreflopActions: setPreflopActions,
     setFlopCommunityCard: setFlopCommunityCard,
     setFlopActions: setFlopActions,
-    deleteRound: deleteRound,
+    deleteStreet: deleteStreet,
     setTurnCommunityCard: setTurnCommunityCard,
     setTurnActions: setTurnActions,
     setRiverCommunityCard: setRiverCommunityCard,
@@ -262,18 +298,18 @@ const initialPostData: PostingGameSituation = {
 };
 
 export enum PlayerHand {
-  LEFT = 'left',
-  RIGHT = 'right'
+  left = "left",
+  right = "right"
 }
 
 export enum FlopCommunityCard {
-  LEFT = 'left',
-  CENTER = 'center',
-  RIGHT = 'right'
+  left = "left",
+  center = "center",
+  right = "right"
 }
 
-export enum Round {
-  FLOP = 'flop',
-  TURN = 'turn',
-  RIVER = 'river'
+export enum Street {
+  flop = "flop",
+  turn = "turn",
+  river = "river"
 }
