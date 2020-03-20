@@ -28,12 +28,12 @@ export enum TextInputSize {
 
 const Root = styled.input<{ size: TextInputSize }>`
   --line-height: 1.5;
-  --padding-size: 0.75em;
+  --padding: 0.75em;
   box-sizing: border-box;
   width: 100%;
   line-height: var(--line-height);
-  padding: calc(var(--padding-size) - 1em * (var(--line-height) - 1) / 2)
-    var(--padding-size);
+  padding: calc(var(--padding) - 1em * (var(--line-height) - 1) / 2)
+    var(--padding);
   background-color: #fff;
   border: 1px #c8d6e5 solid;
   border-radius: 4px;
