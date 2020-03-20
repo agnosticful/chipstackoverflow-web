@@ -1,20 +1,20 @@
-enum Position {
-  SB = "SB",
-  BB = "BB",
-  UTG = "UTG",
-  EP2 = "EP2",
-  MP1 = "MP1",
-  MP2 = "MP2",
-  MP3 = "MP3",
-  LP1 = "LP1",
-  LP2 = "LP2",
-  BTN = "BTN"
+enum PlayerPosition {
+  sb = "SB",
+  bb = "BB",
+  utg = "UTG",
+  ep2 = "EP2",
+  mp1 = "MP1",
+  mp2 = "MP2",
+  mp3 = "MP3",
+  lp1 = "LP1",
+  lp2 = "LP2",
+  btn = "BTN"
 }
 
 export default function getPositionByPlayerAndIndex(
   playerLength: number,
   index: number
-): Position {
+): PlayerPosition {
   if (playerLength < 2 || 10 < playerLength)
     throw new Error("Player number must be 2 - 10.");
   if (index < 0 || playerLength < index)
@@ -24,73 +24,90 @@ export default function getPositionByPlayerAndIndex(
 }
 
 const playerNumberAndPositionCorrespondence = new Map([
-  [2, [Position.SB, Position.BB]],
-  [3, [Position.SB, Position.BB, Position.UTG]],
-  [4, [Position.SB, Position.BB, Position.MP1, Position.BTN]],
-  [5, [Position.SB, Position.BB, Position.MP1, Position.MP2, Position.BTN]],
+  [2, [PlayerPosition.sb, PlayerPosition.bb]],
+  [3, [PlayerPosition.sb, PlayerPosition.bb, PlayerPosition.utg]],
+  [
+    4,
+    [
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.mp1,
+      PlayerPosition.btn
+    ]
+  ],
+  [
+    5,
+    [
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.mp1,
+      PlayerPosition.mp2,
+      PlayerPosition.btn
+    ]
+  ],
   [
     6,
     [
-      Position.SB,
-      Position.BB,
-      Position.MP1,
-      Position.MP2,
-      Position.LP1,
-      Position.BTN
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.mp1,
+      PlayerPosition.mp2,
+      PlayerPosition.lp1,
+      PlayerPosition.btn
     ]
   ],
   [
     7,
     [
-      Position.SB,
-      Position.BB,
-      Position.UTG,
-      Position.MP1,
-      Position.MP2,
-      Position.LP1,
-      Position.BTN
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.utg,
+      PlayerPosition.mp1,
+      PlayerPosition.mp2,
+      PlayerPosition.lp1,
+      PlayerPosition.btn
     ]
   ],
   [
     8,
     [
-      Position.SB,
-      Position.BB,
-      Position.UTG,
-      Position.MP1,
-      Position.MP2,
-      Position.MP3,
-      Position.LP1,
-      Position.BTN
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.utg,
+      PlayerPosition.mp1,
+      PlayerPosition.mp2,
+      PlayerPosition.mp3,
+      PlayerPosition.lp1,
+      PlayerPosition.btn
     ]
   ],
   [
     9,
     [
-      Position.SB,
-      Position.BB,
-      Position.UTG,
-      Position.MP1,
-      Position.MP2,
-      Position.MP3,
-      Position.LP1,
-      Position.LP2,
-      Position.BTN
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.utg,
+      PlayerPosition.mp1,
+      PlayerPosition.mp2,
+      PlayerPosition.mp3,
+      PlayerPosition.lp1,
+      PlayerPosition.lp2,
+      PlayerPosition.btn
     ]
   ],
   [
     10,
     [
-      Position.SB,
-      Position.BB,
-      Position.UTG,
-      Position.EP2,
-      Position.MP1,
-      Position.MP2,
-      Position.MP3,
-      Position.LP1,
-      Position.LP2,
-      Position.BTN
+      PlayerPosition.sb,
+      PlayerPosition.bb,
+      PlayerPosition.utg,
+      PlayerPosition.ep2,
+      PlayerPosition.mp1,
+      PlayerPosition.mp2,
+      PlayerPosition.mp3,
+      PlayerPosition.lp1,
+      PlayerPosition.lp2,
+      PlayerPosition.btn
     ]
   ]
 ]);

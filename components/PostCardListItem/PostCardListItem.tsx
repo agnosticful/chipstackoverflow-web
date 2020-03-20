@@ -2,8 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
-import GameSituation from "../../models/GameSituation";
-import getAgoByDate from "../../utilities/getAgoByDate";
+import calculateFinalPot from "../../utilities/calculateFinalPot";
+import getAgoByDate from "../../utilities/getRelativeDateString";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
 import getSIMetricPrefixData from "../../utilities/getSIMetricPrefixData";
 import Card from "../Card";
@@ -36,11 +36,7 @@ export default function PostCardListItem({
         <HandCard suit={left.suit} rank={left.rank} />
         <HandCard suit={right.suit} rank={right.rank} />
       </PlayerHandArea>
-      <PostTitle>
-        {post.title.length <= 65
-          ? post.title
-          : `${post.title.substring(0, 63)}...`}
-      </PostTitle>
+      <PostTitle>{post.title}</PostTitle>
       <LikeArea>
         <ThumbsUpIcon />
         {post.likes}
@@ -57,15 +53,15 @@ export default function PostCardListItem({
       </AttributeValue>
       <AttributeValue>
         {post.gameSituation.river
-          ? Round.RIVER
+          ? Street.river
           : post.gameSituation.turn
-          ? Round.TURN
+          ? Street.turn
           : post.gameSituation.flop
-          ? Round.FLOP
-          : Round.PREFLOP}
+          ? Street.flop
+          : Street.preflop}
       </AttributeValue>
       <AttributeValue>{`${getSIMetricPrefixData(
-        getFinalPodOfTheGame(post.gameSituation)
+        calculateFinalPot(post.gameSituation)
       )} BB`}</AttributeValue>
       <AttributeValue>
         {nAgo}
@@ -79,9 +75,10 @@ export default function PostCardListItem({
 
 const Root = styled(Card)`
   display: grid;
-  max-width: 440px;
+  max-width: 440px; // TODO
   grid-template-rows: 1fr 0.25fr 0.25fr;
   grid-template-columns: 1.3fr 0.7fr 0.9fr 0.9fr 1.2fr;
+  // grid-template-areas: // TODO
   row-gap: 4px;
   column-gap: 8px;
 `;
@@ -114,16 +111,12 @@ const HandCard = styled(PlayingCard)`
     top: 15%;
     left 16%;
     transform: rotate(-15deg);
-    -moz-transform: rotate(-15deg);
-    -webkit-transform: rotate(-15deg);
   }
 
   &:last-of-type {
     top: 15%;
     right 16%;
     transform: rotate(15deg);
-    -moz-transform: rotate(15deg);
-    -webkit-transform: rotate(15deg);
   }
 `;
 
@@ -131,8 +124,12 @@ const PostTitle = styled.h2`
   grid-row: 1 / 2;
   grid-column: 2 / 6;
   font-size: 1.3em;
-  margin: 8px 8px 0 0;
+  margin: 8px 8px 8px 0;
   line-height: 1.4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
 
   ${MOBILE_MEDIA} {
     font-weight: 400;
@@ -159,6 +156,7 @@ const AttributeTitle = styled.h5`
   font-size: 14px;
   color: #595959;
   font-weight: normal;
+
   ${MOBILE_MEDIA} {
     font-size: 12px;
   }
@@ -170,6 +168,7 @@ const AttributeValue = styled.p`
   font-size: 14px;
   color: #595959;
   font-weight: normal;
+
   ${MOBILE_MEDIA} {
     font-size: 12px;
   }
@@ -177,6 +176,7 @@ const AttributeValue = styled.p`
 
 const MobileTermSpan = styled.span`
   display: none;
+
   ${MOBILE_MEDIA} {
     display: inline;
   }
@@ -184,32 +184,15 @@ const MobileTermSpan = styled.span`
 
 const TermSpan = styled.span`
   display: inline;
+
   ${MOBILE_MEDIA} {
     display: none;
   }
 `;
 
-function getFinalPodOfTheGame(gameSituation: GameSituation): number {
-  const preflopPod = gameSituation.preflop.actions.reduce(
-    (sum, { betSize }) => sum + betSize,
-    0
-  );
-  const flopPod = gameSituation.flop
-    ? gameSituation.flop.actions.reduce((sum, { betSize }) => sum + betSize, 0)
-    : 0;
-  const turnPod = gameSituation.turn
-    ? gameSituation.turn.actions.reduce((sum, { betSize }) => sum + betSize, 0)
-    : 0;
-  const riverPod = gameSituation.river
-    ? gameSituation.river.actions.reduce((sum, { betSize }) => sum + betSize, 0)
-    : 0;
-
-  return preflopPod + flopPod + turnPod + riverPod;
-}
-
-enum Round {
-  PREFLOP = "Preflop",
-  FLOP = "FLOP",
-  TURN = "TURN",
-  RIVER = "RIVER"
+enum Street {
+  preflop = "PREFLOP",
+  flop = "FLOP",
+  turn = "TURN",
+  river = "RIVER"
 }

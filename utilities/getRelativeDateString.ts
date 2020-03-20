@@ -1,4 +1,6 @@
-export default function getAgoByDate(date: Date): [number, string, string] {
+export default function getRelativeDateString(
+  date: Date
+): [number, string, string] {
   const now = new Date();
   const yearDiff = now.getFullYear() - date.getFullYear();
   if (yearDiff) return [yearDiff, "y", yearDiff === 1 ? "year" : "years"];
