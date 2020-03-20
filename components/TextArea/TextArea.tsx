@@ -22,7 +22,6 @@ export default function TextArea({
   rows = 5,
   maxRows = Infinity,
   resizable = true,
-  onChange,
   ...props
 }: Props) {
   return (
