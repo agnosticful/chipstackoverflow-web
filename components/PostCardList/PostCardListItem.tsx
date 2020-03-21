@@ -9,24 +9,21 @@ import getSIMetricPrefixData from "../../utilities/getSIMetricPrefixData";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
 import PlayingCard from "../PlayingCard";
+import PostTypeContext, { PostType } from "./PostTypeContext";
 
 interface Props extends React.Attributes {
   post: Post;
-  recent?: boolean;
   onClick?: React.MouseEventHandler<HTMLElement>;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function PostCardListItem({
-  recent = false,
-  post,
-  ...props
-}: Props) {
+export default function PostCardListItem({ post, ...props }: Props) {
   const { heroIndex, playerCards } = post.gameSituation;
   const { left, right } = playerCards[heroIndex]!;
+  const postType = React.useContext(PostTypeContext);
   const [nAgo, mobileTerm, term] = getAgoByDate(
-    recent ? post.createdAt : post.lastUpdatedAt
+    postType === PostType.recent ? post.createdAt : post.lastUpdatedAt
   );
 
   return (
@@ -36,56 +33,73 @@ export default function PostCardListItem({
         <HandCard suit={left.suit} rank={left.rank} />
         <HandCard suit={right.suit} rank={right.rank} />
       </PlayerHandArea>
+
       <PostTitle>{post.title}</PostTitle>
+
       <LikeArea>
         <ThumbsUpIcon />
         {post.likes}
       </LikeArea>
-      <AttributeTitle>Play at</AttributeTitle>
-      <AttributeTitle>Ended at</AttributeTitle>
-      <AttributeTitle>Final Pod</AttributeTitle>
-      <AttributeTitle>{recent ? "Posted" : "Last Update"}</AttributeTitle>
-      <AttributeValue>
-        {getPositionByPlayerAndIndex(
-          post.gameSituation.playerLength,
-          post.gameSituation.heroIndex
-        )}
-      </AttributeValue>
-      <AttributeValue>
-        {post.gameSituation.river
-          ? Street.river
-          : post.gameSituation.turn
-          ? Street.turn
-          : post.gameSituation.flop
-          ? Street.flop
-          : Street.preflop}
-      </AttributeValue>
-      <AttributeValue>{`${getSIMetricPrefixData(
-        calculateFinalPot(post.gameSituation)
-      )} BB`}</AttributeValue>
-      <AttributeValue>
-        {nAgo}
-        <MobileTermSpan>{mobileTerm}</MobileTermSpan>
-        <TermSpan>{term}</TermSpan>
-        &nbsp;ago
-      </AttributeValue>
+
+      <Attributes>
+        <Attribute>
+          <h5>Play at</h5>
+          <span>
+            {post.gameSituation.river
+              ? Street.river
+              : post.gameSituation.turn
+              ? Street.turn
+              : post.gameSituation.flop
+              ? Street.flop
+              : Street.preflop}
+          </span>
+        </Attribute>
+
+        <Attribute>
+          <h5>Ended at</h5>
+          <span>
+            {getPositionByPlayerAndIndex(
+              post.gameSituation.playerLength,
+              post.gameSituation.heroIndex
+            )}
+          </span>
+        </Attribute>
+
+        <Attribute>
+          <h5>Final Pod</h5>
+          <span>{`${getSIMetricPrefixData(
+            calculateFinalPot(post.gameSituation)
+          )} BB`}</span>
+        </Attribute>
+
+        <Attribute>
+          <h5>{postType === PostType.recent ? "Posted" : "Last Update"}</h5>
+          <span>
+            {nAgo}
+            <MobileTermSpan>{mobileTerm}</MobileTermSpan>
+            <TermSpan>{term}</TermSpan>
+            &nbsp;ago
+          </span>
+        </Attribute>
+      </Attributes>
     </Root>
   );
 }
 
 const Root = styled(Card)`
   display: grid;
-  max-width: 440px; // TODO
-  grid-template-rows: 1fr 0.25fr 0.25fr;
-  grid-template-columns: 1.3fr 0.7fr 0.9fr 0.9fr 1.2fr;
-  // grid-template-areas: // TODO
+  // max-width: 440px; // TODO
+  grid-template-rows: 2fr 1fr;
+  grid-template-columns: 1.3fr 3.7fr;
+  grid-template-areas:
+    "playinghand-area title-area"
+    "likes-area attributes-area";
   row-gap: 4px;
   column-gap: 8px;
 `;
 
 const PlayerHandArea = styled.div`
-  grid-row: 1 / 2;
-  grid-column: 1 / 2;
+  grid-area: playinghand-area;
   position: relative;
   width: 100%;
   background-color: #f5f6f7;
@@ -121,11 +135,10 @@ const HandCard = styled(PlayingCard)`
 `;
 
 const PostTitle = styled.h2`
-  grid-row: 1 / 2;
-  grid-column: 2 / 6;
+  grid-area: title-area;
   font-size: 1.3em;
   margin: 8px 8px 8px 0;
-  line-height: 1.4;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -138,8 +151,7 @@ const PostTitle = styled.h2`
 `;
 
 const LikeArea = styled.div`
-  grid-row: 2 / 4;
-  grid-column: 1 / 2;
+  grid-area: likes-area;
   display: flex;
   margin: 0 0 8px 8px;
   justify-content: center;
@@ -150,27 +162,37 @@ const LikeArea = styled.div`
   }
 `;
 
-const AttributeTitle = styled.h5`
-  grid-row: 2 / 3;
-  margin: 0;
-  font-size: 14px;
-  color: #595959;
-  font-weight: normal;
-
-  ${MOBILE_MEDIA} {
-    font-size: 12px;
-  }
+const Attributes = styled.div`
+  grid-area: attributes-area;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 8px 8px 0;
 `;
 
-const AttributeValue = styled.p`
-  grid-row: 3 / 4;
-  margin: 0;
-  font-size: 14px;
-  color: #595959;
-  font-weight: normal;
+const Attribute = styled.div`
+  & > h5 {
+    margin: 0 0 4px 0;
+    font-size: 14px;
+    color: #595959;
+    font-weight: normal;
+  }
+
+  & > span {
+    margin: 0;
+    font-size: 14px;
+    color: #595959;
+    font-weight: normal;
+  }
 
   ${MOBILE_MEDIA} {
-    font-size: 12px;
+    & > h5 {
+      font-size: 12px;
+    }
+
+    & > span {
+      font-size: 12px;
+    }
   }
 `;
 

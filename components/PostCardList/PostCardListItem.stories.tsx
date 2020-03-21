@@ -1,8 +1,6 @@
 import { action } from "@storybook/addon-actions";
-import { boolean } from "@storybook/addon-knobs";
+import { select } from "@storybook/addon-knobs";
 import * as React from "react";
-import styled from "styled-components";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import GameSituation, {
   GameType,
   GameStreetAction
@@ -10,78 +8,49 @@ import GameSituation, {
 import PlayingCard, { Suit, Rank } from "../../models/PlayingCard";
 import Post, { PostId, PostTitle, PostBody } from "../../models/Post";
 import { UserId } from "../../models/User";
+import PostCardList from "./PostCardList";
 import PostCardListItem from "./PostCardListItem";
+import { PostType } from "./PostTypeContext";
 
 export default {
-  title: "PostCardListItem",
-  component: PostCardListItem
+  title: "PostCardList",
+  component: PostCardList,
+  subcomponent: { PostCardListItem }
 };
 
-export const example = () => (
-  <PostCardListItem
-    recent={boolean("recent", false)}
-    post={post}
-    onClick={action("onClick")}
-  />
+export const example = () => {
+  const postType = select("POST_TYPE", POST_TYPE, PostType.recent);
+  return (
+    <PostCardList postType={postType}>
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+    </PostCardList>
+  );
+};
+
+export const postCardListItem = () => (
+  <PostCardListItem post={post} onClick={action("onClick")} />
 );
 
 export const postType = () => (
   <>
-    <PostCardListItem recent post={post} onClick={action("onClick")} />
-    <PostCardListItem post={post} onClick={action("onClick")} />
+    <PostCardList postType={PostType.recent}>
+      <PostCardListItem post={post} onClick={action("onClick")} />
+    </PostCardList>
+    <PostCardList postType={PostType.lastUpdate}>
+      <PostCardListItem post={post} onClick={action("onClick")} />
+    </PostCardList>
   </>
 );
 
-export const inGrid = () => {
-  const recent = boolean("recent", false);
-
-  return (
-    <Layout>
-      <PostCardListItem
-        recent={recent}
-        post={post}
-        onClick={action("onClick")}
-      />
-      <PostCardListItem
-        recent={recent}
-        post={post}
-        onClick={action("onClick")}
-      />
-      <PostCardListItem
-        recent={recent}
-        post={post}
-        onClick={action("onClick")}
-      />
-      <PostCardListItem
-        recent={recent}
-        post={post}
-        onClick={action("onClick")}
-      />
-      <PostCardListItem
-        recent={recent}
-        post={post}
-        onClick={action("onClick")}
-      />
-      <PostCardListItem
-        recent={recent}
-        post={post}
-        onClick={action("onClick")}
-      />
-    </Layout>
-  );
+const POST_TYPE = {
+  "PostType.recent": PostType.recent,
+  "PostType.lastUpdate": PostType.lastUpdate
 };
-
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: 440px 440px;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 16px;
-
-  ${MOBILE_MEDIA} {
-    grid-template-columns: 100%;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-`;
 
 const post: Post = {
   id: "rgaergba" as PostId,
