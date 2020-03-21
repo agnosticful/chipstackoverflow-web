@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Rank, Suit } from "../../models/PlayingCard";
+import { PlusIcon } from "../Icon";
 import PlayingCard from "../PlayingCard";
 import PlayingCardSelector from "../PlayingCardSelector";
-import { CARD_BACKGROUND } from "../../constants/color";
 
 interface Props extends React.Attributes {
   initialRank?: Rank;
@@ -21,6 +21,7 @@ export default function SelectablePlayingCard({
 }: Props) {
   const [rank, setRank] = React.useState(initialRank);
   const [suit, setSuit] = React.useState(initialSuit);
+  const isEmpty = rank === undefined && suit === undefined;
 
   return (
     <PlayingCardSelector
@@ -32,35 +33,50 @@ export default function SelectablePlayingCard({
         onChange({ rank, suit });
       }}
     >
-      <Wrapper>
+      <Wrapper empty={isEmpty}>
         <_PlayingCard rank={rank} suit={suit} {...props} />
+
+        {isEmpty ? <_PlusIcon /> : null}
       </Wrapper>
     </PlayingCardSelector>
   );
 }
 
-const _PlayingCard = styled(PlayingCard)`
-  margin: -1px;
-  vertical-align: top;
-`;
-
-const Wrapper = styled.button`
+const Wrapper = styled.button<{ empty: boolean }>`
   display: inline-block;
   position: relative;
   padding: 0;
-  border: 1px ${CARD_BACKGROUND} solid;
+  border: 1px #c8d6e5 solid;
   border-radius: 15%/9.642857143%;
-  background: transparent;
+  background-color: transparent;
   box-shadow: 0px 0px 10px #222f3e1f, 0px 10px 20px #222f3e0f;
   outline: none;
+  color: #c8d6e5;
   cursor: pointer;
-  transition: border 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  transition: border 200ms ease, box-shadow 200ms ease, color 200ms ease,
+    transform 200ms ease;
   overflow: hidden;
 
   :hover,
   :focus {
-    border-color: #f53333;
+    border-color: #0f151c;
     box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
+    color: #0f151c;
     transform: translate3d(0px, -2px, 0px);
   }
+`;
+
+const _PlayingCard = styled(PlayingCard)`
+  margin: -1px;
+  background-color: transparent;
+  vertical-align: top;
+`;
+
+const _PlusIcon = styled(PlusIcon)`
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+  width: 24px;
+  height: 24px;
+  z-index: 1;
 `;
