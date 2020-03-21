@@ -14,22 +14,21 @@ interface Props extends React.Attributes {
 }
 
 export default function SelectablePlayingCard({
-  initialRank = Rank.ace,
-  initialSuit = Suit.spade,
+  initialRank,
+  initialSuit,
   onChange = () => undefined,
   ...props
 }: Props) {
-  const [{ rank, suit }, setPlayingCard] = React.useState({
-    rank: initialRank,
-    suit: initialSuit
-  });
+  const [rank, setRank] = React.useState(initialRank);
+  const [suit, setSuit] = React.useState(initialSuit);
 
   return (
     <PlayingCardSelector
       initialRank={rank}
       initialSuit={suit}
       onChange={({ rank, suit }) => {
-        setPlayingCard({ rank, suit });
+        setRank(rank);
+        setSuit(suit);
         onChange({ rank, suit });
       }}
     >
