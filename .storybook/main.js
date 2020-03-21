@@ -1,8 +1,13 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  stories: ['../**/*.stories.(tsx|mdx)'],
-  addons: ['@storybook/addon-docs', '@storybook/addon-viewport/register', '@storybook/addon-actions/register', '@storybook/addon-knobs/register'],
+  stories: ["../**/*.stories.(tsx|mdx)"],
+  addons: [
+    "@storybook/addon-docs",
+    "@storybook/addon-viewport/register",
+    "@storybook/addon-actions/register",
+    "@storybook/addon-knobs/register"
+  ],
   webpackFinal: async config => ({
     ...config,
     module: {
@@ -13,16 +18,17 @@ module.exports = {
           test: /\.tsx?$/,
           use: [
             {
-              loader: require.resolve('ts-loader'),
+              loader: require.resolve("ts-loader"),
               options: {
+                transpileOnly: true,
                 compilerOptions: {
-                  ...require('../tsconfig.json').compilerOptions,
-                  jsx: 'react'
+                  ...require("../tsconfig.json").compilerOptions,
+                  jsx: "react"
                 }
               }
             },
             {
-              loader: require.resolve('react-docgen-typescript-loader')
+              loader: require.resolve("react-docgen-typescript-loader")
             }
           ]
         }
@@ -30,7 +36,7 @@ module.exports = {
     },
     resolve: {
       ...config.resolve,
-      extensions: [...config.resolve.extensions, '.ts', '.tsx']
+      extensions: [...config.resolve.extensions, ".ts", ".tsx"]
     }
   })
 };
