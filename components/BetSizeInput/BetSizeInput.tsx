@@ -4,6 +4,7 @@ import styled from "styled-components";
 interface Props extends React.Attributes {
   placeholder?: string;
   defaultValue?: number;
+  disabled?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>, value: number) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -15,6 +16,7 @@ interface Props extends React.Attributes {
 export default function BetSizeInput({
   placeholder,
   defaultValue,
+  disabled = false,
   onChange = () => undefined,
   ...props
 }: Props) {
@@ -27,12 +29,13 @@ export default function BetSizeInput({
   );
 
   return (
-    <Root onClick={onRootClick} {...props}>
+    <Root onClick={onRootClick} disabled={disabled} {...props}>
       <Input
         type="number"
         min={0}
         placeholder={placeholder}
         defaultValue={defaultValue}
+        disabled={disabled}
         onChange={onInputChange}
         ref={inputRef}
       />
@@ -42,7 +45,7 @@ export default function BetSizeInput({
   );
 }
 
-const Root = styled.div`
+const Root = styled.div<{ disabled: boolean }>`
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -50,20 +53,25 @@ const Root = styled.div`
   align-items: center;
   width: 96px;
   padding-right: 1em;
-  background-color: #fff;
+  background-color: ${({ disabled }) => (disabled ? "#c8d6e53f" : "#fff")};
   border: 1px #c8d6e5 solid;
   border-radius: 4px;
   font-size: 16px;
-  cursor: text;
+  cursor: ${({ disabled }) => (disabled ? "default" : "text")};
   transition: border 200ms ease, transform 200ms ease, box-shadow 200ms ease,
     font-size 200ms ease;
 
-  :hover,
-  :focus-within {
-    border-color: #0f151c;
-    transform: translate3d(0px, -2px, 0px);
-    box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
-  }
+  ${({ disabled }) =>
+    disabled
+      ? ""
+      : `
+        :hover,
+        :focus-within {
+          border-color: #0f151c;
+          transform: translate3d(0px, -2px, 0px);
+          box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
+        }
+  `}
 `;
 
 const Input = styled.input`
@@ -86,7 +94,7 @@ const Input = styled.input`
   text-align: right;
   transition: font-size 200ms ease;
 
-  &::placeholder {
+  ::placeholder {
     color: #c8d6e5;
     font-size: 1em;
   }
