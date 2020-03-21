@@ -94,7 +94,7 @@ const Input = styled.input`
   text-align: right;
   transition: font-size 200ms ease;
 
-  &::placeholder {
+  ::placeholder {
     color: #c8d6e5;
     font-size: 1em;
   }
