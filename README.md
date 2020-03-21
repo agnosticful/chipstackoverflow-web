@@ -1,7 +1,7 @@
 # chipstackoverflow
 
-- **Development Environment**: [https://app.csof.dev](https://csof.dev)
-- **Storybook**: [https://sb.csof.dev](https://sb.csof.dev)
+- **Development Environment**: [https://csof.now.sh](https://csof.now.sh)
+- **Storybook**: [https://csof.netlify.com](https://csof.netlify.com)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
 
