@@ -49,6 +49,15 @@ export function ChevronDownIcon(props: Props) {
   );
 }
 
+export function PlusIcon(props: Props) {
+  return (
+    <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <line x1="12" y1="5" x2="12" y2="19"></line>
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+    </Root>
+  );
+}
+
 const Root = styled.svg`
   width: 24px;
   height: 24px;
