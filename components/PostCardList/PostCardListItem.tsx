@@ -88,7 +88,6 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
 const Root = styled(Card)`
   display: grid;
-  // max-width: 440px; // TODO
   grid-template-rows: 2fr 1fr;
   grid-template-columns: 1.3fr 3.7fr;
   grid-template-areas:

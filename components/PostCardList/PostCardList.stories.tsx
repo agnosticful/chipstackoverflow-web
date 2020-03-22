@@ -19,9 +19,8 @@ export default {
 };
 
 export const example = () => {
-  const postType = select("POST_TYPE", POST_TYPE, PostType.recent);
   return (
-    <PostCardList postType={postType}>
+    <PostCardList postType={select("POST_TYPE", POST_TYPE, PostType.recent)}>
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
@@ -33,7 +32,9 @@ export const example = () => {
 };
 
 export const postCardListItem = () => (
-  <PostCardListItem post={post} onClick={action("onClick")} />
+  <PostCardList postType={select("POST_TYPE", POST_TYPE, PostType.recent)}>
+    <PostCardListItem post={post} onClick={action("onClick")} />
+  </PostCardList>
 );
 
 export const postType = () => (
