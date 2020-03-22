@@ -78,8 +78,8 @@ const Root = styled.button<{
   }
 
   & > svg {
-    width: var(--inner-svg-width);
-    height: var(--inner-svg-height);
+    width: var(--inner-svg-size);
+    height: var(--inner-svg-size);
     margin-right: var(--inner-svg-margin-right);
   }
 `;
@@ -118,8 +118,7 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     --padding: 0 24px;
     --box-shadow: 0px 0px 12px #222f3e1f, 0px 12px 24px #222f3e0f;
     --font-size: 16px;
-    --inner-svg-width: 20px;
-    --inner-svg-height: 20px;
+    --inner-svg-size: 20px;
     --inner-svg-margin-right: 8px;
     --hover-box-shadow: 0px 0px 12px #222f3e3f, 0px 12px 24px #222f3e1f;
   `,
@@ -129,8 +128,7 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     --padding: 0 16px;
     --box-shadow: 0px 0px 10px #222f3e1f, 0px 10px 20px #222f3e0f;
     --font-size: 16px;
-    --inner-svg-width: 20px;
-    --inner-svg-height: 20px;
+    --inner-svg-size: 20px;
     --inner-svg-margin-right: 8px;
     --hover-box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
   `,
@@ -140,8 +138,7 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     --padding: 0 12px;
     --box-shadow: 0px 0px 8px #222f3e1f, 0px 8px 16px #222f3e0f;
     --font-size: 14px;
-    --inner-svg-width: 16px;
-    --inner-svg-height: 16px;
+    --inner-svg-size: 16px;
     --inner-svg-margin-right: 4px;
     --hover-box-shadow: 0px 0px 8px #222f3e3f, 0px 8px 16px #222f3e1f;
   `
