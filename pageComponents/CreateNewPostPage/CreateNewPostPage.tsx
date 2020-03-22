@@ -18,13 +18,16 @@ export default function CreateNewPostPage() {
   return (
     <>
       <HeadBar />
+
       <Main>
         <Title>Creating a New Post</Title>
+
         <PartTitle>Title</PartTitle>
         <TextInput
           size={TextInputSize.large}
           placeholder="e.g. I called to a fullhouse. What should I have done?"
         />
+
         <PartTitle>What do you want to review?</PartTitle>
         <TextArea
           rows={5}
@@ -32,6 +35,7 @@ export default function CreateNewPostPage() {
           resizable={false}
           placeholder="e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end."
         />
+
         <PartTitle>Game Situation</PartTitle>
         <GameSituation>
           <Select>
@@ -69,6 +73,7 @@ export default function CreateNewPostPage() {
             <SelectablePlayingCard />
           </PlayerHand>
           <SmallTitle>at:</SmallTitle>
+
           <div>
             <Select>
               <Option value="sb">SB</Option>
