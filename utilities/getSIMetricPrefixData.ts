@@ -1,19 +1,19 @@
 export default function getSIMetricPrefixData(num: number): string {
-  const sIMetricPrefix = new Map<number, string>([
-    [0, ""],
-    [1, "k"],
-    [2, "M"],
-    [3, "G"],
-    [4, "T"],
-    [5, "P"],
-    [6, "E"],
-    [7, "Z"],
-    [8, "Y"]
-  ]);
-  const logTen = Math.log10(num);
+  const logTen = Math.floor(Math.log10(num));
   const dividedByThree = Math.floor(logTen / 3);
+  const rest = 8 < dividedByThree ? num / Math.pow(1000, 8) : num / Math.pow(1000, dividedByThree);
 
-  return `${
-    dividedByThree === 0 ? num : Math.round((logTen % 3) * 10) / 10
-  }${sIMetricPrefix.get(dividedByThree)}`;
+  return `${rest}${sIMetricPrefix.get(dividedByThree) === undefined ? 'Y' : sIMetricPrefix.get(dividedByThree)}`;
 }
+
+const sIMetricPrefix = new Map<number, string>([
+  [0, ''],
+  [1, 'k'],
+  [2, 'M'],
+  [3, 'G'],
+  [4, 'T'],
+  [5, 'P'],
+  [6, 'E'],
+  [7, 'Z'],
+  [8, 'Y']
+]);
