@@ -23,8 +23,12 @@ export default function CreateNewPostPage() {
         <Title>Creating a New Post</Title>
 
         <PartTitle>Title</PartTitle>
-        <TextInput
+        <TextInputLarge
           size={TextInputSize.large}
+          placeholder="e.g. I called to a fullhouse. What should I have done?"
+        />
+        <TextInputMedium
+          size={TextInputSize.medium}
           placeholder="e.g. I called to a fullhouse. What should I have done?"
         />
 
@@ -394,6 +398,22 @@ const PartTitle = styled.h2`
 
 const SmallTitle = styled.span`
   font-family: inherit;
+`;
+
+const TextInputLarge = styled(TextInput)`
+  display: block;
+
+  ${MOBILE_MEDIA} {
+    display: none;
+  }
+`;
+
+const TextInputMedium = styled(TextInput)`
+  display: none;
+
+  ${MOBILE_MEDIA} {
+    display: block;
+  }
 `;
 
 const GameSituation = styled.section`
