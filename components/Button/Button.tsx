@@ -42,9 +42,14 @@ const Root = styled.button<{
   variant: ButtonVariant;
   size: ButtonSize;
 }>`
+  ${({ variant }) => VARIANT_CSS[variant]}
+
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--background);
+  border: 1px var(--border-color) solid;
+  color: var(--color);
   border-radius: 4px;
   outline: none;
   font: inherit;
@@ -54,6 +59,9 @@ const Root = styled.button<{
 
   :hover,
   :focus {
+    background: var(--hover-background);
+    border-color: var(--hover-border-color);
+    color: var(--hover-color);
     transform: translate3d(0px, -2px, 0px);
   }
 
@@ -62,45 +70,33 @@ const Root = styled.button<{
     text-decoration: none;
   }
 
-  ${({ variant }) => VARIANT_CSS[variant]}
   ${({ size }) => SIZE_CSS[size]}
 `;
 
 const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
   [ButtonVariant.default]: css`
-    background: #0f151c;
-    border: 1px transparent solid;
-    color: #fff;
-
-    :hover,
-    :focus {
-      background: #fff;
-      border: 1px #0f151c solid;
-      color: #0f151c;
-    }
+    --background: #0f151c;
+    --border-color: transparent;
+    --color: #fff;
+    --hover-background: #fff;
+    --hover-border-color: #0f151c;
+    --hover-color: #0f151c;
   `,
   [ButtonVariant.primary]: css`
-    background: #f53333;
-    border: 1px transparent solid;
-    color: #fff;
-
-    :hover,
-    :focus {
-      background: #fff;
-      border: 1px #f53333 solid;
-      color: #f53333;
-    }
+    --background: #f53333;
+    --border-color: transparent;
+    --color: #fff;
+    --hover-background: #fff;
+    --hover-border-color: #f53333;
+    --hover-color: #f53333;
   `,
   [ButtonVariant.secondary]: css`
-    background: #fff;
-    border: 1px #c8d6e5 solid;
-    color: #576574;
-
-    :hover,
-    :focus {
-      border: 1px #0f151c solid;
-      color: #0f151c;
-    }
+    --background: #fff;
+    --border-color: #c8d6e5;
+    --color: #576574;
+    --hover-background: #fff;
+    --hover-border-color: #0f151c;
+    --hover-color: #0f151c;
   `
 };
 
