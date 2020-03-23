@@ -10,6 +10,7 @@ interface Props extends React.Attributes {
   resizable?: boolean;
   placeholder?: string;
   defaultValue?: string;
+  disabled?: boolean;
   onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
   className?: string;
   style?: React.CSSProperties;
@@ -22,10 +23,17 @@ export default function TextArea({
   rows = 5,
   maxRows = Infinity,
   resizable = true,
+  disabled = false,
   ...props
 }: Props) {
   return (
-    <Root _rows={rows} maxRows={maxRows} resizable={resizable} {...props} />
+    <Root
+      _rows={rows}
+      maxRows={maxRows}
+      resizable={resizable}
+      disabled={disabled}
+      {...props}
+    />
   );
 }
 
@@ -55,7 +63,7 @@ const Root = styled.textarea<{
   height: var(--height);
   line-height: var(--line-height);
   padding: var(--vertical-padding) var(--padding);
-  background-color: #fff;
+  background: #fff;
   border: 1px #c8d6e5 solid;
   border-radius: 4px;
   outline: none;
@@ -70,6 +78,15 @@ const Root = styled.textarea<{
     border-color: #0f151c;
     transform: translate3d(0px, -2px, 0px);
     box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
+  }
+
+  :disabled {
+    background: #ebf4ff;
+    border-color: #c8d6e5;
+    color: #576574;
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
   }
 
   &::placeholder {
