@@ -25,7 +25,7 @@ export default function PostCardList({
 
 const Root = styled.div`
   display: grid;
-  grid-template-columns: 440px 440px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   grid-gap: 16px;
 
   ${MOBILE_MEDIA} {

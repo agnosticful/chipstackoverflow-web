@@ -1,11 +1,8 @@
 import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs";
 import * as React from "react";
-import GameSituation, {
-  GameType,
-  GameStreetAction
-} from "../../models/GameSituation";
-import PlayingCard, { Suit, Rank } from "../../models/PlayingCard";
+import GameSituation, { GameType } from "../../models/GameSituation";
+import { Suit, Rank } from "../../models/PlayingCard";
 import Post, { PostId, PostTitle, PostBody } from "../../models/Post";
 import { UserId } from "../../models/User";
 import PostCardList from "./PostCardList";
@@ -20,7 +17,7 @@ export default {
 
 export const example = () => {
   return (
-    <PostCardList postType={select("POST_TYPE", POST_TYPE, PostType.recent)}>
+    <PostCardList postType={select("postType", POST_TYPES, PostType.recent)}>
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
@@ -32,7 +29,7 @@ export const example = () => {
 };
 
 export const postCardListItem = () => (
-  <PostCardList postType={select("POST_TYPE", POST_TYPE, PostType.recent)}>
+  <PostCardList postType={select("postType", POST_TYPES, PostType.recent)}>
     <PostCardListItem post={post} onClick={action("onClick")} />
   </PostCardList>
 );
@@ -42,15 +39,15 @@ export const postType = () => (
     <PostCardList postType={PostType.recent}>
       <PostCardListItem post={post} onClick={action("onClick")} />
     </PostCardList>
-    <PostCardList postType={PostType.lastUpdate}>
+    <PostCardList postType={PostType.popular}>
       <PostCardListItem post={post} onClick={action("onClick")} />
     </PostCardList>
   </>
 );
 
-const POST_TYPE = {
+const POST_TYPES = {
   "PostType.recent": PostType.recent,
-  "PostType.lastUpdate": PostType.lastUpdate
+  "PostType.popular": PostType.popular
 };
 
 const post: Post = {
@@ -70,11 +67,11 @@ const post: Post = {
         left: {
           rank: Rank.seven,
           suit: Suit.heart
-        } as PlayingCard,
+        },
         right: {
           rank: Rank.eight,
           suit: Suit.diamond
-        } as PlayingCard
+        }
       }
     ],
     smallBlindSize: 0.05,
@@ -84,38 +81,38 @@ const post: Post = {
         {
           playerIndex: 0,
           betSize: 0.05
-        } as GameStreetAction,
+        },
         {
           playerIndex: 1,
           betSize: 0.05
-        } as GameStreetAction
-      ] as GameStreetAction[]
+        }
+      ]
     },
     flop: {
-      communityCards: [
-        {
+      communityCards: {
+        left: {
           suit: Suit.diamond,
           rank: Rank.five
-        } as PlayingCard,
-        {
+        },
+        center: {
           suit: Suit.diamond,
           rank: Rank.six
-        } as PlayingCard,
-        {
+        },
+        right: {
           suit: Suit.diamond,
           rank: Rank.seven
-        } as PlayingCard
-      ] as PlayingCard[],
+        }
+      },
       actions: [
         {
           playerIndex: 0,
           betSize: 1.0
-        } as GameStreetAction,
+        },
         {
           playerIndex: 1,
           betSize: 0
-        } as GameStreetAction
-      ] as GameStreetAction[]
+        }
+      ]
     }
   } as unknown) as GameSituation,
   createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),

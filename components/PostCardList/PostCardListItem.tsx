@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import calculateFinalPot from "../../utilities/calculateFinalPot";
-import getAgoByDate from "../../utilities/getRelativeDateString";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
+import getRelativeDateString from "../../utilities/getRelativeDateString";
 import getSIMetricPrefixData from "../../utilities/getSIMetricPrefixData";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
@@ -22,7 +22,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
   const { heroIndex, playerCards } = post.gameSituation;
   const { left, right } = playerCards[heroIndex]!;
   const postType = React.useContext(PostTypeContext);
-  const [nAgo, mobileTerm, term] = getAgoByDate(
+  const [date, mobileDateUnit, dateUnit] = getRelativeDateString(
     postType === PostType.recent ? post.createdAt : post.lastUpdatedAt
   );
 
@@ -45,23 +45,23 @@ export default function PostCardListItem({ post, ...props }: Props) {
         <Attribute>
           <h5>Play at</h5>
           <span>
-            {post.gameSituation.river
-              ? Street.river
-              : post.gameSituation.turn
-              ? Street.turn
-              : post.gameSituation.flop
-              ? Street.flop
-              : Street.preflop}
+            {getPositionByPlayerAndIndex(
+              post.gameSituation.playerLength,
+              post.gameSituation.heroIndex
+            )}
           </span>
         </Attribute>
 
         <Attribute>
           <h5>Ended at</h5>
           <span>
-            {getPositionByPlayerAndIndex(
-              post.gameSituation.playerLength,
-              post.gameSituation.heroIndex
-            )}
+            {post.gameSituation.river
+              ? EndedStreet.river
+              : post.gameSituation.turn
+              ? EndedStreet.turn
+              : post.gameSituation.flop
+              ? EndedStreet.flop
+              : EndedStreet.preflop}
           </span>
         </Attribute>
 
@@ -75,9 +75,9 @@ export default function PostCardListItem({ post, ...props }: Props) {
         <Attribute>
           <h5>{postType === PostType.recent ? "Posted" : "Last Update"}</h5>
           <span>
-            {nAgo}
-            <MobileTermSpan>{mobileTerm}</MobileTermSpan>
-            <TermSpan>{term}</TermSpan>
+            {date}
+            <DateUnitInMobile>{mobileDateUnit}</DateUnitInMobile>
+            <DateUnit>{dateUnit}</DateUnit>
             &nbsp;ago
           </span>
         </Attribute>
@@ -88,8 +88,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
 const Root = styled(Card)`
   display: grid;
-  grid-template-rows: 2fr 1fr;
-  grid-template-columns: 1.3fr 3.7fr;
+  grid-template-columns: minmax(15%, 100px) 1fr;
   grid-template-areas:
     "playinghand-area title-area"
     "likes-area attributes-area";
@@ -101,13 +100,13 @@ const PlayerHandArea = styled.div`
   grid-area: playinghand-area;
   position: relative;
   width: 100%;
-  background-color: #f5f6f7;
   border-radius: 4px 0 4px 0;
 
   &: before {
     content: "";
     display: block;
     padding-top: 100%;
+    background-color: #f5f6f7;
   }
 `;
 
@@ -136,17 +135,12 @@ const HandCard = styled(PlayingCard)`
 const PostTitle = styled.h2`
   grid-area: title-area;
   font-size: 1.3em;
-  margin: 8px 8px 8px 0;
+  margin: 8px 8px 0 0;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
-
-  ${MOBILE_MEDIA} {
-    font-weight: 400;
-    line-height: 1.2;
-  }
 `;
 
 const LikeArea = styled.div`
@@ -195,7 +189,7 @@ const Attribute = styled.div`
   }
 `;
 
-const MobileTermSpan = styled.span`
+const DateUnitInMobile = styled.span`
   display: none;
 
   ${MOBILE_MEDIA} {
@@ -203,7 +197,7 @@ const MobileTermSpan = styled.span`
   }
 `;
 
-const TermSpan = styled.span`
+const DateUnit = styled.span`
   display: inline;
 
   ${MOBILE_MEDIA} {
@@ -211,7 +205,7 @@ const TermSpan = styled.span`
   }
 `;
 
-enum Street {
+enum EndedStreet {
   preflop = "PREFLOP",
   flop = "FLOP",
   turn = "TURN",

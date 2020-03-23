@@ -2,7 +2,7 @@ import * as React from "react";
 
 export enum PostType {
   recent,
-  lastUpdate
+  popular
 }
 
 export default React.createContext<PostType>(null as any);

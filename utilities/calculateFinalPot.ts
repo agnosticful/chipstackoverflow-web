@@ -3,19 +3,19 @@ import GameSituation from "../models/GameSituation";
 export default function calculateFinalPot(
   gameSituation: GameSituation
 ): number {
-  const preflopPod = gameSituation.preflop.actions.reduce(
+  const preflopPot = gameSituation.preflop.actions.reduce(
     (sum, { betSize }) => sum + betSize,
     0
   );
-  const flopPod = gameSituation.flop
+  const flopPot = gameSituation.flop
     ? gameSituation.flop.actions.reduce((sum, { betSize }) => sum + betSize, 0)
     : 0;
-  const turnPod = gameSituation.turn
+  const turnPot = gameSituation.turn
     ? gameSituation.turn.actions.reduce((sum, { betSize }) => sum + betSize, 0)
     : 0;
-  const riverPod = gameSituation.river
+  const riverPot = gameSituation.river
     ? gameSituation.river.actions.reduce((sum, { betSize }) => sum + betSize, 0)
     : 0;
 
-  return preflopPod + flopPod + turnPod + riverPod;
+  return preflopPot + flopPot + turnPot + riverPot;
 }

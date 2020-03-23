@@ -16,9 +16,13 @@ export default function getPositionByPlayerAndIndex(
   index: number
 ): PlayerPosition {
   if (playerLength < 2 || 10 < playerLength)
-    throw new Error("Player number must be 2 - 10.");
-  if (index < 0 || playerLength < index)
-    throw new Error(`Index number must be 0 - player number(${playerLength})`);
+    throw new Error(
+      "playerLength must be greater than or equal 2 and less than or equal 10."
+    );
+  if (index < 0 || playerLength <= index)
+    throw new Error(
+      `Index number must be greater than or eaual 0 and less than playerLength(${playerLength})`
+    );
 
   return playerNumberAndPositionCorrespondence.get(playerLength)![index];
 }
