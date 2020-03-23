@@ -20,7 +20,7 @@ export default function Button({
   ...props
 }: Props) {
   return (
-    <Root variant={variant} size={size} {...props}>
+    <Root variant={variant} _size={size} {...props}>
       {children}
     </Root>
   );
@@ -40,20 +40,35 @@ export enum ButtonVariant {
 
 const Root = styled.button<{
   variant: ButtonVariant;
-  size: ButtonSize;
+  _size: ButtonSize;
 }>`
+  ${({ variant }) => VARIANT_CSS[variant]}
+  ${({ _size }) => SIZE_CSS[_size]}
+
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: var(--min-width);
+  height: var(--height);
+  padding: var(--padding);
+  background: var(--background);
+  border: 1px var(--border-color) solid;
   border-radius: 4px;
+  box-shadow: var(--box-shadow);
+  color: var(--color);
   outline: none;
   font: inherit;
+  font-size: var(--font-size);
   cursor: pointer;
   transition: background 200ms ease, border 200ms ease, color 200ms ease,
     box-shadow 200ms ease, transform 200ms ease;
 
   :hover,
   :focus {
+    background: var(--hover-background);
+    border-color: var(--hover-border-color);
+    box-shadow: var(--hover-box-shadow);
+    color: var(--hover-color);
     transform: translate3d(0px, -2px, 0px);
   }
 
@@ -62,101 +77,69 @@ const Root = styled.button<{
     text-decoration: none;
   }
 
-  ${({ variant }) => VARIANT_CSS[variant]}
-  ${({ size }) => SIZE_CSS[size]}
+  & > svg {
+    width: var(--inner-svg-size);
+    height: var(--inner-svg-size);
+    margin-right: var(--inner-svg-margin-right);
+  }
 `;
 
 const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
   [ButtonVariant.default]: css`
-    background: #0f151c;
-    border: 1px transparent solid;
-    color: #fff;
-
-    :hover,
-    :focus {
-      background: #fff;
-      border: 1px #0f151c solid;
-      color: #0f151c;
-    }
+    --background: #0f151c;
+    --border-color: transparent;
+    --color: #fff;
+    --hover-background: #fff;
+    --hover-border-color: #0f151c;
+    --hover-color: #0f151c;
   `,
   [ButtonVariant.primary]: css`
-    background: #f53333;
-    border: 1px transparent solid;
-    color: #fff;
-
-    :hover,
-    :focus {
-      background: #fff;
-      border: 1px #f53333 solid;
-      color: #f53333;
-    }
+    --background: #f53333;
+    --border-color: transparent;
+    --color: #fff;
+    --hover-background: #fff;
+    --hover-border-color: #f53333;
+    --hover-color: #f53333;
   `,
   [ButtonVariant.secondary]: css`
-    background: #fff;
-    border: 1px #c8d6e5 solid;
-    color: #576574;
-
-    :hover,
-    :focus {
-      border: 1px #0f151c solid;
-      color: #0f151c;
-    }
+    --background: #fff;
+    --border-color: #c8d6e5;
+    --color: #576574;
+    --hover-background: #fff;
+    --hover-border-color: #0f151c;
+    --hover-color: #0f151c;
   `
 };
 
 const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
   [ButtonSize.large]: css`
-    min-width: 224px;
-    height: 48px;
-    padding: 0 24px;
-    font-size: 16px;
-    box-shadow: 0px 0px 12px #222f3e1f, 0px 12px 24px #222f3e0f;
-
-    :hover,
-    :focus {
-      box-shadow: 0px 0px 12px #222f3e3f, 0px 12px 24px #222f3e1f;
-    }
-
-    & > svg {
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-    }
+    --min-width: 224px;
+    --height: 48px;
+    --padding: 0 24px;
+    --box-shadow: 0px 0px 12px #222f3e1f, 0px 12px 24px #222f3e0f;
+    --font-size: 16px;
+    --inner-svg-size: 20px;
+    --inner-svg-margin-right: 8px;
+    --hover-box-shadow: 0px 0px 12px #222f3e3f, 0px 12px 24px #222f3e1f;
   `,
   [ButtonSize.medium]: css`
-    min-width: 160px;
-    height: 40px;
-    padding: 0 16px;
-    font-size: 16px;
-    box-shadow: 0px 0px 10px #222f3e1f, 0px 10px 20px #222f3e0f;
-
-    :hover,
-    :focus {
-      box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
-    }
-
-    & > svg {
-      width: 20px;
-      height: 20px;
-      margin-right: 8px;
-    }
+    --min-width: 160px;
+    --height: 40px;
+    --padding: 0 16px;
+    --box-shadow: 0px 0px 10px #222f3e1f, 0px 10px 20px #222f3e0f;
+    --font-size: 16px;
+    --inner-svg-size: 20px;
+    --inner-svg-margin-right: 8px;
+    --hover-box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
   `,
   [ButtonSize.small]: css`
-    min-width: 96px;
-    height: 32px;
-    padding: 0 12px;
-    font-size: 14px;
-    box-shadow: 0px 0px 8px #222f3e1f, 0px 8px 16px #222f3e0f;
-
-    :hover,
-    :focus {
-      box-shadow: 0px 0px 8px #222f3e3f, 0px 8px 16px #222f3e1f;
-    }
-
-    & > svg {
-      width: 16px;
-      height: 16px;
-      margin-right: 4px;
-    }
+    --min-width: 96px;
+    --height: 32px;
+    --padding: 0 12px;
+    --box-shadow: 0px 0px 8px #222f3e1f, 0px 8px 16px #222f3e0f;
+    --font-size: 14px;
+    --inner-svg-size: 16px;
+    --inner-svg-margin-right: 4px;
+    --hover-box-shadow: 0px 0px 8px #222f3e3f, 0px 8px 16px #222f3e1f;
   `
 };
