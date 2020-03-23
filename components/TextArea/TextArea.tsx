@@ -73,8 +73,13 @@ const Root = styled.textarea<{
   resize: ${({ resizable }) => (resizable ? "vertical" : "none")};
   transition: border 200ms ease, transform 200ms ease, box-shadow 200ms ease;
 
-  &:hover,
-  &:focus {
+  ::placeholder {
+    color: #c8d6e5;
+    font-size: 16px;
+  }
+
+  :hover,
+  :focus {
     border-color: #0f151c;
     transform: translate3d(0px, -2px, 0px);
     box-shadow: 0px 0px 10px #222f3e3f, 0px 10px 20px #222f3e1f;
@@ -87,10 +92,5 @@ const Root = styled.textarea<{
     transform: none;
     box-shadow: none;
     cursor: not-allowed;
-  }
-
-  &::placeholder {
-    color: #c8d6e5;
-    font-size: 16px;
   }
 `;
