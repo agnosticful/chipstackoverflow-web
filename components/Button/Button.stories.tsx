@@ -11,70 +11,78 @@ export default {
 
 export const example = () => (
   <Button
-    variant={select("variant", VARIANTS, undefined)}
-    size={select("size", SIZES, undefined)}
+    variant={select("variant", VARIANTS, ButtonVariant.default)}
+    size={select("size", SIZES, ButtonSize.medium)}
     onClick={action("onClick")}
   >
     Click me!
   </Button>
 );
 
-export const variants = () => (
-  <>
-    <Button
-      variant={ButtonVariant.default}
-      size={select("size", SIZES, undefined)}
-      onClick={action("onClick")}
-    >
-      Default Button
-    </Button>
-    <Button
-      variant={ButtonVariant.primary}
-      size={select("size", SIZES, undefined)}
-      onClick={action("onClick")}
-    >
-      Primary Button
-    </Button>
-    <Button
-      variant={ButtonVariant.secondary}
-      size={select("size", SIZES, undefined)}
-      onClick={action("onClick")}
-    >
-      Secondary Button
-    </Button>
-  </>
-);
+export const variants = () => {
+  const size = select("size", SIZES, ButtonSize.medium);
 
-export const sizes = () => (
-  <>
-    <Button
-      variant={select("variant", VARIANTS, undefined)}
-      size={ButtonSize.small}
-      onClick={action("onClick")}
-    >
-      Small Button
-    </Button>
-    <Button
-      variant={select("variant", VARIANTS, undefined)}
-      size={ButtonSize.medium}
-      onClick={action("onClick")}
-    >
-      Regular Button
-    </Button>
-    <Button
-      variant={select("variant", VARIANTS, undefined)}
-      size={ButtonSize.large}
-      onClick={action("onClick")}
-    >
-      Large Button
-    </Button>
-  </>
-);
+  return (
+    <>
+      <Button
+        variant={ButtonVariant.default}
+        size={size}
+        onClick={action("onClick")}
+      >
+        Default Button
+      </Button>
+      <Button
+        variant={ButtonVariant.primary}
+        size={size}
+        onClick={action("onClick")}
+      >
+        Primary Button
+      </Button>
+      <Button
+        variant={ButtonVariant.secondary}
+        size={size}
+        onClick={action("onClick")}
+      >
+        Secondary Button
+      </Button>
+    </>
+  );
+};
+
+export const sizes = () => {
+  const variant = select("variant", VARIANTS, ButtonVariant.default);
+
+  return (
+    <>
+      <Button
+        variant={variant}
+        size={ButtonSize.small}
+        onClick={action("onClick")}
+      >
+        Small Button
+      </Button>
+      <Button
+        variant={variant}
+        size={ButtonSize.medium}
+        onClick={action("onClick")}
+      >
+        Regular Button
+      </Button>
+      <Button
+        variant={variant}
+        size={ButtonSize.large}
+        onClick={action("onClick")}
+      >
+        Large Button
+      </Button>
+    </>
+  );
+};
 
 export const withIcon = () => (
   <Button
-    variant={select("variant", VARIANTS, undefined)}
-    size={select("size", SIZES, undefined)}
+    variant={select("variant", VARIANTS, ButtonVariant.default)}
+    size={select("size", SIZES, ButtonSize.medium)}
     onClick={action("onClick")}
   >
     <SignOutIcon /> Sign out
@@ -83,8 +91,8 @@ export const withIcon = () => (
 
 export const Anchor = () => (
   <Button
-    variant={select("variant", VARIANTS, undefined)}
-    size={select("size", SIZES, undefined)}
+    variant={select("variant", VARIANTS, ButtonVariant.default)}
+    size={select("size", SIZES, ButtonSize.medium)}
     onClick={action("onClick")}
   >
     <a href="#">Go to next page</a>
