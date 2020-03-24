@@ -3,32 +3,28 @@ import { Rank, Suit } from "../models/PlayingCard";
 import calculateFinalPot from "./calculateFinalPot";
 
 describe("calculateFinalPot()", () => {
-  const baseGameSituation = {
-    type: GameType.cash,
-    playerLength: 2,
-    playerStackSizes: [0, 0],
-    heroIndex: 0,
-    playerCards: [
-      {
-        left: {
-          rank: Rank.seven,
-          suit: Suit.heart
-        },
-        right: {
-          rank: Rank.eight,
-          suit: Suit.diamond
-        }
-      },
-      null
-    ],
-    smallBlindSize: 0.05,
-    antiSize: 0
-  };
-
   it("returns final pot when ended street is preflop", () => {
     expect(
       calculateFinalPot({
-        ...baseGameSituation,
+        type: GameType.cash,
+        playerLength: 2,
+        playerStackSizes: [0, 0],
+        heroIndex: 0.2,
+        playerCards: [
+          {
+            left: {
+              rank: Rank.seven,
+              suit: Suit.heart
+            },
+            right: {
+              rank: Rank.eight,
+              suit: Suit.diamond
+            }
+          },
+          null
+        ],
+        smallBlindSize: 0.05,
+        antiSize: 0,
         preflop: {
           actions: [
             {
@@ -48,7 +44,25 @@ describe("calculateFinalPot()", () => {
   it("returns final pot when ended street is flop", () => {
     expect(
       calculateFinalPot({
-        ...baseGameSituation,
+        type: GameType.cash,
+        playerLength: 2,
+        playerStackSizes: [0, 0],
+        heroIndex: 0,
+        playerCards: [
+          {
+            left: {
+              rank: Rank.seven,
+              suit: Suit.heart
+            },
+            right: {
+              rank: Rank.eight,
+              suit: Suit.diamond
+            }
+          },
+          null
+        ],
+        smallBlindSize: 0.05,
+        antiSize: 0,
         preflop: {
           actions: [
             {
@@ -102,7 +116,25 @@ describe("calculateFinalPot()", () => {
   it("returns final pot when ended street is turn", () => {
     expect(
       calculateFinalPot({
-        ...baseGameSituation,
+        type: GameType.cash,
+        playerLength: 2,
+        playerStackSizes: [0, 0],
+        heroIndex: 0.2,
+        playerCards: [
+          {
+            left: {
+              rank: Rank.seven,
+              suit: Suit.heart
+            },
+            right: {
+              rank: Rank.eight,
+              suit: Suit.diamond
+            }
+          },
+          null
+        ],
+        smallBlindSize: 0.05,
+        antiSize: 0,
         preflop: {
           actions: [
             {
@@ -180,7 +212,25 @@ describe("calculateFinalPot()", () => {
   it("returns final pot when ended street is river", () => {
     expect(
       calculateFinalPot({
-        ...baseGameSituation,
+        type: GameType.cash,
+        playerLength: 2,
+        playerStackSizes: [0, 0],
+        heroIndex: 0,
+        playerCards: [
+          {
+            left: {
+              rank: Rank.seven,
+              suit: Suit.heart
+            },
+            right: {
+              rank: Rank.eight,
+              suit: Suit.diamond
+            }
+          },
+          null
+        ],
+        smallBlindSize: 0.05,
+        antiSize: 0,
         preflop: {
           actions: [
             {
