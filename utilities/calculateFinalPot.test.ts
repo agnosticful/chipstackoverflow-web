@@ -9,7 +9,7 @@ describe("calculateFinalPot()", () => {
         type: GameType.cash,
         playerLength: 2,
         playerStackSizes: [0, 0],
-        heroIndex: 0.2,
+        heroIndex: 0,
         playerCards: [
           {
             left: {
@@ -24,7 +24,7 @@ describe("calculateFinalPot()", () => {
           null
         ],
         smallBlindSize: 0.05,
-        antiSize: 0,
+        antiSize: 0.2,
         preflop: {
           actions: [
             {
@@ -33,12 +33,12 @@ describe("calculateFinalPot()", () => {
             },
             {
               playerIndex: 1,
-              betSize: 0.025
+              betSize: 0.05
             }
           ]
         }
       })
-    ).toBe(0.025);
+    ).toBe(0.45);
   });
 
   it("returns final pot when ended street is flop", () => {
@@ -119,7 +119,7 @@ describe("calculateFinalPot()", () => {
         type: GameType.cash,
         playerLength: 2,
         playerStackSizes: [0, 0],
-        heroIndex: 0.2,
+        heroIndex: 0,
         playerCards: [
           {
             left: {
@@ -134,7 +134,7 @@ describe("calculateFinalPot()", () => {
           null
         ],
         smallBlindSize: 0.05,
-        antiSize: 0,
+        antiSize: 0.05,
         preflop: {
           actions: [
             {
@@ -206,7 +206,7 @@ describe("calculateFinalPot()", () => {
           ]
         }
       })
-    ).toBe(3.1);
+    ).toBe(3.2);
   });
 
   it("returns final pot when ended street is river", () => {
