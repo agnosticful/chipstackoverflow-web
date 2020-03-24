@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import { select } from "@storybook/addon-knobs";
+import { boolean, select } from "@storybook/addon-knobs";
 import * as React from "react";
 import { SignOutIcon } from "../Icon";
 import Button, { ButtonSize, ButtonVariant } from "./Button";
@@ -21,12 +21,14 @@ export const example = () => (
 
 export const variants = () => {
   const size = select("size", SIZES, ButtonSize.medium);
+  const disabled = boolean("disabled", false);
 
   return (
     <>
       <Button
         variant={ButtonVariant.default}
         size={size}
+        disabled={disabled}
         onClick={action("onClick")}
       >
         Default Button
@@ -34,6 +36,7 @@ export const variants = () => {
       <Button
         variant={ButtonVariant.primary}
         size={size}
+        disabled={disabled}
         onClick={action("onClick")}
       >
         Primary Button
@@ -41,6 +44,7 @@ export const variants = () => {
       <Button
         variant={ButtonVariant.secondary}
         size={size}
+        disabled={disabled}
         onClick={action("onClick")}
       >
         Secondary Button
@@ -51,12 +55,14 @@ export const variants = () => {
 
 export const sizes = () => {
   const variant = select("variant", VARIANTS, ButtonVariant.default);
+  const disabled = boolean("disabled", false);
 
   return (
     <>
       <Button
         variant={variant}
         size={ButtonSize.small}
+        disabled={disabled}
         onClick={action("onClick")}
       >
         Small Button
@@ -64,6 +70,7 @@ export const sizes = () => {
       <Button
         variant={variant}
         size={ButtonSize.medium}
+        disabled={disabled}
         onClick={action("onClick")}
       >
         Regular Button
@@ -71,6 +78,7 @@ export const sizes = () => {
       <Button
         variant={variant}
         size={ButtonSize.large}
+        disabled={disabled}
         onClick={action("onClick")}
       >
         Large Button
@@ -79,10 +87,24 @@ export const sizes = () => {
   );
 };
 
+export const disabled = () => (
+  <>
+    <Button
+      variant={select("variant", VARIANTS, ButtonVariant.default)}
+      size={select("size", SIZES, ButtonSize.medium)}
+      disabled
+      onClick={action("onClick")}
+    >
+      <SignOutIcon /> Sign out
+    </Button>
+  </>
+);
+
 export const withIcon = () => (
   <Button
     variant={select("variant", VARIANTS, ButtonVariant.default)}
     size={select("size", SIZES, ButtonSize.medium)}
+    disabled={boolean("disabled", false)}
     onClick={action("onClick")}
   >
     <SignOutIcon /> Sign out
@@ -93,6 +115,7 @@ export const Anchor = () => (
   <Button
     variant={select("variant", VARIANTS, ButtonVariant.default)}
     size={select("size", SIZES, ButtonSize.medium)}
+    disabled={boolean("disabled", false)}
     onClick={action("onClick")}
   >
     <a href="#">Go to next page</a>
