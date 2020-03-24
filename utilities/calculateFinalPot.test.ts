@@ -1,8 +1,8 @@
-import { GameType } from '../models/GameSituation';
-import { Rank, Suit } from '../models/PlayingCard';
-import calculateFinalPot from './calculateFinalPot';
+import { GameType } from "../models/GameSituation";
+import { Rank, Suit } from "../models/PlayingCard";
+import calculateFinalPot from "./calculateFinalPot";
 
-describe('calculateFinalPot()', () => {
+describe("calculateFinalPot()", () => {
   const baseGameSituationData = {
     type: GameType.cash,
     playerLength: 2,
@@ -172,19 +172,19 @@ describe('calculateFinalPot()', () => {
     }
   };
 
-  it('returns final pot when ended street is preflop', () => {
+  it("returns final pot when ended street is preflop", () => {
     expect(calculateFinalPot(baseGameSituationData)).toBe(0.025);
   });
 
-  it('returns final pot when ended street is flop', () => {
+  it("returns final pot when ended street is flop", () => {
     expect(calculateFinalPot(gameSituationData1)).toBe(1.1);
   });
 
-  it('returns final pot when ended street is turn', () => {
+  it("returns final pot when ended street is turn", () => {
     expect(calculateFinalPot(gameSituationData2)).toBe(3.1);
   });
 
-  it('returns final pot when ended street is river', () => {
+  it("returns final pot when ended street is river", () => {
     expect(calculateFinalPot(gameSituationData3)).toBe(5.1);
   });
 });
