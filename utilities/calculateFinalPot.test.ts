@@ -22,169 +22,260 @@ describe("calculateFinalPot()", () => {
       null
     ],
     smallBlindSize: 0.05,
-    antiSize: 0,
-    preflop: {
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0.025
-        }
-      ]
-    }
+    antiSize: 0
   };
-
-  const baseGameSituationForFlopTest = {
-    ...baseGameSituation,
-    preflop: {
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 0.05
-        },
-        {
-          playerIndex: 1,
-          betSize: 0.05
-        },
-        {
-          playerIndex: 0,
-          betSize: 0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0
-        }
-      ]
-    },
-    flop: {
-      communityCards: {
-        left: {
-          suit: Suit.diamond,
-          rank: Rank.five
-        },
-        center: {
-          suit: Suit.diamond,
-          rank: Rank.six
-        },
-        right: {
-          suit: Suit.diamond,
-          rank: Rank.seven
-        }
-      },
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0
-        }
-      ]
-    }
-  };
-
-  const gameSituationForTurnTest = {
-    ...baseGameSituationForFlopTest,
-
-    flop: {
-      ...baseGameSituationForFlopTest.flop,
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 1,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 0,
-          betSize: 0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0
-        }
-      ]
-    },
-    turn: {
-      communityCard: {
-        suit: Suit.diamond,
-        rank: Rank.five
-      },
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0
-        }
-      ]
-    }
-  };
-
-  const gameSituationForRiverTest = {
-    ...gameSituationForTurnTest,
-
-    turn: {
-      ...gameSituationForTurnTest.turn,
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 1,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 0,
-          betSize: 0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0
-        }
-      ]
-    },
-    river: {
-      communityCard: {
-        suit: Suit.diamond,
-        rank: Rank.seven
-      },
-
-      actions: [
-        {
-          playerIndex: 0,
-          betSize: 1.0
-        },
-        {
-          playerIndex: 1,
-          betSize: 0
-        }
-      ]
-    }
-  };
-
   it("returns final pot when ended street is preflop", () => {
-    expect(calculateFinalPot(baseGameSituation)).toBe(0.025);
+    expect(
+      calculateFinalPot({
+        ...baseGameSituation,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0.025
+            }
+          ]
+        }
+      })
+    ).toBe(0.025);
   });
 
   it("returns final pot when ended street is flop", () => {
-    expect(calculateFinalPot(baseGameSituationForFlopTest)).toBe(1.1);
+    expect(
+      calculateFinalPot({
+        ...baseGameSituation,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            },
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            },
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        },
+        flop: {
+          communityCards: {
+            left: {
+              suit: Suit.diamond,
+              rank: Rank.five
+            },
+            center: {
+              suit: Suit.diamond,
+              rank: Rank.six
+            },
+            right: {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            }
+          },
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        }
+      })
+    ).toBe(1.1);
   });
 
   it("returns final pot when ended street is turn", () => {
-    expect(calculateFinalPot(gameSituationForTurnTest)).toBe(3.1);
+    expect(
+      calculateFinalPot({
+        ...baseGameSituation,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            },
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            },
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        },
+        flop: {
+          communityCards: {
+            left: {
+              suit: Suit.diamond,
+              rank: Rank.five
+            },
+            center: {
+              suit: Suit.diamond,
+              rank: Rank.six
+            },
+            right: {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            }
+          },
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 1,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        },
+        turn: {
+          communityCard: {
+            suit: Suit.diamond,
+            rank: Rank.five
+          },
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        }
+      })
+    ).toBe(3.1);
   });
 
   it("returns final pot when ended street is river", () => {
-    expect(calculateFinalPot(gameSituationForRiverTest)).toBe(5.1);
+    expect(
+      calculateFinalPot({
+        ...baseGameSituation,
+        preflop: {
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 0.05
+            },
+            {
+              playerIndex: 1,
+              betSize: 0.05
+            },
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        },
+        flop: {
+          communityCards: {
+            left: {
+              suit: Suit.diamond,
+              rank: Rank.five
+            },
+            center: {
+              suit: Suit.diamond,
+              rank: Rank.six
+            },
+            right: {
+              suit: Suit.diamond,
+              rank: Rank.seven
+            }
+          },
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 1,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        },
+        turn: {
+          communityCard: {
+            suit: Suit.diamond,
+            rank: Rank.five
+          },
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 1,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 0,
+              betSize: 0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        },
+        river: {
+          communityCard: {
+            suit: Suit.diamond,
+            rank: Rank.seven
+          },
+
+          actions: [
+            {
+              playerIndex: 0,
+              betSize: 1.0
+            },
+            {
+              playerIndex: 1,
+              betSize: 0
+            }
+          ]
+        }
+      })
+    ).toBe(5.1);
   });
 });
