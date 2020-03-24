@@ -3,7 +3,7 @@ import { Rank, Suit } from "../models/PlayingCard";
 import calculateFinalPot from "./calculateFinalPot";
 
 describe("calculateFinalPot()", () => {
-  const baseGameSituationData = {
+  const baseGameSituation = {
     type: GameType.cash,
     playerLength: 2,
     playerStackSizes: [0, 0],
@@ -37,8 +37,8 @@ describe("calculateFinalPot()", () => {
     }
   };
 
-  const gameSituationData1 = {
-    ...baseGameSituationData,
+  const baseGameSituationForFlopTest = {
+    ...baseGameSituation,
     preflop: {
       actions: [
         {
@@ -87,11 +87,11 @@ describe("calculateFinalPot()", () => {
     }
   };
 
-  const gameSituationData2 = {
-    ...gameSituationData1,
+  const gameSituationForTurnTest = {
+    ...baseGameSituationForFlopTest,
 
     flop: {
-      ...gameSituationData1.flop,
+      ...baseGameSituationForFlopTest.flop,
       actions: [
         {
           playerIndex: 0,
@@ -129,11 +129,11 @@ describe("calculateFinalPot()", () => {
     }
   };
 
-  const gameSituationData3 = {
-    ...gameSituationData2,
+  const gameSituationForRiverTest = {
+    ...gameSituationForTurnTest,
 
     turn: {
-      ...gameSituationData2.turn,
+      ...gameSituationForTurnTest.turn,
       actions: [
         {
           playerIndex: 0,
@@ -173,18 +173,18 @@ describe("calculateFinalPot()", () => {
   };
 
   it("returns final pot when ended street is preflop", () => {
-    expect(calculateFinalPot(baseGameSituationData)).toBe(0.025);
+    expect(calculateFinalPot(baseGameSituation)).toBe(0.025);
   });
 
   it("returns final pot when ended street is flop", () => {
-    expect(calculateFinalPot(gameSituationData1)).toBe(1.1);
+    expect(calculateFinalPot(baseGameSituationForFlopTest)).toBe(1.1);
   });
 
   it("returns final pot when ended street is turn", () => {
-    expect(calculateFinalPot(gameSituationData2)).toBe(3.1);
+    expect(calculateFinalPot(gameSituationForTurnTest)).toBe(3.1);
   });
 
   it("returns final pot when ended street is river", () => {
-    expect(calculateFinalPot(gameSituationData3)).toBe(5.1);
+    expect(calculateFinalPot(gameSituationForRiverTest)).toBe(5.1);
   });
 });
