@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 // import calculateFinalPot from '../../utilities/calculateFinalPot';
-// import getPositionByPlayerAndIndex from '../../utilities/getPositionByPlayerAndIndex';
-// import getRelativeDateString, {getRelativeDateShortString} from '../../utilities/getRelativeDateString';
-// import getSIMetricPrefixData from '../../utilities/getSIMetricPrefixData';
+import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
+import {
+  getRelativeDateString,
+  getRelativeShortDateString
+} from "../../utilities/getRelativeDateString";
+import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSuffix";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
 import PlayingCard from "../PlayingCard";
@@ -41,8 +44,12 @@ export default function PostCardListItem({ post, ...props }: Props) {
       <Attributes>
         <Attribute>
           <h5>Play at</h5>
-          {/* <span>{getPositionByPlayerAndIndex(post.gameSituation.playerLength, post.gameSituation.heroIndex)}</span> */}
-          <span>UTG</span>
+          <span>
+            {getPositionByPlayerAndIndex(
+              post.gameSituation.playerLength,
+              post.gameSituation.heroIndex
+            )}
+          </span>
         </Attribute>
 
         <Attribute>
@@ -61,14 +68,22 @@ export default function PostCardListItem({ post, ...props }: Props) {
         <Attribute>
           <h5>Final Pod</h5>
           {/* <span>{`${getSIMetricPrefixData(calculateFinalPot(post.gameSituation))} BB`}</span> */}
-          <span>{`1.1 BB`}</span>
+          <span>{`${getStringWithSIMetricSuffix(1000)} BB`}</span>
         </Attribute>
 
         <Attribute>
           <h5>{postType === PostType.recent ? "Posted" : "Last Update"}</h5>
           <span>
-            {/* <DateUnit>{postType === PostType.recent ? getRelativeDateString(post.createdAt) : getRelativeDateString(post.lastUpdatedAt)}</DateUnit>
-            <DateUnitInMobile>{postType === PostType.recent ? getRelativeDateShortString(post.createdAt) : getRelativeDateShortString(post.lastUpdatedAt)}</DateUnitInMobile> */}
+            <DateUnit>
+              {postType === PostType.recent
+                ? getRelativeDateString(post.createdAt)
+                : getRelativeDateString(post.lastUpdatedAt)}
+            </DateUnit>
+            <DateUnitInMobile>
+              {postType === PostType.recent
+                ? getRelativeShortDateString(post.createdAt)
+                : getRelativeShortDateString(post.lastUpdatedAt)}
+            </DateUnitInMobile>
             <DateUnit>1 minute</DateUnit>
             <DateUnitInMobile>1 min</DateUnitInMobile>
             &nbsp;ago
