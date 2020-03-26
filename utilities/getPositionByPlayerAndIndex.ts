@@ -11,7 +11,7 @@ export default function getPositionByPlayerAndIndex(
       `Index number must be greater than or eaual 0 and less than playerLength(${playerLength})`
     );
 
-  return playerNumberAndPositionCorrespondence.get(playerLength)![index];
+  return POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(playerLength)![index];
 }
 
 enum PlayerPosition {
@@ -27,7 +27,7 @@ enum PlayerPosition {
   btn = "BTN"
 }
 
-const playerNumberAndPositionCorrespondence = new Map([
+const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
   [2, [PlayerPosition.sb, PlayerPosition.bb]],
   [3, [PlayerPosition.sb, PlayerPosition.bb, PlayerPosition.utg]],
   [
