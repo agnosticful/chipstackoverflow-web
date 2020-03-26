@@ -7,13 +7,13 @@ export default function getStringWithSIMetricSuffix(num: number): string {
   );
 
   return `${rest}${
-    sIMetricSuffixes.get(dividedByThree) === undefined
+    SI_METRIC_SUFFIXES.get(dividedByThree) === undefined
       ? "Y"
-      : sIMetricSuffixes.get(dividedByThree)
+      : SI_METRIC_SUFFIXES.get(dividedByThree)
   }`;
 }
 
-const sIMetricSuffixes = new Map<number, string>([
+const SI_METRIC_SUFFIXES = new Map<number, string>([
   [0, ""],
   [1, "k"],
   [2, "M"],
