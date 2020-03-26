@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   ChevronDownIcon,
+  LoadingIcon,
   SendIcon,
   SignOutIcon,
   ThumbsDownIcon,
@@ -16,6 +17,8 @@ export default {
 export const example = () => (
   <Catalog>
     <ChevronDownIcon />
+
+    <LoadingIcon />
 
     <SendIcon />
 
