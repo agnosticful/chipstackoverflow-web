@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { boolean, select } from "@storybook/addon-knobs";
 import * as React from "react";
-import { SignOutIcon } from "../Icon";
+import { LoadingIcon, SignOutIcon } from "../Icon";
 import Button, { ButtonSize, ButtonVariant } from "./Button";
 
 export default {
@@ -96,6 +96,15 @@ export const disabled = () => (
       onClick={action("onClick")}
     >
       <SignOutIcon /> Sign out
+    </Button>
+
+    <Button
+      variant={select("variant", VARIANTS, ButtonVariant.default)}
+      size={select("size", SIZES, ButtonSize.medium)}
+      disabled
+      onClick={action("onClick")}
+    >
+      <LoadingIcon /> Signing in...
     </Button>
   </>
 );
