@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ReactTestRenderer, act, create } from "react-test-renderer";
 import { Observable } from "rxjs";
-import useUserById from "./useUserById";
 import { UserId } from "../models/User";
 import { RepositoryProvider } from "./useRepository";
+import useUserById from "./useUserById";
 
 describe("useUserById()", () => {
   const subscribeUserById = jest.fn();
