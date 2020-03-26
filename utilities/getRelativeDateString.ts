@@ -1,4 +1,4 @@
-export default function getRelativeDateString(date: Date): string {
+export function getRelativeDateString(date: Date): string {
   const now = new Date();
 
   const yearDiff = now.getFullYear() - date.getFullYear();

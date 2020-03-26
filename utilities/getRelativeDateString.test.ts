@@ -1,4 +1,5 @@
-import getRelativeDateString, {
+import {
+  getRelativeDateString,
   getRelativeShortDateString
 } from "./getRelativeDateString";
 
