@@ -37,12 +37,12 @@ export default function StreetActionSelector({
   const onFoldButtonClick = React.useCallback(() => {
     setAction(StreetAction.fold);
     onChange(previousBetSize);
-  }, []);
+  }, [previousBetSize]);
 
   const onCheckOrCallButtonClick = React.useCallback(() => {
     setAction(StreetAction.checkOrCall);
     onChange(tableMaxBetSize);
-  }, []);
+  }, [tableMaxBetSize]);
 
   const onBetOrRaiseButtonClick = React.useCallback(() => {
     setAction(StreetAction.betOrRaise);
