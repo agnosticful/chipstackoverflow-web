@@ -22,24 +22,40 @@ interface Props extends React.Attributes {
 }
 
 export default function PostCardListItem({ post, ...props }: Props) {
-  const { heroIndex, playerCards } = post.gameSituation;
-  const { left, right } = playerCards[heroIndex]!;
   const postType = React.useContext(PostTypeContext);
 
   return (
     <Root {...props}>
-      <PlayerHandArea>
-        <PlayerHandAreaBackGround />
-        <HandCard suit={left.suit} rank={left.rank} />
-        <HandCard suit={right.suit} rank={right.rank} />
-      </PlayerHandArea>
+      <HeroHand>
+        <HeroHandBackGround />
+        <HandCard
+          suit={
+            post.gameSituation.playerCards[post.gameSituation.heroIndex]!.left
+              .suit
+          }
+          rank={
+            post.gameSituation.playerCards[post.gameSituation.heroIndex]!.left
+              .rank
+          }
+        />
+        <HandCard
+          suit={
+            post.gameSituation.playerCards[post.gameSituation.heroIndex]!.right
+              .suit
+          }
+          rank={
+            post.gameSituation.playerCards[post.gameSituation.heroIndex]!.right
+              .rank
+          }
+        />
+      </HeroHand>
 
       <PostTitle>{post.title}</PostTitle>
 
-      <LikeArea>
+      <Likes>
         <ThumbsUpIcon />
         {post.likes}
-      </LikeArea>
+      </Likes>
 
       <Attributes>
         <Attribute>
@@ -56,12 +72,12 @@ export default function PostCardListItem({ post, ...props }: Props) {
           <h5>Ended at</h5>
           <span>
             {post.gameSituation.river
-              ? EndedStreet.river
+              ? "RIVER"
               : post.gameSituation.turn
-              ? EndedStreet.turn
+              ? "TURN"
               : post.gameSituation.flop
-              ? EndedStreet.flop
-              : EndedStreet.preflop}
+              ? "FLOP"
+              : "PREFLOP"}
           </span>
         </Attribute>
 
@@ -84,8 +100,6 @@ export default function PostCardListItem({ post, ...props }: Props) {
                 ? getRelativeShortDateString(post.createdAt)
                 : getRelativeShortDateString(post.lastUpdatedAt)}
             </DateUnitInMobile>
-            <DateUnit>1 minute</DateUnit>
-            <DateUnitInMobile>1 min</DateUnitInMobile>
             &nbsp;ago
           </span>
         </Attribute>
@@ -100,11 +114,10 @@ const Root = styled(Card)`
   grid-template-areas:
     "playing-cards title"
     "likes attributes";
-  row-gap: 4px;
-  column-gap: 8px;
+  grid-gap: 8px;
 `;
 
-const PlayerHandArea = styled.div`
+const HeroHand = styled.div`
   grid-area: playing-cards;
   position: relative;
   width: 100%;
@@ -118,7 +131,7 @@ const PlayerHandArea = styled.div`
   }
 `;
 
-const PlayerHandAreaBackGround = styled.div`
+const HeroHandBackGround = styled.div`
   padding-top: 8px;
   position: absolute;
 `;
@@ -126,15 +139,14 @@ const PlayerHandAreaBackGround = styled.div`
 const HandCard = styled(PlayingCard)`
   position: absolute;
   width: 40%;
+  top: 15%;
 
   &:first-of-type {
-    top: 15%;
     left 16%;
     transform: rotate(-15deg);
   }
 
   &:last-of-type {
-    top: 15%;
     right 16%;
     transform: rotate(15deg);
   }
@@ -151,7 +163,7 @@ const PostTitle = styled.h2`
   overflow: hidden;
 `;
 
-const LikeArea = styled.div`
+const Likes = styled.div`
   grid-area: likes;
   display: flex;
   margin: 0 0 8px 8px;
@@ -212,10 +224,3 @@ const DateUnit = styled.span`
     display: none;
   }
 `;
-
-enum EndedStreet {
-  preflop = "PREFLOP",
-  flop = "FLOP",
-  turn = "TURN",
-  river = "RIVER"
-}
