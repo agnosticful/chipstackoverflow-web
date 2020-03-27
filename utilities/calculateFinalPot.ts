@@ -1,22 +1,38 @@
-import GameSituation from "../models/GameSituation";
+import { GameStreetAction } from "../models/GameSituation";
 
-export default function calculateFinalPot(
-  gameSituation: GameSituation
-): number {
-  const antiSum = gameSituation.antiSize * gameSituation.playerLength;
-  const preflopPot = gameSituation.preflop.actions.reduce(
-    (sum, { betSize }) => sum + betSize,
-    0
-  );
-  const flopPot = gameSituation.flop
-    ? gameSituation.flop.actions.reduce((sum, { betSize }) => sum + betSize, 0)
+export default function calculateFinalPot({
+  playerLength,
+  smallBlindSize,
+  antiSize,
+  preflopActions,
+  flopActions,
+  turnActions,
+  riverActions
+}: {
+  playerLength: number;
+  smallBlindSize: number;
+  antiSize: number;
+  preflopActions: GameStreetAction[];
+  flopActions?: GameStreetAction[];
+  turnActions?: GameStreetAction[];
+  riverActions?: GameStreetAction[];
+}): number {
+  const preflopPot = preflopActions.reduce((sum, { playerIndex, betSize }) => {
+    return playerIndex === 0 && betSize === 0
+      ? sum + smallBlindSize
+      : playerIndex === 1 && betSize === 0
+      ? sum + 1
+      : sum + betSize;
+  }, 0);
+  const flopPot = flopActions
+    ? flopActions.reduce((sum, { betSize }) => sum + betSize, 0)
     : 0;
-  const turnPot = gameSituation.turn
-    ? gameSituation.turn.actions.reduce((sum, { betSize }) => sum + betSize, 0)
+  const turnPot = turnActions
+    ? turnActions.reduce((sum, { betSize }) => sum + betSize, 0)
     : 0;
-  const riverPot = gameSituation.river
-    ? gameSituation.river.actions.reduce((sum, { betSize }) => sum + betSize, 0)
+  const riverPot = riverActions
+    ? riverActions.reduce((sum, { betSize }) => sum + betSize, 0)
     : 0;
 
-  return antiSum + preflopPot + flopPot + turnPot + riverPot;
+  return antiSize * playerLength + preflopPot + flopPot + turnPot + riverPot;
 }
