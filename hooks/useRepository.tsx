@@ -7,6 +7,7 @@ import { OnAuthenticationStateChanged } from "../repositories/onAuthenticationSt
 import { SetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { SignIn } from "../repositories/signIn";
 import { SignOut } from "../repositories/signOut";
+import { SubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
 import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { SubscribeUserById } from "../repositories/subscribeUserById";
 
@@ -19,6 +20,7 @@ export interface Repository {
   setUserIdForLogging: SetUserIdForLogging;
   signIn: SignIn;
   signOut: SignOut;
+  subscribeAnswersByPostId: SubscribeAnswersByPostId;
   subscribeRecentPosts: SubscribeRecentPosts;
   subscribeUserById: SubscribeUserById;
 }
