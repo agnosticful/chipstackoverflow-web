@@ -1,523 +1,802 @@
 import calculateFinalPot from "./calculateFinalPot";
+import { GameType } from "../models/GameSituation";
+import { Rank, Suit } from "../models/PlayingCard";
 
-describe("calculateFinalPot()", () => {
-  it("returns final pot when ended street is preflop", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 2 }
-        ]
-      })
-    ).toBe(3);
-  });
+describe("calculateFinalPot(gameSituation)", () => {
+  describe("return the final pot size", () => {
+    describe("when the game ended at preflop", () => {
+      test("players have only one action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 2,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 0, betSize: 3 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            }
+          })
+        ).toBe(4);
+      });
 
-  it("returns final pot when ended street is preflop. antiSize is set 0.5BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0.5,
-        preflopActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 2 }
-        ]
-      })
-    ).toBe(4.5);
-  });
+      test("one player has one action and other have two in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 3,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 4 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 }
+              ]
+            }
+          })
+        ).toBe(8);
+      });
 
-  it("returns final pot when ended street is preflop. sb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 2 }
-        ]
-      })
-    ).toBe(2.5);
-  });
+      test("some players have second action and some other players have third action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 3, betSize: 2 },
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 2 },
+                { playerIndex: 2, betSize: 4 },
+                { playerIndex: 3, betSize: 4 },
+                { playerIndex: 0, betSize: 4 },
+                { playerIndex: 1, betSize: 8 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 0, betSize: 0 }
+              ]
+            }
+          })
+        ).toBe(20);
+      });
 
-  it("returns final pot when ended street is preflop. bb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 6 },
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 4 }
-        ]
-      })
-    ).toBe(13);
-  });
+      test("players have different action number in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 6,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 3, betSize: 2 },
+                { playerIndex: 4, betSize: 2 },
+                { playerIndex: 5, betSize: 2 },
+                { playerIndex: 0, betSize: 4 },
+                { playerIndex: 1, betSize: 1 },
+                { playerIndex: 2, betSize: 4 },
+                { playerIndex: 3, betSize: 4 },
+                { playerIndex: 4, betSize: 7 },
+                { playerIndex: 5, betSize: 0 },
+                { playerIndex: 0, betSize: 7 },
+                { playerIndex: 2, betSize: 10 },
+                { playerIndex: 3, betSize: 10 },
+                { playerIndex: 4, betSize: 15 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 2, betSize: 15 },
+                { playerIndex: 3, betSize: 22 },
+                { playerIndex: 4, betSize: 0 },
+                { playerIndex: 2, betSize: 30 },
+                { playerIndex: 3, betSize: 0 }
+              ]
+            }
+          })
+        ).toBe(77);
+      });
+    });
 
-  it("returns final pot when ended street is preflop. sb and bb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 }
-        ]
-      })
-    ).toBe(2.5);
-  });
+    describe("when the game ended at flop", () => {
+      test("players have only one action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            }
+          })
+        ).toBe(6);
+      });
 
-  it("returns final pot when ended street is preflop. sb and bb fold at first action. anti is set 1BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.7,
-        antiSize: 1,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 }
-        ]
-      })
-    ).toBe(5.7);
-  });
+      test("one player has one action and other have two in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 2 },
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 3, betSize: 4 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            }
+          })
+        ).toBe(14);
+      });
 
-  it("returns final pot when ended street is flop", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 4, betSize: 1 },
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 1 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 0 },
-          { playerIndex: 4, betSize: 1 }
-        ]
-      })
-    ).toBe(6);
-  });
+      test("some players have second action and some other players have third action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 2 },
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 3, betSize: 2 },
+                { playerIndex: 0, betSize: 4 },
+                { playerIndex: 1, betSize: 4 },
+                { playerIndex: 2, betSize: 4 },
+                { playerIndex: 3, betSize: 8 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            }
+          })
+        ).toBe(24);
+      });
 
-  it("returns final pot when ended street is flop. antiSize is set 0.2BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0.2,
-        preflopActions: [
-          { playerIndex: 2, betSize: 3 },
-          { playerIndex: 3, betSize: 3 },
-          { playerIndex: 4, betSize: 3 },
-          { playerIndex: 0, betSize: 3 },
-          { playerIndex: 1, betSize: 3 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 3 },
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 0 },
-          { playerIndex: 4, betSize: 0 }
-        ]
-      })
-    ).toBe(19);
-  });
+      test("players have different action number in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 5,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 4, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 2 },
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 3, betSize: 4 },
+                { playerIndex: 4, betSize: 0 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 4 },
+                { playerIndex: 2, betSize: 8 },
+                { playerIndex: 3, betSize: 8 },
+                { playerIndex: 1, betSize: 14 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 20 },
+                { playerIndex: 1, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            }
+          })
+        ).toBe(47);
+      });
+    });
 
-  it("returns final pot when ended street is flop. sb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 3 },
-          { playerIndex: 3, betSize: 3 },
-          { playerIndex: 4, betSize: 3 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 3 }
-        ],
-        flopActions: [
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 7 },
-          { playerIndex: 4, betSize: 0 },
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(19.5);
-  });
+    describe("when the game ended at turn", () => {
+      test("players have only one action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            }
+          })
+        ).toBe(5);
+      });
 
-  it("returns final pot when ended street is flop. bb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 3 },
-          { playerIndex: 4, betSize: 0 },
-          { playerIndex: 0, betSize: 3 },
-          { playerIndex: 1, betSize: 0 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 0, betSize: 0 }
-        ]
-      })
-    ).toBe(8);
-  });
+      test("one player has one action and other have two in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 },
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 3 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            }
+          })
+        ).toBe(10);
+      });
 
-  it("returns final pot when ended street is flop. sb and bb fold at first action. antiSize is set 0.5BB.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0.5,
-        preflopActions: [
-          { playerIndex: 2, betSize: 7 },
-          { playerIndex: 3, betSize: 7 },
-          { playerIndex: 4, betSize: 0 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 }
-        ],
-        flopActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(19);
-  });
+      test("some players have second action and some other players have third action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 4,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 },
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 3 },
+                { playerIndex: 0, betSize: 3 },
+                { playerIndex: 1, betSize: 3 },
+                { playerIndex: 2, betSize: 6 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            }
+          })
+        ).toBe(19);
+      });
 
-  it("returns final pot when ended street is turn", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 2,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 1 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 2 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 0, betSize: 0 }
-        ]
-      })
-    ).toBe(9);
-  });
+      test("players have different action number in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 6,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 4, betSize: 1 },
+                { playerIndex: 5, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 4, betSize: 0 },
+                { playerIndex: 5, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 3, betSize: 4 },
+                { playerIndex: 4, betSize: 4 },
+                { playerIndex: 5, betSize: 4 },
+                { playerIndex: 0, betSize: 6 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 6 },
+                { playerIndex: 4, betSize: 6 },
+                { playerIndex: 5, betSize: 10 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 3, betSize: 10 },
+                { playerIndex: 4, betSize: 16 },
+                { playerIndex: 5, betSize: 16 },
+                { playerIndex: 3, betSize: 24 },
+                { playerIndex: 4, betSize: 34 },
+                { playerIndex: 5, betSize: 0 },
 
-  it("returns final pot when ended street is turn. antiSize is set 0.7BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0.7,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 1 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 2 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 0 }
-        ]
-      })
-    ).toBe(13.1);
-  });
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            }
+          })
+        ).toBe(88);
+      });
+    });
 
-  it("returns final pot when ended street is turn. sb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 1 }
-        ],
-        flopActions: [
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 2 }
-        ],
-        turnActions: [
-          { playerIndex: 1, betSize: 1 },
-          { playerIndex: 2, betSize: 2 },
-          { playerIndex: 1, betSize: 0 }
-        ]
-      })
-    ).toBe(9.5);
-  });
+    describe("when the game ended at river", () => {
+      test("players have only one action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 3,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            },
+            river: {
+              actions: [
+                { playerIndex: 0, betSize: 20 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.five, suit: Suit.club }
+            }
+          })
+        ).toBe(23);
+      });
 
-  it("returns final pot when ended street is turn. bb fold at first action. antiSize is set 0.2BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 3,
-        smallBlindSize: 0.5,
-        antiSize: 0.2,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 2, betSize: 2 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 2, betSize: 1 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 2, betSize: 2 },
-          { playerIndex: 0, betSize: 0 }
-        ]
-      })
-    ).toBe(11.6);
-  });
+      test("one player has one action and other have two in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 3,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            },
+            river: {
+              actions: [
+                { playerIndex: 0, betSize: 5 },
+                { playerIndex: 1, betSize: 5 },
+                { playerIndex: 2, betSize: 15 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.five, suit: Suit.club }
+            }
+          })
+        ).toBe(28);
+      });
 
-  it("returns final pot when ended street is turn. sb and bb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 4,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 }
-        ],
-        flopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 }
-        ],
-        turnActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 2 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(8.5);
-  });
+      test("some players have second action and some other players have third action in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 10,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 4, betSize: 1 },
+                { playerIndex: 5, betSize: 1 },
+                { playerIndex: 6, betSize: 1 },
+                { playerIndex: 7, betSize: 1 },
+                { playerIndex: 8, betSize: 1 },
+                { playerIndex: 9, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 5 },
+                { playerIndex: 1, betSize: 5 },
+                { playerIndex: 2, betSize: 5 },
+                { playerIndex: 3, betSize: 5 },
+                { playerIndex: 4, betSize: 5 },
+                { playerIndex: 5, betSize: 5 },
+                { playerIndex: 6, betSize: 5 },
+                { playerIndex: 7, betSize: 5 },
+                { playerIndex: 8, betSize: 5 },
+                { playerIndex: 9, betSize: 5 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 10 },
+                { playerIndex: 1, betSize: 10 },
+                { playerIndex: 2, betSize: 10 },
+                { playerIndex: 3, betSize: 10 },
+                { playerIndex: 4, betSize: 10 },
+                { playerIndex: 5, betSize: 10 },
+                { playerIndex: 6, betSize: 10 },
+                { playerIndex: 7, betSize: 10 },
+                { playerIndex: 8, betSize: 10 },
+                { playerIndex: 9, betSize: 10 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            },
+            river: {
+              actions: [
+                { playerIndex: 0, betSize: 10 },
+                { playerIndex: 1, betSize: 10 },
+                { playerIndex: 2, betSize: 10 },
+                { playerIndex: 3, betSize: 10 },
+                { playerIndex: 4, betSize: 10 },
+                { playerIndex: 5, betSize: 10 },
+                { playerIndex: 6, betSize: 10 },
+                { playerIndex: 7, betSize: 10 },
+                { playerIndex: 8, betSize: 10 },
+                { playerIndex: 9, betSize: 20 },
+                { playerIndex: 0, betSize: 20 },
+                { playerIndex: 1, betSize: 20 },
+                { playerIndex: 2, betSize: 20 },
+                { playerIndex: 3, betSize: 20 },
+                { playerIndex: 4, betSize: 20 },
+                { playerIndex: 5, betSize: 20 },
+                { playerIndex: 6, betSize: 20 },
+                { playerIndex: 7, betSize: 20 },
+                { playerIndex: 8, betSize: 100 },
+                { playerIndex: 9, betSize: 0 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 4, betSize: 0 },
+                { playerIndex: 5, betSize: 0 },
+                { playerIndex: 6, betSize: 0 },
+                { playerIndex: 7, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.five, suit: Suit.club }
+            }
+          })
+        ).toBe(440);
+      });
 
-  it("returns final pot when ended street is river", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 30 },
-          { playerIndex: 3, betSize: 30 },
-          { playerIndex: 4, betSize: 0 },
-          { playerIndex: 0, betSize: 30 },
-          { playerIndex: 1, betSize: 30 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 20 },
-          { playerIndex: 1, betSize: 20 },
-          { playerIndex: 2, betSize: 20 },
-          { playerIndex: 3, betSize: 0 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 20 },
-          { playerIndex: 1, betSize: 20 },
-          { playerIndex: 2, betSize: 20 }
-        ],
-        riverActions: [
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 20 },
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 0 }
-        ]
-      })
-    ).toBe(260);
-  });
+      test("players have different action number in the street", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 5,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0,
+            preflop: {
+              actions: [
+                { playerIndex: 2, betSize: 1 },
+                { playerIndex: 3, betSize: 1 },
+                { playerIndex: 4, betSize: 1 },
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 }
+              ]
+            },
+            flop: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 4, betSize: 0 }
+              ],
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              }
+            },
+            turn: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 4, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.four, suit: Suit.club }
+            },
+            river: {
+              actions: [
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 3, betSize: 0 },
+                { playerIndex: 4, betSize: 2 },
+                { playerIndex: 0, betSize: 6 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 12 },
+                { playerIndex: 3, betSize: 12 },
+                { playerIndex: 4, betSize: 20 },
+                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 2, betSize: 20 },
+                { playerIndex: 3, betSize: 0 }
+              ],
+              communityCard: { rank: Rank.five, suit: Suit.club }
+            }
+          })
+        ).toBe(63);
+      });
+    });
 
-  it("returns final pot when ended street river. antiSize is set 0.5BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0.5,
-        preflopActions: [
-          { playerIndex: 2, betSize: 4 },
-          { playerIndex: 3, betSize: 4 },
-          { playerIndex: 4, betSize: 0 },
-          { playerIndex: 0, betSize: 4 },
-          { playerIndex: 1, betSize: 4 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 2 },
-          { playerIndex: 3, betSize: 0 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 2 }
-        ],
-        riverActions: [
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 0, betSize: 0 }
-        ]
-      })
-    ).toBe(32.5);
-  });
-
-  it("returns final pot when ended street river. sb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 4,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 1 }
-        ],
-        flopActions: [
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 2 },
-          { playerIndex: 3, betSize: 0 }
-        ],
-        turnActions: [
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 2 }
-        ],
-        riverActions: [
-          { playerIndex: 1, betSize: 2 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(13.5);
-  });
-
-  it("returns final pot when ended street river. bb fold at first action. antiSize is set 0.5BB", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 4,
-        smallBlindSize: 0.5,
-        antiSize: 0.5,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 0 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 0 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 2, betSize: 1 }
-        ],
-        riverActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(11);
-  });
-
-  it("returns final pot when ended street river. sb and bb fold at first action.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 4,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 }
-        ],
-        flopActions: [
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 1 }
-        ],
-        turnActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 0 }
-        ],
-        riverActions: [
-          { playerIndex: 2, betSize: 0 },
-          { playerIndex: 3, betSize: 1 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(6.5);
-  });
-
-  it("returns final pot when ended showdown.", () => {
-    expect(
-      calculateFinalPot({
-        playerLength: 5,
-        smallBlindSize: 0.5,
-        antiSize: 0,
-        preflopActions: [
-          { playerIndex: 2, betSize: 2 },
-          { playerIndex: 3, betSize: 2 },
-          { playerIndex: 4, betSize: 0 },
-          { playerIndex: 0, betSize: 2 },
-          { playerIndex: 1, betSize: 2 }
-        ],
-        flopActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 1 },
-          { playerIndex: 2, betSize: 1 },
-          { playerIndex: 3, betSize: 0 }
-        ],
-        turnActions: [
-          { playerIndex: 0, betSize: 1 },
-          { playerIndex: 1, betSize: 1 },
-          { playerIndex: 2, betSize: 1 }
-        ],
-        riverActions: [
-          { playerIndex: 0, betSize: 0 },
-          { playerIndex: 1, betSize: 0 },
-          { playerIndex: 2, betSize: 0 }
-        ]
-      })
-    ).toBe(14);
+    describe("when the antiSize is set", () => {
+      it("returns finalPot including antiSize * playerLength", () => {
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 2,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0.2,
+            preflop: {
+              actions: [
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 0 }
+              ]
+            }
+          })
+        ).toBe(1.4);
+        expect(
+          calculateFinalPot({
+            type: GameType.cash,
+            playerLength: 3,
+            playerStackSizes: [100, 120],
+            playerCards: [null, null],
+            heroIndex: 0,
+            smallBlindSize: 0.5,
+            antiSize: 0.3,
+            preflop: {
+              actions: [
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 0 },
+                { playerIndex: 2, betSize: 1 }
+              ]
+            },
+            flop: {
+              communityCards: {
+                left: { rank: Rank.ace, suit: Suit.club },
+                center: { rank: Rank.deuce, suit: Suit.club },
+                right: { rank: Rank.eight, suit: Suit.club }
+              },
+              actions: [
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 2, betSize: 0 }
+              ]
+            }
+          })
+        ).toBe(3.9);
+      });
+    });
   });
 });
