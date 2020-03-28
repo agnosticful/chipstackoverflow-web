@@ -18,6 +18,7 @@ import { createOnAuthenticationStateChanged } from "../repositories/onAuthentica
 import { createSetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
+import { createSubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
@@ -34,6 +35,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       }),
       getUserById: createGetUserById({ firebaseApp }),
       setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
+      subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({
         firebaseApp
       }),
