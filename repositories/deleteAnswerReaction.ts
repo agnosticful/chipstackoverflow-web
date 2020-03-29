@@ -13,7 +13,7 @@ export function createDeleteAnswerReaction({
   return async answerReaction => {
     await firebaseApp
       .firestore()
-      .collection("post")
+      .collection("posts")
       .doc(answerReaction.post)
       .collection("answers")
       .doc(answerReaction.answer)
