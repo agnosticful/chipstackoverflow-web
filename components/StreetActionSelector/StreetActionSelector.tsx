@@ -62,6 +62,7 @@ export default function StreetActionSelector({
       <SelectableButton
         onClick={onFoldButtonClick}
         active={action === StreetAction.fold}
+        data-test-id="fold-button"
       >
         Fold
       </SelectableButton>
@@ -69,6 +70,7 @@ export default function StreetActionSelector({
       <SelectableButton
         onClick={onCheckOrCallButtonClick}
         active={action === StreetAction.checkOrCall}
+        data-test-id="check-or-call-button"
       >
         {tableMaxBetSize === previousBetSize ? "Check" : "Call"}
       </SelectableButton>
@@ -77,6 +79,7 @@ export default function StreetActionSelector({
         tabIndex={action === StreetAction.betOrRaise ? -1 : 0}
         onClick={onBetOrRaiseButtonClick}
         active={action === StreetAction.betOrRaise}
+        data-test-id="bet-or-raise-button"
       >
         {tableMaxBetSize === 0 ? "Bet" : "Raise"}
 
@@ -91,6 +94,7 @@ export default function StreetActionSelector({
           ref={inputRef}
           key={`${tableMaxBetSize}`}
           active={action === StreetAction.betOrRaise}
+          data-test-id="bet-size-input"
         />
 
         {action === StreetAction.betOrRaise ? "BB" : null}
