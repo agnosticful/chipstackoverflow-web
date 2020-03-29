@@ -8,6 +8,7 @@ import { SetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { SignIn } from "../repositories/signIn";
 import { SignOut } from "../repositories/signOut";
 import { SubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
+import { SubscribeMyAnswerReactionsByAnswer } from "../repositories/subscribeMyAnswerReactionsByAnswer";
 import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { SubscribeUserById } from "../repositories/subscribeUserById";
 
@@ -21,6 +22,7 @@ export interface Repository {
   signIn: SignIn;
   signOut: SignOut;
   subscribeAnswersByPostId: SubscribeAnswersByPostId;
+  subscribeMyAnswerReactionsByAnswer: SubscribeMyAnswerReactionsByAnswer;
   subscribeRecentPosts: SubscribeRecentPosts;
   subscribeUserById: SubscribeUserById;
 }

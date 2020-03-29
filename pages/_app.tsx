@@ -19,6 +19,7 @@ import { createSetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
+import { createSubscribeMyAnswerReactionsByAnswer } from "../repositories/subscribeMyAnswerReactionsByAnswer";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
@@ -36,6 +37,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
       getUserById: createGetUserById({ firebaseApp }),
       setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
       subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
+      subscribeMyAnswerReactionsByAnswer: createSubscribeMyAnswerReactionsByAnswer(
+        {
+          firebaseApp
+        }
+      ),
       subscribeRecentPosts: createSubscribeRecentPosts({
         firebaseApp
       }),
