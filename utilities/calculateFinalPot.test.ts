@@ -5,7 +5,7 @@ import { Rank, Suit } from "../models/PlayingCard";
 describe("calculateFinalPot(gameSituation)", () => {
   describe("return the final pot size", () => {
     describe("when the game ended at preflop", () => {
-      test("players have only one action in the street", () => {
+      test("and players have only one action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -25,7 +25,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(4);
       });
 
-      test("one player has one action and other have two in the street", () => {
+      test("and one player has one action and other have two in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -40,16 +40,15 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 2 },
                 { playerIndex: 0, betSize: 2 },
                 { playerIndex: 1, betSize: 4 },
-                { playerIndex: 2, betSize: 0 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 }
+                { playerIndex: 2, betSize: 2 },
+                { playerIndex: 0, betSize: 2 }
               ]
             }
           })
         ).toBe(8);
       });
 
-      test("some players have second action and some other players have third action in the street", () => {
+      test("and some players have second action and some other players have third action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -69,16 +68,16 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 4 },
                 { playerIndex: 0, betSize: 4 },
                 { playerIndex: 1, betSize: 8 },
-                { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 },
-                { playerIndex: 0, betSize: 0 }
+                { playerIndex: 2, betSize: 4 },
+                { playerIndex: 3, betSize: 4 },
+                { playerIndex: 0, betSize: 4 }
               ]
             }
           })
         ).toBe(20);
       });
 
-      test("players have different action number in the street", () => {
+      test("and players have different action number in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -99,17 +98,17 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 4 },
                 { playerIndex: 3, betSize: 4 },
                 { playerIndex: 4, betSize: 7 },
-                { playerIndex: 5, betSize: 0 },
+                { playerIndex: 5, betSize: 2 },
                 { playerIndex: 0, betSize: 7 },
                 { playerIndex: 2, betSize: 10 },
                 { playerIndex: 3, betSize: 10 },
                 { playerIndex: 4, betSize: 15 },
-                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 0, betSize: 7 },
                 { playerIndex: 2, betSize: 15 },
                 { playerIndex: 3, betSize: 22 },
-                { playerIndex: 4, betSize: 0 },
+                { playerIndex: 4, betSize: 15 },
                 { playerIndex: 2, betSize: 30 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 22 }
               ]
             }
           })
@@ -118,7 +117,7 @@ describe("calculateFinalPot(gameSituation)", () => {
     });
 
     describe("when the game ended at flop", () => {
-      test("players have only one action in the street", () => {
+      test("and players have only one action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -153,7 +152,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(6);
       });
 
-      test("one player has one action and other have two in the street", () => {
+      test("and one player has one action and other have two in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -177,9 +176,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 2 },
                 { playerIndex: 2, betSize: 2 },
                 { playerIndex: 3, betSize: 4 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 0, betSize: 2 },
+                { playerIndex: 1, betSize: 2 },
+                { playerIndex: 2, betSize: 2 }
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
@@ -191,7 +190,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(14);
       });
 
-      test("some players have second action and some other players have third action in the street", () => {
+      test("and some players have second action and some other players have third action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -219,9 +218,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 4 },
                 { playerIndex: 2, betSize: 4 },
                 { playerIndex: 3, betSize: 8 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 0, betSize: 4 },
+                { playerIndex: 1, betSize: 4 },
+                { playerIndex: 2, betSize: 4 }
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
@@ -233,7 +232,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(24);
       });
 
-      test("players have different action number in the street", () => {
+      test("and players have different action number in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -264,9 +263,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 8 },
                 { playerIndex: 3, betSize: 8 },
                 { playerIndex: 1, betSize: 14 },
-                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 2, betSize: 8 },
                 { playerIndex: 3, betSize: 20 },
-                { playerIndex: 1, betSize: 0 }
+                { playerIndex: 1, betSize: 14 }
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
@@ -280,7 +279,7 @@ describe("calculateFinalPot(gameSituation)", () => {
     });
 
     describe("when the game ended at turn", () => {
-      test("players have only one action in the street", () => {
+      test("and players have only one action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -324,7 +323,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(5);
       });
 
-      test("one player has one action and other have two in the street", () => {
+      test("and one player has one action and other have two in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -361,9 +360,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 1 },
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 3 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 0, betSize: 1 },
+                { playerIndex: 1, betSize: 1 },
+                { playerIndex: 2, betSize: 1 }
               ],
               communityCard: { rank: Rank.four, suit: Suit.club }
             }
@@ -371,7 +370,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(10);
       });
 
-      test("some players have second action and some other players have third action in the street", () => {
+      test("and some players have second action and some other players have third action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -411,9 +410,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 0, betSize: 3 },
                 { playerIndex: 1, betSize: 3 },
                 { playerIndex: 2, betSize: 6 },
-                { playerIndex: 3, betSize: 0 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 }
+                { playerIndex: 3, betSize: 3 },
+                { playerIndex: 0, betSize: 3 },
+                { playerIndex: 1, betSize: 3 }
               ],
               communityCard: { rank: Rank.four, suit: Suit.club }
             }
@@ -421,7 +420,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(19);
       });
 
-      test("players have different action number in the street", () => {
+      test("and players have different action number in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -465,19 +464,18 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 4, betSize: 4 },
                 { playerIndex: 5, betSize: 4 },
                 { playerIndex: 0, betSize: 6 },
-                { playerIndex: 2, betSize: 0 },
+                { playerIndex: 2, betSize: 2 },
                 { playerIndex: 3, betSize: 6 },
                 { playerIndex: 4, betSize: 6 },
                 { playerIndex: 5, betSize: 10 },
-                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 0, betSize: 6 },
                 { playerIndex: 3, betSize: 10 },
                 { playerIndex: 4, betSize: 16 },
                 { playerIndex: 5, betSize: 16 },
                 { playerIndex: 3, betSize: 24 },
                 { playerIndex: 4, betSize: 34 },
-                { playerIndex: 5, betSize: 0 },
-
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 5, betSize: 16 },
+                { playerIndex: 3, betSize: 24 }
               ],
               communityCard: { rank: Rank.four, suit: Suit.club }
             }
@@ -487,7 +485,7 @@ describe("calculateFinalPot(gameSituation)", () => {
     });
 
     describe("when the game ended at river", () => {
-      test("players have only one action in the street", () => {
+      test("and players have only one action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -536,7 +534,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(23);
       });
 
-      test("one player has one action and other have two in the street", () => {
+      test("and one player has one action and other have two in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -578,8 +576,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 0, betSize: 5 },
                 { playerIndex: 1, betSize: 5 },
                 { playerIndex: 2, betSize: 15 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 }
+                { playerIndex: 0, betSize: 5 },
+                { playerIndex: 1, betSize: 5 }
               ],
               communityCard: { rank: Rank.five, suit: Suit.club }
             }
@@ -587,7 +585,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(28);
       });
 
-      test("some players have second action and some other players have third action in the street", () => {
+      test("and some players have second action and some other players have third action in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -666,15 +664,15 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 6, betSize: 20 },
                 { playerIndex: 7, betSize: 20 },
                 { playerIndex: 8, betSize: 100 },
-                { playerIndex: 9, betSize: 0 },
-                { playerIndex: 0, betSize: 0 },
-                { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 },
-                { playerIndex: 4, betSize: 0 },
-                { playerIndex: 5, betSize: 0 },
-                { playerIndex: 6, betSize: 0 },
-                { playerIndex: 7, betSize: 0 }
+                { playerIndex: 9, betSize: 20 },
+                { playerIndex: 0, betSize: 20 },
+                { playerIndex: 1, betSize: 20 },
+                { playerIndex: 2, betSize: 20 },
+                { playerIndex: 3, betSize: 20 },
+                { playerIndex: 4, betSize: 20 },
+                { playerIndex: 5, betSize: 20 },
+                { playerIndex: 6, betSize: 20 },
+                { playerIndex: 7, betSize: 20 }
               ],
               communityCard: { rank: Rank.five, suit: Suit.club }
             }
@@ -682,7 +680,7 @@ describe("calculateFinalPot(gameSituation)", () => {
         ).toBe(440);
       });
 
-      test("players have different action number in the street", () => {
+      test("and players have different action number in the street", () => {
         expect(
           calculateFinalPot({
             type: GameType.cash,
@@ -737,9 +735,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 12 },
                 { playerIndex: 3, betSize: 12 },
                 { playerIndex: 4, betSize: 20 },
-                { playerIndex: 0, betSize: 0 },
+                { playerIndex: 0, betSize: 6 },
                 { playerIndex: 2, betSize: 20 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 12 }
               ],
               communityCard: { rank: Rank.five, suit: Suit.club }
             }

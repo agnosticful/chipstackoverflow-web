@@ -4,27 +4,27 @@ export default function calculateFinalPot(
   gameSituation: GameSituation
 ): number {
   const preflopPot: number[] = new Array(gameSituation.playerLength).fill(0);
-  gameSituation.preflop.actions.forEach(({ playerIndex, betSize }) => {
-    if (betSize !== 0) preflopPot[playerIndex] = betSize;
-  });
+  for (const { playerIndex, betSize } of gameSituation.preflop.actions) {
+    preflopPot[playerIndex] = betSize;
+  }
 
   const flopPot: number[] = new Array(gameSituation.playerLength).fill(0);
   if (gameSituation.flop)
-    gameSituation.flop.actions.forEach(({ playerIndex, betSize }) => {
-      if (betSize !== 0) flopPot[playerIndex] = betSize;
-    });
+    for (const { playerIndex, betSize } of gameSituation.flop.actions) {
+      flopPot[playerIndex] = betSize;
+    }
 
   const turnPot: number[] = new Array(gameSituation.playerLength).fill(0);
   if (gameSituation.turn)
-    gameSituation.turn.actions.forEach(({ playerIndex, betSize }) => {
-      if (betSize !== 0) turnPot[playerIndex] = betSize;
-    });
+    for (const { playerIndex, betSize } of gameSituation.turn.actions) {
+      turnPot[playerIndex] = betSize;
+    }
 
   const riverPot: number[] = new Array(gameSituation.playerLength).fill(0);
   if (gameSituation.river)
-    gameSituation.river.actions.forEach(({ playerIndex, betSize }) => {
-      if (betSize !== 0) riverPot[playerIndex] = betSize;
-    });
+    for (const { playerIndex, betSize } of gameSituation.river.actions) {
+      riverPot[playerIndex] = betSize;
+    }
 
   return (
     gameSituation.antiSize * gameSituation.playerLength +
