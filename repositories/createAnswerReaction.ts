@@ -17,7 +17,7 @@ export function createCreateAnswerReaction({
   return async ({ answer, reactionType, user }) => {
     await firebaseApp
       .firestore()
-      .collection("post")
+      .collection("posts")
       .doc(answer.post)
       .collection("answers")
       .doc(answer.id)
@@ -26,7 +26,7 @@ export function createCreateAnswerReaction({
       .set({
         answer: firebaseApp
           .firestore()
-          .collection("post")
+          .collection("posts")
           .doc(answer.post)
           .collection("answers")
           .doc(answer.id),
