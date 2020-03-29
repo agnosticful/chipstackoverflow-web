@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
-// import calculateFinalPot from '../../utilities/calculateFinalPot';
+import calculateFinalPot from "../../utilities/calculateFinalPot";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
 import {
   getRelativeDateString,
@@ -83,8 +83,9 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
         <Attribute>
           <h5>Final Pod</h5>
-          {/* <span>{`${getSIMetricPrefixData(calculateFinalPot(post.gameSituation))} BB`}</span> */}
-          <span>{`${getStringWithSIMetricSuffix(1000)} BB`}</span>
+          <span>{`${getStringWithSIMetricSuffix(
+            calculateFinalPot(post.gameSituation)
+          )} BB`}</span>
         </Attribute>
 
         <Attribute>
