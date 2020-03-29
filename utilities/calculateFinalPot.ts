@@ -12,23 +12,26 @@ export default function calculateFinalPot(
   const lastPlayerBetSizesOnFlopPot: number[] = new Array(
     gameSituation.playerLength
   ).fill(0);
-  if (gameSituation.flop)
+  if (gameSituation.flop) {
     for (const { playerIndex, betSize } of gameSituation.flop.actions)
       lastPlayerBetSizesOnFlopPot[playerIndex] = betSize;
+  }
 
   const lastPlayerBetSizesOnTurnPot: number[] = new Array(
     gameSituation.playerLength
   ).fill(0);
-  if (gameSituation.turn)
+  if (gameSituation.turn) {
     for (const { playerIndex, betSize } of gameSituation.turn.actions)
       lastPlayerBetSizesOnTurnPot[playerIndex] = betSize;
+  }
 
   const lastPlayerBetSizesOnRiverPot: number[] = new Array(
     gameSituation.playerLength
   ).fill(0);
-  if (gameSituation.river)
+  if (gameSituation.river) {
     for (const { playerIndex, betSize } of gameSituation.river.actions)
       lastPlayerBetSizesOnRiverPot[playerIndex] = betSize;
+  }
 
   return (
     gameSituation.antiSize * gameSituation.playerLength +
