@@ -24,11 +24,18 @@ interface Props extends React.Attributes {
 export default function PostCardListItem({ post, ...props }: Props) {
   const postType = React.useContext(PostTypeContext);
 
+  const endedAt = React.useMemo(() => {
+    if (post.gameSituation.river) return "RIVER";
+    else if (post.gameSituation.turn) return "TURN";
+    else if (post.gameSituation.flop) return "FLOP";
+    else return "PREFLOP";
+  }, [post.gameSituation]);
+
   return (
     <Root {...props}>
       <HeroHand>
-        <HeroHandBackGround />
-        <HandCard
+        <HeroHandBackground />
+        <HeroCard
           suit={
             post.gameSituation.playerCards[post.gameSituation.heroIndex]!.left
               .suit
@@ -38,7 +45,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
               .rank
           }
         />
-        <HandCard
+        <HeroCard
           suit={
             post.gameSituation.playerCards[post.gameSituation.heroIndex]!.right
               .suit
@@ -52,14 +59,16 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
       <PostTitle>{post.title}</PostTitle>
 
-      <Likes>
-        <ThumbsUpIcon />
-        {post.likes}
-      </Likes>
-
       <Attributes>
         <Attribute>
-          <h5>Play at</h5>
+          <Likes>
+            <ThumbsUpIcon />
+            {post.likes}
+          </Likes>
+        </Attribute>
+
+        <Attribute>
+          <span>Play at</span>
           <span>
             {getPositionByPlayerAndIndex(
               post.gameSituation.playerLength,
@@ -69,39 +78,30 @@ export default function PostCardListItem({ post, ...props }: Props) {
         </Attribute>
 
         <Attribute>
-          <h5>Ended at</h5>
-          <span>
-            {post.gameSituation.river
-              ? "RIVER"
-              : post.gameSituation.turn
-              ? "TURN"
-              : post.gameSituation.flop
-              ? "FLOP"
-              : "PREFLOP"}
-          </span>
+          <span>Ended at</span>
+          <span>{endedAt}</span>
         </Attribute>
 
         <Attribute>
-          <h5>Final Pod</h5>
+          <span>Final Pot</span>
           <span>{`${getStringWithSIMetricSuffix(
             calculateFinalPot(post.gameSituation)
           )} BB`}</span>
         </Attribute>
 
         <Attribute>
-          <h5>{postType === PostType.recent ? "Posted" : "Last Update"}</h5>
+          <span>{postType === PostType.recent ? "Posted" : "Last Update"}</span>
           <span>
             <DateUnit>
               {postType === PostType.recent
-                ? getRelativeDateString(post.createdAt)
-                : getRelativeDateString(post.lastUpdatedAt)}
+                ? `${getRelativeDateString(post.createdAt)} ago`
+                : `${getRelativeDateString(post.lastUpdatedAt)} ago`}
             </DateUnit>
             <DateUnitInMobile>
               {postType === PostType.recent
-                ? getRelativeShortDateString(post.createdAt)
-                : getRelativeShortDateString(post.lastUpdatedAt)}
+                ? `${getRelativeShortDateString(post.createdAt)} ago`
+                : `${getRelativeShortDateString(post.lastUpdatedAt)}} ago`}
             </DateUnitInMobile>
-            &nbsp;ago
           </span>
         </Attribute>
       </Attributes>
@@ -114,7 +114,7 @@ const Root = styled(Card)`
   grid-template-columns: minmax(15%, 100px) 1fr;
   grid-template-areas:
     "playing-cards title"
-    "likes attributes";
+    "attributes attributes";
   grid-gap: 8px;
 `;
 
@@ -122,25 +122,29 @@ const HeroHand = styled.div`
   grid-area: playing-cards;
   position: relative;
   width: 100%;
-  border-radius: 4px 0 4px 0;
 
   &: before {
     content: "";
     display: block;
     padding-top: 100%;
     background-color: #f5f6f7;
+    border-radius: 4px 0 4px 0;
   }
 `;
 
-const HeroHandBackGround = styled.div`
+const HeroHandBackground = styled.div`
   padding-top: 8px;
   position: absolute;
 `;
 
-const HandCard = styled(PlayingCard)`
+const HeroCard = styled(PlayingCard)`
   position: absolute;
   width: 40%;
   top: 15%;
+
+  & div {
+    background-color: white;
+  }
 
   &:first-of-type {
     left 16%;
@@ -165,9 +169,7 @@ const PostTitle = styled.h2`
 `;
 
 const Likes = styled.div`
-  grid-area: likes;
   display: flex;
-  margin: 0 0 8px 8px;
   justify-content: center;
   align-items: center;
 
@@ -181,32 +183,25 @@ const Attributes = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 0 8px 8px 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #595959;
+
+  ${MOBILE_MEDIA} {
+    font-size: 12px;
+  }
 `;
 
 const Attribute = styled.div`
-  & > h5 {
+  & > span:first-child {
+    diplay: block;
     margin: 0 0 4px 0;
-    font-size: 14px;
-    color: #595959;
-    font-weight: normal;
   }
 
-  & > span {
+  & > span:last-child {
+    display: block;
     margin: 0;
-    font-size: 14px;
-    color: #595959;
-    font-weight: normal;
-  }
-
-  ${MOBILE_MEDIA} {
-    & > h5 {
-      font-size: 12px;
-    }
-
-    & > span {
-      font-size: 12px;
-    }
   }
 `;
 
