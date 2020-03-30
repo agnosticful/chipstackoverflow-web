@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import { select } from "@storybook/addon-knobs";
+import { boolean } from "@storybook/addon-knobs";
 import * as React from "react";
 import GameSituation, { GameType } from "../../models/GameSituation";
 import { Suit, Rank } from "../../models/PlayingCard";
@@ -7,7 +7,6 @@ import Post, { PostId, PostTitle, PostBody } from "../../models/Post";
 import { UserId } from "../../models/User";
 import PostCardList from "./PostCardList";
 import PostCardListItem from "./PostCardListItem";
-import { PostType } from "./PostTypeContext";
 
 export default {
   title: "PostCardList",
@@ -17,7 +16,7 @@ export default {
 
 export const example = () => {
   return (
-    <PostCardList postType={select("postType", POST_TYPES, PostType.recent)}>
+    <PostCardList showLastUpdate={boolean("showLastUpdate", false)}>
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
@@ -29,26 +28,21 @@ export const example = () => {
 };
 
 export const postCardListItem = () => (
-  <PostCardList postType={select("postType", POST_TYPES, PostType.recent)}>
+  <PostCardList showLastUpdate={boolean("showLastUpdate", false)}>
     <PostCardListItem post={post} onClick={action("onClick")} />
   </PostCardList>
 );
 
-export const postType = () => (
+export const showLastUpdate = () => (
   <>
-    <PostCardList postType={PostType.recent}>
+    <PostCardList>
       <PostCardListItem post={post} onClick={action("onClick")} />
     </PostCardList>
-    <PostCardList postType={PostType.popular}>
+    <PostCardList showLastUpdate>
       <PostCardListItem post={post} onClick={action("onClick")} />
     </PostCardList>
   </>
 );
-
-const POST_TYPES = {
-  "PostType.recent": PostType.recent,
-  "PostType.popular": PostType.popular
-};
 
 const post: Post = {
   id: "rgaergba" as PostId,

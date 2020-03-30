@@ -1,24 +1,21 @@
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import PostTypeContext, { PostType } from "./PostTypeContext";
+import ShowLastUpdateContext from "./ShowLastUpdateContext";
 
 interface Props extends React.Attributes {
-  postType?: PostType;
+  showLastUpdate?: boolean;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
-export default function PostCardList({
-  postType = PostType.recent,
-  children
-}: Props) {
+export default function PostCardList({ showLastUpdate, children }: Props) {
   return (
     <Root>
-      <PostTypeContext.Provider value={postType}>
+      <ShowLastUpdateContext.Provider value={showLastUpdate ? true : false}>
         {children}
-      </PostTypeContext.Provider>
+      </ShowLastUpdateContext.Provider>
     </Root>
   );
 }

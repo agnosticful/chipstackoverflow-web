@@ -12,7 +12,7 @@ import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSu
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
 import PlayingCard from "../PlayingCard";
-import PostTypeContext, { PostType } from "./PostTypeContext";
+import ShowLastUpdateContext from "./ShowLastUpdateContext";
 
 interface Props extends React.Attributes {
   post: Post;
@@ -22,9 +22,9 @@ interface Props extends React.Attributes {
 }
 
 export default function PostCardListItem({ post, ...props }: Props) {
-  const postType = React.useContext(PostTypeContext);
+  const showLastUpdate = React.useContext(ShowLastUpdateContext);
 
-  const endedAt = React.useMemo(() => {
+  const gameEndedAt = React.useMemo(() => {
     if (post.gameSituation.river) return "RIVER";
     else if (post.gameSituation.turn) return "TURN";
     else if (post.gameSituation.flop) return "FLOP";
@@ -79,7 +79,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
         <Attribute>
           <span>Ended at</span>
-          <span>{endedAt}</span>
+          <span>{gameEndedAt}</span>
         </Attribute>
 
         <Attribute>
@@ -90,17 +90,17 @@ export default function PostCardListItem({ post, ...props }: Props) {
         </Attribute>
 
         <Attribute>
-          <span>{postType === PostType.recent ? "Posted" : "Last Update"}</span>
+          <span>{showLastUpdate ? "Last Update" : "Posted"}</span>
           <span>
             <DateUnit>
-              {postType === PostType.recent
-                ? `${getRelativeDateString(post.createdAt)} ago`
-                : `${getRelativeDateString(post.lastUpdatedAt)} ago`}
+              {showLastUpdate
+                ? `${getRelativeDateString(post.lastUpdatedAt)} ago`
+                : `${getRelativeDateString(post.createdAt)} ago`}
             </DateUnit>
             <DateUnitInMobile>
-              {postType === PostType.recent
-                ? `${getRelativeShortDateString(post.createdAt)} ago`
-                : `${getRelativeShortDateString(post.lastUpdatedAt)}} ago`}
+              {showLastUpdate
+                ? `${getRelativeShortDateString(post.lastUpdatedAt)} ago`
+                : `${getRelativeShortDateString(post.createdAt)} ago`}
             </DateUnitInMobile>
           </span>
         </Attribute>
@@ -115,7 +115,7 @@ const Root = styled(Card)`
   grid-template-areas:
     "playing-cards title"
     "attributes attributes";
-  grid-gap: 8px;
+  grid-gap: 12px;
 `;
 
 const HeroHand = styled.div`
@@ -143,7 +143,7 @@ const HeroCard = styled(PlayingCard)`
   top: 15%;
 
   & div {
-    background-color: white;
+    background-color: #fff;
   }
 
   &:first-of-type {
@@ -160,6 +160,7 @@ const HeroCard = styled(PlayingCard)`
 const PostTitle = styled.h2`
   grid-area: title;
   font-size: 1.3em;
+  font-color: #293845;
   margin: 8px 8px 0 0;
   line-height: 1.5;
   display: -webkit-box;
@@ -194,14 +195,12 @@ const Attributes = styled.div`
 `;
 
 const Attribute = styled.div`
-  & > span:first-child {
-    diplay: block;
-    margin: 0 0 4px 0;
+  & > span {
+    display: block;
   }
 
-  & > span:last-child {
-    display: block;
-    margin: 0;
+  & > span:first-child {
+    margin-bottom: 4px;
   }
 `;
 
