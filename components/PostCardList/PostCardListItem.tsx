@@ -12,7 +12,7 @@ import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSu
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
 import PlayingCard from "../PlayingCard";
-import ShowLastUpdateContext from "./ShowLastUpdateContext";
+import ShowLastUpdateDateContext from "./ShowLastUpdateDateContext";
 
 interface Props extends React.Attributes {
   post: Post;
@@ -22,13 +22,14 @@ interface Props extends React.Attributes {
 }
 
 export default function PostCardListItem({ post, ...props }: Props) {
-  const showLastUpdate = React.useContext(ShowLastUpdateContext);
+  const ShowLastUpdateDate = React.useContext(ShowLastUpdateDateContext);
 
   const gameEndedAt = React.useMemo(() => {
     if (post.gameSituation.river) return "RIVER";
-    else if (post.gameSituation.turn) return "TURN";
-    else if (post.gameSituation.flop) return "FLOP";
-    else return "PREFLOP";
+    if (post.gameSituation.turn) return "TURN";
+    if (post.gameSituation.flop) return "FLOP";
+
+    return "PREFLOP";
   }, [post.gameSituation]);
 
   return (
@@ -90,15 +91,15 @@ export default function PostCardListItem({ post, ...props }: Props) {
         </Attribute>
 
         <Attribute>
-          <span>{showLastUpdate ? "Last Update" : "Posted"}</span>
+          <span>{ShowLastUpdateDate ? "Last Update" : "Posted"}</span>
           <span>
             <DateUnit>
-              {showLastUpdate
+              {ShowLastUpdateDate
                 ? `${getRelativeDateString(post.lastUpdatedAt)} ago`
                 : `${getRelativeDateString(post.createdAt)} ago`}
             </DateUnit>
             <DateUnitInMobile>
-              {showLastUpdate
+              {ShowLastUpdateDate
                 ? `${getRelativeShortDateString(post.lastUpdatedAt)} ago`
                 : `${getRelativeShortDateString(post.createdAt)} ago`}
             </DateUnitInMobile>
@@ -160,7 +161,7 @@ const HeroCard = styled(PlayingCard)`
 const PostTitle = styled.h2`
   grid-area: title;
   font-size: 1.3em;
-  font-color: #293845;
+  color: #0f151c;
   margin: 8px 8px 0 0;
   line-height: 1.5;
   display: -webkit-box;

@@ -16,7 +16,7 @@ export default {
 
 export const example = () => {
   return (
-    <PostCardList showLastUpdate={boolean("showLastUpdate", false)}>
+    <PostCardList showLastUpdateDate={boolean("showLastUpdate", false)}>
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
@@ -27,18 +27,14 @@ export const example = () => {
   );
 };
 
-export const postCardListItem = () => (
-  <PostCardList showLastUpdate={boolean("showLastUpdate", false)}>
-    <PostCardListItem post={post} onClick={action("onClick")} />
-  </PostCardList>
-);
-
-export const showLastUpdate = () => (
+export const showLastUpdateDate = () => (
   <>
-    <PostCardList>
+    <PostCardList showLastUpdateDate>
       <PostCardListItem post={post} onClick={action("onClick")} />
-    </PostCardList>
-    <PostCardList showLastUpdate>
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
+      <PostCardListItem post={post} onClick={action("onClick")} />
       <PostCardListItem post={post} onClick={action("onClick")} />
     </PostCardList>
   </>
