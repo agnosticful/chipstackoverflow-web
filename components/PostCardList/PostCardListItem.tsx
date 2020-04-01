@@ -93,16 +93,16 @@ export default function PostCardListItem({ post, ...props }: Props) {
         <Attribute>
           <span>{ShowLastUpdateDate ? "Last Update" : "Posted"}</span>
           <span>
-            <DateUnit>
+            <RelativeDate>
               {ShowLastUpdateDate
                 ? `${getRelativeDateString(post.lastUpdatedAt)} ago`
                 : `${getRelativeDateString(post.createdAt)} ago`}
-            </DateUnit>
-            <DateUnitInMobile>
+            </RelativeDate>
+            <RelativeDateInMobile>
               {ShowLastUpdateDate
                 ? `${getRelativeShortDateString(post.lastUpdatedAt)} ago`
                 : `${getRelativeShortDateString(post.createdAt)} ago`}
-            </DateUnitInMobile>
+            </RelativeDateInMobile>
           </span>
         </Attribute>
       </Attributes>
@@ -205,18 +205,18 @@ const Attribute = styled.div`
   }
 `;
 
-const DateUnitInMobile = styled.span`
-  display: none;
-
-  ${MOBILE_MEDIA} {
-    display: inline;
-  }
-`;
-
-const DateUnit = styled.span`
+const RelativeDate = styled.span`
   display: inline;
 
   ${MOBILE_MEDIA} {
     display: none;
+  }
+`;
+
+const RelativeDateInMobile = styled.span`
+  display: none;
+
+  ${MOBILE_MEDIA} {
+    display: inline;
   }
 `;
