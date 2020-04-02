@@ -10,7 +10,9 @@ import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
 import "../global.css";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
+import { createCreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { createCreatePost } from "../repositories/createPost";
+import { createDeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
 import { createLogEvent } from "../repositories/logEvent";
@@ -27,7 +29,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
   const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
+      createAnswerReaction: createCreateAnswerReaction({ firebaseApp }),
       createPost: createCreatePost({ firebaseApp }),
+      deleteAnswerReaction: createDeleteAnswerReaction({ firebaseApp }),
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
       logEvent: createLogEvent({ firebaseApp }),
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({

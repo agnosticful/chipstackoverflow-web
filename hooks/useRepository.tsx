@@ -1,5 +1,7 @@
 import * as React from "react";
+import { CreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { CreatePost } from "../repositories/createPost";
+import { DeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
 import { GetUserById } from "../repositories/getUserById";
 import { LogEvent } from "../repositories/logEvent";
@@ -12,7 +14,9 @@ import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { SubscribeUserById } from "../repositories/subscribeUserById";
 
 export interface Repository {
+  createAnswerReaction: CreateAnswerReaction;
   createPost: CreatePost;
+  deleteAnswerReaction: DeleteAnswerReaction;
   getRecentPosts: GetRecentPosts;
   getUserById: GetUserById;
   logEvent: LogEvent;
