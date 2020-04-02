@@ -4,6 +4,20 @@ import {
 } from "./getRelativeDateString";
 
 describe("getRelativeDateString()", () => {
+  const RealDate = Date;
+
+  beforeEach(() => {
+    global.Date = class extends Date {
+      constructor() {
+        super(2020, 8, 15, 12, 10, 1);
+      }
+    } as any;
+  });
+
+  afterEach(() => {
+    global.Date = RealDate;
+  });
+
   it("returns 1 year", () => {
     const now = new Date();
     now.setFullYear(now.getFullYear() - 1);
