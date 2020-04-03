@@ -5,10 +5,6 @@ import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import calculateFinalPot from "../../utilities/calculateFinalPot";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
-import {
-  getRelativeDateString,
-  getRelativeShortDateString
-} from "../../utilities/getRelativeDateString";
 import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSuffix";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
