@@ -4,7 +4,7 @@ import {
 } from "./getRelativeDateString";
 
 describe("getRelativeDateString()", () => {
-  const RealDate = Date;
+  const OriginalDate = Date;
 
   beforeEach(() => {
     global.Date = class extends Date {
@@ -15,7 +15,7 @@ describe("getRelativeDateString()", () => {
   });
 
   afterEach(() => {
-    global.Date = RealDate;
+    global.Date = OriginalDate;
   });
 
   it("returns 1 year", () => {
