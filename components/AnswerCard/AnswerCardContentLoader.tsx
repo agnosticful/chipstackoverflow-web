@@ -5,13 +5,12 @@ import ContentLoader from "react-content-loader";
 export interface Props extends React.Attributes {
   className?: string;
   style?: React.CSSProperties;
-  children?: React.ReactNode;
 }
 
 /**
  * A part of `<AnswerCard>` that shows loading placeholder as answers or comments
  */
-export default function AnswerCardContentLoader({ children, ...props }: Props) {
+export default function AnswerCardContentLoader({ ...props }: Props) {
   return (
     <Root {...props}>
       <UserAvatar />
