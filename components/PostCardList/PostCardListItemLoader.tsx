@@ -1,7 +1,7 @@
-import * as React from 'react';
-import ContentLoader from 'react-content-loader';
-import styled from 'styled-components';
-import Card from '../Card';
+import * as React from "react";
+import ContentLoader from "react-content-loader";
+import styled from "styled-components";
+import Card from "../Card";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -44,7 +44,9 @@ const Loader = styled(ContentLoader)`
   --attribute-height: 12px;
   --attribute-width: 15%;
   width: 100%;
-  height: calc(var(--hero-hand-diameter) + 8px + var(--attribute-height) * 2 + 4px + 8px);
+  height: calc(
+    var(--hero-hand-diameter) + 8px + var(--attribute-height) * 2 + 4px + 8px
+  );
 `;
 
 const HeroHand = styled.rect`

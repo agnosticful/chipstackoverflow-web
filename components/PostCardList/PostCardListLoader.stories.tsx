@@ -1,9 +1,9 @@
-import * as React from 'react';
-import PostCardList from './PostCardList';
-import PostCardListItemLoader from './PostCardListItemLoader';
+import * as React from "react";
+import PostCardList from "./PostCardList";
+import PostCardListItemLoader from "./PostCardListItemLoader";
 
 export default {
-  title: 'PostCardList/PostCardListLoader',
+  title: "PostCardList/PostCardListLoader",
   component: PostCardListItemLoader
 };
 
