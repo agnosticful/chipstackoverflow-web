@@ -1,5 +1,5 @@
-import * as React from "react";
 import styled from "styled-components";
+import * as React from "react";
 import ContentLoader from "react-content-loader";
 
 export interface Props extends React.Attributes {
