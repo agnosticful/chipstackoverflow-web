@@ -1,10 +1,13 @@
-import { formatDistanceStrict } from "date-fns";
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import calculateFinalPot from "../../utilities/calculateFinalPot";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
+import {
+  getRelativeDateString,
+  getRelativeShortDateString
+} from "../../utilities/getRelativeDateString";
 import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSuffix";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
@@ -20,8 +23,6 @@ interface Props extends React.Attributes {
 
 export default function PostCardListItem({ post, ...props }: Props) {
   const ShowLastUpdateDate = React.useContext(ShowLastUpdateDateContext);
-
-  const now = new Date();
 
   const gameEndedAt = React.useMemo(() => {
     if (post.gameSituation.river) return "RIVER";
@@ -92,9 +93,16 @@ export default function PostCardListItem({ post, ...props }: Props) {
         <Attribute>
           <span>{ShowLastUpdateDate ? "Last Update" : "Posted"}</span>
           <span>
-            {ShowLastUpdateDate
-              ? `${formatDistanceStrict(post.lastUpdatedAt, now)} ago`
-              : `${formatDistanceStrict(post.createdAt, now)} ago`}
+            <RelativeDate>
+              {ShowLastUpdateDate
+                ? `${getRelativeDateString(post.lastUpdatedAt)} ago`
+                : `${getRelativeDateString(post.createdAt)} ago`}
+            </RelativeDate>
+            <RelativeDateInMobile>
+              {ShowLastUpdateDate
+                ? `${getRelativeShortDateString(post.lastUpdatedAt)} ago`
+                : `${getRelativeShortDateString(post.createdAt)} ago`}
+            </RelativeDateInMobile>
           </span>
         </Attribute>
       </Attributes>
@@ -194,5 +202,21 @@ const Attribute = styled.div`
 
   & > span:first-child {
     margin-bottom: 4px;
+  }
+`;
+
+const RelativeDate = styled.span`
+  display: inline;
+
+  ${MOBILE_MEDIA} {
+    display: none;
+  }
+`;
+
+const RelativeDateInMobile = styled.span`
+  display: none;
+
+  ${MOBILE_MEDIA} {
+    display: inline;
   }
 `;

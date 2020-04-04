@@ -105,6 +105,6 @@ const post: Post = {
       ]
     }
   } as unknown) as GameSituation,
-  createdAt: new Date(),
-  lastUpdatedAt: new Date()
+  createdAt: new Date(2020, 2, 4, 12, 15, 43, 100),
+  lastUpdatedAt: new Date(2020, 2, 4, 12, 15, 43, 100)
 };
