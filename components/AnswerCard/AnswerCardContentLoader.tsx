@@ -40,9 +40,6 @@ const Root = styled(ContentLoader)`
   --margin-right-of-avatar: 16px;
   --body-height: 16px;
   --body-line-height: calc(16px * 1.333);
-  --body-vertical-padding: calc(
-    (var(--body-line-height) - var(--body-height)) / 2
-  );
   --reaction-icon-size: 24px;
   width: 100%;
   height: calc(
