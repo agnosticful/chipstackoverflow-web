@@ -38,14 +38,14 @@ export default function PostCardListItemLoader({ ...props }: Props) {
 const Loader = styled(ContentLoader)`
   --hero-hand-diameter: 96px;
   --margin-right-of-hero-hand: 16px;
-  --title-height: 16px;
-  --title-line-height: calc(16px * 1.5);
+  --title-height: 18px;
+  --title-line-height: calc(var(--title-height) * 1.6);
   --like-icon-size: 24px;
-  --attribute-height: 12px;
+  --attribute-height: 14px;
   --attribute-width: 15%;
   width: 100%;
   height: calc(
-    var(--hero-hand-diameter) + 8px + var(--attribute-height) * 2 + 4px + 8px
+    var(--hero-hand-diameter) + 16px + var(--attribute-height) * 2 + 6px + 6px
   );
 `;
 
@@ -60,7 +60,7 @@ const HeroHand = styled.rect`
 
 const TitleFirstLine = styled.rect`
   x: calc(var(--hero-hand-diameter) + var(--margin-right-of-hero-hand));
-  y: var(--title-height);
+  y: 16px;
   rx: 4px;
   ry: 4px;
   width: 65%;
@@ -69,7 +69,7 @@ const TitleFirstLine = styled.rect`
 
 const TitleSecondLine = styled.rect`
   x: calc(var(--hero-hand-diameter) + var(--margin-right-of-hero-hand));
-  y: calc(var(--title-height) + var(--title-line-height));
+  y: calc(16px + var(--title-line-height));
   rx: 4px;
   ry: 4px;
   width: 55%;
@@ -78,7 +78,7 @@ const TitleSecondLine = styled.rect`
 
 const TitleThirdLine = styled.rect`
   x: calc(var(--hero-hand-diameter) + var(--margin-right-of-hero-hand));
-  y: calc(var(--title-height) + var(--title-line-height) * 2);
+  y: calc(16px + var(--title-line-height) * 2);
   rx: 4px;
   ry: 4px;
   width: 60%;
@@ -87,7 +87,7 @@ const TitleThirdLine = styled.rect`
 
 const LikeIcon = styled.rect`
   x: 4%;
-  y: calc(var(--hero-hand-diameter) + 10px);
+  y: calc(var(--hero-hand-diameter) + 16px);
   rx: 2px;
   ry: 2px;
   width: var(--like-icon-size);
@@ -96,7 +96,7 @@ const LikeIcon = styled.rect`
 
 const LikeNumber = styled.rect`
   x: calc(4% + var(--like-icon-size) + 4px);
-  y: calc(var(--hero-hand-diameter) + 10px + 4px);
+  y: calc(var(--hero-hand-diameter) + 16px + 4px);
   rx: 2px;
   ry: 2px;
   width: 24px;
@@ -105,7 +105,7 @@ const LikeNumber = styled.rect`
 
 const PlayAtTitle = styled.rect`
   x: 22%;
-  y: calc(var(--hero-hand-diameter) + 8px);
+  y: calc(var(--hero-hand-diameter) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -114,7 +114,7 @@ const PlayAtTitle = styled.rect`
 
 const EndedAtTitle = styled.rect`
   x: 42%;
-  y: calc(var(--hero-hand-diameter) + 8px);
+  y: calc(var(--hero-hand-diameter) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -123,7 +123,7 @@ const EndedAtTitle = styled.rect`
 
 const FinalPotTitle = styled.rect`
   x: 62%;
-  y: calc(var(--hero-hand-diameter) + 8px);
+  y: calc(var(--hero-hand-diameter) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -132,7 +132,7 @@ const FinalPotTitle = styled.rect`
 
 const PostedTitle = styled.rect`
   x: 82%;
-  y: calc(var(--hero-hand-diameter) + 8px);
+  y: calc(var(--hero-hand-diameter) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -141,7 +141,7 @@ const PostedTitle = styled.rect`
 
 const PlayAtValue = styled.rect`
   x: 22%;
-  y: calc(var(--hero-hand-diameter) + 8px + 12px + 4px);
+  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -150,7 +150,7 @@ const PlayAtValue = styled.rect`
 
 const EndedAtValue = styled.rect`
   x: 42%;
-  y: calc(var(--hero-hand-diameter) + 8px + 12px + 4px);
+  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -159,7 +159,7 @@ const EndedAtValue = styled.rect`
 
 const FinalPotValue = styled.rect`
   x: 62%;
-  y: calc(var(--hero-hand-diameter) + 8px + 12px + 4px);
+  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -168,7 +168,7 @@ const FinalPotValue = styled.rect`
 
 const PostedValue = styled.rect`
   x: 82%;
-  y: calc(var(--hero-hand-diameter) + 8px + 12px + 4px);
+  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
