@@ -2,9 +2,12 @@ import * as React from "react";
 import styled from "styled-components";
 
 interface Props extends React.Attributes {
-  /** The bet size that the current aggressor made. */
+  /**
+   * The bet size that the current aggressor made.
+   * */
   tableMaxBetSize?: number;
-  /** The bet size that the same player already made.
+  /**
+   * The bet size that the same player already made.
    * If it's preflop and the player seats at BB, the value should be `1`.
    * `previousBetSize` must be less than or equal `tableMaxBetSize`.
    **/
