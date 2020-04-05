@@ -29,7 +29,6 @@ describe("<StreetActionSelector>", () => {
       <StreetActionSelector
         tableMaxBetSize={1}
         previousBetSize={1}
-        minBetSizeDiff={1}
         onChange={onChange}
       />
     );
@@ -45,7 +44,6 @@ describe("<StreetActionSelector>", () => {
         <StreetActionSelector
           tableMaxBetSize={1}
           previousBetSize={2}
-          minBetSizeDiff={1}
           onChange={onChange}
         />
       )
@@ -58,7 +56,6 @@ describe("<StreetActionSelector>", () => {
       <StreetActionSelector
         tableMaxBetSize={1}
         previousBetSize={0}
-        minBetSizeDiff={1}
         onChange={onChange}
       />
     );
@@ -76,7 +73,6 @@ describe("<StreetActionSelector>", () => {
         <StreetActionSelector
           tableMaxBetSize={3}
           previousBetSize={1}
-          minBetSizeDiff={2}
           onChange={onChange}
         />
       );
@@ -97,7 +93,6 @@ describe("<StreetActionSelector>", () => {
       <StreetActionSelector
         tableMaxBetSize={1}
         previousBetSize={0}
-        minBetSizeDiff={1}
         onChange={onChange}
       />
     );
@@ -115,7 +110,6 @@ describe("<StreetActionSelector>", () => {
         <StreetActionSelector
           tableMaxBetSize={3}
           previousBetSize={1}
-          minBetSizeDiff={2}
           onChange={onChange}
         />
       );
@@ -130,28 +124,20 @@ describe("<StreetActionSelector>", () => {
     expect(onChange).toHaveBeenNthCalledWith(2, 3);
   });
 
-  it("sets defaultValue at bet size input that is sum of props.tableMaxBetSize and props.minBetSizeDiff", async () => {
+  it("sets defaultValue at bet size input that is sum of props.tableMaxBetSize", async () => {
     const renderer = create(
-      <StreetActionSelector
-        tableMaxBetSize={1}
-        previousBetSize={0}
-        minBetSizeDiff={1}
-      />
+      <StreetActionSelector tableMaxBetSize={1} previousBetSize={0} />
     );
 
     let betSizeInput = renderer.root.find(
       node => node.props["data-test-id"] === "bet-size-input"
     );
 
-    expect(betSizeInput.props.defaultValue).toBe(2);
+    expect(betSizeInput.props.defaultValue).toBe(1);
 
     await act(async () => {
       renderer.update(
-        <StreetActionSelector
-          tableMaxBetSize={3}
-          previousBetSize={1}
-          minBetSizeDiff={2}
-        />
+        <StreetActionSelector tableMaxBetSize={3} previousBetSize={1} />
       );
     });
 
@@ -159,7 +145,7 @@ describe("<StreetActionSelector>", () => {
       node => node.props["data-test-id"] === "bet-size-input"
     );
 
-    expect(betSizeInput.props.defaultValue).toBe(5);
+    expect(betSizeInput.props.defaultValue).toBe(3);
   });
 
   it('calls onChange() with the bet size input\'s value when "Raise" button is clicked', async () => {
@@ -169,7 +155,6 @@ describe("<StreetActionSelector>", () => {
       <StreetActionSelector
         tableMaxBetSize={1}
         previousBetSize={0}
-        minBetSizeDiff={1}
         onChange={onChange}
       />,
       {
@@ -201,11 +186,7 @@ describe("<StreetActionSelector>", () => {
   it('sets a focus on bet size input when "Raise" button is clicked', async () => {
     const focus = jest.fn().mockName("focus");
     const renderer = create(
-      <StreetActionSelector
-        tableMaxBetSize={1}
-        previousBetSize={0}
-        minBetSizeDiff={1}
-      />,
+      <StreetActionSelector tableMaxBetSize={1} previousBetSize={0} />,
       {
         createNodeMock: element => {
           if (element.props["data-test-id"] === "bet-size-input") {
@@ -237,7 +218,6 @@ describe("<StreetActionSelector>", () => {
       <StreetActionSelector
         tableMaxBetSize={1}
         previousBetSize={0}
-        minBetSizeDiff={1}
         onChange={onChange}
       />
     );
@@ -255,7 +235,6 @@ describe("<StreetActionSelector>", () => {
         <StreetActionSelector
           tableMaxBetSize={3}
           previousBetSize={1}
-          minBetSizeDiff={2}
           onChange={onChange}
         />
       );

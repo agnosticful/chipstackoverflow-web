@@ -12,10 +12,6 @@ interface Props extends React.Attributes {
    * `previousBetSize` must be less than or equal `tableMaxBetSize`.
    **/
   previousBetSize?: number;
-  /** The next minimum raise size will be `tableMaxBetSize` + `minBetSizeDiff`.
-   * In general, `previousBetSize` is supposed to be `tableMaxBetSize` - previous `tableMaxBetSize`.
-   **/
-  minBetSizeDiff?: number;
   onChange?: (betSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -24,7 +20,6 @@ interface Props extends React.Attributes {
 export default function StreetActionSelector({
   tableMaxBetSize = 0,
   previousBetSize = 0,
-  minBetSizeDiff = 1,
   onChange = () => undefined,
   ...props
 }: Props) {
@@ -88,9 +83,9 @@ export default function StreetActionSelector({
 
         <BetSizeInput
           type="number"
-          min={tableMaxBetSize + minBetSizeDiff}
+          min={0}
           max={99999999}
-          defaultValue={tableMaxBetSize + minBetSizeDiff}
+          defaultValue={tableMaxBetSize}
           placeholder={`${tableMaxBetSize}`}
           tabIndex={action === StreetAction.betOrRaise ? 0 : -1}
           onChange={onBetSizeChange}
