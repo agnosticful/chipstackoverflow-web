@@ -26,9 +26,9 @@ exports[`<StreetActionSelector> matches with the previous snapshot (big blind in
     <styled.input
       active={false}
       data-test-id="bet-size-input"
-      defaultValue={2}
+      defaultValue={1}
       max={99999999}
-      min={2}
+      min={0}
       onChange={[Function]}
       placeholder="1"
       tabIndex={-1}
@@ -64,9 +64,9 @@ exports[`<StreetActionSelector> matches with the previous snapshot (someone rais
     <styled.input
       active={false}
       data-test-id="bet-size-input"
-      defaultValue={23.5}
+      defaultValue={22.5}
       max={99999999}
-      min={23.5}
+      min={0}
       onChange={[Function]}
       placeholder="22.5"
       tabIndex={-1}
@@ -102,9 +102,9 @@ exports[`<StreetActionSelector> matches with the previous snapshot 1`] = `
     <styled.input
       active={false}
       data-test-id="bet-size-input"
-      defaultValue={1}
+      defaultValue={0}
       max={99999999}
-      min={1}
+      min={0}
       onChange={[Function]}
       placeholder="0"
       tabIndex={-1}

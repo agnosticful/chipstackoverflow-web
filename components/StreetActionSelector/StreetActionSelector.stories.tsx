@@ -20,7 +20,6 @@ export const example = () => {
         min: 0,
         max: tableMaxBetSize
       })}
-      minBetSizeDiff={number("minBetSizeDiff", undefined as any, { min: 0 })}
       onChange={action("onChange")}
     />
   );
@@ -34,7 +33,6 @@ export const atBigBlind = () => (
   <StreetActionSelector
     tableMaxBetSize={1}
     previousBetSize={1}
-    minBetSizeDiff={1}
     onChange={action("onChange")}
   />
 );

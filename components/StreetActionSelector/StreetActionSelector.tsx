@@ -2,17 +2,16 @@ import * as React from "react";
 import styled from "styled-components";
 
 interface Props extends React.Attributes {
-  /** The bet size that the current aggressor made. */
+  /**
+   * The bet size that the current aggressor made.
+   * */
   tableMaxBetSize?: number;
-  /** The bet size that the same player already made.
+  /**
+   * The bet size that the same player already made.
    * If it's preflop and the player seats at BB, the value should be `1`.
    * `previousBetSize` must be less than or equal `tableMaxBetSize`.
    **/
   previousBetSize?: number;
-  /** The next minimum raise size will be `tableMaxBetSize` + `minBetSizeDiff`.
-   * In general, `previousBetSize` is supposed to be `tableMaxBetSize` - previous `tableMaxBetSize`.
-   **/
-  minBetSizeDiff?: number;
   onChange?: (betSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -21,7 +20,6 @@ interface Props extends React.Attributes {
 export default function StreetActionSelector({
   tableMaxBetSize = 0,
   previousBetSize = 0,
-  minBetSizeDiff = 1,
   onChange = () => undefined,
   ...props
 }: Props) {
@@ -85,9 +83,9 @@ export default function StreetActionSelector({
 
         <BetSizeInput
           type="number"
-          min={tableMaxBetSize + minBetSizeDiff}
+          min={0}
           max={99999999}
-          defaultValue={tableMaxBetSize + minBetSizeDiff}
+          defaultValue={tableMaxBetSize}
           placeholder={`${tableMaxBetSize}`}
           tabIndex={action === StreetAction.betOrRaise ? 0 : -1}
           onChange={onBetSizeChange}
