@@ -4,6 +4,7 @@ import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Eyecatch from "./Eyecatch";
+import RecentPosts from "./RecentPosts";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -19,6 +20,8 @@ export default function IndexPage({ children, ...props }: Props) {
       <Content>
         <Eyecatch />
       </Content>
+
+      <RecentPosts />
 
       <FootBar />
     </Root>
