@@ -20,9 +20,6 @@ interface Props extends React.Attributes {
 
 export default function PostCardListItem({ post, ...props }: Props) {
   const ShowLastUpdateDate = React.useContext(ShowLastUpdateDateContext);
-
-  const now = new Date();
-
   const gameEndedAt = React.useMemo(() => {
     if (post.gameSituation.river) return "RIVER";
     if (post.gameSituation.turn) return "TURN";
@@ -59,55 +56,51 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
       <PostTitle>{post.title}</PostTitle>
 
-      <Attributes>
-        <Attribute>
-          <Likes>
-            <ThumbsUpIcon />
-            {post.likes}
-          </Likes>
-        </Attribute>
+      <GameDetail>
+        <Likes>
+          <ThumbsUpIcon />
+          {post.likes}
+        </Likes>
+        <Attributes>
+          <Attribute>Play at</Attribute>
+          <Attribute>Ended at</Attribute>
+          <Attribute>Final Pot</Attribute>
+          <Attribute>{ShowLastUpdateDate ? "Last Update" : "Posted"}</Attribute>
 
-        <Attribute>
-          <span>Play at</span>
-          <span>
+          <Attribute>
             {getPositionByPlayerAndIndex(
               post.gameSituation.playerLength,
               post.gameSituation.heroIndex
             )}
-          </span>
-        </Attribute>
-
-        <Attribute>
-          <span>Ended at</span>
-          <span>{gameEndedAt}</span>
-        </Attribute>
-
-        <Attribute>
-          <span>Final Pot</span>
-          <span>{`${getStringWithSIMetricSuffix(
+          </Attribute>
+          <Attribute>{gameEndedAt}</Attribute>
+          <Attribute>{`${getStringWithSIMetricSuffix(
             calculateFinalPot(post.gameSituation)
-          )} BB`}</span>
-        </Attribute>
-
-        <Attribute>
-          <span>{ShowLastUpdateDate ? "Last Update" : "Posted"}</span>
-          <span>
-            {ShowLastUpdateDate
-              ? `${formatDistanceStrict(post.lastUpdatedAt, now)} ago`
-              : `${formatDistanceStrict(post.createdAt, now)} ago`}
-          </span>
-        </Attribute>
-      </Attributes>
+          )} BB`}</Attribute>
+          <Attribute>{`${getShortFormatDistanceStrict(
+            ShowLastUpdateDate ? post.lastUpdatedAt : post.createdAt
+          )} ago`}</Attribute>
+        </Attributes>
+      </GameDetail>
     </Root>
   );
+}
+
+function getShortFormatDistanceStrict(date: Date) {
+  const now = new Date();
+
+  return formatDistanceStrict(date, now)
+    .replace("second", "sec")
+    .replace("minute", "min")
+    .replace("hour", "hr")
+    .replace("month", "mo")
+    .replace("year", "yr");
 }
 
 const Root = styled(Card)`
   display: grid;
   grid-template-columns: minmax(15%, 100px) 1fr;
-  grid-template-areas:
-    "playing-cards title"
-    "attributes attributes";
+  grid-template-areas: "playing-cards title" "game-detail game-detail";
   grid-gap: 12px;
 `;
 
@@ -162,22 +155,11 @@ const PostTitle = styled.h2`
   overflow: hidden;
 `;
 
-const Likes = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & > svg {
-    margin: 4px;
-  }
-`;
-
-const Attributes = styled.div`
-  grid-area: attributes;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 8px;
+const GameDetail = styled.div`
+  grid-area: game-detail;
+  display: grid;
+  grid-template-columns: minmax(80px, 100px) 1fr;
+  margin: 0 8px 8px 8px;
   font-size: 14px;
   font-weight: normal;
   color: #595959;
@@ -187,12 +169,25 @@ const Attributes = styled.div`
   }
 `;
 
-const Attribute = styled.div`
-  & > span {
-    display: block;
-  }
+const Likes = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 16px;
 
-  & > span:first-child {
-    margin-bottom: 4px;
+  & > svg {
+    margin: 4px;
   }
+`;
+
+const Attributes = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 4px;
+  width: 100%;
+`;
+
+const Attribute = styled.span`
+  display: block;
 `;
