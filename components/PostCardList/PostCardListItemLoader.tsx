@@ -36,16 +36,16 @@ export default function PostCardListItemLoader({ ...props }: Props) {
 }
 
 const Loader = styled(ContentLoader)`
-  --hero-hand-diameter: 96px;
+  --hero-hand-squre-side: 96px;
   --margin-right-of-hero-hand: 16px;
   --title-height: 18px;
   --title-line-height: calc(var(--title-height) * 1.6);
   --like-icon-size: 24px;
   --attribute-height: 14px;
-  --attribute-width: 15%;
+  --attribute-width: 60px;
   width: 100%;
   height: calc(
-    var(--hero-hand-diameter) + 16px + var(--attribute-height) * 2 + 6px + 6px
+    var(--hero-hand-squre-side) + 16px + var(--attribute-height) * 2 + 6px + 6px
   );
 `;
 
@@ -54,40 +54,40 @@ const HeroHand = styled.rect`
   y: 0px;
   rx: 4px;
   ry: 4px;
-  width: var(--hero-hand-diameter);
-  height: var(--hero-hand-diameter);
+  width: var(--hero-hand-squre-side);
+  height: var(--hero-hand-squre-side);
 `;
 
 const TitleFirstLine = styled.rect`
-  x: calc(var(--hero-hand-diameter) + var(--margin-right-of-hero-hand));
+  x: calc(var(--hero-hand-squre-side) + var(--margin-right-of-hero-hand));
   y: 16px;
   rx: 4px;
   ry: 4px;
-  width: 65%;
+  width: calc(100% - var(--hero-hand-squre-side) - 32px);
   height: var(--title-height);
 `;
 
 const TitleSecondLine = styled.rect`
-  x: calc(var(--hero-hand-diameter) + var(--margin-right-of-hero-hand));
+  x: calc(var(--hero-hand-squre-side) + var(--margin-right-of-hero-hand));
   y: calc(16px + var(--title-line-height));
   rx: 4px;
   ry: 4px;
-  width: 55%;
+  width: calc(100% - var(--hero-hand-squre-side) - 64px);
   height: var(--title-height);
 `;
 
 const TitleThirdLine = styled.rect`
-  x: calc(var(--hero-hand-diameter) + var(--margin-right-of-hero-hand));
+  x: calc(var(--hero-hand-squre-side) + var(--margin-right-of-hero-hand));
   y: calc(16px + var(--title-line-height) * 2);
   rx: 4px;
   ry: 4px;
-  width: 60%;
+  width: calc(100% - var(--hero-hand-squre-side) - 48px);
   height: var(--title-height);
 `;
 
 const LikeIcon = styled.rect`
-  x: 4%;
-  y: calc(var(--hero-hand-diameter) + 16px);
+  x: calc(8px + 16px);
+  y: calc(var(--hero-hand-squre-side) + 4px + 16px);
   rx: 2px;
   ry: 2px;
   width: var(--like-icon-size);
@@ -95,8 +95,8 @@ const LikeIcon = styled.rect`
 `;
 
 const LikeNumber = styled.rect`
-  x: calc(4% + var(--like-icon-size) + 4px);
-  y: calc(var(--hero-hand-diameter) + 16px + 4px);
+  x: calc(8px + 16px + 4px + var(--like-icon-size) + 4px);
+  y: calc(var(--hero-hand-squre-side) + 4px + 16px + 4px);
   rx: 2px;
   ry: 2px;
   width: 24px;
@@ -104,8 +104,8 @@ const LikeNumber = styled.rect`
 `;
 
 const PlayAtTitle = styled.rect`
-  x: 22%;
-  y: calc(var(--hero-hand-diameter) + 16px);
+  x: 96px;
+  y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -113,8 +113,8 @@ const PlayAtTitle = styled.rect`
 `;
 
 const EndedAtTitle = styled.rect`
-  x: 42%;
-  y: calc(var(--hero-hand-diameter) + 16px);
+  x: calc(96px + (100% - 96px) / 4);
+  y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -122,8 +122,8 @@ const EndedAtTitle = styled.rect`
 `;
 
 const FinalPotTitle = styled.rect`
-  x: 62%;
-  y: calc(var(--hero-hand-diameter) + 16px);
+  x: calc(96px + (100% - 96px) / 4 * 2);
+  y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -131,8 +131,8 @@ const FinalPotTitle = styled.rect`
 `;
 
 const PostedTitle = styled.rect`
-  x: 82%;
-  y: calc(var(--hero-hand-diameter) + 16px);
+  x: calc(96px + (100% - 96px) / 4 * 3);
+  y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -140,8 +140,8 @@ const PostedTitle = styled.rect`
 `;
 
 const PlayAtValue = styled.rect`
-  x: 22%;
-  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
+  x: 96px;
+  y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -149,8 +149,8 @@ const PlayAtValue = styled.rect`
 `;
 
 const EndedAtValue = styled.rect`
-  x: 42%;
-  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
+  x: calc(96px + (100% - 96px) / 4);
+  y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -158,8 +158,8 @@ const EndedAtValue = styled.rect`
 `;
 
 const FinalPotValue = styled.rect`
-  x: 62%;
-  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
+  x: calc(96px + (100% - 96px) / 4 * 2);
+  y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
@@ -167,8 +167,8 @@ const FinalPotValue = styled.rect`
 `;
 
 const PostedValue = styled.rect`
-  x: 82%;
-  y: calc(var(--hero-hand-diameter) + 16px + 12px + 6px);
+  x: calc(96px + (100% - 96px) / 4 * 3);
+  y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
   width: var(--attribute-width);
