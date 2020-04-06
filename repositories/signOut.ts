@@ -3,7 +3,7 @@ import * as firebase from "firebase/app";
 export type SignOut = () => Promise<void>;
 
 export function createSignOut({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }) {

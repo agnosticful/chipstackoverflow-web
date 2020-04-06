@@ -27,7 +27,7 @@ describe("useAuthentication()", () => {
       of({
         id: "loremipsum",
         name: "Lorem Ipsum",
-        profileImageURL: new URL("https://example.kohei.dev/example.png")
+        profileImageURL: new URL("https://example.kohei.dev/example.png"),
       })
     );
     const returnedValue: any[] = [];
@@ -46,7 +46,7 @@ describe("useAuthentication()", () => {
               logEvent,
               onAuthenticationStateChanged,
               setUserIdForLogging,
-              subscribeUserById
+              subscribeUserById,
             } as any
           }
         >
@@ -64,7 +64,7 @@ describe("useAuthentication()", () => {
       of({
         id: "loremipsum",
         name: "Lorem Ipsum",
-        profileImageURL: new URL("https://example.kohei.dev/example.png")
+        profileImageURL: new URL("https://example.kohei.dev/example.png"),
       })
     );
     const returnedValue: any[] = [];
@@ -85,7 +85,7 @@ describe("useAuthentication()", () => {
               logEvent,
               onAuthenticationStateChanged,
               setUserIdForLogging,
-              subscribeUserById
+              subscribeUserById,
             } as any
           }
         >
@@ -99,8 +99,8 @@ describe("useAuthentication()", () => {
       {
         id: "loremipsum",
         name: "Lorem Ipsum",
-        profileImageURL: new URL("https://example.kohei.dev/example.png")
-      }
+        profileImageURL: new URL("https://example.kohei.dev/example.png"),
+      },
     ]);
   });
 
@@ -125,7 +125,7 @@ describe("useAuthentication()", () => {
               onAuthenticationStateChanged,
               setUserIdForLogging,
               subscribeUserById,
-              signIn
+              signIn,
             } as any
           }
         >
@@ -136,7 +136,7 @@ describe("useAuthentication()", () => {
 
     expect(signIn).toHaveBeenCalledTimes(1);
     expect(logEvent).toHaveBeenCalledWith("sign_in", {
-      object_id: "THIS_IS_OBJECT_ID"
+      object_id: "THIS_IS_OBJECT_ID",
     });
   });
 
@@ -161,7 +161,7 @@ describe("useAuthentication()", () => {
               onAuthenticationStateChanged,
               setUserIdForLogging,
               subscribeUserById,
-              signOut
+              signOut,
             } as any
           }
         >

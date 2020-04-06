@@ -5,7 +5,7 @@ import BetSizeInput from "./BetSizeInput";
 
 export default {
   title: "BetSizeInput",
-  component: BetSizeInput
+  component: BetSizeInput,
 };
 
 export const example = () => (

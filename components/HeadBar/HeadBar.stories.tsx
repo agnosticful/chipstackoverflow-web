@@ -5,7 +5,7 @@ import HeadBar from "./HeadBar";
 
 export default {
   title: "HeadBar",
-  component: HeadBar
+  component: HeadBar,
 };
 
 export const example = () => (
@@ -14,7 +14,7 @@ export const example = () => (
     user={{
       id: "loremipsum",
       name: "Lorem Ipsum",
-      profileImageURL: new URL("https://www.kohei.dev/profile.jpg")
+      profileImageURL: new URL("https://www.kohei.dev/profile.jpg"),
     }}
   >
     <HeadBar />

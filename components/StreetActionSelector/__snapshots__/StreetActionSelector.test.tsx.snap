@@ -4,27 +4,31 @@ exports[`<StreetActionSelector> matches with the previous snapshot (big blind in
 <styled.div>
   <styled.button
     active={false}
+    data-test-id="fold-button"
     onClick={[Function]}
   >
     Fold
   </styled.button>
   <styled.button
     active={false}
+    data-test-id="check-or-call-button"
     onClick={[Function]}
   >
     Check
   </styled.button>
   <styled.button
     active={false}
+    data-test-id="bet-or-raise-button"
     onClick={[Function]}
     tabIndex={0}
   >
     Raise
     <styled.input
       active={false}
-      defaultValue={2}
+      data-test-id="bet-size-input"
+      defaultValue={1}
       max={99999999}
-      min={2}
+      min={0}
       onChange={[Function]}
       placeholder="1"
       tabIndex={-1}
@@ -38,27 +42,31 @@ exports[`<StreetActionSelector> matches with the previous snapshot (someone rais
 <styled.div>
   <styled.button
     active={false}
+    data-test-id="fold-button"
     onClick={[Function]}
   >
     Fold
   </styled.button>
   <styled.button
     active={false}
+    data-test-id="check-or-call-button"
     onClick={[Function]}
   >
     Call
   </styled.button>
   <styled.button
     active={false}
+    data-test-id="bet-or-raise-button"
     onClick={[Function]}
     tabIndex={0}
   >
     Raise
     <styled.input
       active={false}
-      defaultValue={23.5}
+      data-test-id="bet-size-input"
+      defaultValue={22.5}
       max={99999999}
-      min={23.5}
+      min={0}
       onChange={[Function]}
       placeholder="22.5"
       tabIndex={-1}
@@ -72,27 +80,31 @@ exports[`<StreetActionSelector> matches with the previous snapshot 1`] = `
 <styled.div>
   <styled.button
     active={false}
+    data-test-id="fold-button"
     onClick={[Function]}
   >
     Fold
   </styled.button>
   <styled.button
     active={false}
+    data-test-id="check-or-call-button"
     onClick={[Function]}
   >
     Check
   </styled.button>
   <styled.button
     active={false}
+    data-test-id="bet-or-raise-button"
     onClick={[Function]}
     tabIndex={0}
   >
     Bet
     <styled.input
       active={false}
-      defaultValue={1}
+      data-test-id="bet-size-input"
+      defaultValue={0}
       max={99999999}
-      min={1}
+      min={0}
       onChange={[Function]}
       placeholder="0"
       tabIndex={-1}
