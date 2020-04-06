@@ -104,7 +104,7 @@ const LikeNumber = styled.rect`
 `;
 
 const PlayAtTitle = styled.rect`
-  x: 96px;
+  x: calc(100% / 5);
   y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
@@ -113,7 +113,7 @@ const PlayAtTitle = styled.rect`
 `;
 
 const EndedAtTitle = styled.rect`
-  x: calc(96px + (100% - 96px) / 4);
+  x: calc(100% / 5 * 2);
   y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
@@ -122,7 +122,7 @@ const EndedAtTitle = styled.rect`
 `;
 
 const FinalPotTitle = styled.rect`
-  x: calc(96px + (100% - 96px) / 4 * 2);
+  x: calc(100% / 5 * 3);
   y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
@@ -131,7 +131,7 @@ const FinalPotTitle = styled.rect`
 `;
 
 const PostedTitle = styled.rect`
-  x: calc(96px + (100% - 96px) / 4 * 3);
+  x: calc(100% / 5 * 4);
   y: calc(var(--hero-hand-squre-side) + 16px);
   rx: 3px;
   ry: 3px;
@@ -140,7 +140,7 @@ const PostedTitle = styled.rect`
 `;
 
 const PlayAtValue = styled.rect`
-  x: 96px;
+  x: calc(100% / 5);
   y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
@@ -149,7 +149,7 @@ const PlayAtValue = styled.rect`
 `;
 
 const EndedAtValue = styled.rect`
-  x: calc(96px + (100% - 96px) / 4);
+  x: calc(100% / 5 * 2);
   y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
@@ -158,7 +158,7 @@ const EndedAtValue = styled.rect`
 `;
 
 const FinalPotValue = styled.rect`
-  x: calc(96px + (100% - 96px) / 4 * 2);
+  x: calc(100% / 5 * 3);
   y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
@@ -167,7 +167,7 @@ const FinalPotValue = styled.rect`
 `;
 
 const PostedValue = styled.rect`
-  x: calc(96px + (100% - 96px) / 4 * 3);
+  x: calc(100% / 5 * 4);
   y: calc(var(--hero-hand-squre-side) + 16px + 12px + 6px);
   rx: 3px;
   ry: 3px;
