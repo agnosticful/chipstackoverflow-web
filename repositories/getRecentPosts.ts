@@ -5,7 +5,7 @@ import firestoreSnapshotToPost from "../serializers/firestoreSnapshotToPost";
 export type GetRecentPosts = (options: { limit: number }) => Promise<Post[]>;
 
 export function createGetRecentPosts({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): GetRecentPosts {
@@ -17,6 +17,6 @@ export function createGetRecentPosts({
       .limit(limit)
       .get();
 
-    return snapshot.docs.map(doc => firestoreSnapshotToPost(doc));
+    return snapshot.docs.map((doc) => firestoreSnapshotToPost(doc));
   };
 }

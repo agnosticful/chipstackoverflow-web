@@ -35,20 +35,20 @@ export default function App({ Component, pageProps, router }: AppProps) {
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
       logEvent: createLogEvent({ firebaseApp }),
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
-        firebaseApp
+        firebaseApp,
       }),
       getUserById: createGetUserById({ firebaseApp }),
       setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
       subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({
-        firebaseApp
+        firebaseApp,
       }),
       subscribeUserById: createSubscribeUserById({ firebaseApp }),
       signIn: createSignIn({
         firebaseApp,
-        googleAuthProvider: new firebase.auth.GoogleAuthProvider()
+        googleAuthProvider: new firebase.auth.GoogleAuthProvider(),
       }),
-      signOut: createSignOut({ firebaseApp })
+      signOut: createSignOut({ firebaseApp }),
     }),
     []
   );

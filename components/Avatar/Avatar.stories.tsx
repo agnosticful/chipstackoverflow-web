@@ -4,7 +4,7 @@ import Avatar from "./Avatar";
 
 export default {
   title: "Avatar",
-  component: Avatar
+  component: Avatar,
 };
 
 export const example = () => (

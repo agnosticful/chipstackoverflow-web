@@ -5,12 +5,12 @@ import StreetActionSelector from "./StreetActionSelector";
 
 export default {
   title: "StreetActionSelector",
-  component: StreetActionSelector
+  component: StreetActionSelector,
 };
 
 export const example = () => {
   const tableMaxBetSize = number("tableMaxBetSize", undefined as any, {
-    min: 0
+    min: 0,
   });
 
   return (
@@ -18,9 +18,8 @@ export const example = () => {
       tableMaxBetSize={tableMaxBetSize}
       previousBetSize={number("previousBetSize", undefined as any, {
         min: 0,
-        max: tableMaxBetSize
+        max: tableMaxBetSize,
       })}
-      minBetSizeDiff={number("minBetSizeDiff", undefined as any, { min: 0 })}
       onChange={action("onChange")}
     />
   );
@@ -34,7 +33,6 @@ export const atBigBlind = () => (
   <StreetActionSelector
     tableMaxBetSize={1}
     previousBetSize={1}
-    minBetSizeDiff={1}
     onChange={action("onChange")}
   />
 );

@@ -4,7 +4,7 @@ import NextDocument, {
   Html,
   Head,
   Main,
-  NextScript
+  NextScript,
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 import * as React from "react";
@@ -33,7 +33,7 @@ export default class Document extends NextDocument {
 
                 gtag('config', '${
                   JSON.parse(process.env.firebaseAppOptions!).measurementId
-                }', { 'send_page_view': false });`
+                }', { 'send_page_view': false });`,
             }}
           ></script>
         </body>
@@ -50,7 +50,8 @@ export default class Document extends NextDocument {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await NextDocument.getInitialProps(ctx);
@@ -62,7 +63,7 @@ export default class Document extends NextDocument {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();

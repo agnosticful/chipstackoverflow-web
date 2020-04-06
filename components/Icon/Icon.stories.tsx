@@ -6,12 +6,12 @@ import {
   SendIcon,
   SignOutIcon,
   ThumbsDownIcon,
-  ThumbsUpIcon
+  ThumbsUpIcon,
 } from "./Icon";
 
 export default {
   title: "Icon",
-  component: SendIcon
+  component: SendIcon,
 };
 
 export const example = () => (
@@ -44,7 +44,7 @@ export const withColor = () => {
           alignItems: "center",
           color: isActive ? "#ff6b6b" : "#0f151c",
           transition: "color 200ms ease",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       >
         {"Click to change "}

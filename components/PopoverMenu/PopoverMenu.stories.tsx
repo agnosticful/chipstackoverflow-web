@@ -8,7 +8,7 @@ import PopoverMenuItem from "./PopoverMenuItem";
 export default {
   title: "PopoverMenu",
   component: PopoverMenu,
-  subcomponents: { PopoverMenuItem }
+  subcomponents: { PopoverMenuItem },
 };
 
 export const example = () => (
@@ -43,7 +43,7 @@ export const scrollPlayground = () => (
       width: 2560,
       height: 2560,
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
     }}
   >
     <PopoverMenu

@@ -10,6 +10,6 @@ export default function postToJSON(post: Post): Record<string, any> {
     dislikes: post.dislikes,
     gameSituation: post.gameSituation,
     createdAt: post.createdAt.toJSON(),
-    lastUpdatedAt: post.lastUpdatedAt.toJSON()
+    lastUpdatedAt: post.lastUpdatedAt.toJSON(),
   };
 }
