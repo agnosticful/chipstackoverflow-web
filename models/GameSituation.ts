@@ -38,6 +38,15 @@ export enum GameType {
 }
 
 export interface GameStreetAction {
+  type: Type;
   playerIndex: number;
   betSize: number;
+}
+
+export enum Type {
+  fold = "FOLD",
+  check = "CHECK",
+  call = "CALL",
+  bet = "BET",
+  raise = "RAISE",
 }
