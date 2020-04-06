@@ -4,7 +4,7 @@ import PostCardListItemLoader from "./PostCardListItemLoader";
 
 export default {
   title: "PostCardList/PostCardListLoader",
-  component: PostCardListItemLoader
+  component: PostCardListItemLoader,
 };
 
 export const example = () => {
