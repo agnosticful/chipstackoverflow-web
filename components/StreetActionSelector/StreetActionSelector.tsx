@@ -123,11 +123,11 @@ export default function StreetActionSelector({
 }
 
 export enum StreetAction {
-  fold = "fold",
-  check = "check",
-  call = "call",
-  bet = "bet",
-  raise = "raise",
+  fold = "FOLD",
+  check = "CHECK",
+  call = "CALL",
+  bet = "BET",
+  raise = "RAISE",
 }
 
 const Root = styled.div`
