@@ -37,7 +37,7 @@ export default function useRepository(): Repository {
 
 export function RepositoryProvider({
   repository,
-  children
+  children,
 }: {
   repository: Repository;
   children: React.ReactNode;

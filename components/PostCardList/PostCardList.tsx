@@ -12,7 +12,7 @@ interface Props extends React.Attributes {
 
 export default function PostCardList({
   showLastUpdateDate = false,
-  children
+  children,
 }: Props) {
   return (
     <Root>
@@ -25,7 +25,7 @@ export default function PostCardList({
 
 const Root = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 16px;
 
   ${MOBILE_MEDIA} {

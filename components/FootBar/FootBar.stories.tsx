@@ -4,7 +4,7 @@ import FootBar from "./FootBar";
 
 export default {
   title: "FootBar",
-  component: FootBar
+  component: FootBar,
 };
 
 export const example = () => (

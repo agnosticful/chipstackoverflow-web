@@ -31,13 +31,13 @@ export default function Button({
 export enum ButtonSize {
   large,
   medium,
-  small
+  small,
 }
 
 export enum ButtonVariant {
   default,
   primary,
-  secondary
+  secondary,
 }
 
 const Root = styled.button<{
@@ -120,7 +120,7 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     --hover-background: #fff;
     --hover-border-color: #0f151c;
     --hover-color: #0f151c;
-  `
+  `,
 };
 
 const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
@@ -153,5 +153,5 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     --inner-svg-size: 16px;
     --inner-svg-margin-right: 4px;
     --hover-box-shadow: 0px 0px 8px #222f3e3f, 0px 8px 16px #222f3e1f;
-  `
+  `,
 };

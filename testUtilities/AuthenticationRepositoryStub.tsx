@@ -8,7 +8,7 @@ export default function AuthenticationRepositoryStub({
   signingIn = false,
   signIn = () => undefined,
   signOut = () => undefined,
-  children
+  children,
 }: {
   user?: { id: string; name: string; profileImageURL: URL } | null;
   signingIn?: boolean;
@@ -34,7 +34,7 @@ export default function AuthenticationRepositoryStub({
 
       return Promise.resolve();
     },
-    ...repositoryBase
+    ...repositoryBase,
   };
 
   return (

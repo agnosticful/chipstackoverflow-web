@@ -8,19 +8,21 @@ export type SubscribeRecentPosts = (options: {
 }) => Observable<Post[]>;
 
 export function createSubscribeRecentPosts({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): SubscribeRecentPosts {
   return ({ limit }) =>
-    new Observable<Post[]>(observer => {
+    new Observable<Post[]>((observer) => {
       const unsubscribe = firebaseApp
         .firestore()
         .collection("posts")
         .orderBy("lastUpdatedAt", "desc")
         .limit(limit)
-        .onSnapshot(snapshot => {
-          const posts = snapshot.docs.map(doc => firestoreSnapshotToPost(doc));
+        .onSnapshot((snapshot) => {
+          const posts = snapshot.docs.map((doc) =>
+            firestoreSnapshotToPost(doc)
+          );
 
           observer.next(posts);
         });

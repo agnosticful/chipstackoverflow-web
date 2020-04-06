@@ -7,7 +7,7 @@ export type LogEvent = (
 ) => void;
 
 export function createLogEvent({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): LogEvent {

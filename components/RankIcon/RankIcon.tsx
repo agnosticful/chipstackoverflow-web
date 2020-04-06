@@ -5,7 +5,7 @@ import {
   HEART_COLOR,
   DIAMOND_COLOR,
   CLUB_COLOR,
-  INVERSE_SPADE_COLOR
+  INVERSE_SPADE_COLOR,
 } from "../../constants/color";
 import { Rank, Suit } from "../../models/PlayingCard";
 
@@ -37,14 +37,14 @@ const COLOR_BY_SUIT: Record<Suit, string> = {
   [Suit.spade]: SPADE_COLOR,
   [Suit.heart]: HEART_COLOR,
   [Suit.diamond]: DIAMOND_COLOR,
-  [Suit.club]: CLUB_COLOR
+  [Suit.club]: CLUB_COLOR,
 };
 
 const DARK_COLOR_BY_SUIT: Record<Suit, string> = {
   [Suit.spade]: INVERSE_SPADE_COLOR,
   [Suit.heart]: HEART_COLOR,
   [Suit.diamond]: DIAMOND_COLOR,
-  [Suit.club]: CLUB_COLOR
+  [Suit.club]: CLUB_COLOR,
 };
 
 const Path = styled.path<{ suit: Suit }>`
@@ -80,5 +80,5 @@ const PATH_DIMENTION_BY_RANK: Record<Rank, string> = {
   [Rank.queen]:
     "M45.564 77.77c6.992 0 12.512-1.574 15.64-4.196l-3.772-10.929c-2.484 2.186-6.256 3.41-11.316 3.41-5.244 0-8.74-1.137-9.292-5.508 15.548-1.836 24.84-12.502 24.84-29.462 0-18.622-11.224-29.725-29.716-29.725S2.14 12.463 2.14 31.085c0 16.785 9.2 27.451 24.472 29.375-.736 10.666 5.98 17.31 18.952 17.31zM31.948 49.007c-8.832 0-13.616-6.12-13.616-17.922 0-11.803 4.784-17.923 13.616-17.923 8.74 0 13.524 6.12 13.524 17.923 0 11.802-4.784 17.922-13.524 17.922z",
   [Rank.king]:
-    "M22.662 62.5V45.388l7.36-9.016L45.11 62.5h17.94L41.338 26.436 61.946 1.78H44.374L22.662 28.736V1.78H6.838V62.5z"
+    "M22.662 62.5V45.388l7.36-9.016L45.11 62.5h17.94L41.338 26.436 61.946 1.78H44.374L22.662 28.736V1.78H6.838V62.5z",
 };

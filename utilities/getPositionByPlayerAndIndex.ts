@@ -24,7 +24,7 @@ enum PlayerPosition {
   mp3 = "MP3",
   lp1 = "LP1",
   lp2 = "LP2",
-  btn = "BTN"
+  btn = "BTN",
 }
 
 const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
@@ -36,8 +36,8 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.sb,
       PlayerPosition.bb,
       PlayerPosition.mp1,
-      PlayerPosition.btn
-    ]
+      PlayerPosition.btn,
+    ],
   ],
   [
     5,
@@ -46,8 +46,8 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.bb,
       PlayerPosition.mp1,
       PlayerPosition.mp2,
-      PlayerPosition.btn
-    ]
+      PlayerPosition.btn,
+    ],
   ],
   [
     6,
@@ -57,8 +57,8 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.mp1,
       PlayerPosition.mp2,
       PlayerPosition.lp1,
-      PlayerPosition.btn
-    ]
+      PlayerPosition.btn,
+    ],
   ],
   [
     7,
@@ -69,8 +69,8 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.mp1,
       PlayerPosition.mp2,
       PlayerPosition.lp1,
-      PlayerPosition.btn
-    ]
+      PlayerPosition.btn,
+    ],
   ],
   [
     8,
@@ -82,8 +82,8 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.mp2,
       PlayerPosition.mp3,
       PlayerPosition.lp1,
-      PlayerPosition.btn
-    ]
+      PlayerPosition.btn,
+    ],
   ],
   [
     9,
@@ -96,8 +96,8 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.mp3,
       PlayerPosition.lp1,
       PlayerPosition.lp2,
-      PlayerPosition.btn
-    ]
+      PlayerPosition.btn,
+    ],
   ],
   [
     10,
@@ -111,7 +111,7 @@ const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
       PlayerPosition.mp3,
       PlayerPosition.lp1,
       PlayerPosition.lp2,
-      PlayerPosition.btn
-    ]
-  ]
+      PlayerPosition.btn,
+    ],
+  ],
 ]);

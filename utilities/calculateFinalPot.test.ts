@@ -18,9 +18,9 @@ describe("calculateFinalPot(gameSituation)", () => {
             preflop: {
               actions: [
                 { playerIndex: 0, betSize: 3 },
-                { playerIndex: 1, betSize: 1 }
-              ]
-            }
+                { playerIndex: 1, betSize: 1 },
+              ],
+            },
           })
         ).toBe(4);
       });
@@ -41,9 +41,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 0, betSize: 2 },
                 { playerIndex: 1, betSize: 4 },
                 { playerIndex: 2, betSize: 2 },
-                { playerIndex: 0, betSize: 2 }
-              ]
-            }
+                { playerIndex: 0, betSize: 2 },
+              ],
+            },
           })
         ).toBe(8);
       });
@@ -70,9 +70,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 8 },
                 { playerIndex: 2, betSize: 4 },
                 { playerIndex: 3, betSize: 4 },
-                { playerIndex: 0, betSize: 4 }
-              ]
-            }
+                { playerIndex: 0, betSize: 4 },
+              ],
+            },
           })
         ).toBe(20);
       });
@@ -108,9 +108,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 22 },
                 { playerIndex: 4, betSize: 15 },
                 { playerIndex: 2, betSize: 30 },
-                { playerIndex: 3, betSize: 22 }
-              ]
-            }
+                { playerIndex: 3, betSize: 22 },
+              ],
+            },
           })
         ).toBe(77);
       });
@@ -132,22 +132,22 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
                 { playerIndex: 0, betSize: 2 },
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
-            }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
+            },
           })
         ).toBe(6);
       });
@@ -167,8 +167,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
@@ -178,14 +178,14 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 4 },
                 { playerIndex: 0, betSize: 2 },
                 { playerIndex: 1, betSize: 2 },
-                { playerIndex: 2, betSize: 2 }
+                { playerIndex: 2, betSize: 2 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
-            }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
+            },
           })
         ).toBe(14);
       });
@@ -205,8 +205,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
@@ -220,14 +220,14 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 8 },
                 { playerIndex: 0, betSize: 4 },
                 { playerIndex: 1, betSize: 4 },
-                { playerIndex: 2, betSize: 4 }
+                { playerIndex: 2, betSize: 4 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
-            }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
+            },
           })
         ).toBe(24);
       });
@@ -248,8 +248,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 4, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
@@ -265,14 +265,14 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 14 },
                 { playerIndex: 2, betSize: 8 },
                 { playerIndex: 3, betSize: 20 },
-                { playerIndex: 1, betSize: 14 }
+                { playerIndex: 1, betSize: 14 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
-            }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
+            },
           })
         ).toBe(47);
       });
@@ -294,31 +294,31 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
                 { playerIndex: 0, betSize: 1 },
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 0 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.four, suit: Suit.club },
+            },
           })
         ).toBe(5);
       });
@@ -338,21 +338,21 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
@@ -362,10 +362,10 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 3 },
                 { playerIndex: 0, betSize: 1 },
                 { playerIndex: 1, betSize: 1 },
-                { playerIndex: 2, betSize: 1 }
+                { playerIndex: 2, betSize: 1 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.four, suit: Suit.club },
+            },
           })
         ).toBe(10);
       });
@@ -385,21 +385,21 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
-                { playerIndex: 3, betSize: 0 }
+                { playerIndex: 3, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
@@ -412,10 +412,10 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 6 },
                 { playerIndex: 3, betSize: 3 },
                 { playerIndex: 0, betSize: 3 },
-                { playerIndex: 1, betSize: 3 }
+                { playerIndex: 1, betSize: 3 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.four, suit: Suit.club },
+            },
           })
         ).toBe(19);
       });
@@ -437,8 +437,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 4, betSize: 1 },
                 { playerIndex: 5, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
@@ -447,13 +447,13 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 2, betSize: 0 },
                 { playerIndex: 3, betSize: 0 },
                 { playerIndex: 4, betSize: 0 },
-                { playerIndex: 5, betSize: 0 }
+                { playerIndex: 5, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
@@ -475,10 +475,10 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 24 },
                 { playerIndex: 4, betSize: 34 },
                 { playerIndex: 5, betSize: 16 },
-                { playerIndex: 3, betSize: 24 }
+                { playerIndex: 3, betSize: 24 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.four, suit: Suit.club },
+            },
           })
         ).toBe(88);
       });
@@ -499,37 +499,37 @@ describe("calculateFinalPot(gameSituation)", () => {
               actions: [
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 2, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 2, betSize: 0 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
+              communityCard: { rank: Rank.four, suit: Suit.club },
             },
             river: {
               actions: [
                 { playerIndex: 0, betSize: 20 },
                 { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 2, betSize: 0 },
               ],
-              communityCard: { rank: Rank.five, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.five, suit: Suit.club },
+            },
           })
         ).toBe(23);
       });
@@ -548,28 +548,28 @@ describe("calculateFinalPot(gameSituation)", () => {
               actions: [
                 { playerIndex: 2, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 2, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
                 { playerIndex: 0, betSize: 0 },
                 { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 0 }
+                { playerIndex: 2, betSize: 0 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
+              communityCard: { rank: Rank.four, suit: Suit.club },
             },
             river: {
               actions: [
@@ -577,10 +577,10 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 5 },
                 { playerIndex: 2, betSize: 15 },
                 { playerIndex: 0, betSize: 5 },
-                { playerIndex: 1, betSize: 5 }
+                { playerIndex: 1, betSize: 5 },
               ],
-              communityCard: { rank: Rank.five, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.five, suit: Suit.club },
+            },
           })
         ).toBe(28);
       });
@@ -606,8 +606,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 8, betSize: 1 },
                 { playerIndex: 9, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
@@ -620,13 +620,13 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 6, betSize: 5 },
                 { playerIndex: 7, betSize: 5 },
                 { playerIndex: 8, betSize: 5 },
-                { playerIndex: 9, betSize: 5 }
+                { playerIndex: 9, betSize: 5 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
@@ -639,9 +639,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 6, betSize: 10 },
                 { playerIndex: 7, betSize: 10 },
                 { playerIndex: 8, betSize: 10 },
-                { playerIndex: 9, betSize: 10 }
+                { playerIndex: 9, betSize: 10 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
+              communityCard: { rank: Rank.four, suit: Suit.club },
             },
             river: {
               actions: [
@@ -672,10 +672,10 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 4, betSize: 20 },
                 { playerIndex: 5, betSize: 20 },
                 { playerIndex: 6, betSize: 20 },
-                { playerIndex: 7, betSize: 20 }
+                { playerIndex: 7, betSize: 20 },
               ],
-              communityCard: { rank: Rank.five, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.five, suit: Suit.club },
+            },
           })
         ).toBe(440);
       });
@@ -696,8 +696,8 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 3, betSize: 1 },
                 { playerIndex: 4, betSize: 1 },
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 1 }
-              ]
+                { playerIndex: 1, betSize: 1 },
+              ],
             },
             flop: {
               actions: [
@@ -705,13 +705,13 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
                 { playerIndex: 3, betSize: 0 },
-                { playerIndex: 4, betSize: 0 }
+                { playerIndex: 4, betSize: 0 },
               ],
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
-              }
+                right: { rank: Rank.eight, suit: Suit.club },
+              },
             },
             turn: {
               actions: [
@@ -719,9 +719,9 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 1, betSize: 0 },
                 { playerIndex: 2, betSize: 0 },
                 { playerIndex: 3, betSize: 0 },
-                { playerIndex: 4, betSize: 0 }
+                { playerIndex: 4, betSize: 0 },
               ],
-              communityCard: { rank: Rank.four, suit: Suit.club }
+              communityCard: { rank: Rank.four, suit: Suit.club },
             },
             river: {
               actions: [
@@ -737,10 +737,10 @@ describe("calculateFinalPot(gameSituation)", () => {
                 { playerIndex: 4, betSize: 20 },
                 { playerIndex: 0, betSize: 6 },
                 { playerIndex: 2, betSize: 20 },
-                { playerIndex: 3, betSize: 12 }
+                { playerIndex: 3, betSize: 12 },
               ],
-              communityCard: { rank: Rank.five, suit: Suit.club }
-            }
+              communityCard: { rank: Rank.five, suit: Suit.club },
+            },
           })
         ).toBe(63);
       });
@@ -760,9 +760,9 @@ describe("calculateFinalPot(gameSituation)", () => {
             preflop: {
               actions: [
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 1, betSize: 0 }
-              ]
-            }
+                { playerIndex: 1, betSize: 0 },
+              ],
+            },
           })
         ).toBe(1.4);
         expect(
@@ -778,20 +778,20 @@ describe("calculateFinalPot(gameSituation)", () => {
               actions: [
                 { playerIndex: 0, betSize: 1 },
                 { playerIndex: 1, betSize: 0 },
-                { playerIndex: 2, betSize: 1 }
-              ]
+                { playerIndex: 2, betSize: 1 },
+              ],
             },
             flop: {
               communityCards: {
                 left: { rank: Rank.ace, suit: Suit.club },
                 center: { rank: Rank.deuce, suit: Suit.club },
-                right: { rank: Rank.eight, suit: Suit.club }
+                right: { rank: Rank.eight, suit: Suit.club },
               },
               actions: [
                 { playerIndex: 0, betSize: 1 },
-                { playerIndex: 2, betSize: 0 }
-              ]
-            }
+                { playerIndex: 2, betSize: 0 },
+              ],
+            },
           })
         ).toBe(3.9);
       });

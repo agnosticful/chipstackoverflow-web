@@ -5,7 +5,7 @@ import TextInput, { TextInputSize } from "./TextInput";
 
 export default {
   title: "TextInput",
-  component: TextInput
+  component: TextInput,
 };
 
 export const example = () => (
@@ -28,5 +28,5 @@ export const large = () => (
 
 const SIZES = {
   "TextInputSize.medium": TextInputSize.medium,
-  "TextInputSize.large": TextInputSize.large
+  "TextInputSize.large": TextInputSize.large,
 };

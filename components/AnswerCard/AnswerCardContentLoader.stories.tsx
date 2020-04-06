@@ -3,7 +3,7 @@ import AnswerCardContentLoader from "./AnswerCardContentLoader";
 
 export default {
   title: "AnswerCard/AnswerCardContentLoader",
-  component: AnswerCardContentLoader
+  component: AnswerCardContentLoader,
 };
 
 export const example = () => <AnswerCardContentLoader />;

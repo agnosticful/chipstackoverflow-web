@@ -6,11 +6,11 @@ export type DeleteAnswerReaction = (
 ) => Promise<void>;
 
 export function createDeleteAnswerReaction({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): DeleteAnswerReaction {
-  return async answerReaction => {
+  return async (answerReaction) => {
     await firebaseApp
       .firestore()
       .collection("posts")

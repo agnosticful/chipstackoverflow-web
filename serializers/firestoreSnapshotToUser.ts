@@ -9,6 +9,6 @@ export default function firestoreDataToUser(
   return {
     id: snapshot.id as UserId,
     name: data.name,
-    profileImageURL: new URL(data.profileImageURL)
+    profileImageURL: new URL(data.profileImageURL),
   };
 }

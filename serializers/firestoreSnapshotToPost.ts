@@ -15,6 +15,6 @@ export default function firestoreDataToPost(
     dislikes: data.dislikes,
     gameSituation: data.gameSituation,
     createdAt: data.createdAt.toDate(),
-    lastUpdatedAt: data.lastUpdatedAt.toDate()
+    lastUpdatedAt: data.lastUpdatedAt.toDate(),
   };
 }
