@@ -1,6 +1,6 @@
 import { formatDistanceStrict } from "date-fns";
 import * as React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import calculateFinalPot from "../../utilities/calculateFinalPot";
@@ -201,9 +201,7 @@ const Attributes = styled.div`
   width: 100%;
 `;
 
-const PlayAt = styled.div`
-  grid-area: play-at;
-
+const AttributeCSS = css`
   & > span {
     display: block;
   }
@@ -211,40 +209,28 @@ const PlayAt = styled.div`
   & > span:first-child {
     margin-bottom: 4px;
   }
+`;
+
+const PlayAt = styled.div`
+  grid-area: play-at;
+
+  ${AttributeCSS}
 `;
 
 const EndedAt = styled.div`
   grid-area: ended-at;
 
-  & > span {
-    display: block;
-  }
-
-  & > span:first-child {
-    margin-bottom: 4px;
-  }
+  ${AttributeCSS}
 `;
 
 const FinalPot = styled.div`
   grid-area: final-pot;
 
-  & > span {
-    display: block;
-  }
-
-  & > span:first-child {
-    margin-bottom: 4px;
-  }
+  ${AttributeCSS}
 `;
 
 const Posted = styled.div`
   grid-area: posted;
 
-  & > span {
-    display: block;
-  }
-
-  & > span:first-child {
-    margin-bottom: 4px;
-  }
+  ${AttributeCSS}
 `;
