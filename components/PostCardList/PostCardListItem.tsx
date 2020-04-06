@@ -203,6 +203,7 @@ const Attributes = styled.div`
 
 const PlayAt = styled.div`
   grid-area: play-at;
+
   & > span {
     display: block;
   }
@@ -214,6 +215,7 @@ const PlayAt = styled.div`
 
 const EndedAt = styled.div`
   grid-area: ended-at;
+
   & > span {
     display: block;
   }
@@ -225,6 +227,7 @@ const EndedAt = styled.div`
 
 const FinalPot = styled.div`
   grid-area: final-pot;
+
   & > span {
     display: block;
   }
@@ -236,6 +239,7 @@ const FinalPot = styled.div`
 
 const Posted = styled.div`
   grid-area: posted;
+
   & > span {
     display: block;
   }
