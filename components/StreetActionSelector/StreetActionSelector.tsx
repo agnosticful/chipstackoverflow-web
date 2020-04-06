@@ -12,7 +12,7 @@ interface Props extends React.Attributes {
    * `previousBetSize` must be less than or equal `tableMaxBetSize`.
    **/
   previousBetSize?: number;
-  onChange?: (betSize: number) => void;
+  onChange?: (type: StreetAction, betSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -34,24 +34,37 @@ export default function StreetActionSelector({
 
   const onFoldButtonClick = React.useCallback(() => {
     setAction(StreetAction.fold);
-    onChange(previousBetSize);
+    onChange(StreetAction.fold, previousBetSize);
   }, [previousBetSize]);
 
   const onCheckOrCallButtonClick = React.useCallback(() => {
-    setAction(StreetAction.checkOrCall);
-    onChange(tableMaxBetSize);
+    if (tableMaxBetSize === 0) {
+      setAction(StreetAction.check);
+      onChange(StreetAction.check, tableMaxBetSize);
+    } else {
+      setAction(StreetAction.call);
+      onChange(StreetAction.call, tableMaxBetSize);
+    }
   }, [tableMaxBetSize]);
 
   const onBetOrRaiseButtonClick = React.useCallback(() => {
-    setAction(StreetAction.betOrRaise);
-    onChange(parseFloat(inputRef.current!.value));
+    if (tableMaxBetSize === 0) {
+      setAction(StreetAction.bet);
+      onChange(StreetAction.bet, parseFloat(inputRef.current!.value));
+    } else {
+      setAction(StreetAction.raise);
+      onChange(StreetAction.raise, parseFloat(inputRef.current!.value));
+    }
 
     inputRef.current!.focus();
   }, []);
 
   const onBetSizeChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
-      onChange(parseFloat(e.currentTarget.value)),
+      onChange(
+        tableMaxBetSize === 0 ? StreetAction.bet : StreetAction.raise,
+        parseFloat(e.currentTarget.value)
+      ),
     []
   );
 
@@ -67,16 +80,18 @@ export default function StreetActionSelector({
 
       <SelectableButton
         onClick={onCheckOrCallButtonClick}
-        active={action === StreetAction.checkOrCall}
+        active={action === StreetAction.check || action === StreetAction.call}
         data-test-id="check-or-call-button"
       >
         {tableMaxBetSize === previousBetSize ? "Check" : "Call"}
       </SelectableButton>
 
       <SelectableButton
-        tabIndex={action === StreetAction.betOrRaise ? -1 : 0}
+        tabIndex={
+          action === StreetAction.bet || action === StreetAction.raise ? -1 : 0
+        }
         onClick={onBetOrRaiseButtonClick}
-        active={action === StreetAction.betOrRaise}
+        active={action === StreetAction.bet || action === StreetAction.raise}
         data-test-id="bet-or-raise-button"
       >
         {tableMaxBetSize === 0 ? "Bet" : "Raise"}
@@ -87,24 +102,32 @@ export default function StreetActionSelector({
           max={99999999}
           defaultValue={tableMaxBetSize}
           placeholder={`${tableMaxBetSize}`}
-          tabIndex={action === StreetAction.betOrRaise ? 0 : -1}
+          tabIndex={
+            action === StreetAction.bet || action === StreetAction.raise
+              ? 0
+              : -1
+          }
           onChange={onBetSizeChange}
           ref={inputRef}
           key={`${tableMaxBetSize}`}
-          active={action === StreetAction.betOrRaise}
+          active={action === StreetAction.bet || action === StreetAction.raise}
           data-test-id="bet-size-input"
         />
 
-        {action === StreetAction.betOrRaise ? "BB" : null}
+        {action === StreetAction.bet || action === StreetAction.raise
+          ? "BB"
+          : null}
       </SelectableButton>
     </Root>
   );
 }
 
-enum StreetAction {
-  fold = "f",
-  checkOrCall = "c",
-  betOrRaise = "r",
+export enum StreetAction {
+  fold = "fold",
+  check = "check",
+  call = "call",
+  bet = "bet",
+  raise = "raise",
 }
 
 const Root = styled.div`
