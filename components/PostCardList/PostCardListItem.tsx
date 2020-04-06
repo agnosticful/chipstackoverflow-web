@@ -169,7 +169,7 @@ const PostTitle = styled.h2`
 const GameDetail = styled.div`
   grid-area: game-detail;
   display: grid;
-  grid-template-columns: 96px 1fr;
+  grid-template-columns: 1fr 4fr;
   grid-template-areas: "like attributes";
   margin: 0 8px 8px 8px;
   font-size: 14px;
