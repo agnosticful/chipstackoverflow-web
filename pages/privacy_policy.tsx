@@ -2,7 +2,7 @@ import Head from "next/head";
 import * as React from "react";
 import PrivacyPolicyPage from "../pageComponents/PrivacyPolicyPage";
 
-export default function() {
+export default function () {
   return (
     <>
       <Head>

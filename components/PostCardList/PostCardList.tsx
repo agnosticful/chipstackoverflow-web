@@ -12,7 +12,7 @@ interface Props extends React.Attributes {
 
 export default function PostCardList({
   showLastUpdateDate = false,
-  children
+  children,
 }: Props) {
   return (
     <Root>

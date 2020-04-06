@@ -22,5 +22,5 @@ const SI_METRIC_SUFFIXES = new Map<number, string>([
   [5, "P"],
   [6, "E"],
   [7, "Z"],
-  [8, "Y"]
+  [8, "Y"],
 ]);

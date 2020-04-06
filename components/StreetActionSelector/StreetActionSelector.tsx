@@ -104,7 +104,7 @@ export default function StreetActionSelector({
 enum StreetAction {
   fold = "f",
   checkOrCall = "c",
-  betOrRaise = "r"
+  betOrRaise = "r",
 }
 
 const Root = styled.div`

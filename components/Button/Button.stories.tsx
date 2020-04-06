@@ -6,7 +6,7 @@ import Button, { ButtonSize, ButtonVariant } from "./Button";
 
 export default {
   title: "Button",
-  component: Button
+  component: Button,
 };
 
 export const example = () => (
@@ -134,11 +134,11 @@ export const Anchor = () => (
 const VARIANTS = {
   "ButtonVariant.default": ButtonVariant.default,
   "ButtonVariant.primary": ButtonVariant.primary,
-  "ButtonVariant.secondary": ButtonVariant.secondary
+  "ButtonVariant.secondary": ButtonVariant.secondary,
 };
 
 const SIZES = {
   "ButtonSize.large": ButtonSize.large,
   "ButtonSize.medium": ButtonSize.medium,
-  "ButtonSize.small": ButtonSize.small
+  "ButtonSize.small": ButtonSize.small,
 };

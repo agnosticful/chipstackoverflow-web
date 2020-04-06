@@ -15,7 +15,7 @@ export default function useAuthentication(): {
     setUserIdForLogging,
     signIn: _signIn,
     signOut: _signOut,
-    subscribeUserById
+    subscribeUserById,
   } = useRepository();
   const [user, setUser] = React.useState<User | null>(null);
   const [isFirstChecking, setFirstChecking] = React.useState(true);
@@ -35,7 +35,7 @@ export default function useAuthentication(): {
   React.useEffect(() => {
     let userSubscription: Subscription | void;
 
-    const subscription = onAuthenticationStateChanged.subscribe(userId => {
+    const subscription = onAuthenticationStateChanged.subscribe((userId) => {
       if (userSubscription) {
         userSubscription.unsubscribe();
       }
@@ -45,7 +45,7 @@ export default function useAuthentication(): {
 
         const onUserChanged = subscribeUserById(userId);
 
-        userSubscription = onUserChanged.subscribe(user => {
+        userSubscription = onUserChanged.subscribe((user) => {
           setUser(user);
           setFirstChecking(false);
         });

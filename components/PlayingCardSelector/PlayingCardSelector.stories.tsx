@@ -7,7 +7,7 @@ import PlayingCardSelector from "./PlayingCardSelector";
 
 export default {
   title: "PlayingCardSelector",
-  component: PlayingCardSelector
+  component: PlayingCardSelector,
 };
 
 export const example = () => {
@@ -41,12 +41,12 @@ const RANKS = {
   "Rank.ten": Rank.ten,
   "Rank.jack": Rank.jack,
   "Rank.queen": Rank.queen,
-  "Rank.king": Rank.king
+  "Rank.king": Rank.king,
 };
 
 const SUITS = {
   "Suit.spade": Suit.spade,
   "Suit.heart": Suit.heart,
   "Suit.diamond": Suit.diamond,
-  "Suit.club": Suit.club
+  "Suit.club": Suit.club,
 };

@@ -6,17 +6,17 @@ import firestoreSnapshotToUser from "../serializers/firestoreSnapshotToUser";
 export type SubscribeUserById = (id: UserId) => Observable<User | null>;
 
 export function createSubscribeUserById({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): SubscribeUserById {
-  return userId =>
-    new Observable<User | null>(observer => {
+  return (userId) =>
+    new Observable<User | null>((observer) => {
       const unsubscribe = firebaseApp
         .firestore()
         .collection("users")
         .doc(userId)
-        .onSnapshot(snapshot => {
+        .onSnapshot((snapshot) => {
           if (!snapshot.exists) {
             return observer.next(null);
           }

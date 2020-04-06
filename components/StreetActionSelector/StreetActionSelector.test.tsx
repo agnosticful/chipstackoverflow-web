@@ -61,7 +61,7 @@ describe("<StreetActionSelector>", () => {
     );
 
     const foldButton = renderer.root.find(
-      node => node.props["data-test-id"] === "fold-button"
+      (node) => node.props["data-test-id"] === "fold-button"
     );
 
     await act(async () => {
@@ -98,7 +98,7 @@ describe("<StreetActionSelector>", () => {
     );
 
     const checkOrCallButton = renderer.root.find(
-      node => node.props["data-test-id"] === "check-or-call-button"
+      (node) => node.props["data-test-id"] === "check-or-call-button"
     );
 
     await act(async () => {
@@ -130,7 +130,7 @@ describe("<StreetActionSelector>", () => {
     );
 
     let betSizeInput = renderer.root.find(
-      node => node.props["data-test-id"] === "bet-size-input"
+      (node) => node.props["data-test-id"] === "bet-size-input"
     );
 
     expect(betSizeInput.props.defaultValue).toBe(1);
@@ -142,7 +142,7 @@ describe("<StreetActionSelector>", () => {
     });
 
     betSizeInput = renderer.root.find(
-      node => node.props["data-test-id"] === "bet-size-input"
+      (node) => node.props["data-test-id"] === "bet-size-input"
     );
 
     expect(betSizeInput.props.defaultValue).toBe(3);
@@ -158,21 +158,21 @@ describe("<StreetActionSelector>", () => {
         onChange={onChange}
       />,
       {
-        createNodeMock: element => {
+        createNodeMock: (element) => {
           if (element.props["data-test-id"] === "bet-size-input") {
             return {
               focus: () => undefined,
-              value: betSizeInputValue
+              value: betSizeInputValue,
             };
           }
 
           return null;
-        }
+        },
       }
     );
 
     const betOrRaiseButton = renderer.root.find(
-      node => node.props["data-test-id"] === "bet-or-raise-button"
+      (node) => node.props["data-test-id"] === "bet-or-raise-button"
     );
 
     await act(async () => {
@@ -188,21 +188,21 @@ describe("<StreetActionSelector>", () => {
     const renderer = create(
       <StreetActionSelector tableMaxBetSize={1} previousBetSize={0} />,
       {
-        createNodeMock: element => {
+        createNodeMock: (element) => {
           if (element.props["data-test-id"] === "bet-size-input") {
             return {
               focus,
-              value: null
+              value: null,
             };
           }
 
           return null;
-        }
+        },
       }
     );
 
     const betOrRaiseButton = renderer.root.find(
-      node => node.props["data-test-id"] === "bet-or-raise-button"
+      (node) => node.props["data-test-id"] === "bet-or-raise-button"
     );
 
     await act(async () => {
@@ -223,7 +223,7 @@ describe("<StreetActionSelector>", () => {
     );
 
     let betSizeInput = renderer!.root.find(
-      node => node.props["data-test-id"] === "bet-size-input"
+      (node) => node.props["data-test-id"] === "bet-size-input"
     );
 
     await act(async () => {
@@ -243,7 +243,7 @@ describe("<StreetActionSelector>", () => {
     // re-obtain betSizeInput element
     // because it would be remounted whenever props.tableMaxBetSize changes
     betSizeInput = renderer!.root.find(
-      node => node.props["data-test-id"] === "bet-size-input"
+      (node) => node.props["data-test-id"] === "bet-size-input"
     );
 
     await act(async () => {

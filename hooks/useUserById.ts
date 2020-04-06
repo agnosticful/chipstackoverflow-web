@@ -15,7 +15,7 @@ export default function useUserById(
   React.useEffect(() => {
     setFirstLoading(true);
 
-    const subscription = subscribeUserById(userId).subscribe(user => {
+    const subscription = subscribeUserById(userId).subscribe((user) => {
       if (!user) {
         throw new Error(`The user (id: ${userId}) doesn't exist.`);
       }

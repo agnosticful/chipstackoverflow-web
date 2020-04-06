@@ -10,7 +10,7 @@ describe("useUserById()", () => {
 
   beforeEach(() => {
     subscribeUserById.mockName("subscribeUserById").mockReturnValue(
-      new Observable(subscriber => {
+      new Observable((subscriber) => {
         setImmediate(() => subscriber.next({}));
       })
     );

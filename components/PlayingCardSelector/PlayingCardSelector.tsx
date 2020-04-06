@@ -5,7 +5,7 @@ import {
   SPADE_COLOR,
   HEART_COLOR,
   DIAMOND_COLOR,
-  CLUB_COLOR
+  CLUB_COLOR,
 } from "../../constants/color";
 import { Rank, Suit } from "../../models/PlayingCard";
 import SuitIcon from "../SuitIcon";
@@ -50,7 +50,7 @@ export default function PlayingCardSelector({
       content={
         <Content>
           <SuitButtons>
-            {SUITS.map(s => (
+            {SUITS.map((s) => (
               <SuitButton
                 suit={s}
                 active={s === suit}
@@ -65,7 +65,7 @@ export default function PlayingCardSelector({
           </SuitButtons>
 
           <RankButtons>
-            {RANKS.map(r => (
+            {RANKS.map((r) => (
               <RankButton
                 suit={suit}
                 active={r === rank}
@@ -175,7 +175,7 @@ const RANKS = [
   Rank.ten,
   Rank.jack,
   Rank.queen,
-  Rank.king
+  Rank.king,
 ];
 
 const SUITS = [Suit.spade, Suit.heart, Suit.diamond, Suit.club];
@@ -184,5 +184,5 @@ const SUIT_COLORS: Record<Suit, string> = {
   [Suit.spade]: SPADE_COLOR,
   [Suit.heart]: HEART_COLOR,
   [Suit.diamond]: DIAMOND_COLOR,
-  [Suit.club]: CLUB_COLOR
+  [Suit.club]: CLUB_COLOR,
 };

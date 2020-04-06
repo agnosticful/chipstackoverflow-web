@@ -10,7 +10,7 @@ export type CreateAnswerReaction = (params: {
 }) => Promise<void>;
 
 export function createCreateAnswerReaction({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): CreateAnswerReaction {
@@ -30,11 +30,8 @@ export function createCreateAnswerReaction({
           .doc(answer.post)
           .collection("answers")
           .doc(answer.id),
-        user: firebaseApp
-          .firestore()
-          .collection("users")
-          .doc(user.id),
-        type: reactionType
+        user: firebaseApp.firestore().collection("users").doc(user.id),
+        type: reactionType,
       });
   };
 }

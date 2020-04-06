@@ -7,19 +7,19 @@ import firestoreSnapshotToAnswer from "../serializers/firestoreSnapshotToAnswer"
 export type SubscribeAnswersByPostId = (postId: PostId) => Observable<Answer[]>;
 
 export function createSubscribeAnswersByPostId({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): SubscribeAnswersByPostId {
   return () =>
-    new Observable<Answer[]>(observer => {
+    new Observable<Answer[]>((observer) => {
       const unsubscribe = firebaseApp
         .firestore()
         .collection("answers")
         .orderBy("lastUpdatedAt", "desc")
         .limit(100)
-        .onSnapshot(snapshot => {
-          const answers = snapshot.docs.map(doc =>
+        .onSnapshot((snapshot) => {
+          const answers = snapshot.docs.map((doc) =>
             firestoreSnapshotToAnswer(doc)
           );
 
