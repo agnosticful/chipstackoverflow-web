@@ -61,25 +61,36 @@ export default function PostCardListItem({ post, ...props }: Props) {
           <ThumbsUpIcon />
           {post.likes}
         </Likes>
-        <Attributes>
-          <Attribute>Play at</Attribute>
-          <Attribute>Ended at</Attribute>
-          <Attribute>Final Pot</Attribute>
-          <Attribute>{ShowLastUpdateDate ? "Last Update" : "Posted"}</Attribute>
 
-          <Attribute>
-            {getPositionByPlayerAndIndex(
-              post.gameSituation.playerLength,
-              post.gameSituation.heroIndex
-            )}
-          </Attribute>
-          <Attribute>{gameEndedAt}</Attribute>
-          <Attribute>{`${getStringWithSIMetricSuffix(
-            calculateFinalPot(post.gameSituation)
-          )} BB`}</Attribute>
-          <Attribute>{`${getShortFormatDistanceStrict(
-            ShowLastUpdateDate ? post.lastUpdatedAt : post.createdAt
-          )} ago`}</Attribute>
+        <Attributes>
+          <PlayAt>
+            <span>Play at</span>
+            <span>
+              {getPositionByPlayerAndIndex(
+                post.gameSituation.playerLength,
+                post.gameSituation.heroIndex
+              )}
+            </span>
+          </PlayAt>
+
+          <EndedAt>
+            <span>Ended at</span>
+            <span>{gameEndedAt}</span>
+          </EndedAt>
+
+          <FinalPot>
+            <span>Final Pot</span>
+            <span>{`${getStringWithSIMetricSuffix(
+              calculateFinalPot(post.gameSituation)
+            )} BB`}</span>
+          </FinalPot>
+
+          <Posted>
+            <span>{ShowLastUpdateDate ? "Last Update" : "Posted"}</span>
+            <span>{`${getShortFormatDistanceStrict(
+              ShowLastUpdateDate ? post.lastUpdatedAt : post.createdAt
+            )} ago`}</span>
+          </Posted>
         </Attributes>
       </GameDetail>
     </Root>
@@ -158,7 +169,8 @@ const PostTitle = styled.h2`
 const GameDetail = styled.div`
   grid-area: game-detail;
   display: grid;
-  grid-template-columns: minmax(80px, 100px) 1fr;
+  grid-template-columns: 96px 1fr;
+  grid-template-areas: "like attributes";
   margin: 0 8px 8px 8px;
   font-size: 14px;
   font-weight: normal;
@@ -170,6 +182,7 @@ const GameDetail = styled.div`
 `;
 
 const Likes = styled.div`
+  grid-area: like;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -181,13 +194,53 @@ const Likes = styled.div`
 `;
 
 const Attributes = styled.div`
+  grid-area: attributes;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  row-gap: 4px;
+  grid-template-areas: "play-at ended-at final-pot posted";
   width: 100%;
 `;
 
-const Attribute = styled.span`
-  display: block;
+const PlayAt = styled.div`
+  grid-area: play-at;
+  & > span {
+    display: block;
+  }
+
+  & > span:first-child {
+    margin-bottom: 4px;
+  }
+`;
+
+const EndedAt = styled.div`
+  grid-area: ended-at;
+  & > span {
+    display: block;
+  }
+
+  & > span:first-child {
+    margin-bottom: 4px;
+  }
+`;
+
+const FinalPot = styled.div`
+  grid-area: final-pot;
+  & > span {
+    display: block;
+  }
+
+  & > span:first-child {
+    margin-bottom: 4px;
+  }
+`;
+
+const Posted = styled.div`
+  grid-area: posted;
+  & > span {
+    display: block;
+  }
+
+  & > span:first-child {
+    margin-bottom: 4px;
+  }
 `;
