@@ -5,12 +5,12 @@ import StreetActionSelector from "./StreetActionSelector";
 
 export default {
   title: "StreetActionSelector",
-  component: StreetActionSelector
+  component: StreetActionSelector,
 };
 
 export const example = () => {
   const tableMaxBetSize = number("tableMaxBetSize", undefined as any, {
-    min: 0
+    min: 0,
   });
 
   return (
@@ -18,7 +18,7 @@ export const example = () => {
       tableMaxBetSize={tableMaxBetSize}
       previousBetSize={number("previousBetSize", undefined as any, {
         min: 0,
-        max: tableMaxBetSize
+        max: tableMaxBetSize,
       })}
       onChange={action("onChange")}
     />

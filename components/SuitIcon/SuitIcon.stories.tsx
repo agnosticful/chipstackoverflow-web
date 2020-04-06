@@ -4,7 +4,7 @@ import SuitIcon from "./SuitIcon";
 
 export default {
   title: "SuitIcon",
-  component: SuitIcon
+  component: SuitIcon,
 };
 
 export const example = () => (
@@ -12,7 +12,7 @@ export const example = () => (
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(4, minmax(16px, 64px))",
-      gap: 8
+      gap: 8,
     }}
   >
     <SuitIcon suit={Suit.spade} />

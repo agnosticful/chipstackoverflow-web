@@ -45,7 +45,7 @@ export default function AnswerCardContent({
       <CreationDate>{createDate.toDateString()}</CreationDate>
 
       <Body>
-        {body.split("\n").map(line => (
+        {body.split("\n").map((line) => (
           <p>{line}</p>
         ))}
       </Body>

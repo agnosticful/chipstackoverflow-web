@@ -11,6 +11,6 @@ export default function firestoreDataToAnswerReaction(
     post: data.answer.parent.parent.id,
     answer: data.answer.id,
     user: data.user.id,
-    type: data.type
+    type: data.type,
   };
 }

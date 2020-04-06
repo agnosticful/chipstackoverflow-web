@@ -5,14 +5,14 @@ import { UserId } from "../models/User";
 export type OnAuthenticationStateChanged = Observable<UserId | null>;
 
 export function createOnAuthenticationStateChanged({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): OnAuthenticationStateChanged {
-  return new Observable(subscriber => {
+  return new Observable((subscriber) => {
     firebaseApp
       .auth()
-      .onAuthStateChanged(user =>
+      .onAuthStateChanged((user) =>
         subscriber.next(user ? (user.uid as UserId) : null)
       );
 

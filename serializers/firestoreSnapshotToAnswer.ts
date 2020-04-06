@@ -13,6 +13,6 @@ export default function firestoreDataToAnswer(
     body: data.body,
     likes: data.likes,
     dislikes: data.dislikes,
-    createdAt: data.createdAt.toDate()
+    createdAt: data.createdAt.toDate(),
   };
 }
