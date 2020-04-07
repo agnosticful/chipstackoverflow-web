@@ -51,7 +51,7 @@ describe("<StreetActionSelector>", () => {
     ).toThrow();
   });
 
-  it('calls onChange() with StreetAction.fold and props.previousBetSize when "Fold" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.fold and props.previousBetSize when "Fold" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
