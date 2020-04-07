@@ -1,6 +1,7 @@
 import * as React from "react";
 import { act, create } from "react-test-renderer";
 import { createRenderer } from "react-test-renderer/shallow";
+import { GameStreetActionType } from "../../models/GameSituation";
 import StreetActionSelector from "./StreetActionSelector";
 
 describe("<StreetActionSelector>", () => {
@@ -50,7 +51,7 @@ describe("<StreetActionSelector>", () => {
     ).toThrow();
   });
 
-  it('calls onChange() with props.previousBetSize when "Fold" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.fold and props.previousBetSize when "Fold" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -83,11 +84,33 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, 0);
-    expect(onChange).toHaveBeenNthCalledWith(2, 1);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.fold, 0);
+    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.fold, 1);
   });
 
-  it('calls onChange() with props.tableMaxBetSize when "Call" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.check and 0 when "Check" button is clicked', async () => {
+    const onChange = jest.fn().mockName("onChange");
+    const renderer = create(
+      <StreetActionSelector
+        tableMaxBetSize={0}
+        previousBetSize={0}
+        onChange={onChange}
+      />
+    );
+
+    const checkOrCallButton = renderer.root.find(
+      (node) => node.props["data-test-id"] === "check-or-call-button"
+    );
+
+    await act(async () => {
+      checkOrCallButton.props.onClick();
+    });
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.check, 0);
+  });
+
+  it('calls onChange() with GameStreetActionType.call and props.tableMaxBetSize when "Call" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -120,8 +143,47 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, 1);
-    expect(onChange).toHaveBeenNthCalledWith(2, 3);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.call, 1);
+    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.call, 3);
+  });
+
+  it('calls onChange() with GameStreetActionType.bet and the bet size input\'s value when tableMaxBetSize is 0 and "Bet" button is clicked', async () => {
+    const onChange = jest.fn().mockName("onChange");
+    const betSizeInputValue = 123456789;
+    const renderer = create(
+      <StreetActionSelector
+        tableMaxBetSize={0}
+        previousBetSize={0}
+        onChange={onChange}
+      />,
+      {
+        createNodeMock: (element) => {
+          if (element.props["data-test-id"] === "bet-size-input") {
+            return {
+              focus: () => undefined,
+              value: betSizeInputValue,
+            };
+          }
+
+          return null;
+        },
+      }
+    );
+
+    const betOrRaiseButton = renderer.root.find(
+      (node) => node.props["data-test-id"] === "bet-or-raise-button"
+    );
+
+    await act(async () => {
+      betOrRaiseButton.props.onClick();
+    });
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenNthCalledWith(
+      1,
+      GameStreetActionType.bet,
+      betSizeInputValue
+    );
   });
 
   it("sets defaultValue at bet size input that is sum of props.tableMaxBetSize", async () => {
@@ -148,7 +210,7 @@ describe("<StreetActionSelector>", () => {
     expect(betSizeInput.props.defaultValue).toBe(3);
   });
 
-  it('calls onChange() with the bet size input\'s value when "Raise" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.raise and the bet size input\'s value when "Raise" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const betSizeInputValue = 123456789;
     const renderer = create(
@@ -180,7 +242,11 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenNthCalledWith(1, betSizeInputValue);
+    expect(onChange).toHaveBeenNthCalledWith(
+      1,
+      GameStreetActionType.raise,
+      betSizeInputValue
+    );
   });
 
   it('sets a focus on bet size input when "Raise" button is clicked', async () => {
@@ -212,7 +278,7 @@ describe("<StreetActionSelector>", () => {
     expect(focus).toHaveBeenCalledTimes(1);
   });
 
-  it("calls onChange() with the value of input element whenever its value changes", async () => {
+  it("calls onChange() with GameStreetActionType.raise and the value of input element whenever its value changes", async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -251,7 +317,7 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, 20);
-    expect(onChange).toHaveBeenNthCalledWith(2, 43);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.raise, 20);
+    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.raise, 43);
   });
 });
