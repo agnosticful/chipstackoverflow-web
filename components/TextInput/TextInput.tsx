@@ -23,7 +23,7 @@ export default function TextInput({
 
 export enum TextInputSize {
   medium,
-  large
+  large,
 }
 
 const Root = styled.input<{ size: TextInputSize }>`
@@ -65,5 +65,5 @@ const SIZE_CSS: Record<TextInputSize, FlattenSimpleInterpolation> = {
   `,
   [TextInputSize.large]: css`
     font-size: 20px;
-  `
+  `,
 };

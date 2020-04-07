@@ -4,6 +4,7 @@ import styled, { FlattenSimpleInterpolation, css } from "styled-components";
 interface Props extends React.Attributes {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
   style?: React.CSSProperties;
@@ -16,11 +17,12 @@ interface Props extends React.Attributes {
 export default function Button({
   variant = ButtonVariant.default,
   size = ButtonSize.medium,
+  disabled = false,
   children,
   ...props
 }: Props) {
   return (
-    <Root variant={variant} _size={size} {...props}>
+    <Root variant={variant} _size={size} disabled={disabled} {...props}>
       {children}
     </Root>
   );
@@ -29,18 +31,19 @@ export default function Button({
 export enum ButtonSize {
   large,
   medium,
-  small
+  small,
 }
 
 export enum ButtonVariant {
   default,
   primary,
-  secondary
+  secondary,
 }
 
 const Root = styled.button<{
   variant: ButtonVariant;
   _size: ButtonSize;
+  disabled: boolean;
 }>`
   ${({ variant }) => VARIANT_CSS[variant]}
   ${({ _size }) => SIZE_CSS[_size]}
@@ -70,6 +73,15 @@ const Root = styled.button<{
     box-shadow: var(--hover-box-shadow);
     color: var(--hover-color);
     transform: translate3d(0px, -2px, 0px);
+  }
+
+  :disabled {
+    background: #c8d6e5;
+    border-color: transparent;
+    box-shadow: none;
+    color: #576574;
+    transform: none;
+    cursor: not-allowed;
   }
 
   & a {
@@ -108,7 +120,7 @@ const VARIANT_CSS: Record<ButtonVariant, FlattenSimpleInterpolation> = {
     --hover-background: #fff;
     --hover-border-color: #0f151c;
     --hover-color: #0f151c;
-  `
+  `,
 };
 
 const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
@@ -141,5 +153,5 @@ const SIZE_CSS: Record<ButtonSize, FlattenSimpleInterpolation> = {
     --inner-svg-size: 16px;
     --inner-svg-margin-right: 4px;
     --hover-box-shadow: 0px 0px 8px #222f3e3f, 0px 8px 16px #222f3e1f;
-  `
+  `,
 };

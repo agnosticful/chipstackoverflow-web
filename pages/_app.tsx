@@ -10,7 +10,9 @@ import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
 import "../global.css";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
+import { createCreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { createCreatePost } from "../repositories/createPost";
+import { createDeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
 import { createLogEvent } from "../repositories/logEvent";
@@ -18,6 +20,7 @@ import { createOnAuthenticationStateChanged } from "../repositories/onAuthentica
 import { createSetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
+import { createSubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
@@ -26,23 +29,26 @@ export default function App({ Component, pageProps, router }: AppProps) {
   const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
+      createAnswerReaction: createCreateAnswerReaction({ firebaseApp }),
       createPost: createCreatePost({ firebaseApp }),
+      deleteAnswerReaction: createDeleteAnswerReaction({ firebaseApp }),
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
       logEvent: createLogEvent({ firebaseApp }),
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
-        firebaseApp
+        firebaseApp,
       }),
       getUserById: createGetUserById({ firebaseApp }),
       setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
+      subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({
-        firebaseApp
+        firebaseApp,
       }),
       subscribeUserById: createSubscribeUserById({ firebaseApp }),
       signIn: createSignIn({
         firebaseApp,
-        googleAuthProvider: new firebase.auth.GoogleAuthProvider()
+        googleAuthProvider: new firebase.auth.GoogleAuthProvider(),
       }),
-      signOut: createSignOut({ firebaseApp })
+      signOut: createSignOut({ firebaseApp }),
     }),
     []
   );

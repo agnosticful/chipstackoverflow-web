@@ -2,20 +2,23 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   ChevronDownIcon,
+  LoadingIcon,
   SendIcon,
   SignOutIcon,
   ThumbsDownIcon,
-  ThumbsUpIcon
+  ThumbsUpIcon,
 } from "./Icon";
 
 export default {
   title: "Icon",
-  component: SendIcon
+  component: SendIcon,
 };
 
 export const example = () => (
   <Catalog>
     <ChevronDownIcon />
+
+    <LoadingIcon />
 
     <SendIcon />
 
@@ -41,7 +44,7 @@ export const withColor = () => {
           alignItems: "center",
           color: isActive ? "#ff6b6b" : "#0f151c",
           transition: "color 200ms ease",
-          cursor: "pointer"
+          cursor: "pointer",
         }}
       >
         {"Click to change "}

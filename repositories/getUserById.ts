@@ -5,11 +5,11 @@ import firestoreSnapshotToUser from "../serializers/firestoreSnapshotToUser";
 export type GetUserById = (id: UserId) => Promise<User>;
 
 export function createGetUserById({
-  firebaseApp
+  firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): GetUserById {
-  return async id => {
+  return async (id) => {
     const snapshot = await firebaseApp
       .firestore()
       .collection("users")

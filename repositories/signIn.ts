@@ -4,7 +4,7 @@ export type SignIn = () => Promise<void>;
 
 export function createSignIn({
   firebaseApp,
-  googleAuthProvider
+  googleAuthProvider,
 }: {
   firebaseApp: firebase.app.App;
   googleAuthProvider: firebase.auth.GoogleAuthProvider;
@@ -39,7 +39,7 @@ export function createSignIn({
 
       if (doc.exists) break;
 
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
     }
   }
 

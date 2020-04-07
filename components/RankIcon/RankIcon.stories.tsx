@@ -4,7 +4,7 @@ import RankIcon from "./RankIcon";
 
 export default {
   title: "RankIcon",
-  component: RankIcon
+  component: RankIcon,
 };
 
 export const example = () => (
@@ -12,7 +12,7 @@ export const example = () => (
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(13, minmax(16px, 64px))",
-      gap: 8
+      gap: 8,
     }}
   >
     <RankIcon rank={Rank.ace} />
@@ -36,7 +36,7 @@ export const coloringBySuit = () => (
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(4, minmax(16px, 64px))",
-      gap: 8
+      gap: 8,
     }}
   >
     <RankIcon rank={Rank.ace} suit={Suit.spade} />

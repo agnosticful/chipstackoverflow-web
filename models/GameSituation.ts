@@ -34,10 +34,19 @@ export default interface GameSituation {
 
 export enum GameType {
   cash = "CASH",
-  tournament = "TOURNAMENT"
+  tournament = "TOURNAMENT",
 }
 
 export interface GameStreetAction {
+  type: GameStreetActionType;
   playerIndex: number;
   betSize: number;
+}
+
+export enum GameStreetActionType {
+  fold = "FOLD",
+  check = "CHECK",
+  call = "CALL",
+  bet = "BET",
+  raise = "RAISE",
 }

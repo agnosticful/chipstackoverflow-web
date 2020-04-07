@@ -7,7 +7,7 @@ import Select from "./Select";
 export default {
   title: "Select",
   component: Select,
-  subcomponents: { Option }
+  subcomponents: { Option },
 };
 
 export const example = () => {
@@ -20,7 +20,7 @@ export const example = () => {
         gridTemplateColumns: "auto auto",
         columnGap: 16,
         alignItems: "center",
-        justifyContent: "flex-start"
+        justifyContent: "flex-start",
       }}
     >
       <span>T-shirt Size :</span>
@@ -50,7 +50,7 @@ export const longContent = () => {
         display: "grid",
         gridTemplateColumns: "auto 1fr",
         columnGap: 16,
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
       <span>T-shirt Size :</span>
@@ -77,7 +77,7 @@ enum TShirtSize {
   large = "large",
   medium = "medium",
   small = "small",
-  xSmall = "xSmall"
+  xSmall = "xSmall",
 }
 
 const T_SHIRT_SIZES = {
@@ -86,5 +86,5 @@ const T_SHIRT_SIZES = {
   "TShirtSize.large": TShirtSize.large,
   "TShirtSize.medium": TShirtSize.medium,
   "TShirtSize.small": TShirtSize.small,
-  "TShirtSize.xSmall": TShirtSize.xSmall
+  "TShirtSize.xSmall": TShirtSize.xSmall,
 };

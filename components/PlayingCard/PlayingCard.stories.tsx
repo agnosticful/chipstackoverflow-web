@@ -4,7 +4,7 @@ import PlayingCard from "./PlayingCard";
 
 export default {
   title: "PlayingCard",
-  component: PlayingCard
+  component: PlayingCard,
 };
 
 export const example = () => (
@@ -12,7 +12,7 @@ export const example = () => (
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(13, 1fr)",
-      gap: 8
+      gap: 8,
     }}
   >
     <PlayingCard suit={Suit.spade} rank={Rank.ace} />
@@ -75,7 +75,7 @@ export const noSuit = () => (
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(13, 1fr)",
-      gap: 8
+      gap: 8,
     }}
   >
     <PlayingCard rank={Rank.ace} />
@@ -99,7 +99,7 @@ export const noRank = () => (
     style={{
       display: "grid",
       gridTemplateColumns: "repeat(13, 1fr)",
-      gap: 8
+      gap: 8,
     }}
   >
     <PlayingCard suit={Suit.spade} />
