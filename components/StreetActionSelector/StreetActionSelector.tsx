@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { GameStreetActionType } from "../../models/GameSituation";
 
 interface Props extends React.Attributes {
   /**
@@ -12,12 +13,12 @@ interface Props extends React.Attributes {
    * `previousBetSize` must be less than or equal `tableMaxBetSize`.
    **/
   previousBetSize?: number;
-  onChange?: (type: StreetAction, betSize: number) => void;
+  onChange?: (type: GameStreetActionType, betSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function StreetActionSelector({
+export default function GameStreetActionTypeSelector({
   tableMaxBetSize = 0,
   previousBetSize = 0,
   onChange = () => undefined,
@@ -30,31 +31,31 @@ export default function StreetActionSelector({
   }
 
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [action, setAction] = React.useState<StreetAction | null>(null);
+  const [action, setAction] = React.useState<GameStreetActionType | null>(null);
 
   const onFoldButtonClick = React.useCallback(() => {
-    setAction(StreetAction.fold);
-    onChange(StreetAction.fold, previousBetSize);
+    setAction(GameStreetActionType.fold);
+    onChange(GameStreetActionType.fold, previousBetSize);
   }, [previousBetSize]);
 
   const onCheckOrCallButtonClick = React.useCallback(() => {
-    if (tableMaxBetSize === 0) {
-      setAction(StreetAction.check);
-      onChange(StreetAction.check, tableMaxBetSize);
-    } else {
-      setAction(StreetAction.call);
-      onChange(StreetAction.call, tableMaxBetSize);
-    }
+    const action =
+      tableMaxBetSize === 0
+        ? GameStreetActionType.check
+        : GameStreetActionType.call;
+
+    setAction(action);
+    onChange(action, tableMaxBetSize);
   }, [tableMaxBetSize]);
 
   const onBetOrRaiseButtonClick = React.useCallback(() => {
-    if (tableMaxBetSize === 0) {
-      setAction(StreetAction.bet);
-      onChange(StreetAction.bet, parseFloat(inputRef.current!.value));
-    } else {
-      setAction(StreetAction.raise);
-      onChange(StreetAction.raise, parseFloat(inputRef.current!.value));
-    }
+    const action =
+      tableMaxBetSize === 0
+        ? GameStreetActionType.bet
+        : GameStreetActionType.raise;
+
+    setAction(action);
+    onChange(action, parseFloat(inputRef.current!.value));
 
     inputRef.current!.focus();
   }, []);
@@ -62,7 +63,9 @@ export default function StreetActionSelector({
   const onBetSizeChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) =>
       onChange(
-        tableMaxBetSize === 0 ? StreetAction.bet : StreetAction.raise,
+        tableMaxBetSize === 0
+          ? GameStreetActionType.bet
+          : GameStreetActionType.raise,
         parseFloat(e.currentTarget.value)
       ),
     []
@@ -72,7 +75,7 @@ export default function StreetActionSelector({
     <Root {...props}>
       <SelectableButton
         onClick={onFoldButtonClick}
-        active={action === StreetAction.fold}
+        active={action === GameStreetActionType.fold}
         data-test-id="fold-button"
       >
         Fold
@@ -80,7 +83,10 @@ export default function StreetActionSelector({
 
       <SelectableButton
         onClick={onCheckOrCallButtonClick}
-        active={action === StreetAction.check || action === StreetAction.call}
+        active={
+          action === GameStreetActionType.check ||
+          action === GameStreetActionType.call
+        }
         data-test-id="check-or-call-button"
       >
         {tableMaxBetSize === previousBetSize ? "Check" : "Call"}
@@ -88,10 +94,16 @@ export default function StreetActionSelector({
 
       <SelectableButton
         tabIndex={
-          action === StreetAction.bet || action === StreetAction.raise ? -1 : 0
+          action === GameStreetActionType.bet ||
+          action === GameStreetActionType.raise
+            ? -1
+            : 0
         }
         onClick={onBetOrRaiseButtonClick}
-        active={action === StreetAction.bet || action === StreetAction.raise}
+        active={
+          action === GameStreetActionType.bet ||
+          action === GameStreetActionType.raise
+        }
         data-test-id="bet-or-raise-button"
       >
         {tableMaxBetSize === 0 ? "Bet" : "Raise"}
@@ -103,31 +115,28 @@ export default function StreetActionSelector({
           defaultValue={tableMaxBetSize}
           placeholder={`${tableMaxBetSize}`}
           tabIndex={
-            action === StreetAction.bet || action === StreetAction.raise
+            action === GameStreetActionType.bet ||
+            action === GameStreetActionType.raise
               ? 0
               : -1
           }
           onChange={onBetSizeChange}
           ref={inputRef}
           key={`${tableMaxBetSize}`}
-          active={action === StreetAction.bet || action === StreetAction.raise}
+          active={
+            action === GameStreetActionType.bet ||
+            action === GameStreetActionType.raise
+          }
           data-test-id="bet-size-input"
         />
 
-        {action === StreetAction.bet || action === StreetAction.raise
+        {action === GameStreetActionType.bet ||
+        action === GameStreetActionType.raise
           ? "BB"
           : null}
       </SelectableButton>
     </Root>
   );
-}
-
-export enum StreetAction {
-  fold = "FOLD",
-  check = "CHECK",
-  call = "CALL",
-  bet = "BET",
-  raise = "RAISE",
 }
 
 const Root = styled.div`

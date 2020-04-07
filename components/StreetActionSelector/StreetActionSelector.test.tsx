@@ -1,7 +1,8 @@
 import * as React from "react";
 import { act, create } from "react-test-renderer";
 import { createRenderer } from "react-test-renderer/shallow";
-import StreetActionSelector, { StreetAction } from "./StreetActionSelector";
+import { GameStreetActionType } from "../../models/GameSituation";
+import StreetActionSelector from "./StreetActionSelector";
 
 describe("<StreetActionSelector>", () => {
   it("matches with the previous snapshot", () => {
@@ -83,11 +84,11 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, StreetAction.fold, 0);
-    expect(onChange).toHaveBeenNthCalledWith(2, StreetAction.fold, 1);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.fold, 0);
+    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.fold, 1);
   });
 
-  it('calls onChange() with StreetAction.check and 0 when "Check" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.check and 0 when "Check" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -106,10 +107,10 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenNthCalledWith(1, StreetAction.check, 0);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.check, 0);
   });
 
-  it('calls onChange() with StreetAction.call and props.tableMaxBetSize when "Call" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.call and props.tableMaxBetSize when "Call" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -142,11 +143,11 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, StreetAction.call, 1);
-    expect(onChange).toHaveBeenNthCalledWith(2, StreetAction.call, 3);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.call, 1);
+    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.call, 3);
   });
 
-  it('calls onChange() with StreetAction.bet and the bet size input\'s value when tableMaxBetSize is 0 and "Bet" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.bet and the bet size input\'s value when tableMaxBetSize is 0 and "Bet" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const betSizeInputValue = 123456789;
     const renderer = create(
@@ -180,7 +181,7 @@ describe("<StreetActionSelector>", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenNthCalledWith(
       1,
-      StreetAction.bet,
+      GameStreetActionType.bet,
       betSizeInputValue
     );
   });
@@ -209,7 +210,7 @@ describe("<StreetActionSelector>", () => {
     expect(betSizeInput.props.defaultValue).toBe(3);
   });
 
-  it('calls onChange() with StreetAction.raise and the bet size input\'s value when "Raise" button is clicked', async () => {
+  it('calls onChange() with GameStreetActionType.raise and the bet size input\'s value when "Raise" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const betSizeInputValue = 123456789;
     const renderer = create(
@@ -243,7 +244,7 @@ describe("<StreetActionSelector>", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenNthCalledWith(
       1,
-      StreetAction.raise,
+      GameStreetActionType.raise,
       betSizeInputValue
     );
   });
@@ -277,7 +278,7 @@ describe("<StreetActionSelector>", () => {
     expect(focus).toHaveBeenCalledTimes(1);
   });
 
-  it("calls onChange() with StreetAction.raise and the value of input element whenever its value changes", async () => {
+  it("calls onChange() with GameStreetActionType.raise and the value of input element whenever its value changes", async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -316,7 +317,7 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, StreetAction.raise, 20);
-    expect(onChange).toHaveBeenNthCalledWith(2, StreetAction.raise, 43);
+    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.raise, 20);
+    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.raise, 43);
   });
 });
