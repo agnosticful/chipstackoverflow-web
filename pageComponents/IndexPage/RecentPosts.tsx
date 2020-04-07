@@ -6,6 +6,7 @@ import PostList, {
   PostCardListItemLoader,
 } from "../../components/PostCardList";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import { NUMBER_OF_POST_CARD_DISPLAY } from "../../constants/number";
 import useRepository from "../../hooks/useRepository";
 import Post from "../../models/Post";
 
@@ -15,7 +16,7 @@ export default function RecentPosts() {
 
   React.useEffect(() => {
     (async () => {
-      setPost(await getRecentPosts({ limit: 6 }));
+      setPost(await getRecentPosts({ limit: NUMBER_OF_POST_CARD_DISPLAY }));
     })();
   }, [setPost, getRecentPosts]);
 
@@ -25,12 +26,9 @@ export default function RecentPosts() {
       <PostList>
         {post.length === 0 ? (
           <>
-            <PostCardListItemLoader />
-            <PostCardListItemLoader />
-            <PostCardListItemLoader />
-            <PostCardListItemLoader />
-            <PostCardListItemLoader />
-            <PostCardListItemLoader />
+            {Array.from(new Array(NUMBER_OF_POST_CARD_DISPLAY)).map((_, i) => (
+              <PostCardListItemLoader key={i} />
+            ))}
           </>
         ) : (
           post.map((postItem) => (
