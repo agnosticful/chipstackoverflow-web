@@ -1,12 +1,13 @@
 import * as React from "react";
+import { AnonymizeUserForLogging } from "../repositories/anonymizeUserForLogging";
 import { CreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { CreatePost } from "../repositories/createPost";
 import { DeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
 import { GetUserById } from "../repositories/getUserById";
+import { IdentifyUserForLogging } from "../repositories/identifyUserForLogging";
 import { LogEvent } from "../repositories/logEvent";
 import { OnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
-import { SetUserIdForLogging } from "../repositories/setUserIdForLogging";
 import { SignIn } from "../repositories/signIn";
 import { SignOut } from "../repositories/signOut";
 import { SubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
@@ -14,14 +15,15 @@ import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { SubscribeUserById } from "../repositories/subscribeUserById";
 
 export interface Repository {
+  anonymizeUserForLogging: AnonymizeUserForLogging;
   createAnswerReaction: CreateAnswerReaction;
   createPost: CreatePost;
   deleteAnswerReaction: DeleteAnswerReaction;
   getRecentPosts: GetRecentPosts;
   getUserById: GetUserById;
+  identifyUserForLogging: IdentifyUserForLogging;
   logEvent: LogEvent;
   onAuthenticationStateChanged: OnAuthenticationStateChanged;
-  setUserIdForLogging: SetUserIdForLogging;
   signIn: SignIn;
   signOut: SignOut;
   subscribeAnswersByPostId: SubscribeAnswersByPostId;
