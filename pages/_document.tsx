@@ -22,8 +22,8 @@ export default class Document extends NextDocument {
 
           <script
             async
-            src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
-          ></script>
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.FIREBASE_MEASUREMENT_ID}`}
+          />
           <script
             // set send_page_view false to prevent sending page_view when the firebase app initializes
             dangerouslySetInnerHTML={{
@@ -31,11 +31,9 @@ export default class Document extends NextDocument {
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
 
-                gtag('config', '${
-                  JSON.parse(process.env.firebaseAppOptions!).measurementId
-                }', { 'send_page_view': false });`,
+                gtag('config', '${process.env.FIREBASE_MEASUREMENT_ID}', { 'send_page_view': false });`,
             }}
-          ></script>
+          />
         </body>
       </Html>
     );
