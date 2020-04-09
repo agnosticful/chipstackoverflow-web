@@ -29,20 +29,28 @@ import getFirebaseApp from "../utilities/getFirebaseApp";
 
 export default function App({ Component, pageProps, router }: AppProps) {
   const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
-  const repository = React.useMemo<Repository>(
-    () => ({
-      anonymizeUserForLogging: createAnonymizeUserForLogging({ firebaseApp }),
+  const repository = React.useMemo<Repository>(() => {
+    const fullstory: any = (globalThis as any).FS;
+
+    return {
+      anonymizeUserForLogging: createAnonymizeUserForLogging({
+        firebaseApp,
+        fullstory,
+      }),
       createAnswerReaction: createCreateAnswerReaction({ firebaseApp }),
       createPost: createCreatePost({ firebaseApp }),
       deleteAnswerReaction: createDeleteAnswerReaction({ firebaseApp }),
       getRecentPosts: createGetRecentPosts({ firebaseApp }),
-      logEvent: createLogEvent({ firebaseApp }),
+      logEvent: createLogEvent({ firebaseApp, fullstory }),
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp,
       }),
       getPostById: createGetPostById({ firebaseApp }),
       getUserById: createGetUserById({ firebaseApp }),
-      identifyUserForLogging: createIdentifyUserForLogging({ firebaseApp }),
+      identifyUserForLogging: createIdentifyUserForLogging({
+        firebaseApp,
+        fullstory,
+      }),
       subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({ firebaseApp }),
       subscribeUserById: createSubscribeUserById({ firebaseApp }),
@@ -51,9 +59,8 @@ export default function App({ Component, pageProps, router }: AppProps) {
         googleAuthProvider: new firebase.auth.GoogleAuthProvider(),
       }),
       signOut: createSignOut({ firebaseApp }),
-    }),
-    []
-  );
+    };
+  }, []);
 
   React.useEffect(() => {
     firebaseApp.analytics().setCurrentScreen(router.pathname);
