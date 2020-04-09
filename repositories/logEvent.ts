@@ -8,12 +8,16 @@ export type LogEvent = (
 
 export function createLogEvent({
   firebaseApp,
+  fullstory,
 }: {
   firebaseApp: firebase.app.App;
+  fullstory: any;
 }): LogEvent {
   return (name, params, options) => {
     firebaseApp
       .analytics()
       .logEvent(name, params, { global: false, ...options });
+
+    fullstory?.event(name, params);
   };
 }
