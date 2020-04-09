@@ -3,6 +3,7 @@ import { AnonymizeUserForLogging } from "../repositories/anonymizeUserForLogging
 import { CreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { CreatePost } from "../repositories/createPost";
 import { DeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
+import { GetPostById } from "../repositories/getPostById";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
 import { GetUserById } from "../repositories/getUserById";
 import { IdentifyUserForLogging } from "../repositories/identifyUserForLogging";
@@ -19,6 +20,7 @@ export interface Repository {
   createAnswerReaction: CreateAnswerReaction;
   createPost: CreatePost;
   deleteAnswerReaction: DeleteAnswerReaction;
+  getPostById: GetPostById;
   getRecentPosts: GetRecentPosts;
   getUserById: GetUserById;
   identifyUserForLogging: IdentifyUserForLogging;

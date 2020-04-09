@@ -14,6 +14,7 @@ import { createAnonymizeUserForLogging } from "../repositories/anonymizeUserForL
 import { createCreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { createCreatePost } from "../repositories/createPost";
 import { createDeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
+import { createGetPostById } from "../repositories/getPostById";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
 import { createLogEvent } from "../repositories/logEvent";
@@ -39,6 +40,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp,
       }),
+      getPostById: createGetPostById({ firebaseApp }),
       getUserById: createGetUserById({ firebaseApp }),
       identifyUserForLogging: createIdentifyUserForLogging({ firebaseApp }),
       subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
