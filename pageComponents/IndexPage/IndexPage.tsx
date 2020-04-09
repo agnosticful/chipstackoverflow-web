@@ -21,7 +21,10 @@ export default function IndexPage({ children, ...props }: Props) {
         <Eyecatch />
       </Content>
 
-      <RecentPosts />
+      <Content>
+        <Headline>Recent Posts</Headline>
+        <RecentPosts />
+      </Content>
 
       <FootBar />
     </Root>
@@ -40,5 +43,14 @@ const Content = styled.section`
   ${MOBILE_MEDIA} {
     margin: 0;
     padding: 0 16px 64px;
+  }
+`;
+
+const Headline = styled.h2`
+  margin: 0 auto 32px;
+  font-size: 32px;
+
+  ${MOBILE_MEDIA} {
+    font-size: 24px;
   }
 `;
