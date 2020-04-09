@@ -10,14 +10,16 @@ import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
 import "../global.css";
 import { Repository, RepositoryProvider } from "../hooks/useRepository";
+import { createAnonymizeUserForLogging } from "../repositories/anonymizeUserForLogging";
 import { createCreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { createCreatePost } from "../repositories/createPost";
 import { createDeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
+import { createGetPostById } from "../repositories/getPostById";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
 import { createLogEvent } from "../repositories/logEvent";
 import { createOnAuthenticationStateChanged } from "../repositories/onAuthenticationStateChanged";
-import { createSetUserIdForLogging } from "../repositories/setUserIdForLogging";
+import { createIdentifyUserForLogging } from "../repositories/identifyUserForLogging";
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
@@ -29,6 +31,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
   const firebaseApp = React.useMemo(() => getFirebaseApp(), []);
   const repository = React.useMemo<Repository>(
     () => ({
+      anonymizeUserForLogging: createAnonymizeUserForLogging({ firebaseApp }),
       createAnswerReaction: createCreateAnswerReaction({ firebaseApp }),
       createPost: createCreatePost({ firebaseApp }),
       deleteAnswerReaction: createDeleteAnswerReaction({ firebaseApp }),
@@ -37,12 +40,11 @@ export default function App({ Component, pageProps, router }: AppProps) {
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp,
       }),
+      getPostById: createGetPostById({ firebaseApp }),
       getUserById: createGetUserById({ firebaseApp }),
-      setUserIdForLogging: createSetUserIdForLogging({ firebaseApp }),
+      identifyUserForLogging: createIdentifyUserForLogging({ firebaseApp }),
       subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
-      subscribeRecentPosts: createSubscribeRecentPosts({
-        firebaseApp,
-      }),
+      subscribeRecentPosts: createSubscribeRecentPosts({ firebaseApp }),
       subscribeUserById: createSubscribeUserById({ firebaseApp }),
       signIn: createSignIn({
         firebaseApp,
