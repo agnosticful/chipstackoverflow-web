@@ -1,23 +1,24 @@
 import * as React from "react";
 import { Subscription } from "rxjs";
-import User from "../models/User";
+import UserPrivate from "../models/UserPrivate";
 import useRepository from "./useRepository";
 
 export default function useAuthentication(): {
-  user: User | null;
+  user: UserPrivate | null;
   isFirstChecking: boolean;
   signIn: (objectId: string) => void;
   signOut: () => void;
 } {
   const {
+    anonymizeUserForLogging,
     logEvent,
+    identifyUserForLogging,
     onAuthenticationStateChanged,
-    setUserIdForLogging,
     signIn: _signIn,
     signOut: _signOut,
     subscribeUserById,
   } = useRepository();
-  const [user, setUser] = React.useState<User | null>(null);
+  const [user, setUser] = React.useState<UserPrivate | null>(null);
   const [isFirstChecking, setFirstChecking] = React.useState(true);
 
   const signIn = React.useCallback((objectId: string) => {
@@ -33,31 +34,42 @@ export default function useAuthentication(): {
   }, []);
 
   React.useEffect(() => {
-    let userSubscription: Subscription | void;
+    let userSubscription: Subscription | undefined;
 
-    const subscription = onAuthenticationStateChanged.subscribe((userId) => {
-      if (userSubscription) {
-        userSubscription.unsubscribe();
+    const subscription = onAuthenticationStateChanged.subscribe(
+      (userPrivateAttributes) => {
+        if (userSubscription) {
+          userSubscription.unsubscribe();
+        }
+
+        if (userPrivateAttributes) {
+          const onUserChanged = subscribeUserById(userPrivateAttributes.id);
+
+          userSubscription = onUserChanged.subscribe((user) => {
+            if (!user) {
+              return;
+            }
+
+            const userPrivate = { ...user, ...userPrivateAttributes };
+
+            identifyUserForLogging(userPrivate);
+            setUser(userPrivate);
+            setFirstChecking(false);
+          });
+
+          return;
+        }
+
+        anonymizeUserForLogging();
+        setUser(null);
+        setFirstChecking(false);
       }
+    );
 
-      if (userId) {
-        setUserIdForLogging(userId);
-
-        const onUserChanged = subscribeUserById(userId);
-
-        userSubscription = onUserChanged.subscribe((user) => {
-          setUser(user);
-          setFirstChecking(false);
-        });
-
-        return;
-      }
-
-      setFirstChecking(false);
-      setUser(null);
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      userSubscription?.unsubscribe();
+      subscription.unsubscribe();
+    };
   }, []);
 
   return { user, isFirstChecking, signIn, signOut };
