@@ -1,42 +1,70 @@
 import Router from "next/router";
 import * as React from "react";
+import styled from "styled-components";
 import PostList, {
   PostCardListItem,
   PostCardListItemLoader,
 } from "../../components/PostCardList";
-import { NUMBER_OF_POST_CARD_DISPLAY } from "../../constants/number";
+import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import { NUMBER_OF_POST_TO_FETCH } from "../../constants/user";
 import useRepository from "../../hooks/useRepository";
 import Post from "../../models/Post";
 
-export default function RecentPosts() {
-  const { getRecentPosts } = useRepository();
-  const [post, setPost] = React.useState<Post[]>([]);
+export default function RecentPosts({
+  prefetchedRecentPosts,
+}: {
+  prefetchedRecentPosts: Post[];
+}) {
+  const { subscribeRecentPosts } = useRepository();
+  const [posts, setPosts] = React.useState<Post[]>(prefetchedRecentPosts);
 
   React.useEffect(() => {
-    (async () => {
-      setPost(await getRecentPosts({ limit: NUMBER_OF_POST_CARD_DISPLAY }));
-    })();
-  }, [setPost, getRecentPosts]);
+    const recentPostsChanged = subscribeRecentPosts({
+      limit: NUMBER_OF_POST_TO_FETCH,
+    });
+
+    const recentPostsSubscription = recentPostsChanged.subscribe(
+      (recentPosts) => {
+        setPosts(recentPosts);
+      }
+    );
+
+    return () => {
+      recentPostsSubscription.unsubscribe();
+    };
+  }, [setPosts, subscribeRecentPosts]);
 
   return (
-    <PostList>
-      {post.length === 0 ? (
-        <>
-          {Array.from(new Array(NUMBER_OF_POST_CARD_DISPLAY)).map((_, i) => (
-            <PostCardListItemLoader key={i} />
-          ))}
-        </>
-      ) : (
-        post.map((postItem) => (
-          <PostCardListItem
-            key={postItem.id}
-            post={postItem}
-            onClick={() => {
-              Router.push(`/posts/${postItem.id}`);
-            }}
-          />
-        ))
-      )}
-    </PostList>
+    <>
+      <Headline>Recent Posts</Headline>
+      <PostList>
+        {posts.length === 0 ? (
+          <>
+            {Array.from({ length: NUMBER_OF_POST_TO_FETCH }, (_, i) => (
+              <PostCardListItemLoader key={i} />
+            ))}
+          </>
+        ) : (
+          posts.map((post) => (
+            <PostCardListItem
+              key={post.id}
+              post={post}
+              onClick={() =>
+                Router.push(`/posts/[postId]`, `/posts/${post.id}`)
+              }
+            />
+          ))
+        )}
+      </PostList>
+    </>
   );
 }
+
+const Headline = styled.h2`
+  margin: 0 auto 32px;
+  font-size: 32px;
+
+  ${MOBILE_MEDIA} {
+    font-size: 24px;
+  }
+`;

@@ -3,16 +3,22 @@ import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import Post from "../../models/Post";
 import Eyecatch from "./Eyecatch";
 import RecentPosts from "./RecentPosts";
 
 interface Props extends React.Attributes {
+  prefetchedRecentPosts: Post[];
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
-export default function IndexPage({ children, ...props }: Props) {
+export default function IndexPage({
+  prefetchedRecentPosts,
+  children,
+  ...props
+}: Props) {
   return (
     <Root {...props}>
       <HeadBar />
@@ -22,8 +28,7 @@ export default function IndexPage({ children, ...props }: Props) {
       </Content>
 
       <Content>
-        <Headline>Recent Posts</Headline>
-        <RecentPosts />
+        <RecentPosts prefetchedRecentPosts={prefetchedRecentPosts} />
       </Content>
 
       <FootBar />
@@ -43,14 +48,5 @@ const Content = styled.section`
   ${MOBILE_MEDIA} {
     margin: 0;
     padding: 0 16px 64px;
-  }
-`;
-
-const Headline = styled.h2`
-  margin: 0 auto 32px;
-  font-size: 32px;
-
-  ${MOBILE_MEDIA} {
-    font-size: 24px;
   }
 `;

@@ -1,1 +1,0 @@
-export const NUMBER_OF_POST_CARD_DISPLAY = 6;
