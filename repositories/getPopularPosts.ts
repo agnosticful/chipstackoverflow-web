@@ -4,7 +4,7 @@ import firestoreSnapshotToPost from "../serializers/firestoreSnapshotToPost";
 
 export type GetPopularPosts = (options: {
   limit: number;
-  tillWhen: Date;
+  acquisitionPeriodFrom: Date;
 }) => Promise<Post[]>;
 
 export function createGetPopularPosts({
@@ -12,11 +12,11 @@ export function createGetPopularPosts({
 }: {
   firebaseApp: firebase.app.App;
 }): GetPopularPosts {
-  return async ({ limit, tillWhen }) => {
+  return async ({ limit, acquisitionPeriodFrom }) => {
     const snapshot = await firebaseApp
       .firestore()
       .collection("posts")
-      .where("lastUpdatedAt", "<=", tillWhen)
+      .where("lastUpdatedAt", "<=", acquisitionPeriodFrom)
       .orderBy("totalLike", "desc")
       .limit(limit)
       .get();
