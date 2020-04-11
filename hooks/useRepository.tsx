@@ -3,6 +3,7 @@ import { AnonymizeUserForLogging } from "../repositories/anonymizeUserForLogging
 import { CreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { CreatePost } from "../repositories/createPost";
 import { DeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
+import { GetPopularPosts } from "../repositories/getPopularPosts";
 import { GetPostById } from "../repositories/getPostById";
 import { GetRecentPosts } from "../repositories/getRecentPosts";
 import { GetUserById } from "../repositories/getUserById";
@@ -12,6 +13,7 @@ import { OnAuthenticationStateChanged } from "../repositories/onAuthenticationSt
 import { SignIn } from "../repositories/signIn";
 import { SignOut } from "../repositories/signOut";
 import { SubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
+import { SubscribePopularPosts } from "../repositories/subscribePopularPosts";
 import { SubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { SubscribeUserById } from "../repositories/subscribeUserById";
 
@@ -20,6 +22,7 @@ export interface Repository {
   createAnswerReaction: CreateAnswerReaction;
   createPost: CreatePost;
   deleteAnswerReaction: DeleteAnswerReaction;
+  getPopularPosts: GetPopularPosts;
   getPostById: GetPostById;
   getRecentPosts: GetRecentPosts;
   getUserById: GetUserById;
@@ -29,6 +32,7 @@ export interface Repository {
   signIn: SignIn;
   signOut: SignOut;
   subscribeAnswersByPostId: SubscribeAnswersByPostId;
+  subscribePopularPosts: SubscribePopularPosts;
   subscribeRecentPosts: SubscribeRecentPosts;
   subscribeUserById: SubscribeUserById;
 }

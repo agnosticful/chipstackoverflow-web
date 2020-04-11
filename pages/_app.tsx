@@ -14,6 +14,7 @@ import { createAnonymizeUserForLogging } from "../repositories/anonymizeUserForL
 import { createCreateAnswerReaction } from "../repositories/createAnswerReaction";
 import { createCreatePost } from "../repositories/createPost";
 import { createDeleteAnswerReaction } from "../repositories/deleteAnswerReaction";
+import { createGetPopularPosts } from "../repositories/getPopularPosts";
 import { createGetPostById } from "../repositories/getPostById";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import { createGetUserById } from "../repositories/getUserById";
@@ -23,6 +24,7 @@ import { createIdentifyUserForLogging } from "../repositories/identifyUserForLog
 import { createSignIn } from "../repositories/signIn";
 import { createSignOut } from "../repositories/signOut";
 import { createSubscribeAnswersByPostId } from "../repositories/subscribeAnswersByPostId";
+import { createSubscribePopularPosts } from "../repositories/subscribePopularPosts";
 import { createSubscribeRecentPosts } from "../repositories/subscribeRecentPosts";
 import { createSubscribeUserById } from "../repositories/subscribeUserById";
 import getFirebaseApp from "../utilities/getFirebaseApp";
@@ -45,6 +47,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
       onAuthenticationStateChanged: createOnAuthenticationStateChanged({
         firebaseApp,
       }),
+      getPopularPosts: createGetPopularPosts({ firebaseApp }),
       getPostById: createGetPostById({ firebaseApp }),
       getUserById: createGetUserById({ firebaseApp }),
       identifyUserForLogging: createIdentifyUserForLogging({
@@ -52,6 +55,7 @@ export default function App({ Component, pageProps, router }: AppProps) {
         fullstory,
       }),
       subscribeAnswersByPostId: createSubscribeAnswersByPostId({ firebaseApp }),
+      subscribePopularPosts: createSubscribePopularPosts({ firebaseApp }),
       subscribeRecentPosts: createSubscribeRecentPosts({ firebaseApp }),
       subscribeUserById: createSubscribeUserById({ firebaseApp }),
       signIn: createSignIn({
