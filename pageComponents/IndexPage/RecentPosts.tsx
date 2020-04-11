@@ -6,7 +6,7 @@ import PostList, {
   PostCardListItemLoader,
 } from "../../components/PostCardList";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import { NUMBER_OF_POST_TO_FETCH } from "../../constants/user";
+import { NUMBER_OF_POSTS } from "../../constants/post";
 import useRepository from "../../hooks/useRepository";
 import Post from "../../models/Post";
 
@@ -20,7 +20,7 @@ export default function RecentPosts({
 
   React.useEffect(() => {
     const recentPostsChanged = subscribeRecentPosts({
-      limit: NUMBER_OF_POST_TO_FETCH,
+      limit: NUMBER_OF_POSTS,
     });
 
     const recentPostsSubscription = recentPostsChanged.subscribe(
@@ -40,7 +40,7 @@ export default function RecentPosts({
       <PostList>
         {posts.length === 0 ? (
           <>
-            {Array.from({ length: NUMBER_OF_POST_TO_FETCH }, (_, i) => (
+            {Array.from({ length: NUMBER_OF_POSTS }, (_, i) => (
               <PostCardListItemLoader key={i} />
             ))}
           </>
@@ -61,7 +61,7 @@ export default function RecentPosts({
 }
 
 const Headline = styled.h2`
-  margin: 0 auto 32px;
+  margin-bottom: 32px;
   font-size: 32px;
 
   ${MOBILE_MEDIA} {
