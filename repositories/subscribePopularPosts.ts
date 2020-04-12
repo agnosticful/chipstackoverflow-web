@@ -18,13 +18,13 @@ export function createSubscribePopularPosts({
       const unsubscribe = firebaseApp
         .firestore()
         .collection("posts")
-        .where("lastUpdatedAt", "<=", acquisitionPeriodFrom)
-        .orderBy("totalLike", "desc")
-        .limit(limit)
+        .orderBy("createdAt")
+        .startAt(acquisitionPeriodFrom)
         .onSnapshot((snapshot) => {
-          const posts = snapshot.docs.map((doc) =>
-            firestoreSnapshotToPost(doc)
-          );
+          const posts = snapshot.docs
+            .map((doc) => firestoreSnapshotToPost(doc))
+            .sort((post, _post) => _post.totalLikes - post.totalLikes)
+            .slice(0, limit);
 
           observer.next(posts);
         });
