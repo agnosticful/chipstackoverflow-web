@@ -16,11 +16,15 @@ export function createGetPopularPosts({
     const snapshot = await firebaseApp
       .firestore()
       .collection("posts")
-      .where("lastUpdatedAt", "<=", acquisitionPeriodFrom)
-      .orderBy("totalLike", "desc")
-      .limit(limit)
+      .orderBy("createdAt")
+      .startAt(acquisitionPeriodFrom)
       .get();
 
-    return snapshot.docs.map((doc) => firestoreSnapshotToPost(doc));
+    const posts = snapshot.docs
+      .map((doc) => firestoreSnapshotToPost(doc))
+      .sort((post, _post) => _post.totalLikes - post.totalLikes)
+      .slice(0, limit);
+
+    return posts;
   };
 }
