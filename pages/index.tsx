@@ -27,14 +27,14 @@ export async function getServerSideProps() {
   const firebaseApp = getFirebaseApp();
   const getPopularPosts = createGetPopularPosts({ firebaseApp });
 
-  const acquisitionPeriodFrom = new Date();
-  acquisitionPeriodFrom.setFullYear(
-    acquisitionPeriodFrom.getFullYear() - POPULAR_POSTS_TERM_FROM_IN_MONTH
+  const acquisitionTermFrom = new Date();
+  acquisitionTermFrom.setFullYear(
+    acquisitionTermFrom.getFullYear() - POPULAR_POSTS_TERM_FROM_IN_MONTH
   );
 
   const popularPosts = await getPopularPosts({
     limit: NUMBER_OF_POSTS,
-    acquisitionPeriodFrom,
+    acquisitionTermFrom,
   });
 
   return {

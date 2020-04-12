@@ -21,15 +21,15 @@ export default function PopularPosts({
   const { subscribePopularPosts } = useRepository();
   const [posts, setPosts] = React.useState<Post[]>(prefetchedPopularPosts);
 
-  const acquisitionPeriodFrom = new Date();
-  acquisitionPeriodFrom.setMonth(
-    acquisitionPeriodFrom.getMonth() - POPULAR_POSTS_TERM_FROM_IN_MONTH
+  const acquisitionTermFrom = new Date();
+  acquisitionTermFrom.setMonth(
+    acquisitionTermFrom.getMonth() - POPULAR_POSTS_TERM_FROM_IN_MONTH
   );
 
   React.useEffect(() => {
     const popularPostsChanged = subscribePopularPosts({
       limit: NUMBER_OF_POSTS,
-      acquisitionPeriodFrom,
+      acquisitionTermFrom,
     });
 
     const popularPostsSubscription = popularPostsChanged.subscribe(
