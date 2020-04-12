@@ -3,21 +3,32 @@ import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import Post from "../../models/Post";
 import Eyecatch from "./Eyecatch";
+import PopularPosts from "./PopularPosts";
 
 interface Props extends React.Attributes {
+  prefetchedPopularPosts: Post[];
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
-export default function IndexPage({ children, ...props }: Props) {
+export default function IndexPage({
+  prefetchedPopularPosts,
+  children,
+  ...props
+}: Props) {
   return (
     <Root {...props}>
       <HeadBar />
 
       <Content>
         <Eyecatch />
+      </Content>
+
+      <Content>
+        <PopularPosts prefetchedPopularPosts={prefetchedPopularPosts} />
       </Content>
 
       <FootBar />
