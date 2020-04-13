@@ -23,7 +23,7 @@ export function createSubscribePopularPosts({
         .onSnapshot((snapshot) => {
           const posts = snapshot.docs
             .map((doc) => firestoreSnapshotToPost(doc))
-            .sort((post, _post) => _post.totalLikes - post.totalLikes)
+            .sort((a, b) => b.totalLikes - a.totalLikes)
             .slice(0, limit);
 
           observer.next(posts);

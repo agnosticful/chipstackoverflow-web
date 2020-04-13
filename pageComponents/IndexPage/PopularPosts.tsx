@@ -7,7 +7,7 @@ import PostList, {
 } from "../../components/PostCardList";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import {
-  NUMBER_OF_POSTS,
+  NUMBER_OF_POSTS_IN_INDEX,
   POPULAR_POSTS_TERM_FROM_IN_MONTH,
 } from "../../constants/post";
 import useRepository from "../../hooks/useRepository";
@@ -28,7 +28,7 @@ export default function PopularPosts({
 
   React.useEffect(() => {
     const popularPostsChanged = subscribePopularPosts({
-      limit: NUMBER_OF_POSTS,
+      limit: NUMBER_OF_POSTS_IN_INDEX,
       acquisitionTermFrom,
     });
 
@@ -49,7 +49,7 @@ export default function PopularPosts({
       <PostList>
         {posts.length === 0 ? (
           <>
-            {Array.from({ length: NUMBER_OF_POSTS }, (_, i) => (
+            {Array.from({ length: NUMBER_OF_POSTS_IN_INDEX }, (_, i) => (
               <PostCardListItemLoader key={i} />
             ))}
           </>

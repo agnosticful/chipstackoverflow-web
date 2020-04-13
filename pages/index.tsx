@@ -1,13 +1,13 @@
 import * as React from "react";
-import IndexPage from "../pageComponents/IndexPage";
 import {
-  NUMBER_OF_POSTS,
+  NUMBER_OF_POSTS_IN_INDEX,
   POPULAR_POSTS_TERM_FROM_IN_MONTH,
 } from "../constants/post";
+import IndexPage from "../pageComponents/IndexPage";
 import { createGetPopularPosts } from "../repositories/getPopularPosts";
+import jsonToPost from "../serializers/jsonToPost";
 import postToJSON from "../serializers/postToJSON";
 import getFirebaseApp from "../utilities/getFirebaseApp";
-import jsonToPost from "../serializers/jsonToPost";
 
 export default function Page({
   prefetchedPopularPostsJSON,
@@ -16,8 +16,8 @@ export default function Page({
 }) {
   return (
     <IndexPage
-      prefetchedPopularPosts={prefetchedPopularPostsJSON.map(
-        (prefetchedPopularPostJSON) => jsonToPost(prefetchedPopularPostJSON)
+      prefetchedPopularPosts={prefetchedPopularPostsJSON.map((item) =>
+        jsonToPost(item)
       )}
     />
   );
@@ -28,12 +28,12 @@ export async function getServerSideProps() {
   const getPopularPosts = createGetPopularPosts({ firebaseApp });
 
   const acquisitionTermFrom = new Date();
-  acquisitionTermFrom.setFullYear(
-    acquisitionTermFrom.getFullYear() - POPULAR_POSTS_TERM_FROM_IN_MONTH
+  acquisitionTermFrom.setMonth(
+    acquisitionTermFrom.getMonth() - POPULAR_POSTS_TERM_FROM_IN_MONTH
   );
 
   const popularPosts = await getPopularPosts({
-    limit: NUMBER_OF_POSTS,
+    limit: NUMBER_OF_POSTS_IN_INDEX,
     acquisitionTermFrom,
   });
 
