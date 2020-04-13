@@ -2,28 +2,22 @@ import * as firebase from "firebase/app";
 import Post from "../models/Post";
 import firestoreSnapshotToPost from "../serializers/firestoreSnapshotToPost";
 
-export type GetPopularPosts = (options: {
-  limit: number;
-  acquisitionTermFrom: Date;
-}) => Promise<Post[]>;
+export type GetPopularPosts = (options: { limit: number }) => Promise<Post[]>;
 
 export function createGetPopularPosts({
   firebaseApp,
 }: {
   firebaseApp: firebase.app.App;
 }): GetPopularPosts {
-  return async ({ limit, acquisitionTermFrom }) => {
+  return async ({ limit }) => {
     const snapshot = await firebaseApp
       .firestore()
       .collection("posts")
-      .orderBy("createdAt")
-      .startAt(acquisitionTermFrom)
+      .orderBy("totalLikes", "desc")
+      .limit(limit)
       .get();
 
-    const posts = snapshot.docs
-      .map((doc) => firestoreSnapshotToPost(doc))
-      .sort((a, b) => b.totalLikes - a.totalLikes)
-      .slice(0, limit);
+    const posts = snapshot.docs.map((doc) => firestoreSnapshotToPost(doc));
 
     return posts;
   };
