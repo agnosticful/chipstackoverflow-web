@@ -37,6 +37,7 @@ export default function Eyecatch(props: Props) {
           <Button
             variant={ButtonVariant.primary}
             onClick={() => signIn("eyecatch_sign_up_button")}
+            disabled={isFirstChecking ? true : false}
           >
             {isFirstChecking ? "Loading..." : "Become a shark"}
           </Button>
