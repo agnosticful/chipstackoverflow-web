@@ -13,8 +13,8 @@ export default function Page({
 }) {
   return (
     <IndexPage
-      prefetchedRecentPosts={prefetchedRecentPostsJSON.map(
-        (prefetchedRecentPostJSON) => jsonToPost(prefetchedRecentPostJSON)
+      prefetchedRecentPosts={prefetchedRecentPostsJSON.map((item) =>
+        jsonToPost(item)
       )}
     />
   );
