@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NUMBER_OF_POSTS } from "../constants/post";
+import { NUMBER_OF_POSTS_IN_INDEX } from "../constants/post";
 import IndexPage from "../pageComponents/IndexPage";
 import { createGetRecentPosts } from "../repositories/getRecentPosts";
 import jsonToPost from "../serializers/jsonToPost";
@@ -25,7 +25,7 @@ export async function getServerSideProps() {
   const getRecentPosts = createGetRecentPosts({ firebaseApp });
 
   const recentPosts = await getRecentPosts({
-    limit: NUMBER_OF_POSTS,
+    limit: NUMBER_OF_POSTS_IN_INDEX,
   });
 
   return {
