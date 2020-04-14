@@ -6,9 +6,11 @@ import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import Eyecatch from "./Eyecatch";
 import PopularPosts from "./PopularPosts";
+import RecentPosts from "./RecentPosts";
 
 interface Props extends React.Attributes {
   prefetchedPopularPosts: Post[];
+  prefetchedRecentPosts: Post[];
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
@@ -16,6 +18,7 @@ interface Props extends React.Attributes {
 
 export default function IndexPage({
   prefetchedPopularPosts,
+  prefetchedRecentPosts,
   children,
   ...props
 }: Props) {
@@ -25,6 +28,10 @@ export default function IndexPage({
 
       <Content>
         <Eyecatch />
+      </Content>
+
+      <Content>
+        <RecentPosts prefetchedRecentPosts={prefetchedRecentPosts} />
       </Content>
 
       <Content>
