@@ -3,6 +3,7 @@ import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import useAuthentication from "../../hooks/useAuthentication";
 import Eyecatch from "./Eyecatch";
 
 interface Props extends React.Attributes {
@@ -12,9 +13,16 @@ interface Props extends React.Attributes {
 }
 
 export default function IndexPage({ children, ...props }: Props) {
+  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
+
   return (
     <Root {...props}>
-      <HeadBar />
+      <HeadBar
+        user={user ?? undefined}
+        authenticationChecking={isFirstChecking}
+        onSignInButtonClick={(_, objectId) => signIn(objectId)}
+        onSignOutButtonClick={() => signOut()}
+      />
 
       <Content>
         <Eyecatch />

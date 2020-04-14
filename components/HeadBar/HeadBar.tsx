@@ -2,19 +2,28 @@ import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import useAuthentication from "../../hooks/useAuthentication";
+import User from "../../models/User";
 import Button, { ButtonSize, ButtonVariant } from "../Button";
 import SignedInRight from "./SignedInRight";
 
 interface Props extends React.Attributes {
+  user?: User;
   noLogo?: boolean;
+  authenticationChecking?: boolean;
+  onSignInButtonClick?: (e: React.SyntheticEvent, objectId: string) => void;
+  onSignOutButtonClick?: (e: React.SyntheticEvent, objectId: string) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function HeadBar({ noLogo, ...props }: Props) {
-  const { isFirstChecking, signIn, user } = useAuthentication();
-
+export default function HeadBar({
+  user,
+  noLogo,
+  authenticationChecking = false,
+  onSignInButtonClick = () => {},
+  onSignOutButtonClick = () => {},
+  ...props
+}: Props) {
   const logo = noLogo ? null : (
     <Link href="/" passHref>
       <LogoAnchor>
@@ -26,14 +35,19 @@ export default function HeadBar({ noLogo, ...props }: Props) {
     </Link>
   );
 
-  const right = isFirstChecking ? null : user ? (
-    <_SignedInRight user={user} />
+  const right = authenticationChecking ? null : user ? (
+    <_SignedInRight
+      user={user}
+      onSignOutButtonClick={(e) =>
+        onSignOutButtonClick(e, "head_bar_sign_out_button")
+      }
+    />
   ) : (
     <>
       <SignUpButton
         variant={ButtonVariant.primary}
         size={ButtonSize.small}
-        onClick={() => signIn("head_bar_sign_up_button")}
+        onClick={(e) => onSignInButtonClick(e, "head_bar_sign_up_button")}
       >
         Sign up with Google
       </SignUpButton>
@@ -41,7 +55,7 @@ export default function HeadBar({ noLogo, ...props }: Props) {
       <ShortSignUpButton
         variant={ButtonVariant.primary}
         size={ButtonSize.small}
-        onClick={() => signIn("head_bar_sign_up_button")}
+        onClick={(e) => onSignInButtonClick(e, "head_bar_sign_up_button")}
       >
         Sign up
       </ShortSignUpButton>

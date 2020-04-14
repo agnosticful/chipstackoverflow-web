@@ -1,6 +1,5 @@
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
-import AuthenticationRepositoryStub from "../../testUtilities/AuthenticationRepositoryStub";
 import HeadBar from "./HeadBar";
 
 export default {
@@ -9,32 +8,24 @@ export default {
 };
 
 export const example = () => (
-  <AuthenticationRepositoryStub
-    signOut={action("signOut")}
-    user={{
-      id: "loremipsum",
-      name: "Lorem Ipsum",
-      profileImageURL: new URL("https://www.kohei.dev/profile.jpg"),
-    }}
-  >
-    <HeadBar />
-  </AuthenticationRepositoryStub>
+  <HeadBar
+    user={
+      {
+        id: "loremipsum",
+        name: "Lorem Ipsum",
+        profileImageURL: new URL("https://www.kohei.dev/profile.jpg"),
+      } as any
+    }
+    onSignOutButtonClick={action("onSignOutButtonClick")}
+  />
 );
 
 export const whenSignedOut = () => (
-  <AuthenticationRepositoryStub signIn={action("signIn")}>
-    <HeadBar />
-  </AuthenticationRepositoryStub>
+  <HeadBar onSignInButtonClick={action("onSignInButtonClick")} />
 );
 
-export const whileSigningIn = () => (
-  <AuthenticationRepositoryStub signingIn>
-    <HeadBar />
-  </AuthenticationRepositoryStub>
-);
+export const whileSigningIn = () => <HeadBar authenticationChecking />;
 
 export const noLogo = () => (
-  <AuthenticationRepositoryStub signIn={action("signIn")}>
-    <HeadBar noLogo />
-  </AuthenticationRepositoryStub>
+  <HeadBar noLogo onSignInButtonClick={action("onSignInButtonClick")} />
 );
