@@ -4,6 +4,7 @@ import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import useAuthentication from "../../hooks/useAuthentication";
+import useRepository from "../../hooks/useRepository";
 import Eyecatch from "./Eyecatch";
 
 interface Props extends React.Attributes {
@@ -14,6 +15,7 @@ interface Props extends React.Attributes {
 
 export default function IndexPage({ children, ...props }: Props) {
   const { user, isFirstChecking, signIn, signOut } = useAuthentication();
+  const { logEvent } = useRepository();
 
   return (
     <Root {...props}>
@@ -28,7 +30,9 @@ export default function IndexPage({ children, ...props }: Props) {
         <Eyecatch />
       </Content>
 
-      <FootBar />
+      <FootBar
+        onContactClick={(_, objectId) => logEvent("contact", { objectId })}
+      />
     </Root>
   );
 }

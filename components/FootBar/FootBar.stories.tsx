@@ -1,5 +1,5 @@
+import { action } from "@storybook/addon-actions";
 import * as React from "react";
-import LogRepositoryStub from "../../testUtilities/LogRepositoryStub";
 import FootBar from "./FootBar";
 
 export default {
@@ -8,7 +8,5 @@ export default {
 };
 
 export const example = () => (
-  <LogRepositoryStub>
-    <FootBar />
-  </LogRepositoryStub>
+  <FootBar onContactClick={action("onContactClick")} />
 );

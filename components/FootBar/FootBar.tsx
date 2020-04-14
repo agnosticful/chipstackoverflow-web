@@ -2,18 +2,19 @@ import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import useRepository from "../../hooks/useRepository";
 
 interface Props extends React.Attributes {
+  onContactClick?: (e: React.SyntheticEvent, objectId: string) => void;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
 }
 
-export default function FootBar({ children, ...props }: Props) {
-  const { logEvent } = useRepository();
-  const onContactClick = React.useCallback(() => logEvent("contact_click"), []);
-
+export default function FootBar({
+  onContactClick = () => {},
+  children,
+  ...props
+}: Props) {
   return (
     <Root {...props}>
       <div>© 2020 Agnosticful</div>
@@ -25,7 +26,7 @@ export default function FootBar({ children, ...props }: Props) {
 
         <a
           href="mailto:yo+chipstackoverflow@kohei.dev"
-          onClick={onContactClick}
+          onClick={(e) => onContactClick(e, "foot_bar_contact")}
         >
           Contact
         </a>
