@@ -17,8 +17,6 @@ export function createGetPopularPosts({
       .limit(limit)
       .get();
 
-    const posts = snapshot.docs.map((doc) => firestoreSnapshotToPost(doc));
-
-    return posts;
+    return snapshot.docs.map((doc) => firestoreSnapshotToPost(doc));
   };
 }
