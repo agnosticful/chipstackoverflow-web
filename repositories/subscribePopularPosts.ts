@@ -5,7 +5,6 @@ import firestoreSnapshotToPost from "../serializers/firestoreSnapshotToPost";
 
 export type SubscribePopularPosts = (options: {
   limit: number;
-  acquisitionPeriodFrom: Date;
 }) => Observable<Post[]>;
 
 export function createSubscribePopularPosts({
@@ -13,18 +12,17 @@ export function createSubscribePopularPosts({
 }: {
   firebaseApp: firebase.app.App;
 }): SubscribePopularPosts {
-  return ({ limit, acquisitionPeriodFrom }) =>
+  return ({ limit }) =>
     new Observable<Post[]>((observer) => {
       const unsubscribe = firebaseApp
         .firestore()
         .collection("posts")
-        .orderBy("createdAt")
-        .startAt(acquisitionPeriodFrom)
+        .orderBy("totalLikes", "desc")
+        .limit(limit)
         .onSnapshot((snapshot) => {
-          const posts = snapshot.docs
-            .map((doc) => firestoreSnapshotToPost(doc))
-            .sort((post, _post) => _post.totalLikes - post.totalLikes)
-            .slice(0, limit);
+          const posts = snapshot.docs.map((doc) =>
+            firestoreSnapshotToPost(doc)
+          );
 
           observer.next(posts);
         });
