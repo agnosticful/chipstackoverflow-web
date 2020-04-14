@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: "13.x"
       - run: npm ci
       - run: npx --no-install prettier --check '**/*.{ts,tsx}'
   test:
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: "13.x"
       - run: npm ci
       - run: npx --no-install jest --ci
   dry-build:
@@ -31,6 +31,6 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
-          node-version: "10.x"
+          node-version: "13.x"
       - run: npm ci
       - run: npx --no-install next build

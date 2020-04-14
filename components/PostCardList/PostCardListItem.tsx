@@ -59,7 +59,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
       <GameDetail>
         <Likes>
           <ThumbsUpIcon />
-          {post.likes}
+          {post.totalLikes}
         </Likes>
 
         <Attributes>

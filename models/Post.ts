@@ -6,8 +6,8 @@ export default interface Post {
   user: UserId;
   title: PostTitle;
   body: PostBody;
-  likes: number;
-  dislikes: number;
+  totalLikes: number;
+  totalDislikes: number;
   gameSituation: GameSituation;
   createdAt: Date;
   lastUpdatedAt: Date;
