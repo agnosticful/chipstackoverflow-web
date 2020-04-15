@@ -2,6 +2,7 @@ import {
   GameStreetAction,
   GameStreetActionType,
 } from "../models/GameSituation";
+
 export class PlayerActions {
   constructor({
     smallBlindSize,
@@ -16,6 +17,7 @@ export class PlayerActions {
       throw new Error(
         "smallBlindSize must be bigger than or equal to 0 and smaller than or equal to 1"
       );
+
     if (playerLength < 2 || 10 < playerLength)
       throw new Error(
         "playerLength must be bigger than or equal to 2 and smaller than or equal to 10"
@@ -69,11 +71,10 @@ export class PlayerActions {
     index: number,
     gameStreetAction: GameStreetAction
   ) {
-    if (index < 0 || this[street].length < index) {
+    if (index < 0 || this[street].length < index)
       throw new Error(
         "index must be more than or equal to 0 and less than the street length"
       );
-    }
 
     if (index === this[street].length) {
       this[street].push(gameStreetAction);
@@ -83,11 +84,10 @@ export class PlayerActions {
   }
 
   private deleteAction(street: Street, index: number) {
-    if (index < 0 || this[street].length <= index) {
+    if (index < 0 || this[street].length <= index)
       throw new Error(
         "index must be more than or equal to 0 and less than or equal to the street length"
       );
-    }
 
     const { playerIndex, betSize } = this[street][index];
     this.playerStackSizes[playerIndex] =
@@ -101,35 +101,36 @@ export class PlayerActions {
     index: number,
     gameStreetAction: GameStreetAction
   ) {
-    if (index < 0 || this[street].length <= index) {
+    if (index < 0 || this[street].length <= index)
       throw new Error(
         "index must be more than or equal to 0 and less than or equal to the street length"
       );
-    }
 
     const { type, playerIndex, betSize } = this[street][index];
+
     this[street][index] = gameStreetAction;
     this.playerStackSizes[playerIndex] =
       this.playerStackSizes[playerIndex] + betSize - gameStreetAction.betSize;
 
     if (type === GameStreetActionType.fold) {
       if (gameStreetAction.type === GameStreetActionType.check) {
-        if (this.isBetOrRaiseExist(street, index)) {
-          this.addAction(street, this.getExpectNextActionIndex(street, index), {
-            type: GameStreetActionType.fold,
-            playerIndex,
-            betSize: 0,
-          });
+        if (this.isBetOrRaiseExistOnSubsequentActions(street, index)) {
+          this.addAction(
+            street,
+            this.getExpectedNextActionIndex(street, index),
+            {
+              type: GameStreetActionType.fold,
+              playerIndex,
+              betSize: 0,
+            }
+          );
         } else {
           const nextStreet = this.getNextStreet(street);
 
           if (!nextStreet) {
             this.addAction(
               nextStreet!,
-              this.getFirstActionIndexByStreetAndPlayerIndex(
-                nextStreet!,
-                playerIndex
-              ),
+              this.getFirstActionIndexOfThePlayerBy(nextStreet!, playerIndex),
               {
                 type: GameStreetActionType.fold,
                 playerIndex,
@@ -146,10 +147,10 @@ export class PlayerActions {
         gameStreetAction.type === GameStreetActionType.raise
       ) {
         if (this.isAffordable(gameStreetAction.betSize, playerIndex)) {
-          if (this.isBetOrRaiseExist(street, index)) {
+          if (this.isBetOrRaiseExistOnSubsequentActions(street, index)) {
             this.addAction(
               street,
-              this.getExpectNextActionIndex(street, index),
+              this.getExpectedNextActionIndex(street, index),
               {
                 type: GameStreetActionType.fold,
                 playerIndex,
@@ -182,10 +183,7 @@ export class PlayerActions {
             if (nextStreet) {
               this.addAction(
                 street,
-                this.getFirstActionIndexByStreetAndPlayerIndex(
-                  nextStreet!,
-                  playerIndex
-                ),
+                this.getFirstActionIndexOfThePlayerBy(nextStreet!, playerIndex),
                 {
                   type: GameStreetActionType.fold,
                   playerIndex,
@@ -195,19 +193,19 @@ export class PlayerActions {
             }
           }
         } else {
-          this.deleteActionAndSubsequentActions(street, index, true);
+          this.deleteSubsequentActions(street, index, true);
         }
       }
     }
 
     if (type === GameStreetActionType.check) {
       if (gameStreetAction.type === GameStreetActionType.fold) {
-        this.deleteActionAndSubsequentActions(street, index, true);
+        this.deleteSubsequentActions(street, index, true);
       }
 
       if (gameStreetAction.type === GameStreetActionType.bet) {
         if (this.isAffordable(gameStreetAction.betSize, playerIndex)) {
-          if (!this.isBetOrRaiseExist(street, index)) {
+          if (!this.isBetOrRaiseExistOnSubsequentActions(street, index)) {
             const activePlayerIndexes = this.getActivePlayerIndexesAt(
               street,
               index
@@ -224,14 +222,14 @@ export class PlayerActions {
             }
           }
         } else {
-          this.deleteActionAndSubsequentActions(street, index, true);
+          this.deleteSubsequentActions(street, index, true);
         }
       }
     }
 
     if (type === GameStreetActionType.call) {
       if (gameStreetAction.type === GameStreetActionType.fold) {
-        this.deleteActionAndSubsequentActions(street, index, true);
+        this.deleteSubsequentActions(street, index, true);
       }
 
       if (gameStreetAction.type === GameStreetActionType.raise) {
@@ -251,7 +249,7 @@ export class PlayerActions {
             }
           }
         } else {
-          this.deleteActionAndSubsequentActions(street, index, true);
+          this.deleteSubsequentActions(street, index, true);
         }
       }
     }
@@ -261,14 +259,14 @@ export class PlayerActions {
       type === GameStreetActionType.raise
     ) {
       if (gameStreetAction.type === GameStreetActionType.fold) {
-        this.deleteActionAndSubsequentActions(street, index, true);
+        this.deleteSubsequentActions(street, index, true);
       }
 
       if (
         gameStreetAction.type === GameStreetActionType.check ||
         gameStreetAction.type === GameStreetActionType.call
       ) {
-        if (!this.isBetOrRaiseExist(street, index)) {
+        if (!this.isBetOrRaiseExistOnSubsequentActions(street, index)) {
           let lastBetOrRaiseOrFirstActionIndex = 0;
 
           for (let i = index; 0 <= i; i--) {
@@ -327,7 +325,10 @@ export class PlayerActions {
     });
   }
 
-  private isBetOrRaiseExist(street: Street, currentIndex: number) {
+  private isBetOrRaiseExistOnSubsequentActions(
+    street: Street,
+    currentIndex: number
+  ) {
     for (let i = currentIndex + 1; i < this[street].length; i++) {
       if (
         this[street][i].type === GameStreetActionType.bet ||
@@ -343,7 +344,7 @@ export class PlayerActions {
     return !!(betSize <= this.playerStackSizes[playerIndex]);
   }
 
-  private getExpectNextActionIndex(street: Street, currentIndex: number) {
+  private getExpectedNextActionIndex(street: Street, currentIndex: number) {
     const activePlayerIndexes = this.getActivePlayerIndexesAt(
       street,
       currentIndex
@@ -414,7 +415,7 @@ export class PlayerActions {
     return initialActivePlayerIndexes;
   }
 
-  private getFirstActionIndexByStreetAndPlayerIndex(
+  private getFirstActionIndexOfThePlayerBy(
     street: Street,
     playerIndex: number
   ) {
@@ -423,7 +424,7 @@ export class PlayerActions {
     );
   }
 
-  private deleteActionAndSubsequentActions(
+  private deleteSubsequentActions(
     street: Street,
     currentIndex: number,
     throughGame: boolean
@@ -442,7 +443,7 @@ export class PlayerActions {
     if (throughGame) {
       const nextStreet = this.getNextStreet(street);
       if (nextStreet !== null) {
-        this.deleteActionAndSubsequentActions(nextStreet, 0, throughGame);
+        this.deleteSubsequentActions(nextStreet, 0, throughGame);
       }
     }
   }

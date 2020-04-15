@@ -1255,21 +1255,23 @@ describe("class PlayerActions", () => {
 
     describe("when the action going to be updated is fold", () => {
       describe("when the action chaged to check", () => {
-        it("calls private methods property when isBetOrRaiseExist returns true", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
             playerStackSizes: [0, 0, 0],
           });
 
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
-          const mockGetExpectNextActionIndex = jest.fn();
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
+          const mockGetExpectedNextActionIndex = jest.fn();
           const mockAddAction = jest.fn();
 
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
           playerActions[
-            "getExpectNextActionIndex"
-          ] = mockGetExpectNextActionIndex;
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
+          playerActions[
+            "getExpectedNextActionIndex"
+          ] = mockGetExpectedNextActionIndex;
           playerActions["addAction"] = mockAddAction;
 
           playerActions["updateAction"](Street.preflop, 0, {
@@ -1278,28 +1280,32 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
-          expect(mockGetExpectNextActionIndex.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
+          expect(mockGetExpectedNextActionIndex.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
             playerStackSizes: [0, 0, 0],
           });
 
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetNextStreet = jest.fn();
-          const mockGetFirstActionIndexByStreetAndPlayerIndex = jest.fn();
+          const mockGetFirstActionIndexOfThePlayerBy = jest.fn();
           const mockAddAction = jest.fn();
 
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions["getNextStreet"] = mockGetNextStreet;
           playerActions[
-            "getFirstActionIndexByStreetAndPlayerIndex"
-          ] = mockGetFirstActionIndexByStreetAndPlayerIndex;
+            "getFirstActionIndexOfThePlayerBy"
+          ] = mockGetFirstActionIndexOfThePlayerBy;
           playerActions["addAction"] = mockAddAction;
 
           playerActions["updateAction"](Street.preflop, 0, {
@@ -1308,17 +1314,19 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
-          expect(mockGetNextStreet.mock.calls.length).toBe(1);
           expect(
-            mockGetFirstActionIndexByStreetAndPlayerIndex.mock.calls.length
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
           ).toBe(1);
+          expect(mockGetNextStreet.mock.calls.length).toBe(1);
+          expect(mockGetFirstActionIndexOfThePlayerBy.mock.calls.length).toBe(
+            1
+          );
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
       });
 
       describe("when the action chaged to call", () => {
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns true", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns true", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1326,15 +1334,17 @@ describe("class PlayerActions", () => {
           });
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
-          const mockGetExpectNextActionIndex = jest.fn();
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
+          const mockGetExpectedNextActionIndex = jest.fn();
           const mockAddAction = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
           playerActions[
-            "getExpectNextActionIndex"
-          ] = mockGetExpectNextActionIndex;
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
+          playerActions[
+            "getExpectedNextActionIndex"
+          ] = mockGetExpectedNextActionIndex;
           playerActions["addAction"] = mockAddAction;
 
           playerActions["updateAction"](Street.preflop, 0, {
@@ -1344,12 +1354,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
-          expect(mockGetExpectNextActionIndex.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
+          expect(mockGetExpectedNextActionIndex.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1357,17 +1369,19 @@ describe("class PlayerActions", () => {
           });
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetNextStreet = jest.fn(() => Street.flop);
-          const mockGetFirstActionIndexByStreetAndPlayerIndex = jest.fn();
+          const mockGetFirstActionIndexOfThePlayerBy = jest.fn();
           const mockAddAction = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions["getNextStreet"] = mockGetNextStreet;
           playerActions[
-            "getFirstActionIndexByStreetAndPlayerIndex"
-          ] = mockGetFirstActionIndexByStreetAndPlayerIndex;
+            "getFirstActionIndexOfThePlayerBy"
+          ] = mockGetFirstActionIndexOfThePlayerBy;
           playerActions["addAction"] = mockAddAction;
 
           playerActions["updateAction"](Street.preflop, 0, {
@@ -1377,15 +1391,17 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
-          expect(mockGetNextStreet.mock.calls.length).toBe(1);
           expect(
-            mockGetFirstActionIndexByStreetAndPlayerIndex.mock.calls.length
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
           ).toBe(1);
+          expect(mockGetNextStreet.mock.calls.length).toBe(1);
+          expect(mockGetFirstActionIndexOfThePlayerBy.mock.calls.length).toBe(
+            1
+          );
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1393,12 +1409,12 @@ describe("class PlayerActions", () => {
           });
 
           const mockIsAffordable = jest.fn(() => false);
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 0, {
             type: GameStreetActionType.call,
@@ -1407,14 +1423,12 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
 
       describe("when the action chaged to bet", () => {
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns true", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns true", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1428,15 +1442,17 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
-          const mockGetExpectNextActionIndex = jest.fn();
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
+          const mockGetExpectedNextActionIndex = jest.fn();
           const mockAddAction = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
           playerActions[
-            "getExpectNextActionIndex"
-          ] = mockGetExpectNextActionIndex;
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
+          playerActions[
+            "getExpectedNextActionIndex"
+          ] = mockGetExpectedNextActionIndex;
           playerActions["addAction"] = mockAddAction;
 
           playerActions["updateAction"](Street.preflop, 0, {
@@ -1446,12 +1462,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
-          expect(mockGetExpectNextActionIndex.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
+          expect(mockGetExpectedNextActionIndex.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1465,22 +1483,24 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetActivePlayerIndexesAt = jest.fn(() => [1, 2]);
           const mockAddAction = jest.fn();
           const mockGetNextStreet = jest.fn(() => Street.flop);
-          const mockGetFirstActionIndexByStreetAndPlayerIndex = jest.fn();
+          const mockGetFirstActionIndexOfThePlayerBy = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions[
             "getActivePlayerIndexesAt"
           ] = mockGetActivePlayerIndexesAt;
           playerActions["addAction"] = mockAddAction;
           playerActions["getNextStreet"] = mockGetNextStreet;
           playerActions[
-            "getFirstActionIndexByStreetAndPlayerIndex"
-          ] = mockGetFirstActionIndexByStreetAndPlayerIndex;
+            "getFirstActionIndexOfThePlayerBy"
+          ] = mockGetFirstActionIndexOfThePlayerBy;
 
           playerActions["updateAction"](Street.preflop, 0, {
             type: GameStreetActionType.bet,
@@ -1489,17 +1509,19 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
           expect(mockGetActivePlayerIndexesAt.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
           expect(mockGetNextStreet.mock.calls.length).toBe(1);
           expect(mockGetNextStreet.mock.calls.length).toBe(1);
-          expect(
-            mockGetFirstActionIndexByStreetAndPlayerIndex.mock.calls.length
-          ).toBe(1);
+          expect(mockGetFirstActionIndexOfThePlayerBy.mock.calls.length).toBe(
+            1
+          );
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1513,12 +1535,12 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => false);
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 0, {
             type: GameStreetActionType.bet,
@@ -1527,14 +1549,12 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
 
       describe("when the action chaged to raise", () => {
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns true", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns true", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1548,15 +1568,17 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
-          const mockGetExpectNextActionIndex = jest.fn();
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
+          const mockGetExpectedNextActionIndex = jest.fn();
           const mockAddAction = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
           playerActions[
-            "getExpectNextActionIndex"
-          ] = mockGetExpectNextActionIndex;
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
+          playerActions[
+            "getExpectedNextActionIndex"
+          ] = mockGetExpectedNextActionIndex;
           playerActions["addAction"] = mockAddAction;
 
           playerActions["updateAction"](Street.preflop, 1, {
@@ -1566,12 +1588,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
-          expect(mockGetExpectNextActionIndex.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
+          expect(mockGetExpectedNextActionIndex.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1585,22 +1609,24 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetActivePlayerIndexesAt = jest.fn(() => [2]);
           const mockAddAction = jest.fn();
           const mockGetNextStreet = jest.fn(() => Street.flop);
-          const mockGetFirstActionIndexByStreetAndPlayerIndex = jest.fn();
+          const mockGetFirstActionIndexOfThePlayerBy = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions[
             "getActivePlayerIndexesAt"
           ] = mockGetActivePlayerIndexesAt;
           playerActions["addAction"] = mockAddAction;
           playerActions["getNextStreet"] = mockGetNextStreet;
           playerActions[
-            "getFirstActionIndexByStreetAndPlayerIndex"
-          ] = mockGetFirstActionIndexByStreetAndPlayerIndex;
+            "getFirstActionIndexOfThePlayerBy"
+          ] = mockGetFirstActionIndexOfThePlayerBy;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.raise,
@@ -1609,17 +1635,19 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
           expect(mockGetActivePlayerIndexesAt.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
           expect(mockGetNextStreet.mock.calls.length).toBe(1);
           expect(mockGetNextStreet.mock.calls.length).toBe(1);
-          expect(
-            mockGetFirstActionIndexByStreetAndPlayerIndex.mock.calls.length
-          ).toBe(1);
+          expect(mockGetFirstActionIndexOfThePlayerBy.mock.calls.length).toBe(
+            1
+          );
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1633,12 +1661,12 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => false);
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.raise,
@@ -1647,16 +1675,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
     });
 
     describe("when the action going to be updated is check", () => {
       describe("when the action chaged to fold", () => {
-        it("calls deleteActionAndSubsequentActions once", () => {
+        it("calls deleteSubsequentActions once", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1669,11 +1695,11 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.check, playerIndex: 2, betSize: 0 },
           ];
 
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.fold,
@@ -1681,14 +1707,12 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
 
       describe("when the action chaged to bet", () => {
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns true", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns true", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1702,12 +1726,14 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
           const mockGetActivePlayerIndexesAt = jest.fn();
           const mockAddAction = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions[
             "getActivePlayerIndexesAt"
           ] = mockGetActivePlayerIndexesAt;
@@ -1720,12 +1746,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
           expect(mockGetActivePlayerIndexesAt.mock.calls.length).toBe(0);
           expect(mockAddAction.mock.calls.length).toBe(0);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns true and isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true and isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1739,12 +1767,14 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => true);
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetActivePlayerIndexesAt = jest.fn(() => [2, 0]);
           const mockAddAction = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions[
             "getActivePlayerIndexesAt"
           ] = mockGetActivePlayerIndexesAt;
@@ -1757,12 +1787,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
           expect(mockGetActivePlayerIndexesAt.mock.calls.length).toBe(1);
           expect(mockAddAction.mock.calls.length).toBe(1);
         });
 
-        it("calls deleteActionAndSubsequentActions once property when isBetOrRaiseExist returns false", () => {
+        it("calls deleteSubsequentActions once property when isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1776,12 +1808,12 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => false);
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.bet,
@@ -1790,16 +1822,14 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
     });
 
     describe("when the action going to be updated is call", () => {
       describe("when the action chaged to fold", () => {
-        it("calls deleteActionAndSubsequentActions once", () => {
+        it("calls deleteSubsequentActions once", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1812,11 +1842,11 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 2, betSize: 2 },
           ];
 
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.fold,
@@ -1824,9 +1854,7 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
 
@@ -1845,12 +1873,12 @@ describe("class PlayerActions", () => {
           ];
 
           const mockIsAffordable = jest.fn(() => false);
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions["isAffordable"] = mockIsAffordable;
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.raise,
@@ -1859,9 +1887,7 @@ describe("class PlayerActions", () => {
           });
 
           expect(mockIsAffordable.mock.calls.length).toBe(1);
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
 
         it("calls private methods property when isAffordable returns false", () => {
@@ -1902,7 +1928,7 @@ describe("class PlayerActions", () => {
 
     describe("when the action going to be updated is bet", () => {
       describe("when the action chaged to fold", () => {
-        it("calls deleteActionAndSubsequentActions once", () => {
+        it("calls deleteSubsequentActions once", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1915,11 +1941,11 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 2, betSize: 2 },
           ];
 
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 0, {
             type: GameStreetActionType.fold,
@@ -1927,14 +1953,12 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
 
       describe("when the action chaged to check", () => {
-        it("calls private methods property when isBetOrRaiseExist returns true", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns true", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1947,9 +1971,11 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 2, betSize: 2 },
           ];
 
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
 
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 0, {
             type: GameStreetActionType.check,
@@ -1957,10 +1983,12 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
         });
 
-        it("calls private methods property when isBetOrRaiseExist returns false", () => {
+        it("calls private methods property when isBetOrRaiseExistOnSubsequentActions returns false", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -1973,11 +2001,13 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 2, betSize: 2 },
           ];
 
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetActivePlayerIndexesAt = jest.fn(() => [1, 2]);
           const mockDeleteAction = jest.fn();
 
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions[
             "getActivePlayerIndexesAt"
           ] = mockGetActivePlayerIndexesAt;
@@ -1989,7 +2019,9 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
           expect(mockGetActivePlayerIndexesAt.mock.calls.length).toBe(1);
           expect(mockDeleteAction.mock.calls.length).toBe(0);
         });
@@ -1998,7 +2030,7 @@ describe("class PlayerActions", () => {
 
     describe("when the action going to be updated is raise", () => {
       describe("when the action chaged to fold", () => {
-        it("calls deleteActionAndSubsequentActions once", () => {
+        it("calls deleteSubsequentActions once", () => {
           const playerActions = new PlayerActions({
             smallBlindSize: 0,
             playerLength: 3,
@@ -2012,11 +2044,11 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 0, betSize: 4 },
           ];
 
-          const mockDeleteActionAndSubsequentActions = jest.fn();
+          const mockDeleteSubsequentActions = jest.fn();
 
           playerActions[
-            "deleteActionAndSubsequentActions"
-          ] = mockDeleteActionAndSubsequentActions;
+            "deleteSubsequentActions"
+          ] = mockDeleteSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.fold,
@@ -2024,9 +2056,7 @@ describe("class PlayerActions", () => {
             betSize: 0,
           });
 
-          expect(mockDeleteActionAndSubsequentActions.mock.calls.length).toBe(
-            1
-          );
+          expect(mockDeleteSubsequentActions.mock.calls.length).toBe(1);
         });
       });
 
@@ -2044,9 +2074,11 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 2, betSize: 4 },
           ];
 
-          const mockIsBetOrRaiseExist = jest.fn(() => true);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => true);
 
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
 
           playerActions["updateAction"](Street.preflop, 1, {
             type: GameStreetActionType.call,
@@ -2054,7 +2086,9 @@ describe("class PlayerActions", () => {
             betSize: 2,
           });
 
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
         });
 
         it("calls private methods property when isAffordable returns false", () => {
@@ -2071,11 +2105,13 @@ describe("class PlayerActions", () => {
             { type: GameStreetActionType.call, playerIndex: 0, betSize: 4 },
           ];
 
-          const mockIsBetOrRaiseExist = jest.fn(() => false);
+          const mockIsBetOrRaiseExistOnSubsequentActions = jest.fn(() => false);
           const mockGetActivePlayerIndexesAt = jest.fn(() => [2, 0]);
           const mockDeleteAction = jest.fn();
 
-          playerActions["isBetOrRaiseExist"] = mockIsBetOrRaiseExist;
+          playerActions[
+            "isBetOrRaiseExistOnSubsequentActions"
+          ] = mockIsBetOrRaiseExistOnSubsequentActions;
           playerActions[
             "getActivePlayerIndexesAt"
           ] = mockGetActivePlayerIndexesAt;
@@ -2087,7 +2123,9 @@ describe("class PlayerActions", () => {
             betSize: 2,
           });
 
-          expect(mockIsBetOrRaiseExist.mock.calls.length).toBe(1);
+          expect(
+            mockIsBetOrRaiseExistOnSubsequentActions.mock.calls.length
+          ).toBe(1);
           expect(mockGetActivePlayerIndexesAt.mock.calls.length).toBe(1);
           expect(mockDeleteAction.mock.calls.length).toBe(1);
           expect(mockDeleteAction.mock.calls[0][0]).toBe(Street.preflop);
@@ -2149,7 +2187,7 @@ describe("class PlayerActions", () => {
     });
   });
 
-  describe("isBetOrRaiseExist(street: Street, currentIndex: number)", () => {
+  describe("isBetOrRaiseExistOnSubsequentActions(street: Street, currentIndex: number)", () => {
     it("returns true", () => {
       const playerActions = new PlayerActions({
         smallBlindSize: 0.2,
@@ -2166,7 +2204,9 @@ describe("class PlayerActions", () => {
         { type: GameStreetActionType.raise, playerIndex: 1, betSize: 6 },
       ];
 
-      expect(playerActions["isBetOrRaiseExist"](Street.preflop, 3)).toBe(true);
+      expect(
+        playerActions["isBetOrRaiseExistOnSubsequentActions"](Street.preflop, 3)
+      ).toBe(true);
     });
 
     it("returns false", () => {
@@ -2186,7 +2226,9 @@ describe("class PlayerActions", () => {
         { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
       ];
 
-      expect(playerActions["isBetOrRaiseExist"](Street.preflop, 3)).toBe(false);
+      expect(
+        playerActions["isBetOrRaiseExistOnSubsequentActions"](Street.preflop, 3)
+      ).toBe(false);
     });
   });
 
@@ -2228,8 +2270,8 @@ describe("class PlayerActions", () => {
     });
   });
 
-  describe("getExpectNextActionIndex(street: Street, currentIndex: number)", () => {
-    it("returns expectNextActionIndex of the player", () => {
+  describe("getExpectedNextActionIndex(street: Street, currentIndex: number)", () => {
+    it("returns ExpectedNextActionIndex of the player", () => {
       const playerActions = new PlayerActions({
         smallBlindSize: 0.2,
         playerLength: 5,
@@ -2252,9 +2294,9 @@ describe("class PlayerActions", () => {
         { type: GameStreetActionType.call, playerIndex: 3, betSize: 6 },
       ];
 
-      expect(playerActions["getExpectNextActionIndex"](Street.preflop, 2)).toBe(
-        7
-      );
+      expect(
+        playerActions["getExpectedNextActionIndex"](Street.preflop, 2)
+      ).toBe(7);
 
       playerActions[
         "getActivePlayerIndexesAt"
@@ -2285,9 +2327,9 @@ describe("class PlayerActions", () => {
         { type: GameStreetActionType.call, playerIndex: 3, betSize: 6 },
       ];
 
-      expect(playerActions["getExpectNextActionIndex"](Street.preflop, 5)).toBe(
-        -1
-      );
+      expect(
+        playerActions["getExpectedNextActionIndex"](Street.preflop, 5)
+      ).toBe(-1);
 
       playerActions[
         "getActivePlayerIndexesAt"
@@ -2680,7 +2722,7 @@ describe("class PlayerActions", () => {
     });
   });
 
-  describe("getFirstActionIndexByStreetAndPlayerIndex(street: Street, playerIndex: number)", () => {
+  describe("getFirstActionIndexOfThePlayerBy(street: Street, playerIndex: number)", () => {
     it("returns firstActionInedex of the player", () => {
       const playerActions = new PlayerActions({
         smallBlindSize: 0.2,
@@ -2701,10 +2743,7 @@ describe("class PlayerActions", () => {
       ];
 
       expect(
-        playerActions["getFirstActionIndexByStreetAndPlayerIndex"](
-          Street.flop,
-          2
-        )
+        playerActions["getFirstActionIndexOfThePlayerBy"](Street.flop, 2)
       ).toBe(2);
     });
 
@@ -2729,10 +2768,7 @@ describe("class PlayerActions", () => {
       ];
 
       expect(
-        playerActions["getFirstActionIndexByStreetAndPlayerIndex"](
-          Street.flop,
-          3
-        )
+        playerActions["getFirstActionIndexOfThePlayerBy"](Street.flop, 3)
       ).toBe(-1);
     });
   });
