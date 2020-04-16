@@ -6,7 +6,7 @@ export default function useCreatePost() {
     {
       position: "UTG",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 2,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -22,7 +22,7 @@ export default function useCreatePost() {
     {
       position: "BB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 1,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -40,7 +40,7 @@ export default function useCreatePost() {
     {
       position: "SB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 1,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -48,7 +48,7 @@ export default function useCreatePost() {
     {
       position: "BB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 2,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -66,7 +66,7 @@ export default function useCreatePost() {
     {
       position: "SB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 1,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -74,7 +74,7 @@ export default function useCreatePost() {
     {
       position: "BB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 2,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -92,7 +92,7 @@ export default function useCreatePost() {
     {
       position: "SB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 1,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,
@@ -100,7 +100,7 @@ export default function useCreatePost() {
     {
       position: "BB",
       type: GameStreetActionType.fold,
-      playerIndex: 0,
+      playerIndex: 2,
       betSize: 0,
       tableMaxBetSize: 0,
       previousBetSize: 0,

@@ -25,12 +25,20 @@ interface Props extends React.Attributes {
 export default function FlopActions({ communityCards, flopActions }: Props) {
   const { left, center, right } = communityCards;
 
+  const playerLengthAtFlop = React.useMemo(() => {
+    const flopActionPlayerIndexes = new Set(
+      flopActions.map(({ playerIndex }) => playerIndex)
+    );
+
+    return flopActionPlayerIndexes.size;
+  }, [flopActions]);
+
   return (
     <>
       {0 < flopActions.length ? (
         <>
           <PartTitle>
-            Flop <SmallTitle>(X players)</SmallTitle>
+            Flop <SmallTitle>{`(${playerLengthAtFlop} players)`}</SmallTitle>
           </PartTitle>
 
           <CommunityCardsArea>
