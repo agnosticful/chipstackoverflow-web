@@ -1,7 +1,7 @@
 import * as React from "react";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import styled from "styled-components";
 import StreetActionSelector from "../../components/StreetActionSelector";
+import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import {
   GameStreetAction,
   GameStreetActionType,
