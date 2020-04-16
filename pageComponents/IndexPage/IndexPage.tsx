@@ -3,6 +3,8 @@ import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import useAuthentication from "../../hooks/useAuthentication";
+import useRepository from "../../hooks/useRepository";
 import Post from "../../models/Post";
 import Eyecatch from "./Eyecatch";
 import PopularPosts from "./PopularPosts";
@@ -22,9 +24,17 @@ export default function IndexPage({
   children,
   ...props
 }: Props) {
+  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
+  const { logEvent } = useRepository();
+
   return (
     <Root {...props}>
-      <HeadBar />
+      <HeadBar
+        user={user ?? undefined}
+        authenticationChecking={isFirstChecking}
+        onSignInButtonClick={(_, objectId) => signIn(objectId)}
+        onSignOutButtonClick={() => signOut()}
+      />
 
       <Content>
         <Eyecatch />
@@ -38,7 +48,9 @@ export default function IndexPage({
         <PopularPosts prefetchedPopularPosts={prefetchedPopularPosts} />
       </Content>
 
-      <FootBar />
+      <FootBar
+        onContactClick={(_, objectId) => logEvent("contact", { objectId })}
+      />
     </Root>
   );
 }

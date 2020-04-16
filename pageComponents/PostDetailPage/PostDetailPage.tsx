@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
+import useAuthentication from "../../hooks/useAuthentication";
 import Post from "../../models/Post";
 
 interface Props {
@@ -8,9 +9,16 @@ interface Props {
 }
 
 export default function PostDetailPage({ prefetchedPost }: Props) {
+  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
+
   return (
     <Root>
-      <_HeadBar />
+      <_HeadBar
+        user={user ?? undefined}
+        authenticationChecking={isFirstChecking}
+        onSignInButtonClick={(_, objectId) => signIn(objectId)}
+        onSignOutButtonClick={() => signOut()}
+      />
 
       <Content>
         <h1>(temporary implementation) {prefetchedPost.title}</h1>

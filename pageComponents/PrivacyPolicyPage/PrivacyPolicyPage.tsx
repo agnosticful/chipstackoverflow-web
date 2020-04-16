@@ -4,6 +4,8 @@ import styled from "styled-components";
 import FootBar from "../../components/FootBar";
 import HeadBar from "../../components/HeadBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import useAuthentication from "../../hooks/useAuthentication";
+import useRepository from "../../hooks/useRepository";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -13,9 +15,17 @@ interface Props extends React.Attributes {
 const WEBSITE_NAME = "chipstachoverflow";
 
 export default function PrivacyPolicyPage(props: Props) {
+  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
+  const { logEvent } = useRepository();
+
   return (
     <div {...props}>
-      <HeadBar />
+      <HeadBar
+        user={user ?? undefined}
+        authenticationChecking={isFirstChecking}
+        onSignInButtonClick={(_, objectId) => signIn(objectId)}
+        onSignOutButtonClick={() => signOut()}
+      />
 
       <Content>
         <h1>Privacy Policy</h1>
@@ -267,7 +277,9 @@ export default function PrivacyPolicyPage(props: Props) {
         </p>
       </Content>
 
-      <FootBar />
+      <FootBar
+        onContactClick={(_, objectId) => logEvent("contact", { objectId })}
+      />
     </div>
   );
 }
