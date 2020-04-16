@@ -1,9 +1,9 @@
-import * as React from 'react';
-import styled from 'styled-components';
-import { MOBILE_MEDIA } from '../../constants/mediaquery';
-import FootBar from '../../components/FootBar';
-import HeadBar from '../../components/HeadBar';
-import NewPostForm from './NewPostForm';
+import * as React from "react";
+import styled from "styled-components";
+import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import FootBar from "../../components/FootBar";
+import HeadBar from "../../components/HeadBar";
+import NewPostForm from "./NewPostForm";
 
 interface Props extends React.Attributes {
   className?: string;

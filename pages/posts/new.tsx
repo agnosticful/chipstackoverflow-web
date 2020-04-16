@@ -1,6 +1,6 @@
-import Head from 'next/head';
-import * as React from 'react';
-import NewPostPage from '../../pageComponents/NewPostPage';
+import Head from "next/head";
+import * as React from "react";
+import NewPostPage from "../../pageComponents/NewPostPage";
 
 export default function () {
   return (
