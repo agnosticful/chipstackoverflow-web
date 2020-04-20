@@ -29,45 +29,59 @@ export default function PlayerActionSelectors({
     <PlayerActions>
       {playerActions.map(
         ({ position, tableMaxBetSize, previousBetSize }, index) => (
-          <React.Fragment key={index}>
+          <PlayerAction key={index}>
             <SmallTitle>{`${position}:`}</SmallTitle>
 
-            <div>
-              <StreetActionSelector
-                tableMaxBetSize={tableMaxBetSize}
-                previousBetSize={previousBetSize}
-                onChange={(type, betSize) => {
-                  onChange(index, type, betSize);
-                }}
-              />
-            </div>
-          </React.Fragment>
+            <StreetActionSelector
+              tableMaxBetSize={tableMaxBetSize}
+              previousBetSize={previousBetSize}
+              onChange={(type, betSize) => {
+                onChange(index, type, betSize);
+              }}
+            />
+          </PlayerAction>
         )
       )}
     </PlayerActions>
   );
 }
 
-const SmallTitle = styled.span`
-  font-family: inherit;
+const PlayerActions = styled.div`
+  display: inline-flex;
+  flex-direction: column;
 `;
 
-const PlayerActions = styled.div`
-  display: grid;
-  grid-template-columns: 88px 1fr;
-  grid-gap: 16px;
+const PlayerAction = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   & > span {
+    box-sizing: border-box;
     display: flex;
-    justify-content: flex-end;
+    width: 72px;
     align-items: center;
+    justify-content: flex-end;
+    margin-right: 16px;
   }
 
   ${MOBILE_MEDIA} {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    width: inherit;
 
     & > span {
-      display: inline-block;
+      box-sizing: content-box;
+      display: block;
+      margin: 0 0 4px 0;
+      width: inherit;
     }
   }
+`;
+
+const SmallTitle = styled.span`
+  font-family: inherit;
 `;
