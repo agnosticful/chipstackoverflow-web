@@ -26,7 +26,7 @@ export default function PlayerActionSelectors({
   onChange = () => undefined,
 }: Props) {
   return (
-    <PlayerActions>
+    <Root>
       {playerActions.map(
         ({ position, tableMaxBetSize, previousBetSize }, index) => (
           <PlayerAction key={index}>
@@ -42,11 +42,11 @@ export default function PlayerActionSelectors({
           </PlayerAction>
         )
       )}
-    </PlayerActions>
+    </Root>
   );
 }
 
-const PlayerActions = styled.div`
+const Root = styled.div`
   display: inline-flex;
   flex-direction: column;
 `;
