@@ -5,15 +5,12 @@ import {
 import getActivePlayerIndexSet from "./getActivePlayerIndexSet";
 
 export default function getActivePlayerIndexes(
-  gameStreetActions: GameStreetAction[],
-  currentIndex: number
+  actions: GameStreetAction[],
+  index: number
 ) {
-  const activePlayerIndexSet = getActivePlayerIndexSet(gameStreetActions);
+  const activePlayerIndexSet = getActivePlayerIndexSet(actions);
 
-  for (const { type, playerIndex } of gameStreetActions.slice(
-    0,
-    currentIndex
-  )) {
+  for (const { type, playerIndex } of actions.slice(0, index)) {
     if (type === GameStreetActionType.fold) {
       activePlayerIndexSet.delete(playerIndex);
     }
@@ -21,12 +18,10 @@ export default function getActivePlayerIndexes(
 
   const activePlayerIndexes = Array.from(activePlayerIndexSet);
 
-  const index = activePlayerIndexes.indexOf(
-    gameStreetActions[currentIndex].playerIndex
-  );
+  const playerIndex = activePlayerIndexes.indexOf(actions[index].playerIndex);
 
   return [
-    ...activePlayerIndexes.slice(index + 1),
-    ...activePlayerIndexes.slice(0, index),
+    ...activePlayerIndexes.slice(playerIndex + 1),
+    ...activePlayerIndexes.slice(0, playerIndex),
   ];
 }
