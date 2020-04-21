@@ -1,10 +1,10 @@
 import { GameStreetActionType } from "../../models/GameSituation";
-import isBetOrRaiseExistOnFollowingActions from "./isBetOrRaiseExistOnFollowingActions";
+import hasBestOrRaiseAfter from "./hasBestOrRaiseAfter";
 
-describe("isBetOrRaiseExistOnFollowingActions(gameStreetActions: GameStreetAction[], currentIndex: number)", () => {
+describe("hasBestOrRaiseAfter(actions: GameStreetAction[], index: number)", () => {
   it("returns true when bet is on following actions", () => {
     expect(
-      isBetOrRaiseExistOnFollowingActions(
+      hasBestOrRaiseAfter(
         [
           { type: GameStreetActionType.check, playerIndex: 0, betSize: 0 },
           { type: GameStreetActionType.check, playerIndex: 1, betSize: 0 },
@@ -22,7 +22,7 @@ describe("isBetOrRaiseExistOnFollowingActions(gameStreetActions: GameStreetActio
 
   it("returns true when raise is on following actions", () => {
     expect(
-      isBetOrRaiseExistOnFollowingActions(
+      hasBestOrRaiseAfter(
         [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
           { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
@@ -38,7 +38,7 @@ describe("isBetOrRaiseExistOnFollowingActions(gameStreetActions: GameStreetActio
 
   it("returns false when bet or raise isn't on following actions", () => {
     expect(
-      isBetOrRaiseExistOnFollowingActions(
+      hasBestOrRaiseAfter(
         [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
           { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
