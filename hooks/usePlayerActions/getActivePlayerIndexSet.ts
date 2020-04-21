@@ -5,10 +5,10 @@ export default function getActivePlayerIndexSet(
 ): Set<number> {
   const activePlayerSet = new Set<number>();
 
-  for (const streetAction of actions) {
-    if (activePlayerSet.has(streetAction.playerIndex)) break;
+  for (const action of actions) {
+    if (activePlayerSet.has(action.playerIndex)) break;
 
-    activePlayerSet.add(streetAction.playerIndex);
+    activePlayerSet.add(action.playerIndex);
   }
 
   return activePlayerSet;
