@@ -1,6 +1,8 @@
 import { GameStreetAction } from "../../models/GameSituation";
 
-export default function getActivePlayerIndexSet(actions: GameStreetAction[]) {
+export default function getActivePlayerIndexSet(
+  actions: GameStreetAction[]
+): Set<number> {
   const activePlayerSet = new Set<number>();
 
   for (const streetAction of actions) {

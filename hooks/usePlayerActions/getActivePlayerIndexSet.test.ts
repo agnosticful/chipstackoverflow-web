@@ -1,7 +1,7 @@
 import { GameStreetActionType } from "../../models/GameSituation";
 import getActivePlayerIndexSet from "./getActivePlayerIndexSet";
 
-describe("getActivePlayerIndexSet(actions: GameStreetAction[])", () => {
+describe("getActivePlayerIndexSet(actions: GameStreetAction[]): Set<number>", () => {
   it("returns set of 0 to 5 when no one is fold before street", () => {
     expect(
       getActivePlayerIndexSet([
