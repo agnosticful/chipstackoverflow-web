@@ -52,13 +52,15 @@ const Spanner = styled.div`
 const _RankIcon = styled(RankIcon)`
   position: absolute;
   top: 10%;
-  left: 22.5%;
+  left: 50%;
   width: 55%;
+  transform: translateX(-50%);
 `;
 
 const _SuitIcon = styled(SuitIcon)`
   position: absolute;
   bottom: 8%;
-  left: 20%;
+  left: 50%;
   width: 60%;
+  transform: translateX(-50%);
 `;
