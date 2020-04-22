@@ -35,9 +35,7 @@ export default function PlayerActionSelectors({
             <StreetActionSelector
               tableMaxBetSize={tableMaxBetSize}
               previousBetSize={previousBetSize}
-              onChange={(type, betSize) => {
-                onChange(index, type, betSize);
-              }}
+              onChange={(type, betSize) => onChange(index, type, betSize)}
             />
           </PlayerAction>
         )
