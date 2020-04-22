@@ -2,13 +2,14 @@ import {
   GameStreetAction,
   GameStreetActionType,
 } from "../../models/GameSituation";
-import getActivePlayerIndexSet from "./getActivePlayerIndexSet";
 
 export default function getActivePlayerIndexes(
   actions: GameStreetAction[],
   index: number
 ) {
-  const activePlayerIndexSet = getActivePlayerIndexSet(actions);
+  const activePlayerIndexSet = new Set(
+    actions.map(({ playerIndex }) => playerIndex)
+  );
 
   for (const { type, playerIndex } of actions.slice(0, index)) {
     if (type === GameStreetActionType.fold) {

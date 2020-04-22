@@ -1,10 +1,6 @@
 import { GameStreetActionType } from "../../models/GameSituation";
 import getActivePlayerIndexes from "./getActivePlayerIndexes";
 
-jest.mock("./getActivePlayerIndexSet", () =>
-  jest.fn(() => new Set([0, 1, 2, 3]))
-);
-
 describe("getActivePlayerIndexes(actions: GameStreetAction[], index: number)", () => {
   it("returns array of one playerIndex when game is done", () => {
     expect(
