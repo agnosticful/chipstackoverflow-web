@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Rank, Suit } from "../../models/PlayingCard";
 import { PlusIcon } from "../Icon";
-import PlayingCard from "../PlayingCard";
+import PortraitPlayingCard from "../PortraitPlayingCard";
 import PlayingCardSelector from "../PlayingCardSelector";
 
 interface Props extends React.Attributes {
@@ -66,7 +66,7 @@ const Wrapper = styled.button<{ empty: boolean }>`
   }
 `;
 
-const _PlayingCard = styled(PlayingCard)`
+const _PlayingCard = styled(PortraitPlayingCard)`
   margin: -1px;
   background-color: transparent;
   vertical-align: top;
