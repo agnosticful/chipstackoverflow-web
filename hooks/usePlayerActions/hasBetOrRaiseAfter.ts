@@ -3,7 +3,7 @@ import {
   GameStreetActionType,
 } from "../../models/GameSituation";
 
-export default function hasBestOrRaiseAfter(
+export default function hasBetOrRaiseAfter(
   actions: GameStreetAction[],
   index: number
 ) {
