@@ -8,7 +8,7 @@ import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndI
 import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSuffix";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
-import PlayingCard from "../PlayingCard";
+import PortraitPlayingCard from "../PortraitPlayingCard";
 import ShowLastUpdateDateContext from "./ShowLastUpdateDateContext";
 
 interface Props extends React.Attributes {
@@ -134,7 +134,7 @@ const HeroHandBackground = styled.div`
   position: absolute;
 `;
 
-const HeroCard = styled(PlayingCard)`
+const HeroCard = styled(PortraitPlayingCard)`
   position: absolute;
   width: 40%;
   top: 15%;
