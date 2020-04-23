@@ -14,7 +14,7 @@ export default function deleteGameStreetAction(
 
   newActions.splice(index, 1);
 
-  const nextDeletePlayerActionIndex =
+  const deleteActionIndex =
     index < newActions.length
       ? findNextActionIndex({
           playerIndex: newActions[index].playerIndex,
@@ -23,7 +23,7 @@ export default function deleteGameStreetAction(
         })
       : -1;
 
-  return 0 <= nextDeletePlayerActionIndex
-    ? deleteGameStreetAction(newActions, street, nextDeletePlayerActionIndex)
+  return 0 <= deleteActionIndex
+    ? deleteGameStreetAction(newActions, street, deleteActionIndex)
     : newActions;
 }
