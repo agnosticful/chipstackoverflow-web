@@ -1,7 +1,7 @@
-import { Street } from "./playerActionReducer";
-import deleteGameStreetAction from "./deleteGameStreetAction";
 import { GameStreetActionType } from "../../models/GameSituation";
+import deleteGameStreetAction from "./deleteGameStreetAction";
 import findNextActionIndex from "./findNextActionIndex";
+import { Street } from "./playerActionReducer";
 
 jest.mock("./findNextActionIndex", () => jest.fn(() => {}));
 
