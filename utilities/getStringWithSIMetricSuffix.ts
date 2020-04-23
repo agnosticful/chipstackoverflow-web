@@ -4,7 +4,11 @@ export default function getStringWithSIMetricSuffix(num: number): string {
   const log10 = Math.floor(Math.log10(num));
   const suffix = SUFFIXES[Math.floor(log10 / 3)];
 
+  if (suffix === undefined) {
+    throw new Error(`The given value is too large. Not supported.`);
+  }
+
   return `${Math.floor(num / 10 ** (log10 - (log10 % 3)))}${suffix}`;
 }
 
-const SUFFIXES = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"];
+const SUFFIXES = ["", "k", "M", "G"];

@@ -18,28 +18,11 @@ describe("getStringWithSIMetricSuffix()", () => {
     expect(getStringWithSIMetricSuffix(5000000000)).toBe("5G");
     expect(getStringWithSIMetricSuffix(50000000000)).toBe("50G");
     expect(getStringWithSIMetricSuffix(500000000000)).toBe("500G");
-    expect(getStringWithSIMetricSuffix(5000000000000)).toBe("5T");
-    expect(getStringWithSIMetricSuffix(50000000000000)).toBe("50T");
-    expect(getStringWithSIMetricSuffix(500000000000000)).toBe("500T");
-    expect(getStringWithSIMetricSuffix(5000000000000000)).toBe("5P");
-    expect(getStringWithSIMetricSuffix(50000000000000000)).toBe("50P");
-    expect(getStringWithSIMetricSuffix(500000000000000000)).toBe("500P");
-    expect(getStringWithSIMetricSuffix(5000000000000000000)).toBe("5E");
-    expect(getStringWithSIMetricSuffix(50000000000000000000)).toBe("50E");
-    expect(getStringWithSIMetricSuffix(500000000000000000000)).toBe("500E");
-    expect(getStringWithSIMetricSuffix(5000000000000000000000)).toBe("5Z");
-    expect(getStringWithSIMetricSuffix(50000000000000000000000)).toBe("50Z");
-    expect(getStringWithSIMetricSuffix(500000000000000000000000)).toBe("500Z");
-    expect(getStringWithSIMetricSuffix(5000000000000000000000000)).toBe("5Y");
-    expect(getStringWithSIMetricSuffix(50000000000000000000000000)).toBe("50Y");
-    expect(getStringWithSIMetricSuffix(500000000000000000000000000)).toBe(
-      "500Y"
-    );
   });
 
-  it("works for an edge case well", () => {
-    expect(getStringWithSIMetricSuffix(5000000000000000000000000000)).toBe(
-      "5000Y"
-    );
+  it('throw an error if number greater than "G" digit', () => {
+    expect(() =>
+      getStringWithSIMetricSuffix(5000000000000000000000000000)
+    ).toThrow();
   });
 });
