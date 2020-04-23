@@ -1,6 +1,6 @@
-import NumberFormatter from "./NumberFormatter";
+import NumberFormat from "./NumberFormat";
 
-describe("NumberFormatter", () => {
+describe("NumberFormat", () => {
   describe(".toSuffixedShortString()", () => {
     test.each`
       value           | expected
@@ -31,14 +31,12 @@ describe("NumberFormatter", () => {
     `(
       "returns $expected when the given value is $value",
       ({ value, expected }) => {
-        expect(NumberFormatter.toSuffixedShortString(value)).toBe(expected);
+        expect(NumberFormat.toSuffixedShortString(value)).toBe(expected);
       }
     );
 
     it('throws an error if number greater than "G" digit', () => {
-      expect(() =>
-        NumberFormatter.toSuffixedShortString(1000000000000)
-      ).toThrow();
+      expect(() => NumberFormat.toSuffixedShortString(1000000000000)).toThrow();
     });
   });
 });

@@ -5,7 +5,7 @@ import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import calculateFinalPot from "../../utilities/calculateFinalPot";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
-import NumberFormatter from "../../utilities/NumberFormatter";
+import NumberFormat from "../../utilities/NumberFormat";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
 import PortraitPlayingCard from "../PortraitPlayingCard";
@@ -80,7 +80,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
           <FinalPot>
             <span>Final Pot</span>
-            <span>{`${NumberFormatter.toSuffixedShortString(
+            <span>{`${NumberFormat.toSuffixedShortString(
               calculateFinalPot(post.gameSituation)
             )} BB`}</span>
           </FinalPot>

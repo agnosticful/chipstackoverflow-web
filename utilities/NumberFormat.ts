@@ -1,9 +1,9 @@
-export default abstract class NumberFormatter {
+export default abstract class NumberFormat {
   static toSuffixedShortString(value: number) {
     if (value <= 0) return "0";
 
     const log10 = Math.floor(Math.log10(value));
-    const suffix = NumberFormatter.SUFFIXES[Math.floor(log10 / 3)];
+    const suffix = NumberFormat.SUFFIXES[Math.floor(log10 / 3)];
 
     if (suffix === undefined) {
       throw new Error(`The given value is too large. Not supported.`);
