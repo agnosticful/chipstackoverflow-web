@@ -1,6 +1,6 @@
-import { GameStreetAction } from '../../models/GameSituation';
-import findNextActionIndex from './findNextActionIndex';
-import { Street } from './playerActionReducer';
+import { GameStreetAction } from "../../models/GameSituation";
+import findNextActionIndex from "./findNextActionIndex";
+import { Street } from "./playerActionReducer";
 
 export default function deleteGameStreetAction({
   street,
@@ -11,7 +11,8 @@ export default function deleteGameStreetAction({
   actions: GameStreetAction[];
   index: number;
 }): GameStreetAction[] {
-  if (actions.length <= index) throw new Error('index must be less than length of the street');
+  if (actions.length <= index)
+    throw new Error("index must be less than length of the street");
 
   const newActions = Array.from(actions);
 

@@ -1,11 +1,14 @@
-import { GameStreetAction, GameStreetActionType } from '../../models/GameSituation';
-import addGameStreetAction from './addGameStreetAction';
-import deleteGameStreetAction from './deleteGameStreetAction';
-import findNextActionIndex from './findNextActionIndex';
-import getActivePlayerIndexes from './getActivePlayerIndexes';
-import getNextExpectedActionIndex from './getNextExpectedActionIndex';
-import hasBetOrRaiseAfter from './hasBetOrRaiseAfter';
-import { Street } from './playerActionReducer';
+import {
+  GameStreetAction,
+  GameStreetActionType,
+} from "../../models/GameSituation";
+import addGameStreetAction from "./addGameStreetAction";
+import deleteGameStreetAction from "./deleteGameStreetAction";
+import findNextActionIndex from "./findNextActionIndex";
+import getActivePlayerIndexes from "./getActivePlayerIndexes";
+import getNextExpectedActionIndex from "./getNextExpectedActionIndex";
+import hasBetOrRaiseAfter from "./hasBetOrRaiseAfter";
+import { Street } from "./playerActionReducer";
 
 export default function updateGameStreetAction({
   street,
@@ -21,7 +24,9 @@ export default function updateGameStreetAction({
   playerStackSizes: number[];
 }): GameStreetAction[] {
   if (index < 0 || actions.length <= index)
-    throw new Error('index must be more than or equal to 0 and less than the street length');
+    throw new Error(
+      "index must be more than or equal to 0 and less than the street length"
+    );
 
   let newActions = Array.from(actions);
 
@@ -64,12 +69,19 @@ export default function updateGameStreetAction({
         newActions = deleteGameStreetAction({
           street,
           actions: newActions,
-          index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+          index: findNextActionIndex({
+            playerIndex,
+            actions: newActions,
+            start: index,
+          }),
         });
       }
     }
 
-    if (type === GameStreetActionType.bet || type === GameStreetActionType.raise) {
+    if (
+      type === GameStreetActionType.bet ||
+      type === GameStreetActionType.raise
+    ) {
       if (betSize <= playerStackSizes[playerIndex]) {
         if (hasBetOrRaiseAfter(newActions, index)) {
           newActions = addGameStreetAction({
@@ -103,7 +115,11 @@ export default function updateGameStreetAction({
         newActions = deleteGameStreetAction({
           street,
           actions: newActions,
-          index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+          index: findNextActionIndex({
+            playerIndex,
+            actions: newActions,
+            start: index,
+          }),
         });
       }
     }
@@ -114,7 +130,11 @@ export default function updateGameStreetAction({
       newActions = deleteGameStreetAction({
         street,
         actions: newActions,
-        index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+        index: findNextActionIndex({
+          playerIndex,
+          actions: newActions,
+          start: index,
+        }),
       });
     }
 
@@ -142,7 +162,11 @@ export default function updateGameStreetAction({
         newActions = deleteGameStreetAction({
           street,
           actions: newActions,
-          index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+          index: findNextActionIndex({
+            playerIndex,
+            actions: newActions,
+            start: index,
+          }),
         });
       }
     }
@@ -153,7 +177,11 @@ export default function updateGameStreetAction({
       newActions = deleteGameStreetAction({
         street,
         actions: newActions,
-        index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+        index: findNextActionIndex({
+          playerIndex,
+          actions: newActions,
+          start: index,
+        }),
       });
     }
 
@@ -179,34 +207,55 @@ export default function updateGameStreetAction({
         newActions = deleteGameStreetAction({
           street,
           actions: newActions,
-          index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+          index: findNextActionIndex({
+            playerIndex,
+            actions: newActions,
+            start: index,
+          }),
         });
       }
     }
   }
 
-  if (prevType === GameStreetActionType.bet || prevType === GameStreetActionType.raise) {
+  if (
+    prevType === GameStreetActionType.bet ||
+    prevType === GameStreetActionType.raise
+  ) {
     if (type === GameStreetActionType.fold) {
       newActions = deleteGameStreetAction({
         street,
         actions: newActions,
-        index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+        index: findNextActionIndex({
+          playerIndex,
+          actions: newActions,
+          start: index,
+        }),
       });
     }
 
-    if (type === GameStreetActionType.check || type === GameStreetActionType.call) {
+    if (
+      type === GameStreetActionType.check ||
+      type === GameStreetActionType.call
+    ) {
       if (!hasBetOrRaiseAfter(newActions, index)) {
         newActions = newActions.slice(0, index);
       }
     }
 
-    if (type === GameStreetActionType.bet || type === GameStreetActionType.raise) {
+    if (
+      type === GameStreetActionType.bet ||
+      type === GameStreetActionType.raise
+    ) {
       if (betSize < prefBetSize) {
         if (prefBetSize - betSize <= playerStackSizes[playerIndex]) {
           newActions = deleteGameStreetAction({
             street,
             actions: newActions,
-            index: findNextActionIndex({ playerIndex, actions: newActions, start: index }),
+            index: findNextActionIndex({
+              playerIndex,
+              actions: newActions,
+              start: index,
+            }),
           });
         }
       }

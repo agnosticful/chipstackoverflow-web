@@ -1,5 +1,5 @@
-import { GameStreetAction } from '../../models/GameSituation';
-import { Street } from './playerActionReducer';
+import { GameStreetAction } from "../../models/GameSituation";
+import { Street } from "./playerActionReducer";
 
 export default function addGameStreetAction({
   street,
@@ -13,7 +13,9 @@ export default function addGameStreetAction({
   action: GameStreetAction;
 }): GameStreetAction[] {
   if (index < 0 || actions.length < index)
-    throw new Error('index must be more than or equal to 0 and less than or equal the street length');
+    throw new Error(
+      "index must be more than or equal to 0 and less than or equal the street length"
+    );
 
   const newActions = Array.from(actions);
 

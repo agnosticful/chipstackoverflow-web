@@ -1,5 +1,5 @@
-import { GameStreetActionType } from '../../models/GameSituation';
-import { Street } from './playerActionReducer';
+import { GameStreetActionType } from "../../models/GameSituation";
+import { Street } from "./playerActionReducer";
 
 export default function createEmptyGameStreetActions({
   street,
