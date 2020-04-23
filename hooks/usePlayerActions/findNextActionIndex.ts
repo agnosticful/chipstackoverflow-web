@@ -13,5 +13,5 @@ export default function findNextActionIndex({
     .slice(start)
     .findIndex((action) => action.playerIndex === playerIndex);
 
-  return nextActionIndex === -1 ? -1 : nextActionIndex + start;
+  return nextActionIndex === -1 ? -1 : start + nextActionIndex;
 }
