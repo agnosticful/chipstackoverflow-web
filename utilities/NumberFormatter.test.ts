@@ -2,30 +2,42 @@ import NumberFormatter from "./NumberFormatter";
 
 describe("NumberFormatter", () => {
   describe(".toSuffixedShortString()", () => {
-    it("returns string of number", () => {
-      expect(NumberFormatter.toSuffixedShortString(0)).toBe("0");
-      expect(NumberFormatter.toSuffixedShortString(1)).toBe("1");
-      expect(NumberFormatter.toSuffixedShortString(9)).toBe("9");
-      expect(NumberFormatter.toSuffixedShortString(10)).toBe("10");
-      expect(NumberFormatter.toSuffixedShortString(100)).toBe("100");
-      expect(NumberFormatter.toSuffixedShortString(999)).toBe("999");
-    });
+    test.each`
+      value           | expected
+      ${0}            | ${"0"}
+      ${1}            | ${"1"}
+      ${9}            | ${"9"}
+      ${10}           | ${"10"}
+      ${99}           | ${"99"}
+      ${999}          | ${"999"}
+      ${1000}         | ${"1k"}
+      ${9999}         | ${"9k"}
+      ${10000}        | ${"10k"}
+      ${99999}        | ${"99k"}
+      ${100000}       | ${"100k"}
+      ${999999}       | ${"999k"}
+      ${1000000}      | ${"1M"}
+      ${9999999}      | ${"9M"}
+      ${10000000}     | ${"10M"}
+      ${99999999}     | ${"99M"}
+      ${100000000}    | ${"100M"}
+      ${999999999}    | ${"999M"}
+      ${1000000000}   | ${"1G"}
+      ${9999999999}   | ${"9G"}
+      ${10000000000}  | ${"10G"}
+      ${99999999999}  | ${"99G"}
+      ${100000000000} | ${"100G"}
+      ${999999999999} | ${"999G"}
+    `(
+      "returns $expected when the given value is $value",
+      ({ value, expected }) => {
+        expect(NumberFormatter.toSuffixedShortString(value)).toBe(expected);
+      }
+    );
 
-    it("returns string of number with suffix", () => {
-      expect(NumberFormatter.toSuffixedShortString(5000)).toBe("5k");
-      expect(NumberFormatter.toSuffixedShortString(50000)).toBe("50k");
-      expect(NumberFormatter.toSuffixedShortString(500000)).toBe("500k");
-      expect(NumberFormatter.toSuffixedShortString(5000000)).toBe("5M");
-      expect(NumberFormatter.toSuffixedShortString(50000000)).toBe("50M");
-      expect(NumberFormatter.toSuffixedShortString(500000000)).toBe("500M");
-      expect(NumberFormatter.toSuffixedShortString(5000000000)).toBe("5G");
-      expect(NumberFormatter.toSuffixedShortString(50000000000)).toBe("50G");
-      expect(NumberFormatter.toSuffixedShortString(500000000000)).toBe("500G");
-    });
-
-    it('throw an error if number greater than "G" digit', () => {
+    it('throws an error if number greater than "G" digit', () => {
       expect(() =>
-        NumberFormatter.toSuffixedShortString(5000000000000000000000000000)
+        NumberFormatter.toSuffixedShortString(1000000000000)
       ).toThrow();
     });
   });
