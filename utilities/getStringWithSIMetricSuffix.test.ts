@@ -2,6 +2,7 @@ import getStringWithSIMetricSuffix from "./getStringWithSIMetricSuffix";
 
 describe("getStringWithSIMetricSuffix()", () => {
   it("returns string of number", () => {
+    expect(getStringWithSIMetricSuffix(0)).toBe("0");
     expect(getStringWithSIMetricSuffix(5)).toBe("5");
     expect(getStringWithSIMetricSuffix(50)).toBe("50");
     expect(getStringWithSIMetricSuffix(500)).toBe("500");
