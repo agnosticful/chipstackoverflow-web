@@ -1,15 +1,10 @@
 import { GameStreetActionType } from "../../models/GameSituation";
-import deleteGameStreetAction from "./deleteGameStreetAction";
-import findNextActionIndex from "./findNextActionIndex";
-import { Street } from "./playerActionReducer";
+import deleteGameStreetActionAt from "./deleteGameStreetActionAt";
 
-jest.mock("./findNextActionIndex", () => jest.fn(() => {}));
-
-describe("deleteGameStreetAction( actions: GameStreetAction[], street: Street, index: number ): GameStreetAction[]", () => {
+describe("deleteGameStreetActionAt( actions: GameStreetAction[], index: number ): GameStreetAction[]", () => {
   it("throws error when index is equal to length of gameStreetActions", () => {
     expect(() => {
-      deleteGameStreetAction({
-        street: Street.flop,
+      deleteGameStreetActionAt({
         actions: [
           {
             type: GameStreetActionType.fold,
@@ -28,11 +23,7 @@ describe("deleteGameStreetAction( actions: GameStreetAction[], street: Street, i
   });
 
   it("returns gameStreetActions that is deleted index of the gameStreetAction", () => {
-    const mockFindNextActionIndex = findNextActionIndex as jest.Mock<number>;
-    mockFindNextActionIndex.mockImplementation(() => -1);
-
-    const actions = deleteGameStreetAction({
-      street: Street.flop,
+    const actions = deleteGameStreetActionAt({
       actions: [
         {
           type: GameStreetActionType.fold,
@@ -58,13 +49,7 @@ describe("deleteGameStreetAction( actions: GameStreetAction[], street: Street, i
   });
 
   it("returns gameStreetActions that is deleted all same playerIndex in the gameStreetAction", () => {
-    const mockFindNextActionIndex = findNextActionIndex as jest.Mock<number>;
-    mockFindNextActionIndex
-      .mockImplementationOnce(() => 5)
-      .mockImplementation(() => -1);
-
-    const actions = deleteGameStreetAction({
-      street: Street.flop,
+    const actions = deleteGameStreetActionAt({
       actions: [
         {
           type: GameStreetActionType.fold,
