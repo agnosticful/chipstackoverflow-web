@@ -2,7 +2,7 @@ import { GameStreetActionType } from "../../models/GameSituation";
 import deleteGameStreetActionAt from "./deleteGameStreetActionAt";
 
 describe("deleteGameStreetActionAt( actions: GameStreetAction[], index: number ): GameStreetAction[]", () => {
-  it("throws error when index is equal to length of gameStreetActions", () => {
+  it("throws an error when the index is equal to the length of gameStreetActions", () => {
     expect(() => {
       deleteGameStreetActionAt({
         actions: [
