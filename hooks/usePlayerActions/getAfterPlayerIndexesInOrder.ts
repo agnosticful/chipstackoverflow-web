@@ -3,7 +3,7 @@ import {
   GameStreetActionType,
 } from "../../models/GameSituation";
 
-export default function getActivePlayerIndexes(
+export default function getAfterPlayerIndexesInOrder(
   actions: GameStreetAction[],
   index: number
 ) {

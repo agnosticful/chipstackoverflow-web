@@ -1,10 +1,10 @@
 import { GameStreetActionType } from "../../models/GameSituation";
-import getActivePlayerIndexes from "./getActivePlayerIndexes";
+import getAfterPlayerIndexesInOrder from "./getAfterPlayerIndexesInOrder";
 
-describe("getActivePlayerIndexes(actions: GameStreetAction[], index: number)", () => {
+describe("getAfterPlayerIndexesInOrder(actions: GameStreetAction[], index: number)", () => {
   it("returns array of one playerIndex when game is done", () => {
     expect(
-      getActivePlayerIndexes(
+      getAfterPlayerIndexesInOrder(
         [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 2 },
           { type: GameStreetActionType.fold, playerIndex: 1, betSize: 1 },
@@ -18,7 +18,7 @@ describe("getActivePlayerIndexes(actions: GameStreetAction[], index: number)", (
 
   it("returns array of playerIndexes properly when first player fold", () => {
     expect(
-      getActivePlayerIndexes(
+      getAfterPlayerIndexesInOrder(
         [
           { type: GameStreetActionType.fold, playerIndex: 0, betSize: 0 },
           { type: GameStreetActionType.check, playerIndex: 1, betSize: 0 },
@@ -32,7 +32,7 @@ describe("getActivePlayerIndexes(actions: GameStreetAction[], index: number)", (
 
   it("returns array of playerIndexes properly when last player fold", () => {
     expect(
-      getActivePlayerIndexes(
+      getAfterPlayerIndexesInOrder(
         [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 2 },
           { type: GameStreetActionType.call, playerIndex: 1, betSize: 2 },
@@ -46,7 +46,7 @@ describe("getActivePlayerIndexes(actions: GameStreetAction[], index: number)", (
 
   it("returns array of playerIndexes properly when some player fold and one player raise", () => {
     expect(
-      getActivePlayerIndexes(
+      getAfterPlayerIndexesInOrder(
         [
           { type: GameStreetActionType.check, playerIndex: 0, betSize: 0 },
           { type: GameStreetActionType.check, playerIndex: 1, betSize: 0 },
