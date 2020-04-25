@@ -15,7 +15,7 @@ export default function PlayerLengthSelect({
 }: Props) {
   return (
     <Select defaultValue={defaultValue} onChange={onChange} {...props}>
-      <Option value={"2"}>2 players</Option>
+      <Option value={"2"}>Heads-up</Option>
       <Option value={"3"}>3 players</Option>
       <Option value={"4"}>4 players</Option>
       <Option value={"5"}>5 players</Option>
