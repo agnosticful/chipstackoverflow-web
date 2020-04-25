@@ -14,15 +14,9 @@ export default function addGameStreetActionAt({
       "index must be more than or equal to 0 and less than or equal to the length of the street"
     );
 
-  const newActions = [...actions];
+  const nextActions = [...actions];
 
-  if (index < newActions.length) {
-    newActions.splice(index, 0, action);
-  }
+  nextActions.splice(index, 0, action);
 
-  if (index === newActions.length) {
-    newActions.push(action);
-  }
-
-  return newActions;
+  return nextActions;
 }

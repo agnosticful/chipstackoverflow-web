@@ -39,17 +39,17 @@ describe("addGameStreetActionAt( actions: GameStreetAction[], index: number, act
   });
 
   it("returns gameStreetActions that gameStreetAction is end of the gameStreetActions", () => {
-    const actions = addGameStreetActionAt({
-      actions: [],
-      index: 0,
-      action: {
-        type: GameStreetActionType.fold,
-        playerIndex: 0,
-        betSize: 0,
-      },
-    });
-
-    expect(actions).toEqual([
+    expect(
+      addGameStreetActionAt({
+        actions: [],
+        index: 0,
+        action: {
+          type: GameStreetActionType.fold,
+          playerIndex: 0,
+          betSize: 0,
+        },
+      })
+    ).toEqual([
       {
         type: GameStreetActionType.fold,
         playerIndex: 0,
@@ -59,28 +59,28 @@ describe("addGameStreetActionAt( actions: GameStreetAction[], index: number, act
   });
 
   it("returns gameStreetActions that gameStreetAction is middle of the gameStreetActions", () => {
-    const actions = addGameStreetActionAt({
-      actions: [
-        {
+    expect(
+      addGameStreetActionAt({
+        actions: [
+          {
+            type: GameStreetActionType.fold,
+            playerIndex: 0,
+            betSize: 0,
+          },
+          {
+            type: GameStreetActionType.fold,
+            playerIndex: 2,
+            betSize: 0,
+          },
+        ],
+        index: 1,
+        action: {
           type: GameStreetActionType.fold,
-          playerIndex: 0,
+          playerIndex: 1,
           betSize: 0,
         },
-        {
-          type: GameStreetActionType.fold,
-          playerIndex: 2,
-          betSize: 0,
-        },
-      ],
-      index: 1,
-      action: {
-        type: GameStreetActionType.fold,
-        playerIndex: 1,
-        betSize: 0,
-      },
-    });
-
-    expect(actions).toEqual([
+      })
+    ).toEqual([
       {
         type: GameStreetActionType.fold,
         playerIndex: 0,
