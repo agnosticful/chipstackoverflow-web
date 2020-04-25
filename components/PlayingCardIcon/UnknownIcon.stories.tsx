@@ -1,0 +1,19 @@
+import * as React from "react";
+import UnknownIcon from "./UnknownIcon";
+
+export default {
+  title: "UnknownIcon",
+  component: UnknownIcon,
+};
+
+export const example = () => (
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(13, minmax(16px, 64px))",
+      gap: 8,
+    }}
+  >
+    <UnknownIcon />
+  </div>
+);

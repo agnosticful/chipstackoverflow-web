@@ -108,3 +108,15 @@ export const noRank = () => (
     <PortraitPlayingCard suit={Suit.club} />
   </div>
 );
+
+export const unknown = () => (
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(13, 1fr)",
+      gap: 8,
+    }}
+  >
+    <PortraitPlayingCard />
+  </div>
+);
