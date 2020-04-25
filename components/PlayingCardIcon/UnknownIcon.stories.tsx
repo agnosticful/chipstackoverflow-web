@@ -2,7 +2,7 @@ import * as React from "react";
 import UnknownIcon from "./UnknownIcon";
 
 export default {
-  title: "UnknownIcon",
+  title: "PlayingCardIcon/UnknownIcon",
   component: UnknownIcon,
 };
 
