@@ -2,8 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { CARD_BACKGROUND, CARD_DARK_BACKGROUND } from "../../constants/color";
 import { Rank, Suit } from "../../models/PlayingCard";
-import RankIcon from "../RankIcon";
-import SuitIcon from "../SuitIcon";
+import { RankIcon, SuitIcon, UnknownIcon } from "../PlayingCardIcon";
 
 interface Props extends React.Attributes {
   /**
@@ -25,6 +24,7 @@ export default function PlayingCard({ suit, rank, ...props }: Props) {
   return (
     <Root {...props}>
       <Spanner />
+      {rank === undefined && suit === undefined ? <_UnknownIcon /> : null}
       {rank === undefined ? null : <_RankIcon rank={rank} suit={suit} />}
       {suit === undefined ? null : <_SuitIcon suit={suit} />}
     </Root>
@@ -63,4 +63,13 @@ const _SuitIcon = styled(SuitIcon)`
   left: 50%;
   width: 60%;
   transform: translateX(-50%);
+`;
+
+const _UnknownIcon = styled(UnknownIcon)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60%;
+  color: #c8d6e5;
+  transform: translate(-50%, -50%);
 `;
