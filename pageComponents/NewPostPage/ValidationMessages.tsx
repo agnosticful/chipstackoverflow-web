@@ -9,20 +9,20 @@ interface Props extends React.Attributes {
 
 export default function ValidationMessages({ messages, ...props }: Props) {
   return (
-    <Validations {...props}>
+    <Messages {...props}>
       {messages.map((message, i) => (
-        <Validation key={i}>{message}</Validation>
+        <Message key={i}>{message}</Message>
       ))}
-    </Validations>
+    </Messages>
   );
 }
 
-const Validations = styled.ul`
+const Messages = styled.ul`
   margin: 8px 0;
   padding-left: 8px;
 `;
 
-const Validation = styled.li`
+const Message = styled.li`
   list-style: none;
   font-size: 12px;
 `;
