@@ -27,7 +27,7 @@ enum PlayerPosition {
   btn = "BTN",
 }
 
-const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
+export const POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH = new Map([
   [2, [PlayerPosition.sb, PlayerPosition.bb]],
   [3, [PlayerPosition.sb, PlayerPosition.bb, PlayerPosition.utg]],
   [

@@ -5,10 +5,10 @@ import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import Post from "../../models/Post";
 import calculateFinalPot from "../../utilities/calculateFinalPot";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
-import getStringWithSIMetricSuffix from "../../utilities/getStringWithSIMetricSuffix";
+import NumberFormat from "../../utilities/NumberFormat";
 import Card from "../Card";
 import { ThumbsUpIcon } from "../Icon";
-import PlayingCard from "../PlayingCard";
+import PortraitPlayingCard from "../PortraitPlayingCard";
 import ShowLastUpdateDateContext from "./ShowLastUpdateDateContext";
 
 interface Props extends React.Attributes {
@@ -80,7 +80,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
           <FinalPot>
             <span>Final Pot</span>
-            <span>{`${getStringWithSIMetricSuffix(
+            <span>{`${NumberFormat.toSuffixedShortString(
               calculateFinalPot(post.gameSituation)
             )} BB`}</span>
           </FinalPot>
@@ -134,7 +134,7 @@ const HeroHandBackground = styled.div`
   position: absolute;
 `;
 
-const HeroCard = styled(PlayingCard)`
+const HeroCard = styled(PortraitPlayingCard)`
   position: absolute;
   width: 40%;
   top: 15%;
