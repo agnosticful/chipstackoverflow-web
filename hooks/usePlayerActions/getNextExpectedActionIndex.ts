@@ -1,20 +1,26 @@
-import { GameStreetAction } from "../../models/GameSituation";
-import getActivePlayerIndexes from "./getActivePlayerIndexes";
+import {
+  GameStreetAction,
+  GameStreetActionType,
+} from "../../models/GameSituation";
 
 export default function getNextExpectedActionIndex(
-  gameStreetActions: GameStreetAction[],
-  currentIndex: number
+  actions: GameStreetAction[],
+  index: number
 ) {
-  const activePlayerIndexes = getActivePlayerIndexes(
-    gameStreetActions,
-    currentIndex
-  );
-  const nextExpectActionIndex = currentIndex + activePlayerIndexes.length + 1;
+  const playerIndexSet = new Set(actions.map(({ playerIndex }) => playerIndex));
 
-  if (gameStreetActions.length < nextExpectActionIndex)
+  for (const { type, playerIndex } of actions.slice(0, index)) {
+    if (type === GameStreetActionType.fold) {
+      playerIndexSet.delete(playerIndex);
+    }
+  }
+
+  const nextExpectedActionIndex = index + playerIndexSet.size;
+
+  if (actions.length < nextExpectedActionIndex)
     throw new Error(
-      "nextExpectActionIndex must be less than or equal to gameStreetActions length"
+      "nextExpectedActionIndex must be less than or equal to length of gameStreetActions"
     );
 
-  return nextExpectActionIndex;
+  return nextExpectedActionIndex;
 }
