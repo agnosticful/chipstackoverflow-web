@@ -6,14 +6,13 @@ import PlayingCard, { Rank, Suit } from "../../models/PlayingCard";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
 
 interface Props extends React.Attributes {
-  defaultValues: {
-    playerIndex: number;
-    playerHand: [PlayingCard | null, PlayingCard | null];
-  }[];
+  activePlayerIndexes: number[];
+  defaultValues: [PlayingCard | null, PlayingCard | null][];
   onChange?: (index: number, hand: Hand, rank: Rank, suit: Suit) => void;
 }
 
 export default function PlayerHandSelectors({
+  activePlayerIndexes,
   defaultValues,
   onChange = () => undefined,
 }: Props) {
@@ -30,8 +29,8 @@ export default function PlayerHandSelectors({
 
   return (
     <Root>
-      {values.map(({ playerIndex, playerHand }) => {
-        const [left, right] = playerHand;
+      {activePlayerIndexes.map((playerIndex) => {
+        const [left, right] = values[playerIndex];
 
         return (
           <PlayerHandSelector>
