@@ -6,38 +6,37 @@ import PlayingCard, { Rank, Suit } from "../../models/PlayingCard";
 import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
 
 interface Props extends React.Attributes {
-  players: {
-    index: number;
-    hand: [PlayingCard | null, PlayingCard | null];
+  defaultValues: {
+    playerIndex: number;
+    playerHand: [PlayingCard | null, PlayingCard | null];
   }[];
   onChange?: (index: number, hand: Hand, rank: Rank, suit: Suit) => void;
 }
 
 export default function PlayerHandSelectors({
-  players,
+  defaultValues,
   onChange = () => undefined,
 }: Props) {
-  const [activePlayers, setActivePlayers] = React.useState(players);
+  const [values, setValues] = React.useState(defaultValues);
 
   React.useEffect(() => {
-    if (players.length < 2 || 10 < players.length)
+    if (defaultValues.length < 2 || 10 < defaultValues.length)
       throw new Error(
-        "length of players must be more than or equal to 2 and less than or equal to 10"
+        "length of defaultValues must be more than or equal to 2 and less than or equal to 10"
       );
 
-    setActivePlayers(players);
-  }, [...players]);
+    setValues(defaultValues);
+  }, [...defaultValues]);
 
   return (
     <Root>
-      {activePlayers.map((player) => {
-        const playerIndex = player.index;
-        const [left, right] = player.hand;
+      {values.map(({ playerIndex, playerHand }) => {
+        const [left, right] = playerHand;
 
         return (
-          <Player>
+          <PlayerHandSelector>
             <SmallTitle>{`${getPositionByPlayerAndIndex(
-              activePlayers.length,
+              values.length,
               playerIndex
             )}:`}</SmallTitle>
 
@@ -58,7 +57,7 @@ export default function PlayerHandSelectors({
                 }
               />
             </PlayerHand>
-          </Player>
+          </PlayerHandSelector>
         );
       })}
     </Root>
@@ -75,7 +74,7 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-const Player = styled.div`
+const PlayerHandSelector = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 16px;
