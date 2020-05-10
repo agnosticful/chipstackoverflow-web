@@ -3,7 +3,7 @@ import { Rank, Suit } from "../../models/PlayingCard";
 import RankIcon from "./RankIcon";
 
 export default {
-  title: "RankIcon",
+  title: "PlayingCardIcon/RankIcon",
   component: RankIcon,
 };
 

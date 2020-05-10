@@ -3,7 +3,7 @@ import { Suit } from "../../models/PlayingCard";
 import SuitIcon from "./SuitIcon";
 
 export default {
-  title: "SuitIcon",
+  title: "PlayingCardIcon/SuitIcon",
   component: SuitIcon,
 };
 
