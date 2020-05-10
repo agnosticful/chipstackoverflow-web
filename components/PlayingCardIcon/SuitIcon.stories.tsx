@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Suit } from "../../models/PlayingCard";
+import Suit from "../../models/Suit";
 import SuitIcon from "./SuitIcon";
 
 export default {

@@ -1,7 +1,8 @@
 import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs";
 import * as React from "react";
-import { Rank, Suit } from "../../models/PlayingCard";
+import Rank from "../../models/Rank";
+import Suit from "../../models/Suit";
 import SelectablePlayingCard from "./SelectablePlayingCard";
 
 export default {

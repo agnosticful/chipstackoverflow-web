@@ -7,7 +7,8 @@ import {
   DIAMOND_COLOR,
   CLUB_COLOR,
 } from "../../constants/color";
-import { Rank, Suit } from "../../models/PlayingCard";
+import Rank from "../../models/Rank";
+import Suit from "../../models/Suit";
 import { RankIcon, SuitIcon } from "../PlayingCardIcon";
 
 interface Props extends React.Attributes {

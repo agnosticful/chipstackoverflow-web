@@ -6,7 +6,7 @@ export default function () {
   return (
     <>
       <Head>
-        <title>Privacy Policy 🦈 chipstackoverflow</title>
+        <title>Privacy Policy | chipstackoverflow</title>
       </Head>
 
       <PrivacyPolicyPage />

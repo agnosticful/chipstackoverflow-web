@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Rank, Suit } from "../../models/PlayingCard";
+import Rank from "../../models/Rank";
+import Suit from "../../models/Suit";
 import { PlusIcon } from "../Icon";
 import PortraitPlayingCard from "../PortraitPlayingCard";
 import PlayingCardSelector from "../PlayingCardSelector";

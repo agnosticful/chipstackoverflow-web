@@ -1,5 +1,6 @@
 module.exports = {
   env: {
+    API_ENDPOINT: "https://csof.herokuapp.com/graphql",
     FIREBASE_API_KEY: "AIzaSyDYyfXxY0SDh-frzVbWjqWvDBDXHDVFzFI",
     FIREBASE_AUTH_DOMAIN: "chipstackoverflow.firebaseapp.com",
     FIREBASE_DATABASE_URL: "https://chipstackoverflow.firebaseio.com",

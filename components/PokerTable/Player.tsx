@@ -2,7 +2,8 @@ import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
 import { GameStreetActionType } from "../../models/GameSituation";
-import { Rank, Suit } from "../../models/PlayingCard";
+import Rank from "../../models/Rank";
+import Suit from "../../models/Suit";
 import LandscapePlayingCard from "../LandscapePlayingCard";
 
 interface Props extends React.Attributes {
