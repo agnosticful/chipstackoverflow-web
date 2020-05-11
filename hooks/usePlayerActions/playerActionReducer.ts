@@ -1,8 +1,7 @@
 import { GameStreetAction } from "../../models/GameSituation";
-import addGameStreetAction from "./addGameStreetAction";
 import createEmptyGameStreetActions from "./createEmptyGameStreetActions";
-import deleteGameStreetAction from "./deleteGameStreetAction";
-import updateGameStreetAction from "./updateGameStreetAction";
+import updateGameStreetActionAt from "./updateGameStreetActionAt";
+import adjustGameStreetActions from "./adjustGameStreetActions";
 
 interface ReducerAction {
   actionType: ActionType;
@@ -46,42 +45,25 @@ export default function plyarActionReducer(
         throw new Error(
           "gameStreetAction must be passed when updateGameStreetAction"
         );
-      if (playerStackSizes === undefined)
-        throw new Error(
-          "playerStackSizes must be passed when updateGameStreetAction"
-        );
 
-      return updateGameStreetAction({
-        street,
+      const newActions = updateGameStreetActionAt({
         actions,
         index,
         action,
-        playerStackSizes,
+      });
+
+      return adjustGameStreetActions({
+        actions: newActions,
+        activePlayers: Array.from(
+          new Set(newActions.map((action) => action.playerIndex))
+        ),
       });
     }
-
-    case ActionType.add:
-      if (index === undefined)
-        throw new Error("index must be passed when updateGameStreetAction");
-      if (action === undefined)
-        throw new Error(
-          "gameStreetAction must be passed when updateGameStreetAction"
-        );
-
-      return addGameStreetAction({ street, actions, index, action });
-
-    case ActionType.delete:
-      if (index === undefined)
-        throw new Error("index must be passed when updateGameStreetAction");
-
-      return deleteGameStreetAction({ street, actions, index });
   }
 }
 
 export enum ActionType {
   new = "NEW",
-  add = "ADD",
-  delete = "DELETE",
   update = "UPDATE",
 }
 
