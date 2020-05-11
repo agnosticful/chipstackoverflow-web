@@ -9,21 +9,13 @@ interface ReducerAction {
   playerLength?: number;
   index?: number;
   action?: GameStreetAction;
-  playerStackSizes?: number[];
 }
 
 export default function plyarActionReducer(
   actions: GameStreetAction[],
   reducerAction: ReducerAction
 ) {
-  const {
-    actionType,
-    street,
-    playerLength,
-    index,
-    action,
-    playerStackSizes,
-  } = reducerAction;
+  const { actionType, street, playerLength, index, action } = reducerAction;
 
   switch (actionType) {
     case ActionType.new: {

@@ -135,30 +135,4 @@ describe("playerActionReducer(gameStreetActions: GameStreetAction[], action: Act
   });
 
   describe("when actionType is update", () => {});
-
-  describe("when actionType is add", () => {
-    it("throws error", () => {
-      expect(() => {
-        playerActionReducer([], {
-          actionType: ActionType.add,
-          street: Street.preflop,
-        });
-      }).toThrowError(
-        new Error("actionType must not be add by user interaction")
-      );
-    });
-  });
-
-  describe("when actionType is delete", () => {
-    it("throws error", () => {
-      expect(() => {
-        playerActionReducer([], {
-          actionType: ActionType.delete,
-          street: Street.preflop,
-        });
-      }).toThrowError(
-        new Error("actionType must not be delete by user interaction")
-      );
-    });
-  });
 });
