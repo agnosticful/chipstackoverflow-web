@@ -6,8 +6,8 @@ import NextDocument, {
   Main,
   NextScript,
 } from "next/document";
-import { ServerStyleSheet } from "styled-components";
 import * as React from "react";
+import { ServerStyleSheet } from "styled-components";
 
 export default class Document extends NextDocument {
   render() {
@@ -19,21 +19,6 @@ export default class Document extends NextDocument {
           <Main />
 
           <NextScript />
-
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.FIREBASE_MEASUREMENT_ID}`}
-          />
-          <script
-            // set send_page_view false to prevent sending page_view when the firebase app initializes
-            dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${process.env.FIREBASE_MEASUREMENT_ID}', { 'send_page_view': false });`,
-            }}
-          />
 
           {/* fullstory (https://fullstory.com/) */}
           <script

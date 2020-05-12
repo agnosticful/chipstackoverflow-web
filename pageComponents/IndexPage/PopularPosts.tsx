@@ -7,54 +7,29 @@ import PostList, {
 } from "../../components/PostCardList";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import { NUMBER_OF_POSTS_IN_INDEX } from "../../constants/post";
-import useRepository from "../../hooks/useRepository";
-import Post from "../../models/Post";
+import usePopularPosts from "../../hooks/usePopularPosts";
 
-export default function PopularPosts({
-  prefetchedPopularPosts,
-}: {
-  prefetchedPopularPosts: Post[];
-}) {
-  const { subscribePopularPosts } = useRepository();
-  const [posts, setPosts] = React.useState<Post[]>(prefetchedPopularPosts);
-
-  React.useEffect(() => {
-    const popularPostsChanged = subscribePopularPosts({
-      limit: NUMBER_OF_POSTS_IN_INDEX,
-    });
-
-    const popularPostsSubscription = popularPostsChanged.subscribe(
-      (popularPosts) => {
-        setPosts(popularPosts);
-      }
-    );
-
-    return () => {
-      popularPostsSubscription.unsubscribe();
-    };
-  }, [setPosts, subscribePopularPosts]);
+export default function PopularPosts() {
+  const { popularPosts, isLoading } = usePopularPosts();
 
   return (
     <>
       <Headline>Popular Posts</Headline>
+
       <PostList>
-        {posts.length === 0 ? (
-          <>
-            {Array.from({ length: NUMBER_OF_POSTS_IN_INDEX }, (_, i) => (
+        {isLoading
+          ? Array.from({ length: NUMBER_OF_POSTS_IN_INDEX }, (_, i) => (
               <PostCardListItemLoader key={i} />
+            ))
+          : popularPosts.map((post) => (
+              <PostCardListItem
+                key={post.id}
+                post={post}
+                onClick={() =>
+                  Router.push(`/posts/[postId]`, `/posts/${post.id}`)
+                }
+              />
             ))}
-          </>
-        ) : (
-          posts.map((post) => (
-            <PostCardListItem
-              key={post.id}
-              post={post}
-              onClick={() =>
-                Router.push(`/posts/[postId]`, `/posts/${post.id}`)
-              }
-            />
-          ))
-        )}
       </PostList>
     </>
   );

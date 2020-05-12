@@ -4,25 +4,24 @@ import styled from "styled-components";
 import FootBar from "../../components/FootBar";
 import HeadBar from "../../components/HeadBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import useAnalytics from "../../hooks/useAnalytics";
 import useAuthentication from "../../hooks/useAuthentication";
-import useRepository from "../../hooks/useRepository";
+import useMyself from "../../hooks/useMyself";
 
-interface Props extends React.Attributes {
-  className?: string;
-  style?: React.CSSProperties;
-}
+interface Props extends React.Attributes {}
 
 const WEBSITE_NAME = "chipstachoverflow";
 
 export default function PrivacyPolicyPage(props: Props) {
-  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
-  const { logEvent } = useRepository();
+  const { isLoading: isAuthenticating, signIn, signOut } = useAuthentication();
+  const { myself, isLoading: isLoadingUser } = useMyself();
+  const { trackEvent } = useAnalytics();
 
   return (
     <div {...props}>
       <HeadBar
-        user={user ?? undefined}
-        authenticationChecking={isFirstChecking}
+        user={myself ?? undefined}
+        authenticationChecking={isAuthenticating || isLoadingUser}
         onSignInButtonClick={(_, objectId) => signIn(objectId)}
         onSignOutButtonClick={() => signOut()}
       />
@@ -278,7 +277,7 @@ export default function PrivacyPolicyPage(props: Props) {
       </Content>
 
       <FootBar
-        onContactClick={(_, objectId) => logEvent("contact", { objectId })}
+        onContactClick={(_, objectId) => trackEvent("contact", { objectId })}
       />
     </div>
   );

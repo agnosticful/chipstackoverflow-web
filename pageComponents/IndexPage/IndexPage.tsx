@@ -4,34 +4,26 @@ import HeadBar from "../../components/HeadBar";
 import FootBar from "../../components/FootBar";
 import { MOBILE_MEDIA } from "../../constants/mediaquery";
 import useAuthentication from "../../hooks/useAuthentication";
-import useRepository from "../../hooks/useRepository";
-import Post from "../../models/Post";
+import useMyself from "../../hooks/useMyself";
 import Eyecatch from "./Eyecatch";
 import PopularPosts from "./PopularPosts";
 import RecentPosts from "./RecentPosts";
 
-interface Props extends React.Attributes {
-  prefetchedPopularPosts: Post[];
-  prefetchedRecentPosts: Post[];
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
-}
+interface Props extends React.Attributes {}
 
-export default function IndexPage({
-  prefetchedPopularPosts,
-  prefetchedRecentPosts,
-  children,
-  ...props
-}: Props) {
-  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
-  const { logEvent } = useRepository();
+export default function IndexPage({ ...props }: Props) {
+  const {
+    isLoading: isAuthenticationLoading,
+    signIn,
+    signOut,
+  } = useAuthentication();
+  const { myself, isLoading: isMyselfLoading } = useMyself();
 
   return (
     <Root {...props}>
       <HeadBar
-        user={user ?? undefined}
-        authenticationChecking={isFirstChecking}
+        user={myself ?? undefined}
+        authenticationChecking={isAuthenticationLoading || isMyselfLoading}
         onSignInButtonClick={(_, objectId) => signIn(objectId)}
         onSignOutButtonClick={() => signOut()}
       />
@@ -41,15 +33,15 @@ export default function IndexPage({
       </Content>
 
       <Content>
-        <RecentPosts prefetchedRecentPosts={prefetchedRecentPosts} />
+        <RecentPosts />
       </Content>
 
       <Content>
-        <PopularPosts prefetchedPopularPosts={prefetchedPopularPosts} />
+        <PopularPosts />
       </Content>
 
       <FootBar
-        onContactClick={(_, objectId) => logEvent("contact", { objectId })}
+      // onContactClick={(_, objectId) => logEvent("contact", { objectId })}
       />
     </Root>
   );

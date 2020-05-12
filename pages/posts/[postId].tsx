@@ -1,58 +1,35 @@
-import { GetServerSideProps } from "next";
 import Error from "next/error";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import * as React from "react";
+import usePost, { PostProvider } from "../../hooks/usePost";
 import { PostId } from "../../models/Post";
 import PostDetailPage from "../../pageComponents/PostDetailPage";
-import { createGetPostById } from "../../repositories/getPostById";
-import jsonToPost from "../../serializers/jsonToPost";
-import postToJSON from "../../serializers/postToJSON";
-import getFirebaseApp from "../../utilities/getFirebaseApp";
 
-export default function Page({
-  statusCode,
-  prefetchedPostJSON,
-}: {
-  statusCode: number;
-  prefetchedPostJSON: Record<string, any> | null;
-  prefetchedAnswersJSON: Record<string, any>[];
-}) {
-  if (statusCode !== 200) {
-    return <Error statusCode={statusCode} />;
+export default () => {
+  const { query } = useRouter();
+
+  return (
+    <PostProvider id={`${query.postId}` as PostId}>
+      <Wrapped />
+    </PostProvider>
+  );
+};
+
+function Wrapped() {
+  const { post, isLoading } = usePost();
+
+  if (post === null && !isLoading) {
+    return <Error statusCode={404} />;
   }
-
-  const prefetchedPost = jsonToPost(prefetchedPostJSON!);
 
   return (
     <>
       <Head>
-        <title>{prefetchedPost.title} | Chipstackoverflow</title>
+        <title>{post ? post.title : "Loading..."} | Chipstackoverflow</title>
       </Head>
 
-      <PostDetailPage prefetchedPost={prefetchedPost} />
+      <PostDetailPage />
     </>
   );
-}
-
-export async function getServerSideProps({
-  res,
-  params,
-}: Parameters<GetServerSideProps>[0]) {
-  const postId = params!.postId as PostId;
-
-  const firebaseApp = getFirebaseApp();
-  const getPostById = createGetPostById({ firebaseApp });
-
-  const post = await getPostById(postId);
-
-  if (!post) {
-    res.statusCode = 404;
-  }
-
-  return {
-    props: {
-      statusCode: res.statusCode,
-      prefetchedPostJSON: post ? postToJSON(post) : null,
-    },
-  };
 }

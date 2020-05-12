@@ -1,16 +1,15 @@
-import { AnswerId } from "./Answer";
-import { UserId } from "./User";
-import { PostId } from "./Post";
+import User from "./User";
 
 export default interface Comment {
   id: CommentId;
-  post: PostId;
-  answer: AnswerId;
-  user: UserId;
   body: CommentBody;
   likes: number;
   dislikes: number;
+  liked: boolean;
+  disliked: boolean;
+  author: User;
   createdAt: Date;
+  lastUpdatedAt: Date;
 }
 
 export type CommentId = string & {

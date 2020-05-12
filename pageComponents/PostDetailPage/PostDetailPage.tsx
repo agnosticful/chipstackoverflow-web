@@ -2,28 +2,35 @@ import * as React from "react";
 import styled from "styled-components";
 import HeadBar from "../../components/HeadBar";
 import useAuthentication from "../../hooks/useAuthentication";
-import Post from "../../models/Post";
+import useMyself from "../../hooks/useMyself";
+import usePost from "../../hooks/usePost";
 
-interface Props {
-  prefetchedPost: Post;
-}
+interface Props extends React.Attributes {}
 
-export default function PostDetailPage({ prefetchedPost }: Props) {
-  const { user, isFirstChecking, signIn, signOut } = useAuthentication();
+export default function PostDetailPage(props: Props) {
+  const { signIn, signOut } = useAuthentication();
+  const { myself, isLoading: isMyselfLoading } = useMyself();
+  const { post, isLoading: isPostLoading } = usePost();
+
+  console.log(post);
+
+  if (isPostLoading || !post) {
+    return <div>loading...</div>;
+  }
 
   return (
-    <Root>
+    <Root {...props}>
       <_HeadBar
-        user={user ?? undefined}
-        authenticationChecking={isFirstChecking}
+        user={myself ?? undefined}
+        authenticationChecking={isMyselfLoading}
         onSignInButtonClick={(_, objectId) => signIn(objectId)}
         onSignOutButtonClick={() => signOut()}
       />
 
       <Content>
-        <h1>(temporary implementation) {prefetchedPost.title}</h1>
+        <h1>(temporary implementation) {post.title}</h1>
 
-        {prefetchedPost.body.split("\n").map((line, i) => (
+        {post.body.split("\n").map((line, i) => (
           <p key={i}>{line}</p>
         ))}
       </Content>
