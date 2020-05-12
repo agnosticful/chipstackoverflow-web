@@ -83,3 +83,7 @@ AuhtneitcationProviderWrapper.getInitialProps = async (context: AppContext) => {
 
   return {};
 };
+
+export function reportWebVitals(metric: any) {
+  console.info(metric);
+}
