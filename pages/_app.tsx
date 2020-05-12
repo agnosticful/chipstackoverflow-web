@@ -5,7 +5,6 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from "apollo-boost";
-import fetch from "isomorphic-fetch";
 import { AppProps, AppContext } from "next/app";
 import * as React from "react";
 import "tippy.js/dist/tippy.css";
@@ -35,7 +34,7 @@ function App(props: Props) {
   const [apolloClient, setApolloClient] = React.useState(
     props.apolloClient ??
       new ApolloClient({
-        link: new HttpLink({ fetch, uri: process.env.API_ENDPOINT }),
+        link: new HttpLink({ uri: process.env.NEXT_PUBLIC_API_ENDPOINT }),
         cache: new InMemoryCache().restore(props.initialApolloState ?? {}),
       })
   );
@@ -45,8 +44,7 @@ function App(props: Props) {
     setApolloClient(
       new ApolloClient({
         link: new HttpLink({
-          fetch,
-          uri: process.env.API_ENDPOINT,
+          uri: process.env.NEXT_PUBLIC_API_ENDPOINT,
           headers: authenticationToken
             ? { authorization: `Bearer ${authenticationToken}` }
             : {},
@@ -71,7 +69,7 @@ AuhtneitcationProviderWrapper.getInitialProps = async (context: AppContext) => {
   if (context.ctx.req && context.ctx.res) {
     const { getDataFromTree } = await import("@apollo/react-ssr");
     const apolloClient = new ApolloClient({
-      link: new HttpLink({ fetch, uri: process.env.API_ENDPOINT }),
+      link: new HttpLink({ uri: process.env.NEXT_PUBLIC_API_ENDPOINT }),
       cache: new InMemoryCache(),
       ssrMode: true,
     });
