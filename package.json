@@ -48,10 +48,10 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "dev": "next dev",
     "format": "prettier --write '**/*.{ts,tsx}'",
-    "story": "start-storybook -s ./public",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -s ./public",
+    "dev": "next dev"
   },
   "homepage": "https://github.com/agnosticful/chipstackoverflow#readme",
   "bugs": {
