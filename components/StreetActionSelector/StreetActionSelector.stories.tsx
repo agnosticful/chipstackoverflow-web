@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { number } from "@storybook/addon-knobs";
 import * as React from "react";
-import StreetActionSelector from "./StreetActionSelector";
+import StreetActionSelector from "@@/components/StreetActionSelector";
 
 export default {
   title: "StreetActionSelector",

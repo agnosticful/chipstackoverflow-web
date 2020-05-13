@@ -1,7 +1,7 @@
 import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
-import GameStreet from "../../models/GameStreet";
+import GameStreet from "@@/models/GameStreet";
 
 interface Props extends React.Attributes {
   street: GameStreet;

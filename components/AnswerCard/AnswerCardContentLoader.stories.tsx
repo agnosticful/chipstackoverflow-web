@@ -1,5 +1,5 @@
 import * as React from "react";
-import AnswerCardContentLoader from "./AnswerCardContentLoader";
+import { AnswerCardContentLoader } from "@@/components/AnswerCard";
 
 export default {
   title: "AnswerCard/AnswerCardContentLoader",

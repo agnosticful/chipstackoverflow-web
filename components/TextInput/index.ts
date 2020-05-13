@@ -1,1 +1,1 @@
-export { default } from "./TextInput";
+export { default, TextInputSize } from "./TextInput";

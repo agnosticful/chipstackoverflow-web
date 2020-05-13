@@ -1,6 +1,6 @@
-import Answer from "./Answer";
-import GameSituation from "./GameSituation";
-import User from "./User";
+import Answer from "@@/models/Answer";
+import GameSituation from "@@/models/GameSituation";
+import User from "@@/models/User";
 
 export default interface Post extends PostMinimum {
   author: User;

@@ -1,10 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
-import HeadBar from "../../components/HeadBar";
-import FootBar from "../../components/FootBar";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import useAuthentication from "../../hooks/useAuthentication";
-import useMyself from "../../hooks/useMyself";
+import HeadBar from "@@/components/HeadBar";
+import FootBar from "@@/components/FootBar";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import useAuthentication from "@@/hooks/useAuthentication";
+import useMyself from "@@/hooks/useMyself";
 import Eyecatch from "./Eyecatch";
 import PopularPosts from "./PopularPosts";
 import RecentPosts from "./RecentPosts";

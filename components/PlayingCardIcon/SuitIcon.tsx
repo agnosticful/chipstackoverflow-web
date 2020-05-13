@@ -6,8 +6,8 @@ import {
   HEART_COLOR,
   DIAMOND_COLOR,
   CLUB_COLOR,
-} from "../../constants/color";
-import Suit from "../../models/Suit";
+} from "@@/constants/color";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
   /**

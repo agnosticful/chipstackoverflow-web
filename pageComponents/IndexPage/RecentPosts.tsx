@@ -4,10 +4,10 @@ import styled from "styled-components";
 import PostList, {
   PostCardListItem,
   PostCardListItemLoader,
-} from "../../components/PostCardList";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import { NUMBER_OF_POSTS_IN_INDEX } from "../../constants/post";
-import useRecentPosts from "../../hooks/useRecentPosts";
+} from "@@/components/PostCardList";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import { NUMBER_OF_POSTS_IN_INDEX } from "@@/constants/post";
+import useRecentPosts from "@@/hooks/useRecentPosts";
 
 export default function RecentPosts() {
   const { recentPosts, isLoading } = useRecentPosts();

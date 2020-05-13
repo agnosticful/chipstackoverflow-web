@@ -1,6 +1,6 @@
-import * as React from "react";
-import AnswerCardCommentForm from "./AnswerCardCommentForm";
 import { action } from "@storybook/addon-actions";
+import * as React from "react";
+import { AnswerCardCommentForm } from "@@/components/AnswerCard";
 
 export default {
   title: "AnswerCard/AnswerCardCommentForm",

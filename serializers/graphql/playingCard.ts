@@ -1,6 +1,6 @@
-import PlayingCard from "../../models/PlayingCard";
-import { toRank } from "./rank";
-import { toSuit } from "./suit";
+import PlayingCard from "@@/models/PlayingCard";
+import { toRank } from "@@/serializers/graphql/rank";
+import { toSuit } from "@@/serializers/graphql/suit";
 
 export function toPlayingCard(value: any): PlayingCard {
   return {

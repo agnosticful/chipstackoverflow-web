@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import constate from "constate";
-import { toPostMinimum } from "../serializers/graphql/post";
+import { toPostMinimum } from "@@/serializers/graphql/post";
 
 export const [PopularPostsProvider, usePopularPosts] = constate(() => {
   const { data, loading } = useQuery(QUERY);

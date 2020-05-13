@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { ChevronDownIcon } from "../Icon";
+import { ChevronDownIcon } from "@@/components/Icon";
 import { Props as OptionProps } from "./Option";
 
 interface Props<Value> extends React.Attributes {

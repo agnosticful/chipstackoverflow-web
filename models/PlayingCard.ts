@@ -1,5 +1,5 @@
-import Rank from "./Rank";
-import Suit from "./Suit";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 /**
  * Represents a piece of playing card.

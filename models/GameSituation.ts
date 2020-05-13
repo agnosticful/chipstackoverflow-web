@@ -1,4 +1,4 @@
-import PlayingCard from "./PlayingCard";
+import PlayingCard from "@@/models/PlayingCard";
 
 export default interface GameSituation {
   type: GameType;

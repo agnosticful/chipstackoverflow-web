@@ -1,6 +1,6 @@
-import Answer from "../../models/Answer";
-import { toComment } from "./comment";
-import { toUser } from "./user";
+import Answer from "@@/models/Answer";
+import { toComment } from "@@/serializers/graphql/comment";
+import { toUser } from "@@/serializers/graphql/user";
 
 export function toAnswer(value: any): Answer {
   return {

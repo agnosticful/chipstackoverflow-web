@@ -2,9 +2,9 @@ import Error from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
-import usePost, { PostProvider } from "../../hooks/usePost";
-import { PostId } from "../../models/Post";
-import PostDetailPage from "../../pageComponents/PostDetailPage";
+import usePost, { PostProvider } from "@@/hooks/usePost";
+import { PostId } from "@@/models/Post";
+import PostDetailPage from "@@/pageComponents/PostDetailPage";
 
 export default () => {
   const { query } = useRouter();

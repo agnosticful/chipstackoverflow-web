@@ -1,8 +1,8 @@
 import Head from "next/head";
 import * as React from "react";
-import { PopularPostsProvider } from "../hooks/usePopularPosts";
-import { RecentPostsProvider } from "../hooks/useRecentPosts";
-import IndexPage from "../pageComponents/IndexPage";
+import { PopularPostsProvider } from "@@/hooks/usePopularPosts";
+import { RecentPostsProvider } from "@@/hooks/useRecentPosts";
+import IndexPage from "@@/pageComponents/IndexPage";
 
 export default () => {
   return (

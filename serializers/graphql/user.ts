@@ -1,4 +1,4 @@
-import User, { Myself } from "../../models/User";
+import User, { Myself } from "@@/models/User";
 
 export function toUser(value: any): User {
   return {

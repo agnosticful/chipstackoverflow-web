@@ -1,7 +1,7 @@
-import Post, { PostMinimum } from "../../models/Post";
-import { toAnswer } from "./answer";
-import { toPlayingCard } from "./playingCard";
-import { toUser } from "./user";
+import Post, { PostMinimum } from "@@/models/Post";
+import { toAnswer } from "@@/serializers/graphql/answer";
+import { toPlayingCard } from "@@/serializers/graphql/playingCard";
+import { toUser } from "@@/serializers/graphql/user";
 
 export function toPost(value: any): Post {
   return {

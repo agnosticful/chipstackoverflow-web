@@ -1,4 +1,4 @@
-import { toUser } from "./user";
+import { toUser } from "@@/serializers/graphql/user";
 
 export function toComment(value: any) {
   return {

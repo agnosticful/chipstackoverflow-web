@@ -1,10 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
-import User from "../../models/User";
-import Avatar from "../Avatar";
-import Button from "../Button";
-import { LoadingIcon, SendIcon } from "../Icon";
-import TextArea from "../TextArea";
+import Avatar from "@@/components/Avatar";
+import Button from "@@/components/Button";
+import { LoadingIcon, SendIcon } from "@@/components/Icon";
+import TextArea from "@@/components/TextArea";
+import User from "@@/models/User";
 
 export interface Props extends React.Attributes {
   user: User;

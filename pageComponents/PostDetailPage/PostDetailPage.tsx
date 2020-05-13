@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
-import HeadBar from "../../components/HeadBar";
-import useAuthentication from "../../hooks/useAuthentication";
-import useMyself from "../../hooks/useMyself";
-import usePost from "../../hooks/usePost";
+import HeadBar from "@@/components/HeadBar";
+import useAuthentication from "@@/hooks/useAuthentication";
+import useMyself from "@@/hooks/useMyself";
+import usePost from "@@/hooks/usePost";
 
 interface Props extends React.Attributes {}
 

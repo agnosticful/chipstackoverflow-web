@@ -1,11 +1,14 @@
 module.exports = {
-  preset: 'ts-jest',
+  preset: "ts-jest",
+  moduleNameMapper: {
+    "^@@/(.*)$": "<rootDir>/$1",
+  },
   globals: {
-    'ts-jest': {
+    "ts-jest": {
       tsConfig: {
-        ...require('./tsconfig.json').compilerOptions,
-        jsx: 'react'
-      }
-    }
-  }
+        ...require("./tsconfig.json").compilerOptions,
+        jsx: "react",
+      },
+    },
+  },
 };

@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import constate from "constate";
-import { PostId } from "../models/Post";
-import { toPost } from "../serializers/graphql/post";
+import { PostId } from "@@/models/Post";
+import { toPost } from "@@/serializers/graphql/post";
 
 export const [PostProvider, usePost] = constate(({ id }: { id: PostId }) => {
   const { data, loading } = useQuery(QUERY, { variables: { id } });

@@ -1,9 +1,12 @@
+import { action } from "@storybook/addon-actions";
+import { number, select, boolean } from "@storybook/addon-knobs";
 import * as React from "react";
 import styled from "styled-components";
-import Popover, { PopoverTrigger, PopoverPlacement } from "./Popover";
-import { number, select, boolean } from "@storybook/addon-knobs";
-import PopoverControlContext from "./PopoverControlContext";
-import { action } from "@storybook/addon-actions";
+import Popover, {
+  PopoverControlContext,
+  PopoverTrigger,
+  PopoverPlacement,
+} from "@@/components/Popover";
 
 export default {
   title: "Popover",

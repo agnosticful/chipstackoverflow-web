@@ -1,9 +1,10 @@
-import * as React from "react";
-import AnswerCard from "./AnswerCard";
-import AnswerCardCommentForm from "./AnswerCardCommentForm";
-import AnswerCardContent from "./AnswerCardContent";
-import AnswerCardContentLoader from "./AnswerCardContentLoader";
 import { action } from "@storybook/addon-actions";
+import * as React from "react";
+import AnswerCard, {
+  AnswerCardCommentForm,
+  AnswerCardContent,
+  AnswerCardContentLoader,
+} from "@@/components/AnswerCard";
 
 export default {
   title: "AnswerCard",

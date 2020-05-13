@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { boolean, number, text } from "@storybook/addon-knobs";
 import * as React from "react";
-import TextArea from "./TextArea";
+import TextArea from "@@/components/TextArea";
 
 export default {
   title: "TextArea",

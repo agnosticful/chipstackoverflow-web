@@ -1,8 +1,8 @@
 import { action } from "@storybook/addon-actions";
 import { boolean, select } from "@storybook/addon-knobs";
 import * as React from "react";
-import { LoadingIcon, SignOutIcon } from "../Icon";
-import Button, { ButtonSize, ButtonVariant } from "./Button";
+import Button, { ButtonSize, ButtonVariant } from "@@/components/Button";
+import { LoadingIcon, SignOutIcon } from "@@/components/Icon";
 
 export default {
   title: "Button",
