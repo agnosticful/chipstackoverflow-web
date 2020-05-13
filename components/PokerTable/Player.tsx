@@ -1,10 +1,10 @@
 import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
-import { GameStreetActionType } from "../../models/GameSituation";
-import Rank from "../../models/Rank";
-import Suit from "../../models/Suit";
-import LandscapePlayingCard from "../LandscapePlayingCard";
+import LandscapePlayingCard from "@@/components/LandscapePlayingCard";
+import { GameStreetActionType } from "@@/models/GameSituation";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
   cards?: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];

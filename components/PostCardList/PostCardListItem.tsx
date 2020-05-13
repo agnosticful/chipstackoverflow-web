@@ -2,13 +2,13 @@ import { formatDistanceStrict } from "date-fns";
 import Numeral from "numeral";
 import * as React from "react";
 import styled, { css } from "styled-components";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import { PostMinimum } from "../../models/Post";
-import calculateFinalPot from "../../utilities/calculateFinalPot";
-import getPositionByPlayerAndIndex from "../../utilities/getPositionByPlayerAndIndex";
-import Card from "../Card";
-import { ThumbsUpIcon } from "../Icon";
-import PortraitPlayingCard from "../PortraitPlayingCard";
+import Card from "@@/components/Card";
+import { ThumbsUpIcon } from "@@/components/Icon";
+import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import { PostMinimum } from "@@/models/Post";
+import calculateFinalPot from "@@/utilities/calculateFinalPot";
+import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndIndex";
 import ShowLastUpdateDateContext from "./ShowLastUpdateDateContext";
 
 interface Props extends React.Attributes {

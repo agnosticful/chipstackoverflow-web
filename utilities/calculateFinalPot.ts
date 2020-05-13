@@ -1,4 +1,4 @@
-import GameSituation from "../models/GameSituation";
+import GameSituation from "@@/models/GameSituation";
 
 export default function calculateFinalPot(
   gameSituation: GameSituation

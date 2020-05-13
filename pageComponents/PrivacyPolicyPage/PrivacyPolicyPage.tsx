@@ -1,12 +1,12 @@
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
-import FootBar from "../../components/FootBar";
-import HeadBar from "../../components/HeadBar";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import useAnalytics from "../../hooks/useAnalytics";
-import useAuthentication from "../../hooks/useAuthentication";
-import useMyself from "../../hooks/useMyself";
+import FootBar from "@@/components/FootBar";
+import HeadBar from "@@/components/HeadBar";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import useAnalytics from "@@/hooks/useAnalytics";
+import useAuthentication from "@@/hooks/useAuthentication";
+import useMyself from "@@/hooks/useMyself";
 
 interface Props extends React.Attributes {}
 

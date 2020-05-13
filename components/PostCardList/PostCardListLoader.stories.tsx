@@ -1,6 +1,7 @@
 import * as React from "react";
-import PostCardList from "./PostCardList";
-import PostCardListItemLoader from "./PostCardListItemLoader";
+import PostCardList, {
+  PostCardListItemLoader,
+} from "@@/components/PostCardList";
 
 export default {
   title: "PostCardList/PostCardListLoader",

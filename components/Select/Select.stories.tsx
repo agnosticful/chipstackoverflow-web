@@ -1,8 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { select } from "@storybook/addon-knobs";
 import * as React from "react";
-import Option from "./Option";
-import Select from "./Select";
+import Select, { Option } from "@@/components/Select";
 
 export default {
   title: "Select",

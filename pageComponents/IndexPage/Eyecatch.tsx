@@ -1,10 +1,10 @@
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
-import Button, { ButtonVariant } from "../../components/Button";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import useAuthentication from "../../hooks/useAuthentication";
-import useMyself from "../../hooks/useMyself";
+import Button, { ButtonVariant } from "@@/components/Button";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import useAuthentication from "@@/hooks/useAuthentication";
+import useMyself from "@@/hooks/useMyself";
 
 interface Props extends React.Attributes {
   className?: string;

@@ -1,9 +1,8 @@
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
-import Button from "../Button";
-import { SignOutIcon } from "../Icon";
-import PopoverMenu from "./PopoverMenu";
-import PopoverMenuItem from "./PopoverMenuItem";
+import Button from "@@/components/Button";
+import { SignOutIcon } from "@@/components/Icon";
+import PopoverMenu, { PopoverMenuItem } from "@@/components/PopoverMenu";
 
 export default {
   title: "PopoverMenu",

@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { select, text } from "@storybook/addon-knobs";
 import * as React from "react";
-import TextInput, { TextInputSize } from "./TextInput";
+import TextInput, { TextInputSize } from "@@/components/TextInput";
 
 export default {
   title: "TextInput",

@@ -1,6 +1,6 @@
 import constate from "constate";
 import * as React from "react";
-import useMyself from "./useMyself";
+import useMyself from "@@/hooks/useMyself";
 
 export const [AnalyticsProvider, useAnalytics] = constate(() => {
   const { myself } = useMyself();

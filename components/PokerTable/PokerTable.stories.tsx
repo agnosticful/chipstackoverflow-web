@@ -1,10 +1,10 @@
 import { boolean, number, select } from "@storybook/addon-knobs";
 import * as React from "react";
-import { GameStreetActionType } from "../../models/GameSituation";
-import GameStreet from "../../models/GameStreet";
-import Rank from "../../models/Rank";
-import Suit from "../../models/Suit";
-import PokerTable from "./PokerTable";
+import PokerTable from "@@/components/PokerTable";
+import { GameStreetActionType } from "@@/models/GameSituation";
+import GameStreet from "@@/models/GameStreet";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 export default {
   title: "PokerTable",

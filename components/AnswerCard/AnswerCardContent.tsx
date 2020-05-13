@@ -1,8 +1,8 @@
 import * as React from "react";
 import styled, { css } from "styled-components";
-import User from "../../models/User";
-import Avatar from "../Avatar";
-import { ThumbsDownIcon, ThumbsUpIcon } from "../Icon";
+import Avatar from "@@/components/Avatar";
+import { ThumbsDownIcon, ThumbsUpIcon } from "@@/components/Icon";
+import User from "@@/models/User";
 
 export interface Props extends React.Attributes {
   user: User;

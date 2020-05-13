@@ -1,4 +1,4 @@
-import Suit from "../../models/Suit";
+import Suit from "@@/models/Suit";
 
 export function toSuit(value: any): Suit {
   return SUITS[value];

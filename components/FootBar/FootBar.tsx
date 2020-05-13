@@ -1,7 +1,7 @@
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
 
 interface Props extends React.Attributes {
   onContactClick?: (e: React.SyntheticEvent, objectId: string) => void;

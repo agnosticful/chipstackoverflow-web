@@ -10,12 +10,12 @@ import * as React from "react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
-import "../global.css";
+import "@@/global.css";
 import useAuthentication, {
   AuthenticationProvider,
-} from "../hooks/useAuthentication";
-import { MyselfProvider } from "../hooks/useMyself";
-import { AnalyticsProvider } from "../hooks/useAnalytics";
+} from "@@/hooks/useAuthentication";
+import { MyselfProvider } from "@@/hooks/useMyself";
+import { AnalyticsProvider } from "@@/hooks/useAnalytics";
 
 interface Props extends AppProps {
   apolloClient?: ApolloClient<any>;

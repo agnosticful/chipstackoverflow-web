@@ -1,7 +1,7 @@
 import * as React from "react";
-import Rank from "../../models/Rank";
-import Suit from "../../models/Suit";
-import RankIcon from "./RankIcon";
+import { RankIcon } from "@@/components/PlayingCardIcon";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 export default {
   title: "PlayingCardIcon/RankIcon",

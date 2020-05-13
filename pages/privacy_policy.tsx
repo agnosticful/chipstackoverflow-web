@@ -1,6 +1,6 @@
 import Head from "next/head";
 import * as React from "react";
-import PrivacyPolicyPage from "../pageComponents/PrivacyPolicyPage";
+import PrivacyPolicyPage from "@@/pageComponents/PrivacyPolicyPage";
 
 export default function () {
   return (

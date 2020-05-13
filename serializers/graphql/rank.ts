@@ -1,4 +1,4 @@
-import Rank from "../../models/Rank";
+import Rank from "@@/models/Rank";
 
 export function toRank(value: any): Rank {
   return RANKS[value];

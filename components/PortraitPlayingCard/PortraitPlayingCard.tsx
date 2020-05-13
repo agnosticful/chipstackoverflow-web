@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
-import { CARD_BACKGROUND, CARD_DARK_BACKGROUND } from "../../constants/color";
-import Rank from "../../models/Rank";
-import Suit from "../../models/Suit";
-import { RankIcon, SuitIcon, UnknownIcon } from "../PlayingCardIcon";
+import { RankIcon, SuitIcon, UnknownIcon } from "@@/components/PlayingCardIcon";
+import { CARD_BACKGROUND, CARD_DARK_BACKGROUND } from "@@/constants/color";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
   /**

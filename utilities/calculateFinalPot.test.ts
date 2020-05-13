@@ -1,7 +1,7 @@
 import calculateFinalPot from "./calculateFinalPot";
-import { GameType, GameStreetActionType } from "../models/GameSituation";
-import Rank from "../models/Rank";
-import Suit from "../models/Suit";
+import { GameType, GameStreetActionType } from "@@/models/GameSituation";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 describe("calculateFinalPot(gameSituation)", () => {
   describe("return the final pot size", () => {

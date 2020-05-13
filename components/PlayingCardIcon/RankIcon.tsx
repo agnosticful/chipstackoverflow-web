@@ -6,9 +6,9 @@ import {
   DIAMOND_COLOR,
   CLUB_COLOR,
   INVERSE_SPADE_COLOR,
-} from "../../constants/color";
-import Rank from "../../models/Rank";
-import Suit from "../../models/Suit";
+} from "@@/constants/color";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
   /**

@@ -1,7 +1,7 @@
 import * as React from "react";
-import PortraitPlayingCard from "./PortraitPlayingCard";
-import Rank from "../../models/Rank";
-import Suit from "../../models/Suit";
+import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 export default {
   title: "PortraitPlayingCard",

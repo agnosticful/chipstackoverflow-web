@@ -2,9 +2,9 @@ import { useApolloClient } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import constate from "constate";
 import * as React from "react";
-import { Myself } from "../models/User";
-import { toMyself } from "../serializers/graphql/user";
-import useAuthentication from "./useAuthentication";
+import useAuthentication from "@@/hooks/useAuthentication";
+import { Myself } from "@@/models/User";
+import { toMyself } from "@@/serializers/graphql/user";
 
 export const [MyselfProvider, useMyself] = constate(() => {
   const apolloClient = useApolloClient();
