@@ -1,10 +1,10 @@
 import { GameStreetActionType } from "../../models/GameSituation";
-import adjustGameStreetActions from "./adjustGameStreetActions";
+import adjustUpdatedGameStreetActions from "./adjustUpdatedGameStreetActions";
 
-describe("adjustGameStreetActions({ actions, activePlayers, }: { actions: GameStreetAction[]; activePlayers: number[]; })", () => {
+describe("adjustUpdatedGameStreetActions({ actions, activePlayers, }: { actions: GameStreetAction[]; activePlayers: number[]; })", () => {
   it("return actions properly when the actions need no adjustment", () => {
     expect(
-      adjustGameStreetActions({
+      adjustUpdatedGameStreetActions({
         actions: [
           { type: GameStreetActionType.fold, playerIndex: 0, betSize: 0 },
           { type: GameStreetActionType.fold, playerIndex: 1, betSize: 0 },
@@ -23,7 +23,7 @@ describe("adjustGameStreetActions({ actions, activePlayers, }: { actions: GameSt
 
   it("return actions properly when action type is changed to fold and need to delete the player's actions", () => {
     expect(
-      adjustGameStreetActions({
+      adjustUpdatedGameStreetActions({
         actions: [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
           { type: GameStreetActionType.check, playerIndex: 1, betSize: 1 },
@@ -47,7 +47,7 @@ describe("adjustGameStreetActions({ actions, activePlayers, }: { actions: GameSt
 
   it("return actions properly when action type is changed from fold and need to add a new action", () => {
     expect(
-      adjustGameStreetActions({
+      adjustUpdatedGameStreetActions({
         actions: [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
           { type: GameStreetActionType.check, playerIndex: 1, betSize: 1 },

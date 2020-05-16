@@ -3,7 +3,7 @@ import {
   GameStreetActionType,
 } from "../../models/GameSituation";
 
-export default function adjustGameStreetActions({
+export default function adjustUpdatedGameStreetActions({
   actions,
   activePlayers,
 }: {
@@ -34,12 +34,10 @@ export default function adjustGameStreetActions({
       }
     }
 
-    // fold以外の場合activePlayersにplayerIndexを追加
     if (actions[index].type !== GameStreetActionType.fold) {
       activePlayers.push(actions[index].playerIndex);
     }
 
-    // betかraiseの場合、lastIndexを変更
     if (
       actions[index].type === GameStreetActionType.bet ||
       actions[index].type === GameStreetActionType.raise
