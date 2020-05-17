@@ -2,22 +2,25 @@ import * as React from "react";
 import styled, { SimpleInterpolation, css } from "styled-components";
 import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
 import useRect from "@@/hooks/useRect";
-import GameStreet from "@@/models/GameStreet";
-import { GameStreetActionType } from "@@/models/GameSituation";
 import Rank from "@@/models/Rank";
 import Suit from "@@/models/Suit";
 import getPositionLabel from "./getPositionLabel";
+import ActionType from "./ActionType";
 import Player from "./Player";
 import PotIndicator from "./PotIndicator";
+import Street from "./Street";
 
 interface Props extends React.Attributes {
-  street: GameStreet;
+  street: Street;
+  potSize: number;
   communityCards: { rank: Rank; suit: Suit }[];
   players: ({
     stackSize: number;
-    cards: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
-    action: GameStreetActionType | null;
-    betSize: number;
+    cards: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }] | null;
+    action: {
+      type: ActionType;
+      betSize: number;
+    } | null;
   } | null)[];
   heroIndex: number;
   activePlayerIndex?: number;
@@ -29,11 +32,12 @@ interface Props extends React.Attributes {
  * An UI displays a snapshot of a game
  */
 export default function PokerTable({
+  street,
+  potSize,
   communityCards,
   players,
   heroIndex,
   activePlayerIndex,
-  street,
   ...props
 }: Props) {
   if (communityCards.length > 5) {
@@ -50,52 +54,32 @@ export default function PokerTable({
       <BettingLine />
 
       <CommunityCards>
-        {communityCards
-          .slice(0, NUMBER_OF_CARDS_TO_SHOW_BY_STREET[street])
-          .map(({ rank, suit }) => (
-            <PortraitPlayingCard
-              rank={rank}
-              suit={suit}
-              key={`${rank}${suit}`}
-            />
-          ))}
+        {communityCards.map(({ rank, suit }) => (
+          <PortraitPlayingCard rank={rank} suit={suit} key={`${rank}${suit}`} />
+        ))}
       </CommunityCards>
 
       <PlayerCards length={players.length}>
-        {players.map((player, i) => (
-          <_Player
-            cards={player?.cards ?? undefined}
-            actionType={player?.action ?? undefined}
-            betSize={player?.betSize ?? 0}
-            position={getPositionLabel(i, players.length)}
-            stackSize={player?.stackSize ?? 0}
-            highlighted={i === activePlayerIndex}
-            showCards={i === heroIndex || street === GameStreet.showdown}
-            _hidden={!player}
-            data-seat-id={(players.length + i - heroIndex) % players.length}
-            key={i}
-          />
-        ))}
+        {players.map((player, i) =>
+          player ? (
+            <_Player
+              position={getPositionLabel(i, players.length)}
+              stackSize={player.stackSize ?? 0}
+              cards={player?.cards ?? undefined}
+              action={player.action ?? undefined}
+              highlighted={i === activePlayerIndex}
+              _hidden={!player}
+              data-seat-id={(players.length + i - heroIndex) % players.length}
+              key={i}
+            />
+          ) : null
+        )}
       </PlayerCards>
 
-      <_PotIndicator
-        street={street}
-        potSize={players.reduce(
-          (sum, player) => sum + (player ? player.betSize : 0),
-          0
-        )}
-      />
+      <_PotIndicator street={street} potSize={potSize} />
     </Root>
   );
 }
-
-const NUMBER_OF_CARDS_TO_SHOW_BY_STREET = {
-  [GameStreet.preflop]: 0,
-  [GameStreet.flop]: 3,
-  [GameStreet.turn]: 4,
-  [GameStreet.river]: 5,
-  [GameStreet.showdown]: 5,
-};
 
 const Root = styled.div<{ scale: number }>`
   --table-scale: ${({ scale }) => scale};

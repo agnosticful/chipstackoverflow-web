@@ -2,30 +2,29 @@ import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
 import LandscapePlayingCard from "@@/components/LandscapePlayingCard";
-import { GameStreetActionType } from "@@/models/GameSituation";
 import Rank from "@@/models/Rank";
 import Suit from "@@/models/Suit";
+import ActionType from "./ActionType";
 
 interface Props extends React.Attributes {
-  cards?: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
-  actionType?: GameStreetActionType;
-  betSize: number;
   position: string;
   stackSize: number;
+  cards?: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
+  action?: {
+    type: ActionType;
+    betSize: number;
+  };
   highlighted?: boolean;
-  showCards?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function Player({
-  cards,
-  actionType,
-  betSize,
+export default function PokerTablePlayer({
   position,
   stackSize,
+  cards,
+  action,
   highlighted = false,
-  showCards = false,
   ...props
 }: Props) {
   return (
@@ -33,27 +32,21 @@ export default function Player({
       <Cards>
         {cards ? (
           <>
-            <LandscapePlayingCard
-              rank={showCards ? cards[0].rank : undefined}
-              suit={showCards ? cards[0].suit : undefined}
-            />
+            <LandscapePlayingCard rank={cards[0].rank} suit={cards[0].suit} />
 
-            <LandscapePlayingCard
-              rank={showCards ? cards[1].rank : undefined}
-              suit={showCards ? cards[1].suit : undefined}
-            />
+            <LandscapePlayingCard rank={cards[1].rank} suit={cards[1].suit} />
           </>
         ) : null}
       </Cards>
 
       <Position>{position}</Position>
 
-      {actionType ? (
+      {action ? (
         <ActionAndBetSize>
-          {ACTION_LABEL[actionType]}
-          {actionType === GameStreetActionType.fold
+          {action.type ? ACTION_LABEL[action.type] : null}
+          {action.type === ActionType.fold
             ? null
-            : ` ${Numeral(betSize).format("0.0a")} BB`}
+            : ` ${Numeral(action.betSize).format("0.0a")} BB`}
         </ActionAndBetSize>
       ) : null}
 
@@ -62,12 +55,14 @@ export default function Player({
   );
 }
 
-const ACTION_LABEL: Record<GameStreetActionType, string> = {
-  [GameStreetActionType.fold]: "Fold",
-  [GameStreetActionType.check]: "Check",
-  [GameStreetActionType.call]: "Call to",
-  [GameStreetActionType.bet]: "Bet",
-  [GameStreetActionType.raise]: "Raise",
+const ACTION_LABEL: Record<ActionType, string> = {
+  [ActionType.blindBet]: "",
+  [ActionType.fold]: "Fold",
+  [ActionType.check]: "Check",
+  [ActionType.call]: "Call to",
+  [ActionType.bet]: "Bet",
+  [ActionType.raise]: "Raise",
+  [ActionType.acquireChip]: "Won",
 };
 
 const Root = styled.div<{ highlighted: boolean }>`

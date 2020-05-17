@@ -1,10 +1,10 @@
 import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
-import GameStreet from "@@/models/GameStreet";
+import Street from "./Street";
 
 interface Props extends React.Attributes {
-  street: GameStreet;
+  street: Street;
   potSize: number;
   className?: string;
   style?: React.CSSProperties;
@@ -13,7 +13,7 @@ interface Props extends React.Attributes {
 export default function PotIndicator({ street, potSize, ...props }: Props) {
   return (
     <Root {...props}>
-      <Street>{STREET_TEXT[street]}</Street>
+      <StreetLabel>{STREET_TEXT[street]}</StreetLabel>
 
       <PotSize>{Numeral(potSize).format("0.0a")} BB</PotSize>
     </Root>
@@ -21,11 +21,11 @@ export default function PotIndicator({ street, potSize, ...props }: Props) {
 }
 
 const STREET_TEXT = {
-  [GameStreet.preflop]: "Preflop",
-  [GameStreet.flop]: "Flop",
-  [GameStreet.turn]: "Turn",
-  [GameStreet.river]: "River",
-  [GameStreet.showdown]: "Showdown",
+  [Street.preflop]: "Preflop",
+  [Street.flop]: "Flop",
+  [Street.turn]: "Turn",
+  [Street.river]: "River",
+  [Street.showdown]: "Showdown",
 };
 
 const Root = styled.div`
@@ -39,7 +39,7 @@ const Root = styled.div`
   font-size: calc(16px * var(--table-scale));
 `;
 
-const Street = styled.div`
+const StreetLabel = styled.div`
   grid-area: street;
   padding: calc(6px * var(--table-scale)) calc(12px * var(--table-scale));
   background-color: #0f151c;
