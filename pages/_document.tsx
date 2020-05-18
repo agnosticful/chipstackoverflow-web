@@ -6,8 +6,8 @@ import NextDocument, {
   Main,
   NextScript,
 } from "next/document";
-import { ServerStyleSheet } from "styled-components";
 import * as React from "react";
+import { ServerStyleSheet } from "styled-components";
 
 export default class Document extends NextDocument {
   render() {
@@ -20,21 +20,6 @@ export default class Document extends NextDocument {
 
           <NextScript />
 
-          <script
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.FIREBASE_MEASUREMENT_ID}`}
-          />
-          <script
-            // set send_page_view false to prevent sending page_view when the firebase app initializes
-            dangerouslySetInnerHTML={{
-              __html: `window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${process.env.FIREBASE_MEASUREMENT_ID}', { 'send_page_view': false });`,
-            }}
-          />
-
           {/* fullstory (https://fullstory.com/) */}
           <script
             dangerouslySetInnerHTML={{
@@ -42,7 +27,7 @@ export default class Document extends NextDocument {
                 window['_fs_debug'] = false;
                 window['_fs_host'] = 'fullstory.com';
                 window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
-                window['_fs_org'] = '${process.env.FULLSTORY_ORGANIZATION_ID}';
+                window['_fs_org'] = '${process.env.NEXT_PUBLIC_FULLSTORY_ORGANIZATION_ID}';
                 window['_fs_namespace'] = 'FS';
                 (function(m,n,e,t,l,o,g,y){
                     if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import User from "../../models/User";
-import Button, { ButtonSize, ButtonVariant } from "../Button";
+import Button, { ButtonSize, ButtonVariant } from "@@/components/Button";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import User from "@@/models/User";
 import SignedInRight from "./SignedInRight";
 
 interface Props extends React.Attributes {

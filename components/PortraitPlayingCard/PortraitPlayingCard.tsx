@@ -1,18 +1,19 @@
 import * as React from "react";
 import styled from "styled-components";
-import { CARD_BACKGROUND, CARD_DARK_BACKGROUND } from "../../constants/color";
-import { Rank, Suit } from "../../models/PlayingCard";
-import { RankIcon, SuitIcon, UnknownIcon } from "../PlayingCardIcon";
+import { RankIcon, SuitIcon, UnknownIcon } from "@@/components/PlayingCardIcon";
+import { CARD_BACKGROUND, CARD_DARK_BACKGROUND } from "@@/constants/color";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
-  /**
-   * The card's suit to show. Shows no suit if it's omitted.
-   */
-  suit?: Suit;
   /**
    * The card's rank to show. Shows no rank if it's omitted.
    */
   rank?: Rank;
+  /**
+   * The card's suit to show. Shows no suit if it's omitted.
+   */
+  suit?: Suit;
   className?: string;
   style?: React.CSSProperties;
 }

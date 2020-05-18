@@ -9,10 +9,15 @@
     "Ryo Togashi <ryo.togashi.ca@gmail.com> (https://ryotogashi.com/)"
   ],
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.5",
+    "@apollo/react-ssr": "^3.1.5",
     "@tippyjs/react": "^4.0.0-alpha.3",
+    "apollo-boost": "^0.4.8",
+    "constate": "^2.0.0",
     "date-fns": "^2.11.1",
     "firebase": "^7.10.0",
-    "next": "^9.3.2",
+    "graphql": "^15.0.0",
+    "next": "^9.4.0",
     "numeral": "^2.0.6",
     "react": "16.13.0",
     "react-content-loader": "^5.0.2",
@@ -33,6 +38,7 @@
     "@types/react-dom": "^16.9.5",
     "@types/react-test-renderer": "^16.9.2",
     "@types/styled-components": "^5.0.1",
+    "babel-loader": "^8.1.0",
     "jest": "^25.1.0",
     "prettier": "^2.0.3",
     "react-docgen-typescript-loader": "^3.6.0",
@@ -42,10 +48,10 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "dev": "next dev",
     "format": "prettier --write '**/*.{ts,tsx}'",
-    "story": "start-storybook -s ./public",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "start-storybook -s ./public",
+    "dev": "next dev"
   },
   "homepage": "https://github.com/agnosticful/chipstackoverflow#readme",
   "bugs": {

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import Card from "../Card";
+import Card from "@@/components/Card";
 import { Props as AnswerCardContentProps } from "./AnswerCardContent";
 import { Props as AnswerCardCommentFormProps } from "./AnswerCardCommentForm";
 

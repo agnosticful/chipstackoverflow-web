@@ -16,8 +16,11 @@
     "noEmit": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@@/*": ["./*"]
+    }
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "storybook__addon-docs.d.ts", "**/*.ts", "**/*.tsx"]
+  "exclude": ["node_modules"]
 }

@@ -1,13 +1,18 @@
-import GameSituation from "./GameSituation";
-import { UserId } from "./User";
+import Answer from "@@/models/Answer";
+import GameSituation from "@@/models/GameSituation";
+import User from "@@/models/User";
 
-export default interface Post {
+export default interface Post extends PostMinimum {
+  author: User;
+  answers: Answer[];
+}
+
+export interface PostMinimum {
   id: PostId;
-  user: UserId;
   title: PostTitle;
   body: PostBody;
-  totalLikes: number;
-  totalDislikes: number;
+  likes: number;
+  dislikes: number;
   gameSituation: GameSituation;
   createdAt: Date;
   lastUpdatedAt: Date;

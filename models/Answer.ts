@@ -1,14 +1,17 @@
-import { PostId } from "./Post";
-import { UserId } from "./User";
+import Comment from "@@/models/Comment";
+import User from "@@/models/User";
 
 export default interface Answer {
   id: AnswerId;
-  post: PostId;
-  user: UserId;
   body: AnswerBody;
   likes: number;
   dislikes: number;
+  liked: boolean;
+  disliked: boolean;
+  author: User;
+  comments: Comment[];
   createdAt: Date;
+  lastUpdatedAt: Date;
 }
 
 export type AnswerId = string & {

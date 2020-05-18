@@ -1,14 +1,15 @@
 import Tippy from "@tippyjs/react";
 import * as React from "react";
 import styled from "styled-components";
+import { RankIcon, SuitIcon } from "@@/components/PlayingCardIcon";
 import {
   SPADE_COLOR,
   HEART_COLOR,
   DIAMOND_COLOR,
   CLUB_COLOR,
-} from "../../constants/color";
-import { Rank, Suit } from "../../models/PlayingCard";
-import { RankIcon, SuitIcon } from "../PlayingCardIcon";
+} from "@@/constants/color";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
   initialRank?: Rank;

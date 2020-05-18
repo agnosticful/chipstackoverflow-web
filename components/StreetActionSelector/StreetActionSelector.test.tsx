@@ -1,7 +1,7 @@
 import * as React from "react";
 import { act, create } from "react-test-renderer";
 import { createRenderer } from "react-test-renderer/shallow";
-import { GameStreetActionType } from "../../models/GameSituation";
+import { GameStreetActionType } from "@@/models/GameSituation";
 import StreetActionSelector from "./StreetActionSelector";
 
 describe("<StreetActionSelector>", () => {

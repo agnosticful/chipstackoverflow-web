@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { boolean, number, text } from "@storybook/addon-knobs";
 import * as React from "react";
-import BetSizeInput from "./BetSizeInput";
+import BetSizeInput from "@@/components/BetSizeInput";
 
 export default {
   title: "BetSizeInput",

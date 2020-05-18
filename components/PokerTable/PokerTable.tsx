@@ -1,10 +1,11 @@
 import * as React from "react";
 import styled, { SimpleInterpolation, css } from "styled-components";
-import useRect from "../../hooks/useRect";
-import GameStreet from "../../models/GameStreet";
-import { GameStreetActionType } from "../../models/GameSituation";
-import { Rank, Suit } from "../../models/PlayingCard";
-import PortraitPlayingCard from "../PortraitPlayingCard";
+import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
+import useRect from "@@/hooks/useRect";
+import GameStreet from "@@/models/GameStreet";
+import { GameStreetActionType } from "@@/models/GameSituation";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 import getPositionLabel from "./getPositionLabel";
 import Player from "./Player";
 import PotIndicator from "./PotIndicator";

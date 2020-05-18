@@ -1,9 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Rank, Suit } from "../../models/PlayingCard";
-import { PlusIcon } from "../Icon";
-import PortraitPlayingCard from "../PortraitPlayingCard";
-import PlayingCardSelector from "../PlayingCardSelector";
+import { PlusIcon } from "@@/components/Icon";
+import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
+import PlayingCardSelector from "@@/components/PlayingCardSelector";
+import Rank from "@@/models/Rank";
+import Suit from "@@/models/Suit";
 
 interface Props extends React.Attributes {
   initialRank?: Rank;

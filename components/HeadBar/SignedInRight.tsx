@@ -1,8 +1,8 @@
 import * as React from "react";
-import User from "../../models/User";
-import Avatar from "../Avatar";
-import { SignOutIcon } from "../Icon";
-import PopoverMenu, { PopoverMenuItem } from "../PopoverMenu";
+import Avatar from "@@/components/Avatar";
+import { SignOutIcon } from "@@/components/Icon";
+import PopoverMenu, { PopoverMenuItem } from "@@/components/PopoverMenu";
+import User from "@@/models/User";
 
 interface Props extends React.Attributes {
   user: User;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
 import ShowLastUpdateDateContext from "./ShowLastUpdateDateContext";
 
 interface Props extends React.Attributes {

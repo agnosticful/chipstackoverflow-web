@@ -1,40 +1,38 @@
-import GameSituation from "../models/GameSituation";
+import GameSituation from "@@/models/GameSituation";
 
 export default function calculateFinalPot(
   gameSituation: GameSituation
 ): number {
   const lastPlayerBetSizesOnPreflop: number[] = new Array(
-    gameSituation.playerLength
+    gameSituation.players.length
   ).fill(0);
-  for (const { playerIndex, betSize } of gameSituation.preflop.actions)
+  for (const { playerIndex, betSize } of gameSituation.preflopActions) {
     lastPlayerBetSizesOnPreflop[playerIndex] = betSize;
+  }
 
   const lastPlayerBetSizesOnFlopPot: number[] = new Array(
-    gameSituation.playerLength
+    gameSituation.players.length
   ).fill(0);
-  if (gameSituation.flop) {
-    for (const { playerIndex, betSize } of gameSituation.flop.actions)
-      lastPlayerBetSizesOnFlopPot[playerIndex] = betSize;
+  for (const { playerIndex, betSize } of gameSituation.flopActions) {
+    lastPlayerBetSizesOnFlopPot[playerIndex] = betSize;
   }
 
   const lastPlayerBetSizesOnTurnPot: number[] = new Array(
-    gameSituation.playerLength
+    gameSituation.players.length
   ).fill(0);
-  if (gameSituation.turn) {
-    for (const { playerIndex, betSize } of gameSituation.turn.actions)
-      lastPlayerBetSizesOnTurnPot[playerIndex] = betSize;
+  for (const { playerIndex, betSize } of gameSituation.turnActions) {
+    lastPlayerBetSizesOnTurnPot[playerIndex] = betSize;
   }
 
   const lastPlayerBetSizesOnRiverPot: number[] = new Array(
-    gameSituation.playerLength
+    gameSituation.players.length
   ).fill(0);
-  if (gameSituation.river) {
-    for (const { playerIndex, betSize } of gameSituation.river.actions)
-      lastPlayerBetSizesOnRiverPot[playerIndex] = betSize;
+  for (const { playerIndex, betSize } of gameSituation.riverActions) {
+    lastPlayerBetSizesOnRiverPot[playerIndex] = betSize;
   }
 
   return (
-    gameSituation.antiSize * gameSituation.playerLength +
+    gameSituation.antiSize * gameSituation.players.length +
     lastPlayerBetSizesOnPreflop.reduce((pre, curr) => pre + curr, 0) +
     lastPlayerBetSizesOnFlopPot.reduce((pre, curr) => pre + curr, 0) +
     lastPlayerBetSizesOnTurnPot.reduce((pre, curr) => pre + curr, 0) +

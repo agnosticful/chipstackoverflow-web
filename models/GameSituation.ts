@@ -1,35 +1,19 @@
-import PlayingCard from "./PlayingCard";
+import PlayingCard from "@@/models/PlayingCard";
 
 export default interface GameSituation {
   type: GameType;
-  playerLength: number;
-  playerStackSizes: number[];
-  playerCards: ({
-    left: PlayingCard;
-    right: PlayingCard;
-  } | null)[];
+  players: {
+    stackSize: number;
+    holeCards: [PlayingCard, PlayingCard] | null;
+  }[];
   heroIndex: number;
   smallBlindSize: number;
   antiSize: number;
-  preflop: {
-    actions: GameStreetAction[];
-  };
-  flop?: {
-    communityCards: {
-      left: PlayingCard;
-      center: PlayingCard;
-      right: PlayingCard;
-    };
-    actions: GameStreetAction[];
-  };
-  turn?: {
-    communityCard: PlayingCard;
-    actions: GameStreetAction[];
-  };
-  river?: {
-    communityCard: PlayingCard;
-    actions: GameStreetAction[];
-  };
+  communityCards: PlayingCard[];
+  preflopActions: GameStreetAction[];
+  flopActions: GameStreetAction[];
+  turnActions: GameStreetAction[];
+  riverActions: GameStreetAction[];
 }
 
 export enum GameType {

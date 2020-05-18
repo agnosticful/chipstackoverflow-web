@@ -1,9 +1,10 @@
 import Link from "next/link";
 import * as React from "react";
 import styled from "styled-components";
-import Button, { ButtonVariant } from "../../components/Button";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import useAuthentication from "../../hooks/useAuthentication";
+import Button, { ButtonVariant } from "@@/components/Button";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import useAuthentication from "@@/hooks/useAuthentication";
+import useMyself from "@@/hooks/useMyself";
 
 interface Props extends React.Attributes {
   className?: string;
@@ -11,7 +12,8 @@ interface Props extends React.Attributes {
 }
 
 export default function Eyecatch(props: Props) {
-  const { isFirstChecking, signIn, user } = useAuthentication();
+  const { isLoading: isAuthenticationLoading, signIn } = useAuthentication();
+  const { myself, isLoading: isMyselfLoading } = useMyself();
 
   return (
     <Root {...props}>
@@ -21,15 +23,15 @@ export default function Eyecatch(props: Props) {
       />
 
       <EyecatchHeadline>
-        {user ? SIGNED_IN_HEADLINE : SIGNED_OUT_HEADLINE}
+        {myself ? SIGNED_IN_HEADLINE : SIGNED_OUT_HEADLINE}
       </EyecatchHeadline>
 
       <EyecatchDescription>
-        {user ? SIGNED_IN_DESCRIPTION : SIGNED_OUT_DESCRIPTION}
+        {myself ? SIGNED_IN_DESCRIPTION : SIGNED_OUT_DESCRIPTION}
       </EyecatchDescription>
 
       <EyecatchSignUpButton>
-        {user ? (
+        {myself ? (
           <Link href="/posts/new" as="/posts/new" passHref>
             <Button variant={ButtonVariant.primary}>New Post</Button>
           </Link>
@@ -37,9 +39,11 @@ export default function Eyecatch(props: Props) {
           <Button
             variant={ButtonVariant.primary}
             onClick={() => signIn("eyecatch_sign_up_button")}
-            disabled={isFirstChecking ? true : false}
+            disabled={isAuthenticationLoading || isMyselfLoading}
           >
-            {isFirstChecking ? "Loading..." : "Become a shark"}
+            {isAuthenticationLoading || isMyselfLoading
+              ? "Loading..."
+              : "Become a shark"}
           </Button>
         )}
       </EyecatchSignUpButton>

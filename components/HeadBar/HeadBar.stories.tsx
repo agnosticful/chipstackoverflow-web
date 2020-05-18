@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import * as React from "react";
-import HeadBar from "./HeadBar";
+import HeadBar from "@@/components/HeadBar";
 
 export default {
   title: "HeadBar",

@@ -1,6 +1,6 @@
 import * as React from "react";
-import { Suit } from "../../models/PlayingCard";
-import SuitIcon from "./SuitIcon";
+import { SuitIcon } from "@@/components/PlayingCardIcon";
+import Suit from "@@/models/Suit";
 
 export default {
   title: "PlayingCardIcon/SuitIcon",

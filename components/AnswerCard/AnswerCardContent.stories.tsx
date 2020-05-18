@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { boolean, date, number, object, text } from "@storybook/addon-knobs";
 import * as React from "react";
-import AnswerCardContent from "./AnswerCardContent";
+import { AnswerCardContent } from "@@/components/AnswerCard";
 
 export default {
   title: "AnswerCard/AnswerCardContent",
