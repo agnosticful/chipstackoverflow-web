@@ -2,16 +2,14 @@ import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
 import LandscapePlayingCard from "@@/components/LandscapePlayingCard";
-import { GameStreetActionType } from "@@/models/GameSituation";
-import Rank from "@@/models/Rank";
-import Suit from "@@/models/Suit";
+import { HandSnapshotActionType } from "@@/models/Hand";
+import PlayingCard from "@@/models/PlayingCard";
 
 interface Props extends React.Attributes {
-  cards?: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
-  actionType?: GameStreetActionType;
-  betSize: number;
   position: string;
   stackSize: number;
+  cards?: [PlayingCard, PlayingCard];
+  action?: { type: HandSnapshotActionType; betSize: number };
   highlighted?: boolean;
   showCards?: boolean;
   className?: string;
@@ -19,11 +17,10 @@ interface Props extends React.Attributes {
 }
 
 export default function Player({
-  cards,
-  actionType,
-  betSize,
   position,
   stackSize,
+  cards,
+  action,
   highlighted = false,
   showCards = false,
   ...props
@@ -48,12 +45,12 @@ export default function Player({
 
       <Position>{position}</Position>
 
-      {actionType ? (
+      {action ? (
         <ActionAndBetSize>
-          {ACTION_LABEL[actionType]}
-          {actionType === GameStreetActionType.fold
+          {action.type ? ACTION_LABEL[action.type] : null}
+          {action.type === HandSnapshotActionType.fold
             ? null
-            : ` ${Numeral(betSize).format("0.0a")} BB`}
+            : ` ${Numeral(action.betSize).format("0.0a")} BB`}
         </ActionAndBetSize>
       ) : null}
 
@@ -62,12 +59,14 @@ export default function Player({
   );
 }
 
-const ACTION_LABEL: Record<GameStreetActionType, string> = {
-  [GameStreetActionType.fold]: "Fold",
-  [GameStreetActionType.check]: "Check",
-  [GameStreetActionType.call]: "Call to",
-  [GameStreetActionType.bet]: "Bet",
-  [GameStreetActionType.raise]: "Raise",
+const ACTION_LABEL: Record<HandSnapshotActionType, string> = {
+  [HandSnapshotActionType.forcedBet]: "",
+  [HandSnapshotActionType.fold]: "Fold",
+  [HandSnapshotActionType.check]: "Check",
+  [HandSnapshotActionType.call]: "Call to",
+  [HandSnapshotActionType.bet]: "Bet",
+  [HandSnapshotActionType.raise]: "Raise",
+  [HandSnapshotActionType.acquirePot]: "Won",
 };
 
 const Root = styled.div<{ highlighted: boolean }>`

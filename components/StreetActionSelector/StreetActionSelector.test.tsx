@@ -1,7 +1,7 @@
 import * as React from "react";
 import { act, create } from "react-test-renderer";
 import { createRenderer } from "react-test-renderer/shallow";
-import { GameStreetActionType } from "@@/models/GameSituation";
+import { HandActionType } from "@@/models/Hand";
 import StreetActionSelector from "./StreetActionSelector";
 
 describe("<StreetActionSelector>", () => {
@@ -51,7 +51,7 @@ describe("<StreetActionSelector>", () => {
     ).toThrow();
   });
 
-  it('calls onChange() with GameStreetActionType.fold and props.previousBetSize when "Fold" button is clicked', async () => {
+  it('calls onChange() with HandActionType.fold and props.previousBetSize when "Fold" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -84,11 +84,11 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.fold, 0);
-    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.fold, 1);
+    expect(onChange).toHaveBeenNthCalledWith(1, HandActionType.fold, 0);
+    expect(onChange).toHaveBeenNthCalledWith(2, HandActionType.fold, 1);
   });
 
-  it('calls onChange() with GameStreetActionType.check and 0 when "Check" button is clicked', async () => {
+  it('calls onChange() with HandActionType.check and 0 when "Check" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -107,10 +107,10 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.check, 0);
+    expect(onChange).toHaveBeenNthCalledWith(1, HandActionType.check, 0);
   });
 
-  it('calls onChange() with GameStreetActionType.call and props.tableMaxBetSize when "Call" button is clicked', async () => {
+  it('calls onChange() with HandActionType.call and props.tableMaxBetSize when "Call" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -143,11 +143,11 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.call, 1);
-    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.call, 3);
+    expect(onChange).toHaveBeenNthCalledWith(1, HandActionType.call, 1);
+    expect(onChange).toHaveBeenNthCalledWith(2, HandActionType.call, 3);
   });
 
-  it('calls onChange() with GameStreetActionType.bet and the bet size input\'s value when tableMaxBetSize is 0 and "Bet" button is clicked', async () => {
+  it('calls onChange() with HandActionType.bet and the bet size input\'s value when tableMaxBetSize is 0 and "Bet" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const betSizeInputValue = 123456789;
     const renderer = create(
@@ -181,7 +181,7 @@ describe("<StreetActionSelector>", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenNthCalledWith(
       1,
-      GameStreetActionType.bet,
+      HandActionType.bet,
       betSizeInputValue
     );
   });
@@ -210,7 +210,7 @@ describe("<StreetActionSelector>", () => {
     expect(betSizeInput.props.defaultValue).toBe(3);
   });
 
-  it('calls onChange() with GameStreetActionType.raise and the bet size input\'s value when "Raise" button is clicked', async () => {
+  it('calls onChange() with HandActionType.raise and the bet size input\'s value when "Raise" button is clicked', async () => {
     const onChange = jest.fn().mockName("onChange");
     const betSizeInputValue = 123456789;
     const renderer = create(
@@ -244,7 +244,7 @@ describe("<StreetActionSelector>", () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange).toHaveBeenNthCalledWith(
       1,
-      GameStreetActionType.raise,
+      HandActionType.raise,
       betSizeInputValue
     );
   });
@@ -278,7 +278,7 @@ describe("<StreetActionSelector>", () => {
     expect(focus).toHaveBeenCalledTimes(1);
   });
 
-  it("calls onChange() with GameStreetActionType.raise and the value of input element whenever its value changes", async () => {
+  it("calls onChange() with HandActionType.raise and the value of input element whenever its value changes", async () => {
     const onChange = jest.fn().mockName("onChange");
     const renderer = create(
       <StreetActionSelector
@@ -317,7 +317,7 @@ describe("<StreetActionSelector>", () => {
     });
 
     expect(onChange).toHaveBeenCalledTimes(2);
-    expect(onChange).toHaveBeenNthCalledWith(1, GameStreetActionType.raise, 20);
-    expect(onChange).toHaveBeenNthCalledWith(2, GameStreetActionType.raise, 43);
+    expect(onChange).toHaveBeenNthCalledWith(1, HandActionType.raise, 20);
+    expect(onChange).toHaveBeenNthCalledWith(2, HandActionType.raise, 43);
   });
 });
