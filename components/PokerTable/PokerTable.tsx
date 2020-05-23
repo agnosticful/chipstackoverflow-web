@@ -2,25 +2,23 @@ import * as React from "react";
 import styled, { SimpleInterpolation, css } from "styled-components";
 import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
 import useRect from "@@/hooks/useRect";
-import GameStreet from "@@/models/GameStreet";
-import { GameStreetActionType } from "@@/models/GameSituation";
-import Rank from "@@/models/Rank";
-import Suit from "@@/models/Suit";
+import { HandSnapshotActionType, HandSnapshotStreet } from "@@/models/Hand";
+import PlayingCard from "@@/models/PlayingCard";
 import getPositionLabel from "./getPositionLabel";
 import Player from "./Player";
 import PotIndicator from "./PotIndicator";
 
 interface Props extends React.Attributes {
-  street: GameStreet;
-  communityCards: { rank: Rank; suit: Suit }[];
-  players: ({
-    stackSize: number;
-    cards: [{ rank: Rank; suit: Suit }, { rank: Rank; suit: Suit }];
-    action: GameStreetActionType | null;
-    betSize: number;
-  } | null)[];
+  seatLength: number;
+  playerCards: Map<number, [PlayingCard, PlayingCard]>;
+  communityCards: PlayingCard[];
+  street: HandSnapshotStreet;
+  potSize: number;
+  activePlayerIndexes: Set<number>;
+  playerStackSizes: Map<number, number>;
+  playerActions: Map<number, { type: HandSnapshotActionType; betSize: number }>;
+  actionPlayerIndex: number | null;
   heroIndex: number;
-  activePlayerIndex?: number;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -29,11 +27,16 @@ interface Props extends React.Attributes {
  * An UI displays a snapshot of a game
  */
 export default function PokerTable({
+  seatLength,
+  playerCards,
   communityCards,
-  players,
-  heroIndex,
-  activePlayerIndex,
   street,
+  potSize,
+  activePlayerIndexes,
+  playerStackSizes,
+  playerActions,
+  actionPlayerIndex,
+  heroIndex,
   ...props
 }: Props) {
   if (communityCards.length > 5) {
@@ -50,52 +53,30 @@ export default function PokerTable({
       <BettingLine />
 
       <CommunityCards>
-        {communityCards
-          .slice(0, NUMBER_OF_CARDS_TO_SHOW_BY_STREET[street])
-          .map(({ rank, suit }) => (
-            <PortraitPlayingCard
-              rank={rank}
-              suit={suit}
-              key={`${rank}${suit}`}
-            />
-          ))}
+        {communityCards.map(({ rank, suit }) => (
+          <PortraitPlayingCard rank={rank} suit={suit} key={`${rank}${suit}`} />
+        ))}
       </CommunityCards>
 
-      <PlayerCards length={players.length}>
-        {players.map((player, i) => (
+      <PlayerCards length={seatLength}>
+        {Array.from({ length: seatLength }, (_, i) => (
           <_Player
-            cards={player?.cards ?? undefined}
-            actionType={player?.action ?? undefined}
-            betSize={player?.betSize ?? 0}
-            position={getPositionLabel(i, players.length)}
-            stackSize={player?.stackSize ?? 0}
-            highlighted={i === activePlayerIndex}
-            showCards={i === heroIndex || street === GameStreet.showdown}
-            _hidden={!player}
-            data-seat-id={(players.length + i - heroIndex) % players.length}
+            position={getPositionLabel(i, seatLength)}
+            cards={playerCards.get(i)}
+            stackSize={playerStackSizes.get(i)!}
+            action={playerActions.get(i)}
+            highlighted={i === actionPlayerIndex}
+            _hidden={!activePlayerIndexes.has(i) && i !== actionPlayerIndex}
+            data-seat-id={(seatLength + i - heroIndex) % seatLength}
             key={i}
           />
         ))}
       </PlayerCards>
 
-      <_PotIndicator
-        street={street}
-        potSize={players.reduce(
-          (sum, player) => sum + (player ? player.betSize : 0),
-          0
-        )}
-      />
+      <_PotIndicator street={street} potSize={potSize} />
     </Root>
   );
 }
-
-const NUMBER_OF_CARDS_TO_SHOW_BY_STREET = {
-  [GameStreet.preflop]: 0,
-  [GameStreet.flop]: 3,
-  [GameStreet.turn]: 4,
-  [GameStreet.river]: 5,
-  [GameStreet.showdown]: 5,
-};
 
 const Root = styled.div<{ scale: number }>`
   --table-scale: ${({ scale }) => scale};

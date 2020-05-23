@@ -1,10 +1,10 @@
 import Numeral from "numeral";
 import * as React from "react";
 import styled from "styled-components";
-import GameStreet from "@@/models/GameStreet";
+import { HandSnapshotStreet } from "@@/models/Hand";
 
 interface Props extends React.Attributes {
-  street: GameStreet;
+  street: HandSnapshotStreet;
   potSize: number;
   className?: string;
   style?: React.CSSProperties;
@@ -20,12 +20,13 @@ export default function PotIndicator({ street, potSize, ...props }: Props) {
   );
 }
 
-const STREET_TEXT = {
-  [GameStreet.preflop]: "Preflop",
-  [GameStreet.flop]: "Flop",
-  [GameStreet.turn]: "Turn",
-  [GameStreet.river]: "River",
-  [GameStreet.showdown]: "Showdown",
+const STREET_TEXT: Record<HandSnapshotStreet, string> = {
+  [HandSnapshotStreet.beginning]: "Preflop",
+  [HandSnapshotStreet.preflop]: "Preflop",
+  [HandSnapshotStreet.flop]: "Flop",
+  [HandSnapshotStreet.turn]: "Turn",
+  [HandSnapshotStreet.river]: "River",
+  [HandSnapshotStreet.showdown]: "Showdown",
 };
 
 const Root = styled.div`

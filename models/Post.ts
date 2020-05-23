@@ -1,5 +1,5 @@
 import Answer from "@@/models/Answer";
-import GameSituation from "@@/models/GameSituation";
+import Hand from "@@/models/Hand";
 import User from "@@/models/User";
 
 export default interface Post extends PostMinimum {
@@ -13,7 +13,8 @@ export interface PostMinimum {
   body: PostBody;
   likes: number;
   dislikes: number;
-  gameSituation: GameSituation;
+  hand: Hand;
+  heroIndex: number;
   createdAt: Date;
   lastUpdatedAt: Date;
 }
