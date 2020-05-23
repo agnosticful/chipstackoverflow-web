@@ -2,7 +2,7 @@ import {
   GameStreetAction,
   GameStreetActionType,
 } from "@@/models/GameSituation";
-import getAcyclicNextPlayerIndexOf from "./getAcyclicNextPlayerIndexOf";
+import getCyclicNextPlayerIndexOf from "./getCyclicNextPlayerIndexOf";
 
 export default function normalizeGameStreetActions({
   actions,
@@ -56,7 +56,7 @@ export default function normalizeGameStreetActions({
       nonBetStreak += 1;
     }
 
-    playerIndexToAct = getAcyclicNextPlayerIndexOf(
+    playerIndexToAct = getCyclicNextPlayerIndexOf(
       playerIndexToAct,
       activePlayerIndexes
     );

@@ -1,4 +1,4 @@
-export default function getAcyclicNextPlayerIndexOf(
+export default function getCyclicNextPlayerIndexOf(
   current: number,
   activePlayerIndexes: Set<number>
 ): number {
