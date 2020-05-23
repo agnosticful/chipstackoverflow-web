@@ -33,11 +33,36 @@ export function LoadingIcon(props: Props) {
   );
 }
 
+export function PauseIcon(props: Props) {
+  return (
+    <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path d="M6 4h4v16H6zM14 4h4v16h-4z" />
+    </Root>
+  );
+}
+
+export function PlayIcon(props: Props) {
+  return (
+    <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path d="M5 3l14 9-14 9V3z" />
+    </Root>
+  );
+}
+
 export function PlusIcon(props: Props) {
   return (
     <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
       <line x1="12" y1="5" x2="12" y2="19"></line>
       <line x1="5" y1="12" x2="19" y2="12"></line>
+    </Root>
+  );
+}
+
+export function RotateBackIcon(props: Props) {
+  return (
+    <Root xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path d="M1 4v6h6" />
+      <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
     </Root>
   );
 }
