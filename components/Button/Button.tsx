@@ -63,6 +63,7 @@ const Root = styled.button<{
   font: inherit;
   font-size: var(--font-size);
   cursor: pointer;
+  user-select: none;
   transition: background 200ms ease, border 200ms ease, color 200ms ease,
     box-shadow 200ms ease, transform 200ms ease;
 
