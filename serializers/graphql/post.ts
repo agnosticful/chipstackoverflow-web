@@ -1,3 +1,5 @@
+import Hand from "@@/models/Hand";
+import PlayingCard from "@@/models/PlayingCard";
 import Post, { PostMinimum } from "@@/models/Post";
 import { toAnswer } from "@@/serializers/graphql/answer";
 import { toPlayingCard } from "@@/serializers/graphql/playingCard";
@@ -18,29 +20,35 @@ export function toPostMinimum(value: any): PostMinimum {
     body: value.body,
     likes: value.likes,
     dislikes: value.dislikes,
-    gameSituation: {
-      type: value.gameType,
-      players: Array.from({ length: value.playerLength }, (_, i) => ({
-        stackSize: value.playerStackSizes[i],
-        holeCards: value.playerCards[i]
-          ? [
-              toPlayingCard(value.playerCards[i][0]),
-              toPlayingCard(value.playerCards[i][1]),
-            ]
-          : null,
-      })),
-      heroIndex: value.heroIndex,
-      smallBlindSize: value.smallBlindSize,
-      antiSize: value.antiSize,
-      communityCards: value.communityCards.map((item: any) =>
-        toPlayingCard(item)
-      ),
-      preflopActions: value.preflopActions,
-      flopActions: value.flopActions,
-      turnActions: value.turnActions,
-      riverActions: value.riverActions,
-    },
+    hand: toHand(value),
+    heroIndex: value.heroIndex,
     createdAt: new Date(value.createdAt),
     lastUpdatedAt: new Date(value.lastUpdatedAt),
   };
+}
+
+function toHand(value: any): Hand {
+  const playerCards = new Map<number, [PlayingCard, PlayingCard]>();
+
+  for (const [i, cards] of (value.playerCards as unknown[][]).entries()) {
+    if (cards === null) {
+      continue;
+    }
+
+    playerCards.set(i, [toPlayingCard(cards[0]), toPlayingCard(cards[1])]);
+  }
+
+  return new Hand({
+    playerInitialStackSizes: new Map(
+      (value.playerStackSizes as number[]).map((v: any, k) => [k, v])
+    ),
+    playerCards,
+    smallBlindSize: value.smallBlindSize,
+    antiSize: value.antiSize,
+    communityCards: value.communityCards.map(toPlayingCard),
+    preflopActions: value.preflopActions,
+    flopActions: value.flopActions,
+    turnActions: value.turnActions,
+    riverActions: value.riverActions,
+  });
 }
