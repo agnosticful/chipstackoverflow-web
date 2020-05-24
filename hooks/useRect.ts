@@ -1,38 +1,51 @@
 import * as React from "react";
 
-const INITIAL_RECT = new DOMRect(0, 0, 0, 0);
+interface Rect {
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+  width: number;
+  height: number;
+}
 
-function useRect(): [React.RefObject<any>, DOMRect] {
+const INITIAL_RECT = {
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  width: 0,
+  height: 0,
+};
+
+function useRect(): [React.RefObject<any>, Rect] {
   const ref = React.useRef<HTMLElement>(null);
-  const [clientRect, setClientRect] = React.useState<DOMRect>(INITIAL_RECT);
+  const [rect, setRect] = React.useState<Rect>(INITIAL_RECT);
 
-  React.useLayoutEffect(() => {
-    if (!ref.current) {
-      return () => {};
-    }
+  React.useEffect(() => {
+    if (ref.current) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const rect = entries[0].target.getBoundingClientRect();
 
-    const element = ref.current;
-
-    function measure() {
-      window.requestAnimationFrame(() => {
-        const rect = element.getBoundingClientRect();
-
-        setClientRect(rect);
+        setRect({
+          top: rect.top,
+          bottom: rect.bottom,
+          left: rect.left,
+          right: rect.right,
+          width: rect.width,
+          height: rect.height,
+        });
       });
+
+      resizeObserver.observe(ref.current);
+
+      return () => resizeObserver.disconnect();
     }
 
-    window.addEventListener("resize", measure);
-    window.addEventListener("scroll", measure);
+    return () => {};
+  });
 
-    measure();
-
-    return () => {
-      window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", measure);
-    };
-  }, [ref]);
-
-  return [ref, clientRect];
+  return [ref, rect];
 }
 
 export default useRect;
