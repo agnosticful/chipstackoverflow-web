@@ -1,9 +1,9 @@
 export default function getCyclicNextPlayerIndexOf(
   current: number,
-  activePlayerIndexes: Set<number>
+  playerIndexes: Set<number>
 ): number {
-  const acyclicArray = [...activePlayerIndexes].sort((a, b) => a - b);
-  const nextPlayerIndex = acyclicArray.find((value) => current < value);
+  const sortedPlayerIndexes = [...playerIndexes].sort((a, b) => a - b);
+  const nextPlayerIndex = sortedPlayerIndexes.find((value) => current < value);
 
-  return nextPlayerIndex ? nextPlayerIndex : acyclicArray[0];
+  return nextPlayerIndex ? nextPlayerIndex : sortedPlayerIndexes[0];
 }
