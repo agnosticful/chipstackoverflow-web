@@ -3,6 +3,9 @@ import styled from "styled-components";
 import {
   ChevronDownIcon,
   LoadingIcon,
+  PauseIcon,
+  PlayIcon,
+  RotateBackIcon,
   SendIcon,
   SignOutIcon,
   ThumbsDownIcon,
@@ -19,6 +22,12 @@ export const example = () => (
     <ChevronDownIcon />
 
     <LoadingIcon />
+
+    <PauseIcon />
+
+    <PlayIcon />
+
+    <RotateBackIcon />
 
     <SendIcon />
 

@@ -7,9 +7,9 @@ import { ThumbsUpIcon } from "@@/components/Icon";
 import PortraitPlayingCard from "@@/components/PortraitPlayingCard";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
 import { PostMinimum } from "@@/models/Post";
-import calculateFinalPot from "@@/utilities/calculateFinalPot";
 import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndIndex";
 import ShowLastUpdateDateContext from "./ShowLastUpdateDateContext";
+import { HandStreet } from "@@/models/Hand";
 
 interface Props extends React.Attributes {
   post: PostMinimum;
@@ -21,12 +21,12 @@ interface Props extends React.Attributes {
 export default function PostCardListItem({ post, ...props }: Props) {
   const ShowLastUpdateDate = React.useContext(ShowLastUpdateDateContext);
   const gameEndedAt = React.useMemo(() => {
-    if (post.gameSituation.riverActions.length > 0) return "RIVER";
-    if (post.gameSituation.turnActions.length > 0) return "TURN";
-    if (post.gameSituation.flopActions.length > 0) return "FLOP";
+    if (post.hand.lastStreet === HandStreet.river) return "RIVER";
+    if (post.hand.lastStreet === HandStreet.turn) return "TURN";
+    if (post.hand.lastStreet === HandStreet.flop) return "FLOP";
 
     return "PREFLOP";
-  }, [post.gameSituation]);
+  }, [post.hand]);
 
   return (
     <Root {...props}>
@@ -34,24 +34,12 @@ export default function PostCardListItem({ post, ...props }: Props) {
         <HeroHandBackground />
 
         <HeroCard
-          suit={
-            post.gameSituation.players[post.gameSituation.heroIndex]
-              .holeCards![0].suit
-          }
-          rank={
-            post.gameSituation.players[post.gameSituation.heroIndex]
-              .holeCards![0].rank
-          }
+          suit={post.hand.playerCards.get(post.heroIndex)![0].suit}
+          rank={post.hand.playerCards.get(post.heroIndex)![0].rank}
         />
         <HeroCard
-          suit={
-            post.gameSituation.players[post.gameSituation.heroIndex]
-              .holeCards![1].suit
-          }
-          rank={
-            post.gameSituation.players[post.gameSituation.heroIndex]
-              .holeCards![1].rank
-          }
+          suit={post.hand.playerCards.get(post.heroIndex)![1].suit}
+          rank={post.hand.playerCards.get(post.heroIndex)![1].rank}
         />
       </HeroHand>
 
@@ -68,8 +56,8 @@ export default function PostCardListItem({ post, ...props }: Props) {
             <span>Play at</span>
             <span>
               {getPositionByPlayerAndIndex(
-                post.gameSituation.players.length,
-                post.gameSituation.heroIndex
+                post.hand.playerLength,
+                post.heroIndex
               )}
             </span>
           </PlayAt>
@@ -81,7 +69,7 @@ export default function PostCardListItem({ post, ...props }: Props) {
 
           <FinalPot>
             <span>Final Pot</span>
-            <span>{`${Numeral(calculateFinalPot(post.gameSituation)).format(
+            <span>{`${Numeral(post.hand.finalPotSize).format(
               "0.0a"
             )} BB`}</span>
           </FinalPot>
