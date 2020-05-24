@@ -5,15 +5,15 @@ import {
 import getCyclicNextPlayerIndexOf from "./getCyclicNextPlayerIndexOf";
 
 export default function normalizeGameStreetActions({
-  actions,
+  currentActions,
   activePlayerIndexes,
   isPreflop,
 }: {
-  actions: GameStreetAction[];
+  currentActions: GameStreetAction[];
   activePlayerIndexes: Set<number>;
   isPreflop: boolean;
 }): GameStreetAction[] {
-  const nextActions = [...actions];
+  let actions = [...currentActions];
   let index = 0;
   let playerIndexToAct = isPreflop ? 2 : Math.min(...activePlayerIndexes);
   let nonBetStreak = 0;
@@ -21,29 +21,25 @@ export default function normalizeGameStreetActions({
   while (nonBetStreak < activePlayerIndexes.size - 1) {
     // Add action when the action which is supposed to be there doesn't exist.
     if (
-      actions[index] === undefined ||
+      actions.length <= index ||
       actions[index].playerIndex !== playerIndexToAct
     ) {
-      nextActions.splice(index, 1, {
+      actions.splice(index, 1, {
         type: GameStreetActionType.fold,
         playerIndex: playerIndexToAct,
         betSize: 0,
       });
     }
 
-    const action = nextActions[index];
+    const action = actions[index];
 
     if (action.type === GameStreetActionType.fold) {
       activePlayerIndexes.delete(action.playerIndex);
 
       // Delete the player's all actions after the fold
-      for (let i = index + 1; i < nextActions.length; i++) {
-        if (nextActions[i].playerIndex === action.playerIndex) {
-          nextActions.splice(i, 1);
-
-          i--;
-        }
-      }
+      actions = actions.filter(
+        (_action, i) => i <= index || _action.playerIndex !== action.playerIndex
+      );
     }
 
     if (
@@ -64,5 +60,5 @@ export default function normalizeGameStreetActions({
     index++;
   }
 
-  return nextActions;
+  return actions;
 }

@@ -5,7 +5,7 @@ describe("normalizeGameStreetActions()", () => {
   it("returns the given actions as long as they need no adjustment", () => {
     expect(
       normalizeGameStreetActions({
-        actions: [
+        currentActions: [
           { type: GameStreetActionType.fold, playerIndex: 0, betSize: 0 },
           { type: GameStreetActionType.fold, playerIndex: 1, betSize: 0 },
           { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
@@ -25,7 +25,7 @@ describe("normalizeGameStreetActions()", () => {
   it("returns actions properly when action type is changed to fold and need to delete the player's actions", () => {
     expect(
       normalizeGameStreetActions({
-        actions: [
+        currentActions: [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
           { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
           { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
@@ -50,7 +50,7 @@ describe("normalizeGameStreetActions()", () => {
   it("returns actions properly when action type is changed from fold and need to add a new action", () => {
     expect(
       normalizeGameStreetActions({
-        actions: [
+        currentActions: [
           { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
           { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
           { type: GameStreetActionType.call, playerIndex: 2, betSize: 0 },
