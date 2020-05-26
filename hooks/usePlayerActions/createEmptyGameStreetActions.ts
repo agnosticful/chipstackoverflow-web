@@ -1,16 +1,15 @@
-import { GameStreetActionType } from "../../models/GameSituation";
-import { Street } from "./playerActionReducer";
+import { HandStreet, HandActionType } from "@@/models/Hand";
 
 export default function createEmptyGameStreetActions({
   street,
   playerLength,
 }: {
-  street: Street;
+  street: HandStreet;
   playerLength: number;
 }) {
-  return street === Street.preflop
+  return street === HandStreet.preflop
     ? Array.from({ length: playerLength }, (_, playerIndex) => ({
-        type: GameStreetActionType.fold,
+        type: HandActionType.fold,
         playerIndex,
         betSize: 0,
       }))

@@ -1,4 +1,4 @@
-import { GameStreetActionType } from "@@/models/GameSituation";
+import { HandActionType } from "@@/models/Hand";
 import normalizeGameStreetActions from "./normalizeGameStreetActions";
 
 describe("normalizeGameStreetActions()", () => {
@@ -6,19 +6,19 @@ describe("normalizeGameStreetActions()", () => {
     expect(
       normalizeGameStreetActions({
         currentActions: [
-          { type: GameStreetActionType.fold, playerIndex: 0, betSize: 0 },
-          { type: GameStreetActionType.fold, playerIndex: 1, betSize: 0 },
-          { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
-          { type: GameStreetActionType.fold, playerIndex: 3, betSize: 0 },
+          { type: HandActionType.fold, playerIndex: 0, betSize: 0 },
+          { type: HandActionType.fold, playerIndex: 1, betSize: 0 },
+          { type: HandActionType.fold, playerIndex: 2, betSize: 0 },
+          { type: HandActionType.fold, playerIndex: 3, betSize: 0 },
         ],
         activePlayerIndexes: new Set([0, 1, 2, 3]),
         isPreflop: false,
       })
     ).toEqual([
-      { type: GameStreetActionType.fold, playerIndex: 0, betSize: 0 },
-      { type: GameStreetActionType.fold, playerIndex: 1, betSize: 0 },
-      { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
-      { type: GameStreetActionType.fold, playerIndex: 3, betSize: 0 },
+      { type: HandActionType.fold, playerIndex: 0, betSize: 0 },
+      { type: HandActionType.fold, playerIndex: 1, betSize: 0 },
+      { type: HandActionType.fold, playerIndex: 2, betSize: 0 },
+      { type: HandActionType.fold, playerIndex: 3, betSize: 0 },
     ]);
   });
 
@@ -26,24 +26,24 @@ describe("normalizeGameStreetActions()", () => {
     expect(
       normalizeGameStreetActions({
         currentActions: [
-          { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
-          { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
-          { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
-          { type: GameStreetActionType.raise, playerIndex: 3, betSize: 3 },
-          { type: GameStreetActionType.call, playerIndex: 0, betSize: 3 },
-          { type: GameStreetActionType.call, playerIndex: 1, betSize: 3 },
-          { type: GameStreetActionType.call, playerIndex: 2, betSize: 3 },
+          { type: HandActionType.bet, playerIndex: 0, betSize: 1 },
+          { type: HandActionType.call, playerIndex: 1, betSize: 1 },
+          { type: HandActionType.fold, playerIndex: 2, betSize: 0 },
+          { type: HandActionType.raise, playerIndex: 3, betSize: 3 },
+          { type: HandActionType.call, playerIndex: 0, betSize: 3 },
+          { type: HandActionType.call, playerIndex: 1, betSize: 3 },
+          { type: HandActionType.call, playerIndex: 2, betSize: 3 },
         ],
         activePlayerIndexes: new Set([0, 1, 2, 3]),
         isPreflop: false,
       })
     ).toEqual([
-      { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
-      { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
-      { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
-      { type: GameStreetActionType.raise, playerIndex: 3, betSize: 3 },
-      { type: GameStreetActionType.call, playerIndex: 0, betSize: 3 },
-      { type: GameStreetActionType.call, playerIndex: 1, betSize: 3 },
+      { type: HandActionType.bet, playerIndex: 0, betSize: 1 },
+      { type: HandActionType.call, playerIndex: 1, betSize: 1 },
+      { type: HandActionType.fold, playerIndex: 2, betSize: 0 },
+      { type: HandActionType.raise, playerIndex: 3, betSize: 3 },
+      { type: HandActionType.call, playerIndex: 0, betSize: 3 },
+      { type: HandActionType.call, playerIndex: 1, betSize: 3 },
     ]);
   });
 
@@ -51,24 +51,24 @@ describe("normalizeGameStreetActions()", () => {
     expect(
       normalizeGameStreetActions({
         currentActions: [
-          { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
-          { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
-          { type: GameStreetActionType.call, playerIndex: 2, betSize: 0 },
-          { type: GameStreetActionType.raise, playerIndex: 3, betSize: 3 },
-          { type: GameStreetActionType.call, playerIndex: 0, betSize: 3 },
-          { type: GameStreetActionType.call, playerIndex: 1, betSize: 3 },
+          { type: HandActionType.bet, playerIndex: 0, betSize: 1 },
+          { type: HandActionType.call, playerIndex: 1, betSize: 1 },
+          { type: HandActionType.call, playerIndex: 2, betSize: 0 },
+          { type: HandActionType.raise, playerIndex: 3, betSize: 3 },
+          { type: HandActionType.call, playerIndex: 0, betSize: 3 },
+          { type: HandActionType.call, playerIndex: 1, betSize: 3 },
         ],
         activePlayerIndexes: new Set([0, 1, 2, 3]),
         isPreflop: false,
       })
     ).toEqual([
-      { type: GameStreetActionType.bet, playerIndex: 0, betSize: 1 },
-      { type: GameStreetActionType.call, playerIndex: 1, betSize: 1 },
-      { type: GameStreetActionType.call, playerIndex: 2, betSize: 0 },
-      { type: GameStreetActionType.raise, playerIndex: 3, betSize: 3 },
-      { type: GameStreetActionType.call, playerIndex: 0, betSize: 3 },
-      { type: GameStreetActionType.call, playerIndex: 1, betSize: 3 },
-      { type: GameStreetActionType.fold, playerIndex: 2, betSize: 0 },
+      { type: HandActionType.bet, playerIndex: 0, betSize: 1 },
+      { type: HandActionType.call, playerIndex: 1, betSize: 1 },
+      { type: HandActionType.call, playerIndex: 2, betSize: 0 },
+      { type: HandActionType.raise, playerIndex: 3, betSize: 3 },
+      { type: HandActionType.call, playerIndex: 0, betSize: 3 },
+      { type: HandActionType.call, playerIndex: 1, betSize: 3 },
+      { type: HandActionType.fold, playerIndex: 2, betSize: 0 },
     ]);
   });
 });

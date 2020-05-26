@@ -1,18 +1,15 @@
-import {
-  GameStreetAction,
-  GameStreetActionType,
-} from "@@/models/GameSituation";
+import { HandAction, HandActionType } from "@@/models/Hand";
 import getCyclicNextPlayerIndexOf from "./getCyclicNextPlayerIndexOf";
 
-export default function normalizeGameStreetActions({
+export default function normalizeHandActions({
   currentActions,
   activePlayerIndexes,
   isPreflop,
 }: {
-  currentActions: GameStreetAction[];
+  currentActions: HandAction[];
   activePlayerIndexes: Set<number>;
   isPreflop: boolean;
-}): GameStreetAction[] {
+}): HandAction[] {
   let actions = [...currentActions];
   let index = 0;
   let playerIndexToAct = isPreflop ? 2 : Math.min(...activePlayerIndexes);
@@ -25,7 +22,7 @@ export default function normalizeGameStreetActions({
       actions[index].playerIndex !== playerIndexToAct
     ) {
       actions.splice(index, 1, {
-        type: GameStreetActionType.fold,
+        type: HandActionType.fold,
         playerIndex: playerIndexToAct,
         betSize: 0,
       });
@@ -33,7 +30,7 @@ export default function normalizeGameStreetActions({
 
     const action = actions[index];
 
-    if (action.type === GameStreetActionType.fold) {
+    if (action.type === HandActionType.fold) {
       activePlayerIndexes.delete(action.playerIndex);
 
       // Delete the player's all actions after the fold
@@ -42,11 +39,7 @@ export default function normalizeGameStreetActions({
       );
     }
 
-    if (
-      [GameStreetActionType.bet, GameStreetActionType.raise].includes(
-        action.type
-      )
-    ) {
+    if ([HandActionType.bet, HandActionType.raise].includes(action.type)) {
       nonBetStreak = 0;
     } else {
       nonBetStreak += 1;

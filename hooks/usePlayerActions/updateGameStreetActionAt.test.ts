@@ -1,5 +1,5 @@
+import { HandActionType } from "@@/models/Hand";
 import updateGameStreetActionAt from "./updateGameStreetActionAt";
-import { GameStreetActionType } from "../../models/GameSituation";
 
 describe("updateGameStreetActionAt({ actions, index, action}: { actions: GameStreetAction[]; index: number; action: GameStreetAction;})", () => {
   it("throws error when index is less than 0", () => {
@@ -8,7 +8,7 @@ describe("updateGameStreetActionAt({ actions, index, action}: { actions: GameStr
         actions: [],
         index: -1,
         action: {
-          type: GameStreetActionType.fold,
+          type: HandActionType.fold,
           playerIndex: 0,
           betSize: 0,
         },
@@ -26,7 +26,7 @@ describe("updateGameStreetActionAt({ actions, index, action}: { actions: GameStr
         actions: [],
         index: 1,
         action: {
-          type: GameStreetActionType.fold,
+          type: HandActionType.fold,
           playerIndex: 0,
           betSize: 0,
         },
@@ -43,21 +43,21 @@ describe("updateGameStreetActionAt({ actions, index, action}: { actions: GameStr
       updateGameStreetActionAt({
         actions: [
           {
-            type: GameStreetActionType.bet,
+            type: HandActionType.bet,
             playerIndex: 0,
             betSize: 2,
           },
         ],
         index: 0,
         action: {
-          type: GameStreetActionType.fold,
+          type: HandActionType.fold,
           playerIndex: 0,
           betSize: 0,
         },
       })
     ).toEqual([
       {
-        type: GameStreetActionType.fold,
+        type: HandActionType.fold,
         playerIndex: 0,
         betSize: 0,
       },

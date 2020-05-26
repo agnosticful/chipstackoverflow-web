@@ -1,10 +1,10 @@
-import { GameStreetActionType } from "../../models/GameSituation";
+import { HandActionType } from "@@/models/Hand";
 import createEmptyGameStreetActions from "./createEmptyGameStreetActions";
 import { Street } from "./playerActionReducer";
 
 describe("createEmptyGameStreetActions(street: Street, playerLength?: number)", () => {
   for (let i = 2; i < 10; i++) {
-    it(`returns { type: GameStreetActionType.fold, playerIndex: (0...${
+    it(`returns { type: HandActionType.fold, playerIndex: (0...${
       i - 1
     }), betSize: 0} * ${i} when street is preflop`, () => {
       expect(
@@ -14,7 +14,7 @@ describe("createEmptyGameStreetActions(street: Street, playerLength?: number)", 
         })
       ).toEqual(
         Array.from({ length: i }, (_, j) => ({
-          type: GameStreetActionType.fold,
+          type: HandActionType.fold,
           playerIndex: j,
           betSize: 0,
         }))
