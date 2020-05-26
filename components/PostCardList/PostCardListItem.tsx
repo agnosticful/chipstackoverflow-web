@@ -133,12 +133,12 @@ const HeroCard = styled(PortraitPlayingCard)`
   }
 
   &:first-of-type {
-    left 16%;
+    left: 16%;
     transform: rotate(-15deg);
   }
 
   &:last-of-type {
-    right 16%;
+    right: 16%;
     transform: rotate(15deg);
   }
 `;
