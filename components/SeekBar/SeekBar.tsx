@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import useRect from "@@/hooks/useRect";
 
 interface Props extends React.Attributes {
   value?: number;
@@ -28,8 +29,7 @@ export default function SeekBar({
   onChange = () => {},
   ...props
 }: Props) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [rect, setRect] = React.useState(new DOMRect(0, 0, 0, 0));
+  const [ref, rect] = useRect();
   const [value, setValue] = React.useState(givenValue ?? defaultValue);
   const [isDragging, setDragging] = React.useState(false);
   const [draggingX, setDraggingX] = React.useState(0);
@@ -38,20 +38,6 @@ export default function SeekBar({
   React.useEffect(() => {
     setValue(givenValue === undefined ? defaultValue : givenValue);
   }, [givenValue]);
-
-  React.useEffect(() => {
-    if (ref.current) {
-      const resizeObserver = new ResizeObserver((entries) => {
-        setRect(entries[0].target.getBoundingClientRect());
-      });
-
-      resizeObserver.observe(ref.current);
-
-      return () => resizeObserver.disconnect();
-    }
-
-    return () => {};
-  }, [ref]);
 
   const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     const mouseMoveEventListner = (e: MouseEvent) => {

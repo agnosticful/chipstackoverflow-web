@@ -1,65 +1,23 @@
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import constate from "constate";
-import { toPostMinimum } from "@@/serializers/graphql/post";
+import { useApolloClient } from "@apollo/react-hooks";
+import * as React from "react";
+import useAuthentication from "@@/hooks/useAuthentication";
+import { PostMinimum } from "@@/models/Post";
+import getRecentPosts from "@@/repositories/getRecentPosts";
 
-export const [RecentPostsProvider, useRecentPosts] = constate(() => {
-  const { data, loading } = useQuery(QUERY);
+export default function useRecentPosts() {
+  const apolloClient = useApolloClient();
+  const { authenticationToken } = useAuthentication();
+  const [recentPosts, setRecentPosts] = React.useState<PostMinimum[]>([]);
+  const [isLoading, setLoading] = React.useState(true);
 
-  return {
-    recentPosts: ((data?.recentPosts as any[]) ?? []).map((item: any) =>
-      toPostMinimum(item)
-    ),
-    isLoading: loading,
-  };
-});
+  React.useEffect(() => {
+    setLoading(true);
 
-const QUERY = gql`
-  query {
-    recentPosts {
-      id
-      title
-      body
-      gameType
-      playerLength
-      playerStackSizes
-      playerCards {
-        rank
-        suit
-      }
-      communityCards {
-        rank
-        suit
-      }
-      heroIndex
-      smallBlindSize
-      antiSize
-      preflopActions {
-        type
-        playerIndex
-        betSize
-      }
-      flopActions {
-        type
-        playerIndex
-        betSize
-      }
-      turnActions {
-        type
-        playerIndex
-        betSize
-      }
-      riverActions {
-        type
-        playerIndex
-        betSize
-      }
-      likes
-      dislikes
-      createdAt
-      updatedAt
-    }
-  }
-`;
+    getRecentPosts({ apolloClient, authenticationToken }).then((posts) => {
+      setRecentPosts(posts);
+      setLoading(false);
+    });
+  }, []);
 
-export default useRecentPosts;
+  return { recentPosts, isLoading };
+}
