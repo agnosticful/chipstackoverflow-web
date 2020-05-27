@@ -1,6 +1,6 @@
-import { HandAction } from "@@/models/Hand";
 import PlayingCard from "@@/models/PlayingCard";
 import * as React from "react";
+import usePlayerActions from "./usePlayerActions";
 
 export default function usePostCreation() {
   const [post, setPost] = React.useState<Post>(initialPost);
@@ -175,7 +175,7 @@ export default function usePostCreation() {
         () => new Set<CommunityCardsValidation>()
       );
 
-      const communityCards: PlayingCard | null[] = [...post.communityCards];
+      const communityCards = [...post.communityCards];
       communityCards[index] = communityCard;
 
       for (const [i, communityCard] of communityCards.entries()) {
@@ -194,8 +194,9 @@ export default function usePostCreation() {
   );
 
   const { actions, actionValidations, setPlayerAction } = usePlayerActions({
-    playerLength,
-    playerStackSizes,
+    playerLength: post.playerLength,
+    smallBlindSize: post.smallBlindSize,
+    playerStackSizes: post.playerStackSizes,
   });
 
   const createPost = React.useCallback(() => {
@@ -212,11 +213,11 @@ export default function usePostCreation() {
     setPlayerStackSizes,
     setHeroHand,
     setHeroIndex,
-    setPlayerCards,
     setSmallBlindSize,
     setAntiSize,
     setCommunityCards,
     setPlayerAction,
+    setPlayerCards,
     createPost,
   };
 }
@@ -288,15 +289,8 @@ interface Post {
   playerStackSizes: number[];
   heroHand: [PlayingCard | null, PlayingCard | null];
   playerCards: [PlayingCard | null, PlayingCard | null][];
-  communityCards: PlayingCard | null[];
+  communityCards: (PlayingCard | null)[];
   heroIndex: number;
   smallBlindSize: number;
   antiSize: number;
 }
-
-// interface PostValidation {
-//   title: Set<TitleValidation>;
-//   body: Set<BodyValidation>;
-//   playerLength: Set<PlayerLengthValidation>;
-//   heroIndex: Set<HeroIndexValidation>;
-// }

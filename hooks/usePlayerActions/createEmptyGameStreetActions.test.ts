@@ -1,6 +1,5 @@
-import { HandActionType } from "@@/models/Hand";
+import { HandActionType, HandStreet } from "@@/models/Hand";
 import createEmptyGameStreetActions from "./createEmptyGameStreetActions";
-import { Street } from "./playerActionReducer";
 
 describe("createEmptyGameStreetActions(street: Street, playerLength?: number)", () => {
   for (let i = 2; i < 10; i++) {
@@ -9,7 +8,7 @@ describe("createEmptyGameStreetActions(street: Street, playerLength?: number)", 
     }), betSize: 0} * ${i} when street is preflop`, () => {
       expect(
         createEmptyGameStreetActions({
-          street: Street.preflop,
+          street: HandStreet.preflop,
           playerLength: i,
         })
       ).toEqual(
@@ -24,19 +23,22 @@ describe("createEmptyGameStreetActions(street: Street, playerLength?: number)", 
 
   it("returns [] when street is flop", () => {
     expect(
-      createEmptyGameStreetActions({ street: Street.flop, playerLength: 2 })
+      createEmptyGameStreetActions({ street: HandStreet.flop, playerLength: 2 })
     ).toEqual([]);
   });
 
   it("returns [] when street is turn", () => {
     expect(
-      createEmptyGameStreetActions({ street: Street.turn, playerLength: 2 })
+      createEmptyGameStreetActions({ street: HandStreet.turn, playerLength: 2 })
     ).toEqual([]);
   });
 
   it("returns [] when street is river", () => {
     expect(
-      createEmptyGameStreetActions({ street: Street.river, playerLength: 2 })
+      createEmptyGameStreetActions({
+        street: HandStreet.river,
+        playerLength: 2,
+      })
     ).toEqual([]);
   });
 });
