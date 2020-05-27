@@ -43,7 +43,7 @@ function useRect(): [React.RefObject<any>, Rect] {
     }
 
     return () => {};
-  });
+  }, []);
 
   return [ref, rect];
 }
