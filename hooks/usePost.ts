@@ -1,95 +1,28 @@
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import constate from "constate";
-import { PostId } from "@@/models/Post";
-import { toPost } from "@@/serializers/graphql/post";
+import { useApolloClient } from "@apollo/react-hooks";
+import * as React from "react";
+import useAuthentication from "@@/hooks/useAuthentication";
+import getPostById from "@@/repositories/getPostById";
+import Post, { PostId } from "@@/models/Post";
 
-export const [PostProvider, usePost] = constate(({ id }: { id: PostId }) => {
-  const { data, loading } = useQuery(QUERY, { variables: { id } });
+export default function usePost(id: PostId) {
+  const apolloClient = useApolloClient();
+  const { authenticationToken } = useAuthentication();
+  const [post, setPost] = React.useState<Post | null>(null);
+  const [isLoading, setLoading] = React.useState(true);
 
-  return {
-    post: data?.post ? toPost(data?.post) : null,
-    isLoading: loading,
-  };
-});
+  React.useEffect(() => {
+    setLoading(true);
 
-const QUERY = gql`
-  query getPostById($id: ID!) {
-    post(id: $id) {
-      id
-      title
-      body
-      gameType
-      playerLength
-      playerStackSizes
-      playerCards {
-        rank
-        suit
-      }
-      communityCards {
-        rank
-        suit
-      }
-      heroIndex
-      smallBlindSize
-      antiSize
-      preflopActions {
-        type
-        playerIndex
-        betSize
-      }
-      flopActions {
-        type
-        playerIndex
-        betSize
-      }
-      turnActions {
-        type
-        playerIndex
-        betSize
-      }
-      riverActions {
-        type
-        playerIndex
-        betSize
-      }
-      likes
-      dislikes
-      author {
-        id
-        name
-        profileImageURL
-      }
-      answers {
-        id
-        body
-        likes
-        dislikes
-        liked
-        disliked
-        author {
-          id
-          name
-          profileImageURL
-        }
-        comments {
-          id
-          body
-          likes
-          dislikes
-          liked
-          disliked
-          author {
-            id
-            name
-            profileImageURL
-          }
-        }
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
+    getPostById(id, { apolloClient, authenticationToken }).then((post) => {
+      setPost(post);
+      setLoading(false);
+    });
 
-export default usePost;
+    return () => {
+      setLoading(true);
+      setPost(null);
+    };
+  }, [id, apolloClient, authenticationToken]);
+
+  return { post, isLoading };
+}

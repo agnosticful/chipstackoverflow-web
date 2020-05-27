@@ -1,25 +1,24 @@
+import { GetStaticPropsContext } from "next";
 import Error from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
-import usePost, { PostProvider } from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
 import PostDetailPage from "@@/pageComponents/PostDetailPage";
+import { getSingletonServerSideApolloClient } from "@@/repositories/apolloClient";
+import getPostById from "@@/repositories/getPostById";
+import { fromPost, toPost } from "@@/serializers/json/post";
 
-export default () => {
-  const { query } = useRouter();
+interface Props {
+  prerenderedPostJSON: Record<string, any> | null;
+}
 
-  return (
-    <PostProvider id={`${query.postId}` as PostId}>
-      <Wrapped />
-    </PostProvider>
-  );
-};
+export default ({ prerenderedPostJSON }: Props) => {
+  const { query, isFallback } = useRouter();
+  const postId = `${query.postId}` as PostId;
+  const post = prerenderedPostJSON ? toPost(prerenderedPostJSON) : null;
 
-function Wrapped() {
-  const { post, isLoading } = usePost();
-
-  if (post === null && !isLoading) {
+  if (post === null && !isFallback) {
     return <Error statusCode={404} />;
   }
 
@@ -29,7 +28,31 @@ function Wrapped() {
         <title>{post ? post.title : "Loading..."} | Chipstackoverflow</title>
       </Head>
 
-      <PostDetailPage />
+      <PostDetailPage postId={postId} />
     </>
   );
+};
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({
+  params,
+}: GetStaticPropsContext<{ postId: PostId }>) {
+  const apolloClient = getSingletonServerSideApolloClient();
+  const post = await getPostById(params!.postId, {
+    apolloClient,
+    authenticationToken: null,
+  });
+
+  return {
+    props: {
+      prerenderedPostJSON: post ? fromPost(post) : null,
+    },
+    unstable_revalidate: 1,
+  };
 }

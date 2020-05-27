@@ -1,88 +1,37 @@
 import { ApolloProvider } from "@apollo/react-hooks";
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from "apollo-boost";
-import { AppProps, AppContext } from "next/app";
+import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
+import { AppProps } from "next/app";
 import * as React from "react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/shift-away-subtle.css";
 import "tippy.js/themes/light.css";
 import "@@/global.css";
-import useAuthentication, {
-  AuthenticationProvider,
-} from "@@/hooks/useAuthentication";
-import { MyselfProvider } from "@@/hooks/useMyself";
 import { AnalyticsProvider } from "@@/hooks/useAnalytics";
+import { AuthenticationProvider } from "@@/hooks/useAuthentication";
+import { MyselfProvider } from "@@/hooks/useMyself";
 
-interface Props extends AppProps {
-  apolloClient?: ApolloClient<any>;
-  initialApolloState?: NormalizedCacheObject;
-}
-
-export default function AuhtneitcationProviderWrapper(props: Props) {
-  return (
-    <AuthenticationProvider>
-      <App {...props} />
-    </AuthenticationProvider>
-  );
-}
-
-function App(props: Props) {
-  const [apolloClient, setApolloClient] = React.useState(
-    props.apolloClient ??
+export default function AuhtneitcationProviderWrapper(props: AppProps) {
+  const apolloClient = React.useMemo(
+    () =>
       new ApolloClient({
         link: new HttpLink({ uri: process.env.NEXT_PUBLIC_API_ENDPOINT }),
-        cache: new InMemoryCache().restore(props.initialApolloState ?? {}),
-      })
+        cache: new InMemoryCache(),
+      }),
+    [process.env.NEXT_PUBLIC_API_ENDPOINT]
   );
-  const { authenticationToken } = useAuthentication();
-
-  React.useEffect(() => {
-    setApolloClient(
-      new ApolloClient({
-        link: new HttpLink({
-          uri: process.env.NEXT_PUBLIC_API_ENDPOINT,
-          headers: authenticationToken
-            ? { authorization: `Bearer ${authenticationToken}` }
-            : {},
-        }),
-        cache: new InMemoryCache().restore(apolloClient.extract()),
-      })
-    );
-  }, [authenticationToken]);
 
   return (
     <ApolloProvider client={apolloClient}>
-      <MyselfProvider>
-        <AnalyticsProvider>
-          <props.Component {...props.pageProps} />
-        </AnalyticsProvider>
-      </MyselfProvider>
+      <AuthenticationProvider>
+        <MyselfProvider>
+          <AnalyticsProvider>
+            <props.Component {...props.pageProps} />
+          </AnalyticsProvider>
+        </MyselfProvider>
+      </AuthenticationProvider>
     </ApolloProvider>
   );
 }
-
-AuhtneitcationProviderWrapper.getInitialProps = async (context: AppContext) => {
-  if (context.ctx.req && context.ctx.res) {
-    const { getDataFromTree } = await import("@apollo/react-ssr");
-    const apolloClient = new ApolloClient({
-      link: new HttpLink({ uri: process.env.NEXT_PUBLIC_API_ENDPOINT }),
-      cache: new InMemoryCache(),
-      ssrMode: true,
-    });
-
-    await getDataFromTree(
-      <context.AppTree apolloClient={apolloClient} pageProps={{}} />
-    );
-
-    return { initialApolloState: apolloClient.extract() };
-  }
-
-  return {};
-};
 
 export function reportWebVitals(metric: any) {
   console.info(metric);

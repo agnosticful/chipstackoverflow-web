@@ -4,13 +4,16 @@ import HeadBar from "@@/components/HeadBar";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import usePost from "@@/hooks/usePost";
+import { PostId } from "@@/models/Post";
 
-interface Props extends React.Attributes {}
+interface Props extends React.Attributes {
+  postId: PostId;
+}
 
-export default function PostDetailPage(props: Props) {
+export default function PostDetailPage({ postId, ...props }: Props) {
   const { signIn, signOut } = useAuthentication();
   const { myself, isLoading: isMyselfLoading } = useMyself();
-  const { post, isLoading: isPostLoading } = usePost();
+  const { post, isLoading: isPostLoading } = usePost(postId);
 
   console.log(post);
 
