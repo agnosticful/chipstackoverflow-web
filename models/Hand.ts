@@ -35,24 +35,23 @@ export default class Hand {
     this.riverActions = riverActions;
   }
 
-  public readonly playerInitialStackSizes: Map<number, number>;
-  public readonly playerCards: Map<number, [PlayingCard, PlayingCard]>;
-  public readonly smallBlindSize: number;
-  public readonly antiSize: number;
-  public readonly communityCards: PlayingCard[];
+  readonly playerInitialStackSizes: Map<number, number>;
+  readonly playerCards: Map<number, [PlayingCard, PlayingCard]>;
+  readonly smallBlindSize: number;
+  readonly antiSize: number;
+  readonly communityCards: PlayingCard[];
+  readonly preflopActions: HandAction[];
+  readonly flopActions: HandAction[];
+  readonly turnActions: HandAction[];
+  readonly riverActions: HandAction[];
 
-  private readonly preflopActions: HandAction[];
-  private readonly flopActions: HandAction[];
-  private readonly turnActions: HandAction[];
-  private readonly riverActions: HandAction[];
-
-  public get playerLength(): number {
+  get playerLength(): number {
     return this.playerInitialStackSizes.size;
   }
 
-  private _snapshots?: HandSnapshot[];
+  _snapshots?: HandSnapshot[];
 
-  public get snapshots(): HandSnapshot[] {
+  get snapshots(): HandSnapshot[] {
     if (!this._snapshots) {
       this.buildSnapshots();
     }
@@ -60,18 +59,18 @@ export default class Hand {
     return this._snapshots!;
   }
 
-  public get wonPlayerIndexes(): Set<number> {
+  get wonPlayerIndexes(): Set<number> {
     return (
       this.snapshots[this.snapshots.length - 1].activePlayerIndexes.toJS() as
       any
     );
   }
 
-  public get finalPotSize(): number {
+  get finalPotSize(): number {
     return this.snapshots[this.snapshots.length - 2].potSize;
   }
 
-  public get lastStreet(): HandStreet {
+  get lastStreet(): HandStreet {
     return this.snapshots[this.snapshots.length - 1].street as any;
   }
 
