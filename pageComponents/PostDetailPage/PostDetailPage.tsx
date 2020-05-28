@@ -5,21 +5,24 @@ import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import usePost from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
+import PostTitle from "./PostTitle";
+import HandPlayerSection from "./HandPlayerSection";
+import PostBody from "./PostBody";
+import PostAnswers from "./PostAnswers";
 
 interface Props extends React.Attributes {
   postId: PostId;
+  defaultSnapshotIndex?: number;
 }
 
-export default function PostDetailPage({ postId, ...props }: Props) {
+export default function PostDetailPage({
+  postId,
+  defaultSnapshotIndex = 0,
+  ...props
+}: Props) {
   const { signIn, signOut } = useAuthentication();
   const { myself, isLoading: isMyselfLoading } = useMyself();
   const { post, isLoading: isPostLoading } = usePost(postId);
-
-  console.log(post);
-
-  if (isPostLoading || !post) {
-    return <div>loading...</div>;
-  }
 
   return (
     <Root {...props}>
@@ -31,11 +34,18 @@ export default function PostDetailPage({ postId, ...props }: Props) {
       />
 
       <Content>
-        <h1>(temporary implementation) {post.title}</h1>
+        <PostTitle value={post?.title} loading={isPostLoading} />
 
-        {post.body.split("\n").map((line, i) => (
-          <p key={i}>{line}</p>
-        ))}
+        <_HandPlayerSection
+          hand={post?.hand}
+          heroIndex={post?.heroIndex}
+          defaultSnapshotIndex={defaultSnapshotIndex}
+          loading={isPostLoading}
+        />
+
+        <_PostBody value={post?.body} loading={isPostLoading} />
+
+        <_PostAnswers answers={post?.answers} loading={isPostLoading} />
       </Content>
     </Root>
   );
@@ -57,4 +67,17 @@ const _HeadBar = styled(HeadBar)`
 
 const Content = styled.section`
   grid-area: content;
+  padding: 64px 0 128px;
+`;
+
+const _HandPlayerSection = styled(HandPlayerSection)`
+  margin-top: 64px;
+`;
+
+const _PostBody = styled(PostBody)`
+  margin-top: 64px;
+`;
+
+const _PostAnswers = styled(PostAnswers)`
+  margin-top: 64px;
 `;
