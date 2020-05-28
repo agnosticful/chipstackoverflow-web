@@ -39,7 +39,7 @@ export default function PokerTablePlayer({
   ...props
 }: Props) {
   const [snapshotIndex, setSnapshotIndex] = React.useState(
-    defaultSnapshotIndex
+    Math.max(0, Math.min(hand.snapshots.length - 1, defaultSnapshotIndex))
   );
   const [isPlaying, setPlaying] = React.useState(defaultPlaying);
   const [hasFocus, setHaveFocus] = React.useState(false);
@@ -51,7 +51,7 @@ export default function PokerTablePlayer({
 
   React.useEffect(() => {
     onSnapshotIndexChange(snapshotIndex);
-  }, [onSnapshotIndexChange, snapshotIndex]);
+  }, [snapshotIndex]);
 
   React.useEffect(() => {
     if (isPlaying) {
