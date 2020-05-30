@@ -5,10 +5,10 @@ import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import usePost from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
-import PostTitle from "./PostTitle";
 import HandPlayerSection from "./HandPlayerSection";
-import PostBody from "./PostBody";
 import PostAnswers from "./PostAnswers";
+import PostBody from "./PostBody";
+import PostTitle from "./PostTitle";
 
 interface Props extends React.Attributes {
   postId: PostId;
