@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
 
 interface Props extends React.Attributes {
-  onContactClick?: (e: React.SyntheticEvent, objectId: string) => void;
+  onContactClick?: React.MouseEventHandler;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
@@ -26,7 +26,7 @@ export default function FootBar({
 
         <a
           href="mailto:yo+chipstackoverflow@kohei.dev"
-          onClick={(e) => onContactClick(e, "foot_bar_contact")}
+          onClick={onContactClick}
         >
           Contact
         </a>

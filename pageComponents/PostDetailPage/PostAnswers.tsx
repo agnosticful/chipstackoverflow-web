@@ -6,21 +6,18 @@ import AnswerCard, {
   AnswerCardContentLoader,
 } from "@@/components/AnswerCard";
 import useMyself from "@@/hooks/useMyself";
-import Answer from "@@/models/Answer";
+import usePost from "@@/hooks/usePost";
+import { PostId } from "@@/models/Post";
 
 interface Props extends React.Attributes {
-  answers?: Answer[];
-  loading?: boolean;
+  postId: PostId;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function PostAnswers({
-  answers,
-  loading = false,
-  ...props
-}: Props) {
-  const { myself, isLoading: isMyselfLoading } = useMyself();
+export default function PostAnswers({ postId, ...props }: Props) {
+  const { myself } = useMyself();
+  const { post, isLoading: isPostLoading } = usePost(postId);
 
   let answerElements = Array.from({ length: 3 }, (_, i) => (
     <_AnswerCard
@@ -30,12 +27,13 @@ export default function PostAnswers({
     />
   ));
 
-  if (!loading && !isMyselfLoading) {
-    if (!answers) {
-      throw new Error();
+  if (!isPostLoading) {
+    if (!post) {
+      // while isPostLoading=false, post should not be null.
+      throw new Error("You shouldn't reach here.");
     }
 
-    answerElements = answers.map((answer) => (
+    answerElements = post.answers.map((answer) => (
       <_AnswerCard
         answer={
           <AnswerCardContent

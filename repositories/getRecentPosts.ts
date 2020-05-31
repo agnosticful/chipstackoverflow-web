@@ -4,14 +4,11 @@ import { toPostMinimum } from "@@/serializers/graphql/post";
 
 export default async function getRecentPosts({
   apolloClient,
-  authenticationToken,
 }: {
   apolloClient: ApolloClient<any>;
-  authenticationToken: string | null;
 }): Promise<PostMinimum[]> {
   const { data } = await apolloClient.query({
     query: QUERY,
-    context: { headers: { authorization: `Bearer ${authenticationToken}` } },
   });
 
   return ((data?.recentPosts as any[]) ?? []).map((item) =>

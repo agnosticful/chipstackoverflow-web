@@ -1,23 +1,43 @@
 import { useApolloClient } from "@apollo/react-hooks";
 import * as React from "react";
-import useAuthentication from "@@/hooks/useAuthentication";
+import { atom, useRecoilState } from "recoil";
 import { PostMinimum } from "@@/models/Post";
 import getPopularPosts from "@@/repositories/getPopularPosts";
 
+const popularPostsState = atom({
+  key: "PopularPosts",
+  default: {
+    popularPosts: [] as PostMinimum[],
+    isLoading: false,
+    isInitialized: false,
+  },
+});
+
 export default function usePopularPosts() {
   const apolloClient = useApolloClient();
-  const { authenticationToken } = useAuthentication();
-  const [popularPosts, setPopularPosts] = React.useState<PostMinimum[]>([]);
-  const [isLoading, setLoading] = React.useState(true);
+  const [
+    { popularPosts, isLoading, isInitialized },
+    setPopularPostsState,
+  ] = useRecoilState(popularPostsState);
 
   React.useEffect(() => {
-    setLoading(true);
+    if (isInitialized) {
+      return;
+    }
 
-    getPopularPosts({ apolloClient, authenticationToken }).then((posts) => {
-      setPopularPosts(posts);
-      setLoading(false);
+    setPopularPostsState((previousState) => ({
+      ...previousState,
+      isLoading: true,
+    }));
+
+    getPopularPosts({ apolloClient }).then((posts) => {
+      setPopularPostsState({
+        popularPosts: posts,
+        isLoading: false,
+        isInitialized: true,
+      });
     });
   }, []);
 
-  return { popularPosts, isLoading };
+  return { popularPosts, isLoading: isLoading || !isInitialized };
 }

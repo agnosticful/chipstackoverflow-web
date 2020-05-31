@@ -1,26 +1,39 @@
 import { useApolloClient } from "@apollo/react-hooks";
-import constate from "constate";
 import * as React from "react";
+import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import useAuthentication from "@@/hooks/useAuthentication";
 import { Myself } from "@@/models/User";
 import getMyself from "@@/repositories/getMyself";
 
-export const [MyselfProvider, useMyself] = constate(() => {
-  const apolloClient = useApolloClient();
-  const { authenticationToken } = useAuthentication();
-  const [myself, setMyself] = React.useState<Myself | null>(null);
-  const [isLoading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    setLoading(true);
-
-    getMyself({ apolloClient, authenticationToken }).then((myself) => {
-      setMyself(myself);
-      setLoading(false);
-    });
-  }, [authenticationToken]);
-
-  return { myself, isLoading };
+const myselfState = atom({
+  key: "Myself",
+  default: {
+    myself: null as Myself | null,
+    isLoading: false,
+    isInitialized: false,
+  },
 });
 
-export default useMyself;
+export default function useMyself() {
+  const { myself, isLoading, isInitialized } = useRecoilValue(myselfState);
+
+  return { myself, isLoading: isLoading || !isInitialized };
+}
+
+export function useMyselfObservation() {
+  const { authenticationToken, isLoading } = useAuthentication();
+  const apolloClient = useApolloClient();
+  const setMyselfState = useSetRecoilState(myselfState);
+
+  React.useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+
+    setMyselfState((previousState) => ({ ...previousState, isLoading: true }));
+
+    getMyself({ apolloClient, authenticationToken }).then((myself) => {
+      setMyselfState({ myself, isLoading: false, isInitialized: true });
+    });
+  }, [authenticationToken, isLoading]);
+}

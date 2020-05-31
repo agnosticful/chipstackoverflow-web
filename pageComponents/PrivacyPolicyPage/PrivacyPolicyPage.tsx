@@ -14,16 +14,28 @@ const WEBSITE_NAME = "chipstachoverflow";
 
 export default function PrivacyPolicyPage(props: Props) {
   const { isLoading: isAuthenticating, signIn, signOut } = useAuthentication();
-  const { myself, isLoading: isLoadingUser } = useMyself();
   const { trackEvent } = useAnalytics();
+  const { myself, isLoading: isLoadingUser } = useMyself();
 
   return (
     <div {...props}>
       <HeadBar
         user={myself ?? undefined}
         authenticationChecking={isAuthenticating || isLoadingUser}
-        onSignInButtonClick={(_, objectId) => signIn(objectId)}
-        onSignOutButtonClick={() => signOut()}
+        onSignInButtonClick={() => {
+          signIn();
+
+          trackEvent("sign_in_click", {
+            object_id: "head_bar_sign_in_button",
+          });
+        }}
+        onSignOutButtonClick={() => {
+          signOut();
+
+          trackEvent("sign_out_click", {
+            object_id: "head_bar_sign_out_button",
+          });
+        }}
       />
 
       <Content>
@@ -277,7 +289,9 @@ export default function PrivacyPolicyPage(props: Props) {
       </Content>
 
       <FootBar
-        onContactClick={(_, objectId) => trackEvent("contact", { objectId })}
+        onContactClick={() => {
+          trackEvent("contact", { objectId: "foot_bar_contact" });
+        }}
       />
     </div>
   );

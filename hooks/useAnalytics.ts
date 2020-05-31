@@ -1,8 +1,20 @@
-import constate from "constate";
 import * as React from "react";
 import useMyself from "@@/hooks/useMyself";
 
-export const [AnalyticsProvider, useAnalytics] = constate(() => {
+export default function useAnalytics() {
+  const fullstory = (globalThis as any).FS;
+
+  const trackEvent = React.useCallback(
+    (name: string, params: Record<string, any>) => {
+      fullstory?.event(name, params);
+    },
+    [fullstory]
+  );
+
+  return { trackEvent };
+}
+
+export function useAnalyticsObservation() {
   const { myself } = useMyself();
   const fullstory = (globalThis as any).FS;
 
@@ -16,15 +28,4 @@ export const [AnalyticsProvider, useAnalytics] = constate(() => {
       fullstory?.anonymize();
     }
   }, [myself]);
-
-  const trackEvent = React.useCallback(
-    (name: string, params: Record<string, any>) => {
-      fullstory?.event(name, params);
-    },
-    []
-  );
-
-  return { trackEvent };
-});
-
-export default useAnalytics;
+}
