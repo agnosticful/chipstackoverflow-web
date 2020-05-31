@@ -5,6 +5,8 @@ import AnswerCard, {
   AnswerCardCommentForm,
   AnswerCardContentLoader,
 } from "@@/components/AnswerCard";
+import useAnalytics from "@@/hooks/useAnalytics";
+import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import usePost from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
@@ -16,8 +18,19 @@ interface Props extends React.Attributes {
 }
 
 export default function PostAnswers({ postId, ...props }: Props) {
+  // TODO:
+  // get just isAuthenticated bool value instead of authenticationToken
+  // because this code might be confusing if it was used as token, yet checking signed in or not
+  const { authenticationToken } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself } = useMyself();
-  const { post, isLoading: isPostLoading } = usePost(postId);
+  const {
+    post,
+    isLoading: isPostLoading,
+    likeComment,
+    dislikeComment,
+    unlikeComment,
+  } = usePost(postId);
 
   let answerElements = Array.from({ length: 3 }, (_, i) => (
     <_AnswerCard
@@ -55,6 +68,44 @@ export default function PostAnswers({ postId, ...props }: Props) {
             dislikes={comment.dislikes}
             liked={comment.liked}
             disliked={comment.disliked}
+            onLikeClick={() => {
+              if (!authenticationToken) {
+                // TODO:
+                // replace this with a custom modal dialog component
+                alert("You need to sign in first to like this comment.");
+
+                return;
+              }
+
+              if (comment.liked) {
+                trackEvent("comment_like_click", { to: "unlike" });
+
+                unlikeComment(comment.id);
+              } else {
+                trackEvent("comment_like_click", { to: "like" });
+
+                likeComment(comment.id);
+              }
+            }}
+            onDislikeClick={() => {
+              if (!authenticationToken) {
+                // TODO:
+                // replace this with a custom modal dialog component
+                alert("You need to sign in first to like this comment.");
+
+                return;
+              }
+
+              if (comment.disliked) {
+                trackEvent("comment_dislike_click", { to: "unlike" });
+
+                unlikeComment(comment.id);
+              } else {
+                trackEvent("comment_dislike_click", { to: "dislike" });
+
+                dislikeComment(comment.id);
+              }
+            }}
             key={comment.id}
           />
         ))}
