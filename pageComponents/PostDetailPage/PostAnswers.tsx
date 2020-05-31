@@ -5,6 +5,7 @@ import AnswerCard, {
   AnswerCardCommentForm,
   AnswerCardContentLoader,
 } from "@@/components/AnswerCard";
+import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import usePost from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
@@ -16,8 +17,18 @@ interface Props extends React.Attributes {
 }
 
 export default function PostAnswers({ postId, ...props }: Props) {
+  // TODO:
+  // get just isAuthenticated bool value instead of authenticationToken
+  // because this code might be confusing if it was used as token, yet checking signed in or not
+  const { authenticationToken } = useAuthentication();
   const { myself } = useMyself();
-  const { post, isLoading: isPostLoading } = usePost(postId);
+  const {
+    post,
+    isLoading: isPostLoading,
+    likeAnswer,
+    dislikeAnswer,
+    unlikeAnswer,
+  } = usePost(postId);
 
   let answerElements = Array.from({ length: 3 }, (_, i) => (
     <_AnswerCard
@@ -44,6 +55,36 @@ export default function PostAnswers({ postId, ...props }: Props) {
             dislikes={answer.dislikes}
             liked={answer.liked}
             disliked={answer.disliked}
+            onLikeClick={() => {
+              if (!authenticationToken) {
+                // TODO:
+                // replace this with a custom modal dialog component
+                alert("You need to sign in first to like this answer.");
+
+                return;
+              }
+
+              if (answer.liked) {
+                unlikeAnswer(answer.id);
+              } else {
+                likeAnswer(answer.id);
+              }
+            }}
+            onDislikeClick={() => {
+              if (!authenticationToken) {
+                // TODO:
+                // replace this with a custom modal dialog component
+                alert("You need to sign in first to like this answer.");
+
+                return;
+              }
+
+              if (answer.disliked) {
+                unlikeAnswer(answer.id);
+              } else {
+                dislikeAnswer(answer.id);
+              }
+            }}
           />
         }
         comments={answer.comments.map((comment) => (
