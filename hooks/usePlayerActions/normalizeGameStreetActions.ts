@@ -4,11 +4,11 @@ import getCyclicNextPlayerIndexOf from "./getCyclicNextPlayerIndexOf";
 export default function normalizeHandActions({
   currentActions,
   activePlayerIndexes,
-  isPreflop,
+  isPreflop = false,
 }: {
   currentActions: HandAction[];
   activePlayerIndexes: Set<number>;
-  isPreflop: boolean;
+  isPreflop?: boolean;
 }): HandAction[] {
   let actions = [...currentActions];
   let index = 0;

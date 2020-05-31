@@ -222,6 +222,35 @@ export default function usePostCreation() {
   };
 }
 
+interface Post {
+  title: string;
+  body: string;
+  playerLength: number;
+  playerStackSizes: number[];
+  heroHand: [PlayingCard | null, PlayingCard | null];
+  playerCards: [PlayingCard | null, PlayingCard | null][];
+  communityCards: (PlayingCard | null)[];
+  heroIndex: number;
+  smallBlindSize: number;
+  antiSize: number;
+}
+
+const initialPost: Post = {
+  title: "",
+  body: "",
+  playerLength: 2,
+  playerStackSizes: [0, 0],
+  heroHand: [null, null],
+  playerCards: [
+    [null, null],
+    [null, null],
+  ],
+  communityCards: [null, null, null, null, null],
+  heroIndex: 0,
+  smallBlindSize: 0,
+  antiSize: 0,
+};
+
 enum TitleValidation {
   required,
 }
@@ -265,32 +294,3 @@ const initialPostValidation = {
   ]),
   heroIndex: new Set(),
 };
-
-const initialPost: Post = {
-  title: "",
-  body: "",
-  playerLength: 2,
-  playerStackSizes: [0, 0],
-  heroHand: [null, null],
-  playerCards: [
-    [null, null],
-    [null, null],
-  ],
-  communityCards: [null, null, null, null, null],
-  heroIndex: 0,
-  smallBlindSize: 0,
-  antiSize: 0,
-};
-
-interface Post {
-  title: string;
-  body: string;
-  playerLength: number;
-  playerStackSizes: number[];
-  heroHand: [PlayingCard | null, PlayingCard | null];
-  playerCards: [PlayingCard | null, PlayingCard | null][];
-  communityCards: (PlayingCard | null)[];
-  heroIndex: number;
-  smallBlindSize: number;
-  antiSize: number;
-}

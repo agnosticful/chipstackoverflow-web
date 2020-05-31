@@ -1,6 +1,22 @@
 import * as React from "react";
-import { HandAction, HandStreet } from "@@/models/Hand";
+import { HandAction, HandStreet, HandActionType } from "@@/models/Hand";
 import reducer, { ActionType } from "./playerActionReducer";
+import { PlayerActionValidation } from "./validatePlayerAcitions";
+
+export interface PlayerActions {
+  actions: {
+    preflop: HandAction[];
+    flop: HandAction[];
+    turn: HandAction[];
+    river: HandAction[];
+  };
+  validations: {
+    preflop: Set<PlayerActionValidation>[];
+    flop: Set<PlayerActionValidation>[];
+    turn: Set<PlayerActionValidation>[];
+    river: Set<PlayerActionValidation>[];
+  };
+}
 
 export default function usePlayerActions({
   playerLength,
@@ -11,34 +27,15 @@ export default function usePlayerActions({
   smallBlindSize: number;
   playerStackSizes: number[];
 }) {
-  const [preflop, setPreflop] = React.useReducer(reducer, []);
-  const [flop, setFlop] = React.useReducer(reducer, []);
-  const [turn, setTurn] = React.useReducer(reducer, []);
-  const [river, setRiver] = React.useReducer(reducer, []);
+  const [actions, setActions] = React.useReducer(
+    reducer,
+    initialPlayerActioons
+  );
 
   // 初期化処理
   React.useEffect(() => {
-    setPreflop({
+    setActions({
       actionType: ActionType.new,
-      street: HandStreet.preflop,
-      playerLength,
-    });
-
-    setFlop({
-      actionType: ActionType.new,
-      street: HandStreet.flop,
-      playerLength,
-    });
-
-    setTurn({
-      actionType: ActionType.new,
-      street: HandStreet.turn,
-      playerLength,
-    });
-
-    setRiver({
-      actionType: ActionType.new,
-      street: HandStreet.river,
       playerLength,
     });
   }, [playerLength, smallBlindSize, playerStackSizes]);
@@ -53,54 +50,37 @@ export default function usePlayerActions({
     index: number;
     action: HandAction;
   }) => {
-    switch (street) {
-      case HandStreet.preflop:
-        setPreflop({
-          actionType: ActionType.update,
-          street,
-          index,
-          action,
-        });
-
-        break;
-      case HandStreet.flop:
-        setFlop({
-          actionType: ActionType.update,
-          street,
-          index,
-          action,
-        });
-
-        break;
-      case HandStreet.turn:
-        setTurn({
-          actionType: ActionType.update,
-          street,
-          index,
-          action,
-        });
-
-        break;
-      case HandStreet.river:
-        setRiver({
-          actionType: ActionType.update,
-          street,
-          index,
-          action,
-        });
-
-        break;
-    }
+    setActions({
+      actionType: ActionType.update,
+      playerLength,
+      street,
+      index,
+      action,
+    });
   };
 
   return {
-    actions: {
-      preflop,
-      flop,
-      turn,
-      river,
-    },
-    actionValidations: {},
+    actions: actions.actions,
+    actionValidations: actions.validations,
     setPlayerAction,
   };
 }
+
+const initialPlayerActioons: PlayerActions = {
+  actions: {
+    preflop: Array.from({ length: 2 }, (_, playerIndex) => ({
+      type: HandActionType.fold,
+      playerIndex,
+      betSize: 0,
+    })),
+    flop: [],
+    turn: [],
+    river: [],
+  },
+  validations: {
+    preflop: [],
+    flop: [],
+    turn: [],
+    river: [],
+  },
+};
