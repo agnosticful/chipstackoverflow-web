@@ -5,10 +5,12 @@ export default function normalizeHandActions({
   currentActions,
   activePlayerIndexes,
   isPreflop = false,
+  playerStackSizes,
 }: {
   currentActions: HandAction[];
   activePlayerIndexes: Set<number>;
   isPreflop?: boolean;
+  playerStackSizes: number[];
 }): HandAction[] {
   let actions = [...currentActions];
   let index = 0;
@@ -30,7 +32,11 @@ export default function normalizeHandActions({
 
     const action = actions[index];
 
-    if (action.type === HandActionType.fold) {
+    // not active when action type is fold or action is all-in
+    if (
+      action.type === HandActionType.fold ||
+      playerStackSizes[action.playerIndex] <= action.betSize
+    ) {
       activePlayerIndexes.delete(action.playerIndex);
 
       // Delete the player's all actions after the fold

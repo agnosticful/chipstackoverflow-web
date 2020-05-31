@@ -55,19 +55,30 @@ export default function usePlayerActions({
 
     setFlop({
       actionType: ActionType.new,
+      isPreflop: false,
     });
 
     setTurn({
       actionType: ActionType.new,
+      isPreflop: false,
     });
 
     setRiver({
       actionType: ActionType.new,
+      isPreflop: false,
     });
   }, [playerLength]);
 
   // playerStackSizesに変更があったとき
-  React.useEffect(() => {}, [playerStackSizes]);
+  React.useEffect(() => {
+    setPreflop({
+      actionType: ActionType.normalize,
+      activePlayerIndexes: new Set(
+        preflop.actions.map(({ playerIndex }) => playerIndex)
+      ),
+      playerStackSizes,
+    });
+  }, [playerStackSizes]);
 
   // アクション変更時の処理
   const setPlayerAction = ({
@@ -80,42 +91,97 @@ export default function usePlayerActions({
     action: HandAction;
   }) => {
     switch (street) {
-      case HandStreet.preflop:
+      case HandStreet.preflop: {
         setPreflop({
           actionType: ActionType.update,
           index,
           action,
+          activePlayerIndexes: new Set(
+            Array.from(
+              { length: playerLength },
+              (_, playerIndex) => playerIndex
+            )
+          ),
+          playerStackSizes,
         });
 
         break;
-      case HandStreet.flop:
+      }
+
+      case HandStreet.flop: {
         setFlop({
           actionType: ActionType.update,
           index,
           action,
+          activePlayerIndexes: new Set(
+            preflop.actions.map(({ playerIndex }) => playerIndex)
+          ),
+          playerStackSizes,
         });
 
         break;
-      case HandStreet.turn:
+      }
+
+      case HandStreet.turn: {
         setTurn({
           actionType: ActionType.update,
           index,
           action,
+          activePlayerIndexes: new Set(
+            flop.actions.map(({ playerIndex }) => playerIndex)
+          ),
+          playerStackSizes,
         });
 
         break;
-      case HandStreet.river:
+      }
+
+      case HandStreet.river: {
         setRiver({
           actionType: ActionType.update,
           index,
           action,
+          activePlayerIndexes: new Set(
+            turn.actions.map(({ playerIndex }) => playerIndex)
+          ),
+          playerStackSizes,
         });
 
         break;
+      }
     }
   };
 
-  React.useEffect(() => {}, []);
+  // updataを受けて、activePlayersに変更があったとき
+  React.useEffect(() => {
+    setFlop({
+      actionType: ActionType.normalize,
+      activePlayerIndexes: new Set(
+        preflop.actions.map(({ playerIndex }) => playerIndex)
+      ),
+      playerStackSizes,
+    });
+  }, [preflop.activePlayerLength]);
+
+  React.useEffect(() => {
+    setTurn({
+      actionType: ActionType.normalize,
+      activePlayerIndexes: new Set(
+        flop.actions.map(({ playerIndex }) => playerIndex)
+      ),
+      playerStackSizes,
+    });
+  }, [flop.activePlayerLength]);
+
+  React.useEffect(() => {
+    setRiver({
+      actionType: ActionType.normalize,
+      activePlayerIndexes: new Set(
+        turn.actions.map(({ playerIndex }) => playerIndex)
+      ),
+      playerStackSizes,
+    });
+  }, [turn.activePlayerLength]);
 
   return {
     actions: {

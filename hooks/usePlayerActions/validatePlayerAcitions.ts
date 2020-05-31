@@ -1,14 +1,16 @@
 import { HandAction, HandActionType } from "@@/models/Hand";
 
 export enum PlayerActionValidation {
-  invalidBetSize,
   invalidRaiseSize,
+  bedSizeExceededStackSize,
 }
 
 export default function validatePlayerActions({
   playerActions,
+  playerStackSizes,
 }: {
   playerActions: HandAction[];
+  playerStackSizes: number[];
 }): Set<PlayerActionValidation>[] {
   const playerActionValidations = Array.from(
     { length: playerActions.length },
@@ -18,11 +20,10 @@ export default function validatePlayerActions({
   let tableMaxBetSize = 0;
   let minBetSizeDiff = 0;
 
-  for (const [index, { type, betSize }] of playerActions.entries()) {
-    if (betSize < tableMaxBetSize) {
-      playerActionValidations[index].add(PlayerActionValidation.invalidBetSize);
-    }
-
+  for (const [
+    index,
+    { type, betSize, playerIndex },
+  ] of playerActions.entries()) {
     if (![HandActionType.bet, HandActionType.raise].includes(type)) {
       continue;
     }
@@ -30,6 +31,12 @@ export default function validatePlayerActions({
     if (betSize < tableMaxBetSize + minBetSizeDiff) {
       playerActionValidations[index].add(
         PlayerActionValidation.invalidRaiseSize
+      );
+    }
+
+    if (playerStackSizes[playerIndex] < betSize) {
+      playerActionValidations[index].add(
+        PlayerActionValidation.bedSizeExceededStackSize
       );
     }
 

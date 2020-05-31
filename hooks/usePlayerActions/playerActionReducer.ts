@@ -17,6 +17,7 @@ interface ReducerAction {
   index?: number;
   action?: HandAction;
   activePlayerIndexes?: Set<number>;
+  playerStackSizes?: number[];
 }
 
 export default function plyarActionReducer(
@@ -30,6 +31,7 @@ export default function plyarActionReducer(
     index,
     action,
     activePlayerIndexes,
+    playerStackSizes,
   } = reducerAction;
 
   switch (actionType) {
@@ -57,14 +59,25 @@ export default function plyarActionReducer(
         throw new Error("index must be passed for update");
       if (action === undefined)
         throw new Error("gameStreetAction must be passed for update");
+      if (activePlayerIndexes === undefined)
+        throw new Error("activePlayerIndexes must be passed for update");
+      if (playerStackSizes === undefined)
+        throw new Error("playerStackSizes must be passed for update");
 
       const { actions } = playerActions;
 
-      const nextActions = updateGameStreetActionAt({ actions, index, action });
+      const nextActions = normalizeHandActions({
+        currentActions: updateGameStreetActionAt({ actions, index, action }),
+        activePlayerIndexes,
+        playerStackSizes,
+      });
 
       return {
         actions: nextActions,
-        validations: validatePlayerActions({ playerActions: nextActions }),
+        validations: validatePlayerActions({
+          playerActions: nextActions,
+          playerStackSizes,
+        }),
         activePlayerLength: new Set(nextActions).size,
       };
     }
@@ -72,17 +85,23 @@ export default function plyarActionReducer(
     case ActionType.normalize: {
       if (activePlayerIndexes === undefined)
         throw new Error("activePlayerIndexes must be passed for normalize");
+      if (playerStackSizes === undefined)
+        throw new Error("playerStackSizes must be passed for update");
 
       const { actions } = playerActions;
 
       const nextActions = normalizeHandActions({
         currentActions: actions,
         activePlayerIndexes,
+        playerStackSizes,
       });
 
       return {
         actions: nextActions,
-        validations: validatePlayerActions({ playerActions: nextActions }),
+        validations: validatePlayerActions({
+          playerActions: nextActions,
+          playerStackSizes,
+        }),
         activePlayerLength: new Set(nextActions).size,
       };
     }
