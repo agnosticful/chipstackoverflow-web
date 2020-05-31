@@ -1,23 +1,43 @@
 import { useApolloClient } from "@apollo/react-hooks";
 import * as React from "react";
-import useAuthentication from "@@/hooks/useAuthentication";
+import { atom, useRecoilState } from "recoil";
 import { PostMinimum } from "@@/models/Post";
 import getRecentPosts from "@@/repositories/getRecentPosts";
 
+const recentPostsState = atom({
+  key: "RecentPosts",
+  default: {
+    recentPosts: [] as PostMinimum[],
+    isLoading: false,
+    isInitialized: false,
+  },
+});
+
 export default function useRecentPosts() {
   const apolloClient = useApolloClient();
-  const { authenticationToken } = useAuthentication();
-  const [recentPosts, setRecentPosts] = React.useState<PostMinimum[]>([]);
-  const [isLoading, setLoading] = React.useState(true);
+  const [
+    { recentPosts, isLoading, isInitialized },
+    setRecentPostsState,
+  ] = useRecoilState(recentPostsState);
 
   React.useEffect(() => {
-    setLoading(true);
+    if (isInitialized) {
+      return;
+    }
 
-    getRecentPosts({ apolloClient, authenticationToken }).then((posts) => {
-      setRecentPosts(posts);
-      setLoading(false);
+    setRecentPostsState((previousState) => ({
+      ...previousState,
+      isLoading: true,
+    }));
+
+    getRecentPosts({ apolloClient }).then((posts) => {
+      setRecentPostsState({
+        recentPosts: posts,
+        isLoading: false,
+        isInitialized: true,
+      });
     });
   }, []);
 
-  return { recentPosts, isLoading };
+  return { recentPosts, isLoading: isLoading || !isInitialized };
 }

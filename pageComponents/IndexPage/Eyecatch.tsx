@@ -3,6 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Button, { ButtonVariant } from "@@/components/Button";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 
@@ -13,6 +14,7 @@ interface Props extends React.Attributes {
 
 export default function Eyecatch(props: Props) {
   const { isLoading: isAuthenticationLoading, signIn } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself, isLoading: isMyselfLoading } = useMyself();
 
   return (
@@ -38,7 +40,13 @@ export default function Eyecatch(props: Props) {
         ) : (
           <Button
             variant={ButtonVariant.primary}
-            onClick={() => signIn("eyecatch_sign_up_button")}
+            onClick={() => {
+              signIn();
+
+              trackEvent("sign_in_click", {
+                obejct_id: "eyecatch_sign_up_button",
+              });
+            }}
             disabled={isAuthenticationLoading || isMyselfLoading}
           >
             {isAuthenticationLoading || isMyselfLoading

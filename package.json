@@ -13,7 +13,6 @@
     "@apollo/react-ssr": "^3.1.5",
     "@tippyjs/react": "^4.0.0-alpha.3",
     "apollo-boost": "^0.4.8",
-    "constate": "^2.0.0",
     "date-fns": "^2.11.1",
     "firebase": "^7.10.0",
     "graphql": "^15.0.0",
@@ -23,6 +22,7 @@
     "react": "16.13.0",
     "react-content-loader": "^5.0.2",
     "react-dom": "16.13.0",
+    "recoil": "0.0.7",
     "rxjs": "^6.5.4",
     "styled-components": "^5.0.1"
   },
@@ -51,6 +51,7 @@
   "scripts": {
     "format": "prettier --write '**/*.{ts,tsx}'",
     "test": "jest",
+    "build": "next build",
     "storybook": "start-storybook -s ./public",
     "dev": "next dev"
   },

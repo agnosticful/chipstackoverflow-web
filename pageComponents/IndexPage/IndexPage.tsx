@@ -3,6 +3,7 @@ import styled from "styled-components";
 import HeadBar from "@@/components/HeadBar";
 import FootBar from "@@/components/FootBar";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import Eyecatch from "./Eyecatch";
@@ -17,6 +18,7 @@ export default function IndexPage({ ...props }: Props) {
     signIn,
     signOut,
   } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself, isLoading: isMyselfLoading } = useMyself();
 
   return (
@@ -24,8 +26,20 @@ export default function IndexPage({ ...props }: Props) {
       <HeadBar
         user={myself ?? undefined}
         authenticationChecking={isAuthenticationLoading || isMyselfLoading}
-        onSignInButtonClick={(_, objectId) => signIn(objectId)}
-        onSignOutButtonClick={() => signOut()}
+        onSignInButtonClick={() => {
+          signIn();
+
+          trackEvent("sign_in_click", {
+            object_id: "head_bar_sign_in_button",
+          });
+        }}
+        onSignOutButtonClick={() => {
+          signOut();
+
+          trackEvent("sign_out_click", {
+            object_id: "head_bar_sign_out_button",
+          });
+        }}
       />
 
       <Content>

@@ -1,41 +1,61 @@
 import * as React from "react";
 import styled from "styled-components";
 import HeadBar from "@@/components/HeadBar";
+import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
-import usePost from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
+import HandPlayerSection from "./HandPlayerSection";
+import PostAnswers from "./PostAnswers";
+import PostBody from "./PostBody";
+import PostTitle from "./PostTitle";
 
 interface Props extends React.Attributes {
   postId: PostId;
+  defaultSnapshotIndex?: number;
 }
 
-export default function PostDetailPage({ postId, ...props }: Props) {
+export default function PostDetailPage({
+  postId,
+  defaultSnapshotIndex = 0,
+  ...props
+}: Props) {
   const { signIn, signOut } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself, isLoading: isMyselfLoading } = useMyself();
-  const { post, isLoading: isPostLoading } = usePost(postId);
-
-  console.log(post);
-
-  if (isPostLoading || !post) {
-    return <div>loading...</div>;
-  }
 
   return (
     <Root {...props}>
       <_HeadBar
         user={myself ?? undefined}
         authenticationChecking={isMyselfLoading}
-        onSignInButtonClick={(_, objectId) => signIn(objectId)}
-        onSignOutButtonClick={() => signOut()}
+        onSignInButtonClick={() => {
+          signIn();
+
+          trackEvent("sign_in_click", {
+            object_id: "head_bar_sign_in_button",
+          });
+        }}
+        onSignOutButtonClick={() => {
+          signOut();
+
+          trackEvent("sign_out_click", {
+            object_id: "head_bar_sign_out_button",
+          });
+        }}
       />
 
       <Content>
-        <h1>(temporary implementation) {post.title}</h1>
+        <PostTitle postId={postId} />
 
-        {post.body.split("\n").map((line, i) => (
-          <p key={i}>{line}</p>
-        ))}
+        <_HandPlayerSection
+          postId={postId}
+          defaultSnapshotIndex={defaultSnapshotIndex}
+        />
+
+        <_PostBody postId={postId} />
+
+        <_PostAnswers postId={postId} />
       </Content>
     </Root>
   );
@@ -57,4 +77,17 @@ const _HeadBar = styled(HeadBar)`
 
 const Content = styled.section`
   grid-area: content;
+  padding: 64px 0 128px;
+`;
+
+const _HandPlayerSection = styled(HandPlayerSection)`
+  margin-top: 64px;
+`;
+
+const _PostBody = styled(PostBody)`
+  margin-top: 64px;
+`;
+
+const _PostAnswers = styled(PostAnswers)`
+  margin-top: 64px;
 `;
