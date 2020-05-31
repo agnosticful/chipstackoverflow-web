@@ -1,4 +1,4 @@
-import { HandAction, HandStreet, HandActionType } from "@@/models/Hand";
+import { HandAction, HandActionType } from "@@/models/Hand";
 import normalizeHandActions from "./normalizeGameStreetActions";
 import updateGameStreetActionAt from "./updateGameStreetActionAt";
 import { PlayerActions } from "./usePlayerActions";
@@ -7,117 +7,83 @@ import validatePlayerActions from "./validatePlayerAcitions";
 export enum ActionType {
   new = "NEW",
   update = "UPDATE",
+  normalize = "NORMALIZE",
 }
 
 interface ReducerAction {
   actionType: ActionType;
-  playerLength: number;
-  street?: HandStreet;
+  playerLength?: number;
+  isPreflop?: boolean;
   index?: number;
   action?: HandAction;
+  activePlayerIndexes?: Set<number>;
 }
 
 export default function plyarActionReducer(
-  actions: PlayerActions,
+  playerActions: PlayerActions,
   reducerAction: ReducerAction
 ) {
-  const { actionType, street, playerLength, index, action } = reducerAction;
+  const {
+    actionType,
+    isPreflop,
+    playerLength,
+    index,
+    action,
+    activePlayerIndexes,
+  } = reducerAction;
 
   switch (actionType) {
     case ActionType.new: {
       if (playerLength === undefined)
-        throw new Error(
-          "playerLength must be passed when createEmptyGameStreetActions"
-        );
+        throw new Error("playerLength must be passed when actionType is new");
+      if (isPreflop === undefined)
+        throw new Error("isPreflop must be passed when actionType is new");
 
       return {
-        actions: {
-          preflop: Array.from({ length: playerLength }, (_, playerIndex) => ({
-            type: HandActionType.fold,
-            playerIndex,
-            betSize: 0,
-          })),
-          flop: [],
-          turn: [],
-          river: [],
-        },
-        validations: {
-          preflop: [],
-          flop: [],
-          turn: [],
-          river: [],
-        },
+        actions: isPreflop
+          ? Array.from({ length: playerLength }, (_, playerIndex) => ({
+              type: HandActionType.fold,
+              playerIndex,
+              betSize: 0,
+            }))
+          : [],
+        validations: [],
+        activePlayerLength: isPreflop ? playerLength : 0,
       };
     }
 
     case ActionType.update: {
-      if (street === undefined)
-        throw new Error("street must be passed for update");
       if (index === undefined)
         throw new Error("index must be passed for update");
       if (action === undefined)
         throw new Error("gameStreetAction must be passed for update");
 
-      let { preflop, flop, turn, river } = actions.actions;
+      const { actions } = playerActions;
 
-      if (street === HandStreet.preflop) {
-        preflop = updateGameStreetActionAt({ actions: preflop, index, action });
-      }
+      const nextActions = updateGameStreetActionAt({ actions, index, action });
 
-      preflop = normalizeHandActions({
-        currentActions: preflop,
-        activePlayerIndexes: new Set(
-          Array.from({ length: playerLength }, (_, playerIndex) => playerIndex)
-        ),
-        isPreflop: true,
-      });
+      return {
+        actions: nextActions,
+        validations: validatePlayerActions({ playerActions: nextActions }),
+        activePlayerLength: new Set(nextActions).size,
+      };
+    }
 
-      if (street === HandStreet.flop) {
-        flop = updateGameStreetActionAt({ actions: flop, index, action });
-      }
+    case ActionType.normalize: {
+      if (activePlayerIndexes === undefined)
+        throw new Error("activePlayerIndexes must be passed for normalize");
 
-      flop = normalizeHandActions({
-        currentActions: flop,
-        activePlayerIndexes: new Set(
-          preflop.map(({ playerIndex }) => playerIndex)
-        ),
-      });
+      const { actions } = playerActions;
 
-      if (street === HandStreet.turn) {
-        turn = updateGameStreetActionAt({ actions: turn, index, action });
-      }
-
-      turn = normalizeHandActions({
-        currentActions: turn,
-        activePlayerIndexes: new Set(
-          flop.map(({ playerIndex }) => playerIndex)
-        ),
-      });
-
-      if (street === HandStreet.river) {
-        river = updateGameStreetActionAt({ actions: river, index, action });
-      }
-
-      river = normalizeHandActions({
-        currentActions: river,
-        activePlayerIndexes: new Set(
-          turn.map(({ playerIndex }) => playerIndex)
-        ),
+      const nextActions = normalizeHandActions({
+        currentActions: actions,
+        activePlayerIndexes,
       });
 
       return {
-        actions: {
-          preflop,
-          flop,
-          turn,
-          river,
-        },
-        validations: {
-          preflop: validatePlayerActions({ playerActions: preflop }),
-          flop: validatePlayerActions({ playerActions: flop }),
-          turn: validatePlayerActions({ playerActions: turn }),
-          river: validatePlayerActions({ playerActions: river }),
-        },
+        actions: nextActions,
+        validations: validatePlayerActions({ playerActions: nextActions }),
+        activePlayerLength: new Set(nextActions).size,
       };
     }
   }

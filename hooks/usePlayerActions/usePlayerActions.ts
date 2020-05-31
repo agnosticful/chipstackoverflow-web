@@ -4,41 +4,70 @@ import reducer, { ActionType } from "./playerActionReducer";
 import { PlayerActionValidation } from "./validatePlayerAcitions";
 
 export interface PlayerActions {
-  actions: {
-    preflop: HandAction[];
-    flop: HandAction[];
-    turn: HandAction[];
-    river: HandAction[];
-  };
-  validations: {
-    preflop: Set<PlayerActionValidation>[];
-    flop: Set<PlayerActionValidation>[];
-    turn: Set<PlayerActionValidation>[];
-    river: Set<PlayerActionValidation>[];
-  };
+  actions: HandAction[];
+  validations: Set<PlayerActionValidation>[];
+  activePlayerLength: number;
 }
 
 export default function usePlayerActions({
   playerLength,
-  smallBlindSize,
   playerStackSizes,
 }: {
   playerLength: number;
   smallBlindSize: number;
   playerStackSizes: number[];
 }) {
-  const [actions, setActions] = React.useReducer(
-    reducer,
-    initialPlayerActioons
-  );
+  const [preflop, setPreflop] = React.useReducer(reducer, {
+    actions: Array.from({ length: 2 }, (_, playerIndex) => ({
+      type: HandActionType.fold,
+      playerIndex,
+      betSize: 0,
+    })),
+    validations: [],
+    activePlayerLength: 0,
+  });
+
+  const [flop, setFlop] = React.useReducer(reducer, {
+    actions: [],
+    validations: [],
+    activePlayerLength: 0,
+  });
+
+  const [turn, setTurn] = React.useReducer(reducer, {
+    actions: [],
+    validations: [],
+    activePlayerLength: 0,
+  });
+
+  const [river, setRiver] = React.useReducer(reducer, {
+    actions: [],
+    validations: [],
+    activePlayerLength: 0,
+  });
 
   // 初期化処理
   React.useEffect(() => {
-    setActions({
+    setPreflop({
       actionType: ActionType.new,
+      isPreflop: true,
       playerLength,
     });
-  }, [playerLength, smallBlindSize, playerStackSizes]);
+
+    setFlop({
+      actionType: ActionType.new,
+    });
+
+    setTurn({
+      actionType: ActionType.new,
+    });
+
+    setRiver({
+      actionType: ActionType.new,
+    });
+  }, [playerLength]);
+
+  // playerStackSizesに変更があったとき
+  React.useEffect(() => {}, [playerStackSizes]);
 
   // アクション変更時の処理
   const setPlayerAction = ({
@@ -50,37 +79,57 @@ export default function usePlayerActions({
     index: number;
     action: HandAction;
   }) => {
-    setActions({
-      actionType: ActionType.update,
-      playerLength,
-      street,
-      index,
-      action,
-    });
+    switch (street) {
+      case HandStreet.preflop:
+        setPreflop({
+          actionType: ActionType.update,
+          index,
+          action,
+        });
+
+        break;
+      case HandStreet.flop:
+        setFlop({
+          actionType: ActionType.update,
+          index,
+          action,
+        });
+
+        break;
+      case HandStreet.turn:
+        setTurn({
+          actionType: ActionType.update,
+          index,
+          action,
+        });
+
+        break;
+      case HandStreet.river:
+        setRiver({
+          actionType: ActionType.update,
+          index,
+          action,
+        });
+
+        break;
+    }
   };
 
+  React.useEffect(() => {}, []);
+
   return {
-    actions: actions.actions,
-    actionValidations: actions.validations,
+    actions: {
+      preflop: preflop.actions,
+      flop: flop.actions,
+      turn: turn.actions,
+      river: river.actions,
+    },
+    actionValidations: {
+      preflop: preflop.validations,
+      flop: flop.validations,
+      turn: turn.validations,
+      river: river.validations,
+    },
     setPlayerAction,
   };
 }
-
-const initialPlayerActioons: PlayerActions = {
-  actions: {
-    preflop: Array.from({ length: 2 }, (_, playerIndex) => ({
-      type: HandActionType.fold,
-      playerIndex,
-      betSize: 0,
-    })),
-    flop: [],
-    turn: [],
-    river: [],
-  },
-  validations: {
-    preflop: [],
-    flop: [],
-    turn: [],
-    river: [],
-  },
-};
