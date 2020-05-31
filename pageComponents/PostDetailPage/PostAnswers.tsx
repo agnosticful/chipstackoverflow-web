@@ -5,6 +5,7 @@ import AnswerCard, {
   AnswerCardCommentForm,
   AnswerCardContentLoader,
 } from "@@/components/AnswerCard";
+import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import usePost from "@@/hooks/usePost";
@@ -21,6 +22,7 @@ export default function PostAnswers({ postId, ...props }: Props) {
   // get just isAuthenticated bool value instead of authenticationToken
   // because this code might be confusing if it was used as token, yet checking signed in or not
   const { authenticationToken } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself } = useMyself();
   const {
     post,
@@ -65,8 +67,12 @@ export default function PostAnswers({ postId, ...props }: Props) {
               }
 
               if (answer.liked) {
+                trackEvent("answer_like_click", { to: "unlike" });
+
                 unlikeAnswer(answer.id);
               } else {
+                trackEvent("answer_like_click", { to: "like" });
+
                 likeAnswer(answer.id);
               }
             }}
@@ -80,8 +86,12 @@ export default function PostAnswers({ postId, ...props }: Props) {
               }
 
               if (answer.disliked) {
+                trackEvent("answer_dislike_click", { to: "unlike" });
+
                 unlikeAnswer(answer.id);
               } else {
+                trackEvent("answer_dislike_click", { to: "dislike" });
+
                 dislikeAnswer(answer.id);
               }
             }}
