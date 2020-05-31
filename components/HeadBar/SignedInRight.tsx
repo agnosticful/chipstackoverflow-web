@@ -6,7 +6,7 @@ import User from "@@/models/User";
 
 interface Props extends React.Attributes {
   user: User;
-  onSignOutButtonClick?: (e: React.SyntheticEvent) => void;
+  onSignOutButtonClick?: React.MouseEventHandler;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;

@@ -1,16 +1,19 @@
 import * as React from "react";
 import ContentLoader from "react-content-loader";
 import styled from "styled-components";
+import usePost from "@@/hooks/usePost";
+import { PostId } from "@@/models/Post";
 
 interface Props extends React.Attributes {
-  value?: string;
-  loading?: boolean;
+  postId: PostId;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function PostBody({ value, loading = false, ...props }: Props) {
-  if (loading) {
+export default function PostBody({ postId, ...props }: Props) {
+  const { post, isLoading } = usePost(postId);
+
+  if (isLoading) {
     return (
       <Loader {...props}>
         <rect />
@@ -34,14 +37,14 @@ export default function PostBody({ value, loading = false, ...props }: Props) {
     );
   }
 
-  if (!value) {
-    // not found を出すべき
-    throw new Error();
+  if (!post) {
+    // while isPostLoading=false, post should not be null.
+    throw new Error("You shouldn't reach here.");
   }
 
   return (
     <div {...props}>
-      {value.split("\n").map((line, i) => (
+      {post.body.split("\n").map((line, i) => (
         <Paragraph key={i}>{line}</Paragraph>
       ))}
     </div>

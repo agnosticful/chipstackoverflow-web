@@ -2,39 +2,35 @@ import * as React from "react";
 import styled from "styled-components";
 import HandPlayer from "@@/components/HandPlayer";
 import HandPlayerContentLoader from "@@/components/HandPlayerContentLoader";
-import Hand from "@@/models/Hand";
+import usePost from "@@/hooks/usePost";
+import { PostId } from "@@/models/Post";
 
 interface Props extends React.Attributes {
-  hand?: Hand;
-  heroIndex?: number;
+  postId: PostId;
   defaultSnapshotIndex?: number;
-  loading?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function HandPlayerSection({
-  hand,
-  heroIndex,
-  defaultSnapshotIndex,
-  loading = false,
+  postId,
+  defaultSnapshotIndex = 0,
   ...props
 }: Props) {
+  const { post, isLoading } = usePost(postId);
+
   let player = <HandPlayerContentLoader />;
 
-  if (!loading) {
-    if (
-      !hand ||
-      heroIndex === undefined ||
-      defaultSnapshotIndex === undefined
-    ) {
-      throw new Error();
+  if (!isLoading) {
+    if (!post) {
+      // while isPostLoading=false, post should not be null.
+      throw new Error("You shouldn't reach here.");
     }
 
     player = (
       <HandPlayer
-        hand={hand}
-        heroIndex={heroIndex}
+        hand={post.hand}
+        heroIndex={post.heroIndex}
         defaultSnapshotIndex={defaultSnapshotIndex}
       />
     );

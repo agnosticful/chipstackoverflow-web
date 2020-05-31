@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import HeadBar from "@@/components/HeadBar";
+import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
-import usePost from "@@/hooks/usePost";
 import { PostId } from "@@/models/Post";
 import HandPlayerSection from "./HandPlayerSection";
 import PostAnswers from "./PostAnswers";
@@ -21,31 +21,41 @@ export default function PostDetailPage({
   ...props
 }: Props) {
   const { signIn, signOut } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself, isLoading: isMyselfLoading } = useMyself();
-  const { post, isLoading: isPostLoading } = usePost(postId);
 
   return (
     <Root {...props}>
       <_HeadBar
         user={myself ?? undefined}
         authenticationChecking={isMyselfLoading}
-        onSignInButtonClick={(_, objectId) => signIn(objectId)}
-        onSignOutButtonClick={() => signOut()}
+        onSignInButtonClick={() => {
+          signIn();
+
+          trackEvent("sign_in_click", {
+            object_id: "head_bar_sign_in_button",
+          });
+        }}
+        onSignOutButtonClick={() => {
+          signOut();
+
+          trackEvent("sign_out_click", {
+            object_id: "head_bar_sign_out_button",
+          });
+        }}
       />
 
       <Content>
-        <PostTitle value={post?.title} loading={isPostLoading} />
+        <PostTitle postId={postId} />
 
         <_HandPlayerSection
-          hand={post?.hand}
-          heroIndex={post?.heroIndex}
+          postId={postId}
           defaultSnapshotIndex={defaultSnapshotIndex}
-          loading={isPostLoading}
         />
 
-        <_PostBody value={post?.body} loading={isPostLoading} />
+        <_PostBody postId={postId} />
 
-        <_PostAnswers answers={post?.answers} loading={isPostLoading} />
+        <_PostAnswers postId={postId} />
       </Content>
     </Root>
   );

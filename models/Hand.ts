@@ -33,6 +33,7 @@ export default class Hand {
     this.flopActions = flopActions;
     this.turnActions = turnActions;
     this.riverActions = riverActions;
+    this.snapshots = this.buildSnapshots();
   }
 
   readonly playerInitialStackSizes: Map<number, number>;
@@ -44,20 +45,21 @@ export default class Hand {
   readonly flopActions: HandAction[];
   readonly turnActions: HandAction[];
   readonly riverActions: HandAction[];
+  readonly snapshots: HandSnapshot[];
 
   get playerLength(): number {
     return this.playerInitialStackSizes.size;
   }
 
-  _snapshots?: HandSnapshot[];
+  // _snapshots?: HandSnapshot[];
 
-  get snapshots(): HandSnapshot[] {
-    if (!this._snapshots) {
-      this.buildSnapshots();
-    }
+  // get snapshots(): HandSnapshot[] {
+  //   if (!this._snapshots) {
+  //     this.buildSnapshots();
+  //   }
 
-    return this._snapshots!;
-  }
+  //   return this._snapshots!;
+  // }
 
   get wonPlayerIndexes(): Set<number> {
     return (
@@ -74,17 +76,15 @@ export default class Hand {
     return this.snapshots[this.snapshots.length - 1].street as any;
   }
 
-  private buildSnapshots(): void {
+  private buildSnapshots(): HandSnapshot[] {
+    const snapshots: HandSnapshot[] = [];
+
     // previous had not been set here
     // do not refer this until the first snapshot has been pushed
     let last!: HandSnapshot;
 
     const pushSnapshot = (snapshot: HandSnapshot) => {
-      if (!this._snapshots) {
-        this._snapshots = [];
-      }
-
-      this._snapshots.push(snapshot);
+      snapshots.push(snapshot);
       last = snapshot;
     };
 
@@ -186,7 +186,7 @@ export default class Hand {
         actionPlayerIndex: last.activePlayerIndexes.first(),
       });
 
-      return;
+      return snapshots;
     }
 
     // snapshot as the initial state on flop
@@ -240,7 +240,7 @@ export default class Hand {
         actionPlayerIndex: last.activePlayerIndexes.first(),
       });
 
-      return;
+      return snapshots;
     }
 
     // snapshot as the initial state on turn
@@ -294,7 +294,7 @@ export default class Hand {
         actionPlayerIndex: last.activePlayerIndexes.first(),
       });
 
-      return;
+      return snapshots;
     }
 
     // snapshot as the initial state on river
@@ -348,7 +348,7 @@ export default class Hand {
         actionPlayerIndex: last.activePlayerIndexes.first(),
       });
 
-      return;
+      return snapshots;
     }
 
     let wonPlayerIndexes = Immutable.Set();
@@ -387,6 +387,8 @@ export default class Hand {
       })),
       actionPlayerIndex: null,
     });
+
+    return snapshots;
   }
 }
 

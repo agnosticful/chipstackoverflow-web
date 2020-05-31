@@ -10,8 +10,8 @@ interface Props extends React.Attributes {
   user?: User;
   noLogo?: boolean;
   authenticationChecking?: boolean;
-  onSignInButtonClick?: (e: React.SyntheticEvent, objectId: string) => void;
-  onSignOutButtonClick?: (e: React.SyntheticEvent, objectId: string) => void;
+  onSignInButtonClick?: React.MouseEventHandler;
+  onSignOutButtonClick?: React.MouseEventHandler;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -36,18 +36,13 @@ export default function HeadBar({
   );
 
   const right = authenticationChecking ? null : user ? (
-    <_SignedInRight
-      user={user}
-      onSignOutButtonClick={(e) =>
-        onSignOutButtonClick(e, "head_bar_sign_out_button")
-      }
-    />
+    <_SignedInRight user={user} onSignOutButtonClick={onSignOutButtonClick} />
   ) : (
     <>
       <SignUpButton
         variant={ButtonVariant.primary}
         size={ButtonSize.small}
-        onClick={(e) => onSignInButtonClick(e, "head_bar_sign_up_button")}
+        onClick={onSignInButtonClick}
       >
         Sign up with Google
       </SignUpButton>
@@ -55,7 +50,7 @@ export default function HeadBar({
       <ShortSignUpButton
         variant={ButtonVariant.primary}
         size={ButtonSize.small}
-        onClick={(e) => onSignInButtonClick(e, "head_bar_sign_up_button")}
+        onClick={onSignInButtonClick}
       >
         Sign up
       </ShortSignUpButton>
