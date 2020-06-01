@@ -1,6 +1,5 @@
 import * as React from "react";
 import Select, { Option } from "../../components/Select";
-import { GameType } from "../../models/GameSituation";
 
 interface Props extends React.Attributes {
   defaultValue?: string;
@@ -20,4 +19,9 @@ export default function GameTypeSelect({
       <Option value={GameType.tournament}>{GameType.tournament}</Option>
     </Select>
   );
+}
+
+enum GameType {
+  cash = "CASH",
+  tournament = "TOURNAMENT",
 }
