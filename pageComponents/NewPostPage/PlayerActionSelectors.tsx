@@ -1,45 +1,56 @@
 import * as React from "react";
 import styled from "styled-components";
-import StreetActionSelector from "../../components/StreetActionSelector";
-import { MOBILE_MEDIA } from "../../constants/mediaquery";
-import {
-  GameStreetAction,
-  GameStreetActionType,
-} from "../../models/GameSituation";
+import StreetActionSelector from "@@/components/StreetActionSelector";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
+import { HandAction, HandActionType, HandStreet } from "@@/models/Hand";
+import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndIndex";
 
 interface Props extends React.Attributes {
-  playerActions: {
-    position: string;
-    gameStreetAction: GameStreetAction;
-    tableMaxBetSize: number;
-    previousBetSize: number;
-  }[];
-  onChange?: (
-    index: number,
-    type: GameStreetActionType,
-    betSize: number
-  ) => void;
+  playerLength: number;
+  street: HandStreet;
+  playerActions: HandAction[];
+  className?: string;
+  style?: React.CSSProperties;
+  onChange?: (index: number, type: HandActionType, betSize: number) => void;
 }
 
 export default function PlayerActionSelectors({
+  playerLength,
+  street,
   playerActions,
   onChange = () => undefined,
+  ...props
 }: Props) {
+  let _tableMaxBetSize = 0;
+  const previousBetSizeMap = new Map(
+    Array.from({ length: playerLength }, (_, playerIndex) => [
+      playerIndex,
+      street === HandStreet.preflop && playerIndex === 1 ? 1 : 0,
+    ])
+  );
+
   return (
-    <Root>
-      {playerActions.map(
-        ({ position, tableMaxBetSize, previousBetSize }, index) => (
-          <PlayerAction key={index}>
-            <SmallTitle>{`${position}:`}</SmallTitle>
+    <Root {...props}>
+      {playerActions.map(({ playerIndex, betSize }, index) => {
+        const tempTableMaxBetSize = _tableMaxBetSize;
+        _tableMaxBetSize = betSize;
+        const tempPreviousBetSize = previousBetSizeMap.get(playerIndex);
+        previousBetSizeMap.set(playerIndex, betSize);
+
+        return (
+          <PlayerAction key={`player-actions-${street}-${index}`}>
+            <SmallTitle>
+              {getPositionByPlayerAndIndex(playerLength, playerIndex)}
+            </SmallTitle>
 
             <StreetActionSelector
-              tableMaxBetSize={tableMaxBetSize}
-              previousBetSize={previousBetSize}
+              tableMaxBetSize={tempTableMaxBetSize}
+              previousBetSize={tempPreviousBetSize}
               onChange={(type, betSize) => onChange(index, type, betSize)}
             />
           </PlayerAction>
-        )
-      )}
+        );
+      })}
     </Root>
   );
 }
