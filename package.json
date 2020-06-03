@@ -11,6 +11,7 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
     "@apollo/react-ssr": "^3.1.5",
+    "@bugsnag/js": "^7.1.1",
     "@tippyjs/react": "^4.0.0-alpha.3",
     "apollo-boost": "^0.4.8",
     "date-fns": "^2.11.1",
