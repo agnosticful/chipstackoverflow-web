@@ -1,22 +1,22 @@
 import * as React from "react";
 import styled from "styled-components";
-import { MOBILE_MEDIA } from "@@/constants/mediaquery";
 import BetSizeInput from "@@/components/BetSizeInput";
 import Button, { ButtonVariant } from "@@/components/Button";
 import HeadBar from "@@/components/HeadBar";
-import TextInput, { TextInputSize } from "@@/components/TextInput";
-import TextArea from "@@/components/TextArea";
 import PlayingCard from "@@/components/PortraitPlayingCard";
+import TextArea from "@@/components/TextArea";
+import TextInput, { TextInputSize } from "@@/components/TextInput";
+import { MOBILE_MEDIA } from "@@/constants/mediaquery";
 import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import usePostCreation from "@@/hooks/usePostCreation";
 import useMyself from "@@/hooks/useMyself";
 import { HandStreet } from "@@/models/Hand";
-
 import GameTypeSelect from "./GameTypeSelect";
 import HeroPositionSelect from "./HeroPositionSelect";
-import PlayerLengthSelect from "./PlayerLengthSelect";
 import PlayerActionSelectors from "./PlayerActionSelectors";
+import PlayerLengthSelect from "./PlayerLengthSelect";
+
 export default function NewPostPage() {
   const { signIn, signOut } = useAuthentication();
   const { trackEvent } = useAnalytics();
@@ -51,11 +51,11 @@ export default function NewPostPage() {
         <SectionTitle>Title</SectionTitle>
         <TextInput
           size={TextInputSize.large}
-          placeholder='e.g. I called to a fullhouse. What should I have done?'
+          placeholder="e.g. I called to a fullhouse. What should I have done?"
         />
 
         <SectionTitle>What you want to review?</SectionTitle>
-        <TextArea placeholder='e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end.' />
+        <TextArea placeholder="e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end." />
 
         <SectionTitle>Game Situation</SectionTitle>
         <GameSituation>
