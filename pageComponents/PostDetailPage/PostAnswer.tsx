@@ -10,11 +10,18 @@ import Answer from "@@/models/Answer";
 
 interface Props extends React.Attributes {
   answer: Answer;
+  onAnswerLikeClick?: React.MouseEventHandler;
+  onAnswerDislikeClick?: React.MouseEventHandler;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function PostAnswer({ answer, ...props }: Props) {
+export default function PostAnswer({
+  answer,
+  onAnswerLikeClick,
+  onAnswerDislikeClick,
+  ...props
+}: Props) {
   const { signIn } = useAuthentication();
   const { myself } = useMyself();
 
@@ -29,6 +36,8 @@ export default function PostAnswer({ answer, ...props }: Props) {
           dislikes={answer.dislikes}
           liked={answer.liked}
           disliked={answer.disliked}
+          onLikeClick={onAnswerLikeClick}
+          onDislikeClick={onAnswerDislikeClick}
         />
       }
       comments={answer.comments.map((comment) => (
