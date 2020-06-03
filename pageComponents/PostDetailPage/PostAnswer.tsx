@@ -7,11 +7,14 @@ import AnswerCard, {
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import Answer from "@@/models/Answer";
+import Comment from "@@/models/Comment";
 
 interface Props extends React.Attributes {
   answer: Answer;
   onAnswerLikeClick?: React.MouseEventHandler;
   onAnswerDislikeClick?: React.MouseEventHandler;
+  onCommentLikeClick?: (e: React.MouseEvent, comment: Comment) => void;
+  onCommentDislikeClick?: (e: React.MouseEvent, comment: Comment) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -20,6 +23,8 @@ export default function PostAnswer({
   answer,
   onAnswerLikeClick,
   onAnswerDislikeClick,
+  onCommentLikeClick = () => {},
+  onCommentDislikeClick = () => {},
   ...props
 }: Props) {
   const { signIn } = useAuthentication();
@@ -49,6 +54,8 @@ export default function PostAnswer({
           dislikes={comment.dislikes}
           liked={comment.liked}
           disliked={comment.disliked}
+          onLikeClick={(e) => onCommentLikeClick(e, comment)}
+          onDislikeClick={(e) => onCommentDislikeClick(e, comment)}
           key={comment.id}
         />
       ))}

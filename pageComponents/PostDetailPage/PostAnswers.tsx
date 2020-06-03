@@ -19,9 +19,16 @@ export default function PostAnswers({ postId, ...props }: Props) {
   // because this code might be confusing if it was used as token, yet checking signed in or not
   const { authenticationToken } = useAuthentication();
   const { trackEvent } = useAnalytics();
-  const { post, isLoading, likeAnswer, dislikeAnswer, unlikeAnswer } = usePost(
-    postId
-  );
+  const {
+    post,
+    isLoading,
+    likeAnswer,
+    likeComment,
+    dislikeAnswer,
+    dislikeComment,
+    unlikeAnswer,
+    unlikeComment,
+  } = usePost(postId);
 
   let answerElements = Array.from({ length: 3 }, (_, i) => (
     <LoadingAnswerCard
@@ -76,6 +83,44 @@ export default function PostAnswers({ postId, ...props }: Props) {
             trackEvent("answer_dislike_click", { to: "dislike" });
 
             dislikeAnswer(answer.id);
+          }
+        }}
+        onCommentLikeClick={(_, comment) => {
+          if (!authenticationToken) {
+            // TODO:
+            // replace this with a custom modal dialog component
+            alert("You need to sign in first to like this comment.");
+
+            return;
+          }
+
+          if (comment.liked) {
+            trackEvent("comment_like_click", { to: "unlike" });
+
+            unlikeComment(comment.id);
+          } else {
+            trackEvent("comment_like_click", { to: "like" });
+
+            likeComment(comment.id);
+          }
+        }}
+        onCommentDislikeClick={(_, comment) => {
+          if (!authenticationToken) {
+            // TODO:
+            // replace this with a custom modal dialog component
+            alert("You need to sign in first to like this comment.");
+
+            return;
+          }
+
+          if (comment.disliked) {
+            trackEvent("comment_dislike_click", { to: "unlike" });
+
+            unlikeComment(comment.id);
+          } else {
+            trackEvent("comment_dislike_click", { to: "dislike" });
+
+            dislikeComment(comment.id);
           }
         }}
         key={answer.id}
