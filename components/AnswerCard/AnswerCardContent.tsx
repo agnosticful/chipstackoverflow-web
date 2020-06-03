@@ -12,8 +12,8 @@ export interface Props extends React.Attributes {
   dislikes: number;
   liked?: boolean;
   disliked?: boolean;
-  onLikeClick?: () => void;
-  onDislikeClick?: () => void;
+  onLikeClick?: React.MouseEventHandler;
+  onDislikeClick?: React.MouseEventHandler;
   className?: string;
   style?: React.CSSProperties;
 }

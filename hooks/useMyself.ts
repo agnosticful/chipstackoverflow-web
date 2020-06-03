@@ -1,4 +1,5 @@
 import { useApolloClient } from "@apollo/react-hooks";
+import Bugsnag from "@bugsnag/js";
 import * as React from "react";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import useAuthentication from "@@/hooks/useAuthentication";
@@ -33,6 +34,12 @@ export function useMyselfObservation() {
     setMyselfState((previousState) => ({ ...previousState, isLoading: true }));
 
     getMyself({ apolloClient, authenticationToken }).then((myself) => {
+      if (myself) {
+        Bugsnag.setUser(myself.id, myself.email, myself.name);
+      } else {
+        Bugsnag.setUser(undefined, undefined, undefined);
+      }
+
       setMyselfState({ myself, isLoading: false, isInitialized: true });
     });
   }, [authenticationToken, isLoading]);
