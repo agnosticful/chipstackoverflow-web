@@ -15,7 +15,7 @@ jobs:
       - run: npm ci
       - run: npx --no-install prettier --check '**/*.{ts,tsx}'
   test:
-    name: Testing
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -24,13 +24,3 @@ jobs:
           node-version: "13.x"
       - run: npm ci
       - run: npx --no-install jest --ci
-  dry-build:
-    name: Dry Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "13.x"
-      - run: npm ci
-      - run: npx --no-install next build
