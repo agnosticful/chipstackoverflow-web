@@ -1,5 +1,5 @@
 import * as React from "react";
-import Select, { Option } from "../../components/Select";
+import Select, { Option } from "@@/components/Select";
 
 interface Props extends React.Attributes {
   defaultValue?: string;

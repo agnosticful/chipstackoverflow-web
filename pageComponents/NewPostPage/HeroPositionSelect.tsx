@@ -1,6 +1,6 @@
 import * as React from "react";
-import Select, { Option } from "../../components/Select";
-import { POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH } from "../../utilities/getPositionByPlayerAndIndex";
+import Select, { Option } from "@@/components/Select";
+import { POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH } from "@@/utilities/getPositionByPlayerAndIndex";
 
 interface Props extends React.Attributes {
   playerLength: number;
