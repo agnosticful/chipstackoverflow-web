@@ -65,20 +65,23 @@ export default function NewPostPage() {
 
         <SectionTitle>Blinds and Anti</SectionTitle>
         <Blinds>
-          Small Blind:&nbsp;
+          <ItemTitle>Small Blind:</ItemTitle>
           <BetSizeInput defaultValue={0} />
-          Big Blind:&nbsp;
+
+          <ItemTitle>Big Blind:</ItemTitle>
           <BetSizeInput defaultValue={1} disabled />
-          Anti:&nbsp;
+
+          <ItemTitle>Anti:</ItemTitle>
           <BetSizeInput defaultValue={0} />
         </Blinds>
 
         <SectionTitle>Your cards and position</SectionTitle>
         <HeroInfo>
-          You have:&nbsp;
+          <ItemTitle>You have:</ItemTitle>
           <PlayingCard />
           <PlayingCard />
-          at:&nbsp;
+
+          <ItemTitle>at:</ItemTitle>
           <HeroPositionSelect playerLength={2} />
         </HeroInfo>
 
@@ -163,6 +166,10 @@ const SectionTitle = styled.h3`
   margin-top: 24px;
   margin-bottom: 16px;
   font-size: 20px;
+`;
+
+const ItemTitle = styled.span`
+  margin-right: 4px;
 `;
 
 const GameSituation = styled.div`
