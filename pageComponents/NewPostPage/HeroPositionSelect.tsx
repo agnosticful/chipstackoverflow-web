@@ -4,7 +4,7 @@ import { POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH } from "@@/utilities/getPosi
 
 interface Props extends React.Attributes {
   playerLength: number;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>, value: string) => void;
+  onChange?: (heroIndex: number) => void;
   className?: string;
   style?: React.CSSProperties;
 }
@@ -15,17 +15,21 @@ export default function HeroPositionSelect({
   ...props
 }: Props) {
   const [positions, setPositions] = React.useState(
-    POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(playerLength)
+    POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(playerLength)!
   );
 
   React.useEffect(() => {
-    setPositions(POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(playerLength));
+    setPositions(POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(playerLength)!);
   }, [playerLength]);
 
   return (
-    <Select defaultValue={positions![0]} onChange={onChange} {...props}>
-      {positions!.map((val) => (
-        <Option key={val} value={val}>{`${val}`}</Option>
+    <Select
+      defaultValue={`${positions.length - 1}`}
+      onChange={(_, value) => onChange && onChange(Number(value))}
+      {...props}
+    >
+      {positions!.map((val, index) => (
+        <Option key={val} value={`${index}`}>{`${val}`}</Option>
       ))}
     </Select>
   );
