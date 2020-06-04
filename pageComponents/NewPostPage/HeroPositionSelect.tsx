@@ -15,7 +15,7 @@ export default function HeroPositionSelect({
   ...props
 }: Props) {
   const [positions, setPositions] = React.useState(
-    POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(2)
+    POSITION_CORRESPONDENCE_EACH_PLAYER_LENGTH.get(playerLength)
   );
 
   React.useEffect(() => {
