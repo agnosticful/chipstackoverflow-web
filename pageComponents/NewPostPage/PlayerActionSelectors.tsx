@@ -9,9 +9,9 @@ interface Props extends React.Attributes {
   playerLength: number;
   street: HandStreet;
   playerActions: HandAction[];
+  onChange?: (index: number, type: HandActionType, betSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
-  onChange?: (index: number, type: HandActionType, betSize: number) => void;
 }
 
 export default function PlayerActionSelectors({

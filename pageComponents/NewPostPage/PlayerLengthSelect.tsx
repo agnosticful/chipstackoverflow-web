@@ -2,19 +2,17 @@ import * as React from "react";
 import Select, { Option } from "@@/components/Select";
 
 interface Props extends React.Attributes {
-  defaultValue?: string;
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>, value: string) => void;
+  onChange?: (playerLength: number) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function PlayerLengthSelect({
-  defaultValue,
-  onChange,
-  ...props
-}: Props) {
+export default function PlayerLengthSelect({ onChange, ...props }: Props) {
   return (
-    <Select defaultValue={defaultValue} onChange={onChange} {...props}>
+    <Select
+      onChange={(_, value) => onChange && onChange(Number(value))}
+      {...props}
+    >
       <Option value={"2"}>Heads-up</Option>
       <Option value={"3"}>3 players</Option>
       <Option value={"4"}>4 players</Option>
