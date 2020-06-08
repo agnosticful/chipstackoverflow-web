@@ -59,7 +59,7 @@ const QUERY = gql`
       likes
       dislikes
       createdAt
-      updatedAt
+      lastUpdatedAt
     }
   }
 `;
