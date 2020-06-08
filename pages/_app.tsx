@@ -3,6 +3,7 @@ import Bugsnag from "@bugsnag/js";
 Bugsnag.start({
   apiKey: process.env.NEXT_PUBLIC_BUGSNAG_API_KEY!,
   releaseStage: process.env.NEXT_PUBLIC_BUGSNAG_RELEASE_STAGE,
+  enabledReleaseStages: ["production", "development", "development-preview"],
 });
 
 import { ApolloProvider } from "@apollo/react-hooks";
