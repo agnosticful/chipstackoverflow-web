@@ -9,7 +9,7 @@ export function toComment(value: any) {
     liked: value.liked,
     disliked: value.disliked,
     author: toUser(value.author),
-    createdAt: new Date(),
-    lastUpdatedAt: new Date(),
+    createdAt: new Date(value.createdAt),
+    lastUpdatedAt: new Date(value.lastUpdatedAt),
   };
 }
