@@ -106,7 +106,7 @@ export default function NewPostPage() {
         <SectionTitle>Preflop</SectionTitle>
         <StreetActionInput
           playerLength={post.playerLength}
-          playerActions={post.preflop}
+          actions={post.preflop}
         />
 
         {0 < post.flop.length ? (
@@ -114,7 +114,7 @@ export default function NewPostPage() {
             <SectionTitle>Flop</SectionTitle>
             <StreetActionInput
               playerLength={post.playerLength}
-              playerActions={post.flop}
+              actions={post.flop}
             />
           </>
         ) : null}
@@ -124,7 +124,7 @@ export default function NewPostPage() {
             <SectionTitle>Turn</SectionTitle>
             <StreetActionInput
               playerLength={post.playerLength}
-              playerActions={post.turn}
+              actions={post.turn}
             />
           </>
         ) : null}
@@ -134,7 +134,7 @@ export default function NewPostPage() {
             <SectionTitle>River</SectionTitle>
             <StreetActionInput
               playerLength={post.playerLength}
-              playerActions={post.river}
+              actions={post.river}
             />
           </>
         ) : null}

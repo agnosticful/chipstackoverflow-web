@@ -11,7 +11,7 @@ interface Props extends React.Attributes {
 
 export default function HeroPositionSelect({
   playerLength,
-  onChange,
+  onChange = () => {},
   ...props
 }: Props) {
   const [positions, setPositions] = React.useState(
@@ -25,7 +25,7 @@ export default function HeroPositionSelect({
   return (
     <Select
       defaultValue={`${positions.length - 1}`}
-      onChange={(_, value) => onChange && onChange(Number(value))}
+      onChange={(_, value) => onChange(Number(value))}
       {...props}
     >
       {positions!.map((val, index) => (

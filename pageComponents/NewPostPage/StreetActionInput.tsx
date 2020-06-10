@@ -8,7 +8,7 @@ import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndInde
 
 interface Props extends React.Attributes {
   playerLength: number;
-  playerActions: HandInputTypeAction[];
+  actions: HandInputTypeAction[];
   onChange?: (index: number, type: HandActionType, betSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -16,13 +16,13 @@ interface Props extends React.Attributes {
 
 export default function StreetActionInput({
   playerLength,
-  playerActions,
-  onChange,
+  actions,
+  onChange = () => {},
   ...props
 }: Props) {
   return (
     <Root {...props}>
-      {playerActions.map(
+      {actions.map(
         ({ playerIndex, previousBetSize, tableMaxBetSize }, index) => {
           return (
             <PlayerAction key={index}>
@@ -33,9 +33,7 @@ export default function StreetActionInput({
               <StreetActionSelector
                 tableMaxBetSize={tableMaxBetSize}
                 previousBetSize={previousBetSize}
-                onChange={(type, betSize) =>
-                  onChange && onChange(index, type, betSize)
-                }
+                onChange={(type, betSize) => onChange(index, type, betSize)}
               />
             </PlayerAction>
           );

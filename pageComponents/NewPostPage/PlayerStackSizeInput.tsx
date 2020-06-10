@@ -5,22 +5,30 @@ import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndInde
 
 interface Props extends React.Attributes {
   playerStackSizes: number[];
+  onChange?: (playerIndex: number, stackSize: number) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
 export default function PlayerStackSizeInput({
   playerStackSizes,
+  onChange = () => {},
   ...props
 }: Props) {
   return (
     <Root {...props}>
-      {playerStackSizes.map((playerStackSize, index) => (
+      {playerStackSizes.map((playerStackSize, playerIndex) => (
         <PlayerStackSize>
           <Position>
-            {`${getPositionByPlayerAndIndex(playerStackSizes.length, index)}:`}
+            {`${getPositionByPlayerAndIndex(
+              playerStackSizes.length,
+              playerIndex
+            )}:`}
           </Position>
-          <BetSizeInput defaultValue={playerStackSize} />
+          <BetSizeInput
+            defaultValue={playerStackSize}
+            onChange={(_, stackSize) => onChange(playerIndex, stackSize)}
+          />
         </PlayerStackSize>
       ))}
     </Root>

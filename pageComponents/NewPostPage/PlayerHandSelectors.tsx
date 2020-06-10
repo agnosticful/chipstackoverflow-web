@@ -1,18 +1,18 @@
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
-import PlayingCard from "@@/components/PortraitPlayingCard";
+import PlayingCardSelector from "@@/components/PlayingCardSelector";
 import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndIndex";
-import PlayingCardType from "@@/models/PlayingCard";
+import PlayingCard from "@@/models/PlayingCard";
 
 interface Props extends React.Attributes {
   playerLength: number;
-  playerHands: [PlayingCardType | null, PlayingCardType | null][];
+  playerHands: [PlayingCard | null, PlayingCard | null][];
   activePlayerIndexes: number[];
   onChange?: (
     index: number,
     type: "LEFT" | "RIGHT",
-    playingCard: PlayingCardType
+    playingCard: PlayingCard
   ) => void;
   className?: string;
   style?: React.CSSProperties;
@@ -22,7 +22,7 @@ export default function PlayerHandSelectors({
   playerLength,
   playerHands,
   activePlayerIndexes,
-  onChange,
+  onChange = () => {},
   ...props
 }: Props) {
   return (
@@ -36,13 +36,19 @@ export default function PlayerHandSelectors({
               </Label>
 
               <HeroHand>
-                <PlayingCard
-                  suit={left ? left.suit : undefined}
-                  rank={left ? left.rank : undefined}
+                <PlayingCardSelector
+                  initialRank={left ? left.rank : undefined}
+                  initialSuit={left ? left.suit : undefined}
+                  onChange={(PlayingCard) =>
+                    onChange(playerIndex, "LEFT", PlayingCard)
+                  }
                 />
-                <PlayingCard
-                  suit={right ? right.suit : undefined}
-                  rank={right ? right.rank : undefined}
+                <PlayingCardSelector
+                  initialRank={right ? right.rank : undefined}
+                  initialSuit={right ? right.suit : undefined}
+                  onChange={(PlayingCard) =>
+                    onChange(playerIndex, "RIGHT", PlayingCard)
+                  }
                 />
               </HeroHand>
             </PlayerHand>

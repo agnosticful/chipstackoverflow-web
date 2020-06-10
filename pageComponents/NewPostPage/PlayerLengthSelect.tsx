@@ -7,12 +7,12 @@ interface Props extends React.Attributes {
   style?: React.CSSProperties;
 }
 
-export default function PlayerLengthSelect({ onChange, ...props }: Props) {
+export default function PlayerLengthSelect({
+  onChange = () => {},
+  ...props
+}: Props) {
   return (
-    <Select
-      onChange={(_, value) => onChange && onChange(Number(value))}
-      {...props}
-    >
+    <Select onChange={(_, value) => onChange(Number(value))} {...props}>
       <Option value={"2"}>Heads-up</Option>
       <Option value={"3"}>3 players</Option>
       <Option value={"4"}>4 players</Option>

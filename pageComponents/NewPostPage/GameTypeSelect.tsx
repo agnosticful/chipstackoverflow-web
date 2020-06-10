@@ -9,16 +9,11 @@ interface Props extends React.Attributes {
 }
 
 export default function GameTypeSelect({
-  defaultValue,
-  onChange,
+  onChange = () => {},
   ...props
 }: Props) {
   return (
-    <Select
-      defaultValue={defaultValue}
-      onChange={(_, value) => onChange && onChange(value)}
-      {...props}
-    >
+    <Select onChange={(_, value) => onChange(value)} {...props}>
       <Option value={GameType.cash}>CASH</Option>
       <Option value={GameType.tournament}>TOURNAMENT</Option>
     </Select>
