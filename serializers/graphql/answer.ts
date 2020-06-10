@@ -12,7 +12,7 @@ export function toAnswer(value: any): Answer {
     disliked: value.disliked,
     author: toUser(value.author),
     comments: value.comments.map((item: any) => toComment(item)),
-    createdAt: new Date(),
-    lastUpdatedAt: new Date(),
+    createdAt: new Date(value.createdAt),
+    lastUpdatedAt: new Date(value.lastUpdatedAt),
   };
 }

@@ -92,10 +92,14 @@ const QUERY = gql`
             name
             profileImageURL
           }
+          createdAt
+          lastUpdatedAt
         }
+        createdAt
+        lastUpdatedAt
       }
       createdAt
-      updatedAt
+      lastUpdatedAt
     }
   }
 `;
