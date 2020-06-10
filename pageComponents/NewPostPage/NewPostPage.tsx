@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import * as React from "react";
 import styled from "styled-components";
 import BetSizeInput from "@@/components/BetSizeInput";
@@ -11,16 +12,18 @@ import useAnalytics from "@@/hooks/useAnalytics";
 import useAuthentication from "@@/hooks/useAuthentication";
 import usePostCreation from "@@/hooks/usePostCreation";
 import useMyself from "@@/hooks/useMyself";
-import { HandStreet } from "@@/models/Hand";
 import GameTypeSelect from "./GameTypeSelect";
 import HeroPositionSelect from "./HeroPositionSelect";
-import PlayerActionSelectors from "./PlayerActionSelectors";
 import PlayerLengthSelect from "./PlayerLengthSelect";
+import PlayerStackSizeInputs from "./PlayerStackSizeInput";
+import StreetActionInput from "./StreetActionInput";
+import PlayerHandSelectors from "./PlayerHandSelectors";
 
 export default function NewPostPage() {
   const { signIn, signOut } = useAuthentication();
   const { trackEvent } = useAnalytics();
   const { myself, isLoading: isMyselfLoading } = useMyself();
+  const router = useRouter();
 
   const { post } = usePostCreation();
 
@@ -48,56 +51,69 @@ export default function NewPostPage() {
       <Content>
         <Headline>Create a New Post</Headline>
 
-        <SectionTitle>Title</SectionTitle>
+        <ItemTitle>Title</ItemTitle>
         <TextInput
           size={TextInputSize.large}
           placeholder="e.g. I called to a fullhouse. What should I have done?"
         />
 
-        <SectionTitle>What you want to review?</SectionTitle>
+        <ItemTitle>What you want to review?</ItemTitle>
         <TextArea placeholder="e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end." />
 
-        <SectionTitle>Game Situation</SectionTitle>
-        <GameSituation>
-          <PlayerLengthSelect />
-          <GameTypeSelect />
-        </GameSituation>
+        <ItemTitle>Game Type</ItemTitle>
+        <GameTypeSelect />
 
-        <SectionTitle>Blinds and Anti</SectionTitle>
+        <ItemTitle>Number of Player</ItemTitle>
+        <PlayerLengthSelect />
+
+        <SectionTitle>Stack Sizes</SectionTitle>
+        <PlayerStackSizeInputs playerStackSizes={post.playerStackSizes} />
+
+        <SectionTitle>{`Blinds & Anti`}</SectionTitle>
         <Blinds>
-          <ItemTitle>Small Blind:</ItemTitle>
-          <BetSizeInput defaultValue={0} />
+          <HorizontalLabel>
+            <HorizontalItemTitle>Small:</HorizontalItemTitle>
+            <BetSizeInput defaultValue={0} />
+          </HorizontalLabel>
 
-          <ItemTitle>Big Blind:</ItemTitle>
-          <BetSizeInput defaultValue={1} disabled />
+          <HorizontalLabel>
+            <HorizontalItemTitle>Big:</HorizontalItemTitle>
+            <BetSizeInput defaultValue={1} disabled />
+          </HorizontalLabel>
 
-          <ItemTitle>Anti:</ItemTitle>
-          <BetSizeInput defaultValue={0} />
+          <HorizontalLabel>
+            <HorizontalItemTitle>Anti:</HorizontalItemTitle>
+            <BetSizeInput defaultValue={0} />
+          </HorizontalLabel>
         </Blinds>
 
         <SectionTitle>Your cards and position</SectionTitle>
         <HeroInfo>
-          <ItemTitle>You have:</ItemTitle>
-          <PlayingCard />
-          <PlayingCard />
+          <HorizontalLabel>
+            <HorizontalItemTitle>Hand:</HorizontalItemTitle>
+            <HeroHand>
+              <PlayingCard />
+              <PlayingCard />
+            </HeroHand>
+          </HorizontalLabel>
 
-          <ItemTitle>at:</ItemTitle>
-          <HeroPositionSelect playerLength={2} />
+          <HorizontalLabel>
+            <HorizontalItemTitle>at:</HorizontalItemTitle>
+            <HeroPositionSelect playerLength={2} />
+          </HorizontalLabel>
         </HeroInfo>
 
         <SectionTitle>Preflop</SectionTitle>
-        <PlayerActionSelectors
+        <StreetActionInput
           playerLength={post.playerLength}
-          street={HandStreet.preflop}
           playerActions={post.preflop}
         />
 
         {0 < post.flop.length ? (
           <>
             <SectionTitle>Flop</SectionTitle>
-            <PlayerActionSelectors
+            <StreetActionInput
               playerLength={post.playerLength}
-              street={HandStreet.flop}
               playerActions={post.flop}
             />
           </>
@@ -106,9 +122,8 @@ export default function NewPostPage() {
         {0 < post.flop.length ? (
           <>
             <SectionTitle>Turn</SectionTitle>
-            <PlayerActionSelectors
+            <StreetActionInput
               playerLength={post.playerLength}
-              street={HandStreet.turn}
               playerActions={post.turn}
             />
           </>
@@ -117,16 +132,33 @@ export default function NewPostPage() {
         {0 < post.flop.length ? (
           <>
             <SectionTitle>River</SectionTitle>
-            <PlayerActionSelectors
+            <StreetActionInput
               playerLength={post.playerLength}
-              street={HandStreet.river}
               playerActions={post.river}
             />
           </>
         ) : null}
 
+        {0 < post.showdownActivePlayer.length ? (
+          <>
+            <SectionTitle>Showdown</SectionTitle>
+            <PlayerHandSelectors
+              playerLength={post.playerLength}
+              playerHands={post.playerHands}
+              activePlayerIndexes={post.showdownActivePlayer}
+            />
+          </>
+        ) : null}
+
         <Actions>
-          <Button variant={ButtonVariant.secondary}>Cancel</Button>
+          <Button
+            variant={ButtonVariant.secondary}
+            onClick={() => {
+              router.replace("/new", "/");
+            }}
+          >
+            Cancel
+          </Button>
           <Button>Leave a Post</Button>
         </Actions>
       </Content>
@@ -155,37 +187,61 @@ const Content = styled.section`
 
 const Headline = styled.h2`
   margin-bottom: 32px;
-  font-size: 32px;
+  font-size: 40px;
 
   ${MOBILE_MEDIA} {
-    font-size: 24px;
+    font-size: 32px;
   }
 `;
 
 const SectionTitle = styled.h3`
+  margin: 80px 0 32px;
+  font-size: 24px;
+`;
+
+const ItemTitle = styled.label`
+  display: block;
   margin-top: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   font-size: 20px;
+  font-weight: 500;
 `;
 
-const ItemTitle = styled.span`
-  margin-right: 4px;
-`;
-
-const GameSituation = styled.div`
+const HorizontalLabel = styled.div`
   display: flex;
+  margin-right: 16px;
+  align-items: center;
 
-  & > div:first-child {
-    margin-right: 16px;
+  &:last-child {
+    margin-right: 0;
   }
+
+  ${MOBILE_MEDIA} {
+    margin-right: 0;
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`;
+
+const HorizontalItemTitle = styled.label`
+  display: block;
+  width: 50px;
+  margin-right: 8px;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 500;
 `;
 
 const Blinds = styled.div`
   display: flex;
   align-items: center;
 
-  & > div {
-    margin-right: 16px;
+  ${MOBILE_MEDIA} {
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 
@@ -196,11 +252,31 @@ const HeroInfo = styled.div`
   & > * {
     margin-right: 16px;
   }
+
+  ${MOBILE_MEDIA} {
+    flex-direction: column;
+    align-items: flex-start;
+
+    & > * {
+      margin-right: 0;
+    }
+  }
+`;
+
+const HeroHand = styled.div`
+  & > span {
+    width: 48px;
+  }
+
+  & > span:first-child {
+    margin-right: 8px;
+  }
 `;
 
 const Actions = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 80px;
 
   & > button:first-child {
     margin-right: 16px;
