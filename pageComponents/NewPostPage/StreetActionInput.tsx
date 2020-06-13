@@ -70,7 +70,7 @@ const Label = styled.label`
   justify-content: flex-end;
   width: 50px;
   margin-right: 8px;
-  font-size: 20px;
+  font-size: 16px;
 
   ${MOBILE_MEDIA} {
     box-sizing: content-box;

@@ -188,22 +188,22 @@ const Content = styled.section`
 const Headline = styled.h2`
   margin-bottom: 32px;
   font-size: 40px;
-
-  ${MOBILE_MEDIA} {
-    font-size: 32px;
-  }
 `;
 
 const SectionTitle = styled.h3`
-  margin: 80px 0 32px;
-  font-size: 24px;
+  margin: 64px 0 16px;
+  font-size: 32px;
+
+  ${MOBILE_MEDIA} {
+    font-size: 24px;
+  }
 `;
 
 const ItemTitle = styled.label`
   display: block;
   margin-top: 24px;
   margin-bottom: 8px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
 `;
 
@@ -231,7 +231,7 @@ const HorizontalItemTitle = styled.label`
   width: 50px;
   margin-right: 8px;
   text-align: right;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
 `;
 

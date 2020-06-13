@@ -53,6 +53,6 @@ const PlayerStackSize = styled.div`
 const Position = styled.div`
   width: 50px;
   margin-right: 8px;
-  font-size: 20px;
+  font-size: 16px;
   text-align: right;
 `;
