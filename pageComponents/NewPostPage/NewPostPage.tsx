@@ -4,7 +4,7 @@ import styled from "styled-components";
 import BetSizeInput from "@@/components/BetSizeInput";
 import Button, { ButtonVariant } from "@@/components/Button";
 import HeadBar from "@@/components/HeadBar";
-import PlayingCard from "@@/components/PortraitPlayingCard";
+import SelectablePlayingCard from "@@/components/SelectablePlayingCard";
 import TextArea from "@@/components/TextArea";
 import TextInput, { TextInputSize } from "@@/components/TextInput";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
@@ -54,11 +54,11 @@ export default function NewPostPage() {
         <ItemTitle>Title</ItemTitle>
         <TextInput
           size={TextInputSize.large}
-          placeholder="e.g. I called to a fullhouse. What should I have done?"
+          placeholder='e.g. I called to a fullhouse. What should I have done?'
         />
 
         <ItemTitle>What you want to review?</ItemTitle>
-        <TextArea placeholder="e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end." />
+        <TextArea placeholder='e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end.' />
 
         <ItemTitle>Game Type</ItemTitle>
         <GameTypeSelect />
@@ -92,8 +92,8 @@ export default function NewPostPage() {
           <HorizontalLabel>
             <HorizontalItemTitle>Hand:</HorizontalItemTitle>
             <HeroHand>
-              <PlayingCard />
-              <PlayingCard />
+              <_SelectablePlayingCard />
+              <_SelectablePlayingCard />
             </HeroHand>
           </HorizontalLabel>
 
@@ -264,13 +264,13 @@ const HeroInfo = styled.div`
 `;
 
 const HeroHand = styled.div`
-  & > span {
-    width: 48px;
-  }
-
-  & > span:first-child {
+  & > div:first-child {
     margin-right: 8px;
   }
+`;
+
+const _SelectablePlayingCard = styled(SelectablePlayingCard)`
+  width: 48px;
 `;
 
 const Actions = styled.div`

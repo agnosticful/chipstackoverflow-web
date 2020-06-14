@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
-import PlayingCardSelector from "@@/components/PlayingCardSelector";
-import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndIndex";
+import SelectablePlayingCard from "@@/components/SelectablePlayingCard";
 import PlayingCard from "@@/models/PlayingCard";
+import getPositionByPlayerAndIndex from "@@/utilities/getPositionByPlayerAndIndex";
 
 interface Props extends React.Attributes {
   playerLength: number;
@@ -27,34 +27,31 @@ export default function PlayerHandSelectors({
 }: Props) {
   return (
     <Root {...props}>
-      {playerHands
-        .map(([left, right], playerIndex) => {
-          return (
-            <PlayerHand key={playerIndex}>
-              <Label>
-                {`${getPositionByPlayerAndIndex(playerLength, playerIndex)}:`}
-              </Label>
+      {playerHands.map(([left, right], playerIndex) => (
+        <Players key={playerIndex}>
+          <Label>
+            {`${getPositionByPlayerAndIndex(playerLength, playerIndex)}:`}
+          </Label>
 
-              <HeroHand>
-                <PlayingCardSelector
-                  initialRank={left ? left.rank : undefined}
-                  initialSuit={left ? left.suit : undefined}
-                  onChange={(PlayingCard) =>
-                    onChange(playerIndex, "LEFT", PlayingCard)
-                  }
-                />
-                <PlayingCardSelector
-                  initialRank={right ? right.rank : undefined}
-                  initialSuit={right ? right.suit : undefined}
-                  onChange={(PlayingCard) =>
-                    onChange(playerIndex, "RIGHT", PlayingCard)
-                  }
-                />
-              </HeroHand>
-            </PlayerHand>
-          );
-        })
-        .filter((_, index) => activePlayerIndexes.includes(index))}
+          <PlayerHand>
+            <_SelectablePlayingCard
+              initialRank={left ? left.rank : undefined}
+              initialSuit={left ? left.suit : undefined}
+              onChange={(PlayingCard) =>
+                onChange(playerIndex, "LEFT", PlayingCard)
+              }
+            />
+
+            <_SelectablePlayingCard
+              initialRank={right ? right.rank : undefined}
+              initialSuit={right ? right.suit : undefined}
+              onChange={(PlayingCard) =>
+                onChange(playerIndex, "RIGHT", PlayingCard)
+              }
+            />
+          </PlayerHand>
+        </Players>
+      ))}
     </Root>
   );
 }
@@ -64,7 +61,7 @@ const Root = styled.div`
   flex-direction: column;
 `;
 
-const PlayerHand = styled.div`
+const Players = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 16px;
@@ -96,12 +93,12 @@ const Label = styled.label`
   }
 `;
 
-const HeroHand = styled.div`
-  & > span {
-    width: 48px;
-  }
-
-  & > span:first-child {
+const PlayerHand = styled.div`
+  & > div:first-child {
     margin-right: 8px;
   }
+`;
+
+const _SelectablePlayingCard = styled(SelectablePlayingCard)`
+  width: 48px;
 `;
