@@ -13,7 +13,7 @@ export const example = () => (
       {
         id: "loremipsum",
         name: "Lorem Ipsum",
-        profileImageURL: new URL("https://www.kohei.dev/profile.jpg"),
+        imageURL: new URL("https://www.kohei.dev/profile.jpg"),
       } as any
     }
     onSignOutButtonClick={action("onSignOutButtonClick")}

@@ -1,6 +1,6 @@
 import Answer from "@@/models/Answer";
 import Hand from "@@/models/Hand";
-import User from "@@/models/User";
+import User from "@@/models/UserProfile";
 
 export default interface Post extends PostMinimum {
   author: User;

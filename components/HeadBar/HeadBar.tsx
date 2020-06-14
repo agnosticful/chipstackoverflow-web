@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Button, { ButtonSize, ButtonVariant } from "@@/components/Button";
 import { MOBILE_MEDIA } from "@@/constants/mediaquery";
-import User from "@@/models/User";
+import User from "@@/models/UserProfile";
 import SignedInRight from "./SignedInRight";
 
 interface Props extends React.Attributes {

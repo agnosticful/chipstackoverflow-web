@@ -3,12 +3,12 @@ import PlayingCard from "@@/models/PlayingCard";
 import Post, { PostMinimum } from "@@/models/Post";
 import { toAnswer } from "@@/serializers/graphql/answer";
 import { toPlayingCard } from "@@/serializers/graphql/playingCard";
-import { toUser } from "@@/serializers/graphql/user";
+import { toUserProfile } from "@@/serializers/graphql/userProfile";
 
 export function toPost(value: any): Post {
   return {
     ...toPostMinimum(value),
-    author: toUser(value.author),
+    author: toUserProfile(value.author),
     answers: value.answers.map((item: any) => toAnswer(item)),
   };
 }
