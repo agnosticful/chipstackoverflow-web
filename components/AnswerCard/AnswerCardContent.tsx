@@ -46,7 +46,7 @@ export default function AnswerCardContent({
 
       <Body>
         {body.split("\n").map((line) => (
-          <p>{line}</p>
+          <p key={line}>{line}</p>
         ))}
       </Body>
 
