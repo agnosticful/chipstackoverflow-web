@@ -3,13 +3,13 @@ import Bugsnag from "@bugsnag/js";
 import * as React from "react";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import useAuthentication from "@@/hooks/useAuthentication";
-import { Myself } from "@@/models/User";
+import UserProfile from "@@/models/UserProfile";
 import getMyself from "@@/repositories/getMyself";
 
 const myselfState = atom({
   key: "Myself",
   default: {
-    myself: null as Myself | null,
+    myself: null as UserProfile | null,
     isLoading: false,
     isInitialized: false,
   },
@@ -35,7 +35,7 @@ export function useMyselfObservation() {
 
     getMyself({ apolloClient, authenticationToken }).then((myself) => {
       if (myself) {
-        Bugsnag.setUser(myself.id, myself.email, myself.name);
+        Bugsnag.setUser(myself.id, myself.name);
       } else {
         Bugsnag.setUser(undefined, undefined, undefined);
       }

@@ -1,5 +1,5 @@
 import Comment from "@@/models/Comment";
-import User from "@@/models/User";
+import User from "@@/models/UserProfile";
 
 export default interface Answer {
   id: AnswerId;

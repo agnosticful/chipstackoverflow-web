@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloError, gql } from "apollo-boost";
-import { Myself } from "@@/models/User";
-import { toMyself } from "@@/serializers/graphql/user";
+import User from "@@/models/UserProfile";
+import { toUserProfile } from "@@/serializers/graphql/userProfile";
 
 export default async function getMyself({
   apolloClient,
@@ -8,14 +8,14 @@ export default async function getMyself({
 }: {
   apolloClient: ApolloClient<any>;
   authenticationToken: string | null;
-}): Promise<Myself | null> {
+}): Promise<User | null> {
   try {
     const { data } = await apolloClient.query({
       query: MYSELF_QUERY,
       context: { headers: { authorization: `Bearer ${authenticationToken}` } },
     });
 
-    return toMyself(data.myself);
+    return toUserProfile(data.myself);
   } catch (error) {
     if (
       error instanceof ApolloError &&
@@ -32,9 +32,8 @@ const MYSELF_QUERY = gql`
   {
     myself {
       id
-      email
       name
-      profileImageURL
+      imageURL
     }
   }
 `;

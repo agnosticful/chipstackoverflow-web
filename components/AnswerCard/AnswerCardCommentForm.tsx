@@ -4,7 +4,7 @@ import Avatar from "@@/components/Avatar";
 import Button from "@@/components/Button";
 import { LoadingIcon, SendIcon } from "@@/components/Icon";
 import TextArea from "@@/components/TextArea";
-import User from "@@/models/User";
+import User from "@@/models/UserProfile";
 
 export interface Props extends React.Attributes {
   user: User;
@@ -52,7 +52,7 @@ export default function AnswerCardCommentForm({
   return (
     <Root {...props}>
       <Author>
-        <AuthorAvatar src={user.profileImageURL.href} />
+        <AuthorAvatar src={user.imageURL.href} />
 
         <AuthorName>{user.name}</AuthorName>
       </Author>
