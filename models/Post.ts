@@ -30,3 +30,8 @@ export type PostTitle = string & {
 export type PostBody = string & {
   _PostBodyBrand: never;
 };
+
+export enum GameType {
+  cash,
+  tournament,
+}
