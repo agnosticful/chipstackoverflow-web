@@ -54,11 +54,11 @@ export default function NewPostPage() {
         <ItemTitle>Title</ItemTitle>
         <TextInput
           size={TextInputSize.large}
-          placeholder='e.g. I called to a fullhouse. What should I have done?'
+          placeholder="e.g. I called to a fullhouse. What should I have done?"
         />
 
         <ItemTitle>What you want to review?</ItemTitle>
-        <TextArea placeholder='e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end.' />
+        <TextArea placeholder="e.g. That was tough situation. 1 BB is 0.5 USD at the time. So I needed to call for 702 USD at the end." />
 
         <ItemTitle>Game Type</ItemTitle>
         <GameTypeSelect />
