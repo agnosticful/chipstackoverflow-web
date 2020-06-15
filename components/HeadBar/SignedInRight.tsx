@@ -2,7 +2,7 @@ import * as React from "react";
 import Avatar from "@@/components/Avatar";
 import { SignOutIcon } from "@@/components/Icon";
 import PopoverMenu, { PopoverMenuItem } from "@@/components/PopoverMenu";
-import User from "@@/models/User";
+import User from "@@/models/UserProfile";
 
 interface Props extends React.Attributes {
   user: User;
@@ -27,7 +27,7 @@ export default function SignedInRight({
       }
       {...props}
     >
-      <Avatar src={user.profileImageURL.href} />
+      <Avatar src={user.imageURL.href} />
     </PopoverMenu>
   );
 }

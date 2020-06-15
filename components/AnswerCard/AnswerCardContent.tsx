@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { css } from "styled-components";
 import Avatar from "@@/components/Avatar";
 import { ThumbsDownIcon, ThumbsUpIcon } from "@@/components/Icon";
-import User from "@@/models/User";
+import User from "@@/models/UserProfile";
 
 export interface Props extends React.Attributes {
   user: User;
@@ -36,7 +36,7 @@ export default function AnswerCardContent({
   return (
     <Root {...props}>
       <Author>
-        <AuthorAvatar src={user.profileImageURL.href} />
+        <AuthorAvatar src={user.imageURL.href} />
 
         <AuthorName>{user.name}</AuthorName>
       </Author>
@@ -46,7 +46,7 @@ export default function AnswerCardContent({
 
       <Body>
         {body.split("\n").map((line) => (
-          <p>{line}</p>
+          <p key={line}>{line}</p>
         ))}
       </Body>
 

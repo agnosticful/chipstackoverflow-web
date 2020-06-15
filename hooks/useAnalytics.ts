@@ -20,10 +20,7 @@ export function useAnalyticsObservation() {
 
   React.useEffect(() => {
     if (myself) {
-      fullstory?.identify(myself.id, {
-        displayName: myself.name,
-        email: myself.email,
-      });
+      fullstory?.identify(myself.id, { displayName: myself.name });
     } else {
       fullstory?.anonymize();
     }

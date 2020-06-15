@@ -3,7 +3,7 @@ import Post, { PostId } from "@@/models/Post";
 import { toPost } from "@@/serializers/graphql/post";
 
 export default async function getPostById(
-  id: PostId,
+  postId: PostId,
   {
     apolloClient,
     authenticationToken,
@@ -14,7 +14,7 @@ export default async function getPostById(
 ): Promise<Post> {
   const { data } = await apolloClient.query({
     query: QUERY,
-    variables: { id },
+    variables: { postId },
     context: { headers: { authorization: `Bearer ${authenticationToken}` } },
   });
 
@@ -22,8 +22,8 @@ export default async function getPostById(
 }
 
 const QUERY = gql`
-  query getPostById($id: ID!) {
-    post(id: $id) {
+  query getPostById($postId: ID!) {
+    post(postId: $postId) {
       id
       title
       body
@@ -66,7 +66,7 @@ const QUERY = gql`
       author {
         id
         name
-        profileImageURL
+        imageURL
       }
       answers {
         id
@@ -78,7 +78,7 @@ const QUERY = gql`
         author {
           id
           name
-          profileImageURL
+          imageURL
         }
         comments {
           id
@@ -90,7 +90,7 @@ const QUERY = gql`
           author {
             id
             name
-            profileImageURL
+            imageURL
           }
           createdAt
           lastUpdatedAt
