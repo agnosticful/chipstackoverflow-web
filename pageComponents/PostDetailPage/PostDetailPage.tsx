@@ -6,7 +6,7 @@ import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import { PostId } from "@@/models/Post";
 import HandPlayerSection from "./HandPlayerSection";
-import PostAnswers from "./PostAnswers";
+import AnswerList from "./AnswerList";
 import PostBody from "./PostBody";
 import PostTitle from "./PostTitle";
 
@@ -55,7 +55,7 @@ export default function PostDetailPage({
 
         <_PostBody postId={postId} />
 
-        <_PostAnswers postId={postId} />
+        <_AnswerList postId={postId} />
       </Content>
     </Root>
   );
@@ -88,6 +88,6 @@ const _PostBody = styled(PostBody)`
   margin-top: 64px;
 `;
 
-const _PostAnswers = styled(PostAnswers)`
+const _AnswerList = styled(AnswerList)`
   margin-top: 64px;
 `;

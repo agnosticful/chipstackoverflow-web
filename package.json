@@ -23,7 +23,7 @@
     "react": "16.13.0",
     "react-content-loader": "^5.0.2",
     "react-dom": "16.13.0",
-    "recoil": "0.0.7",
+    "recoil": "github:Pearce-Ropion/Recoil#38f0675e263053341f16fbf93e10d51aba0068bc",
     "rxjs": "^6.5.4",
     "styled-components": "^5.0.1"
   },
@@ -39,6 +39,7 @@
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "@types/react-test-renderer": "^16.9.2",
+    "@types/recoil": "0.0.1",
     "@types/styled-components": "^5.0.1",
     "babel-loader": "^8.1.0",
     "jest": "^25.1.0",
