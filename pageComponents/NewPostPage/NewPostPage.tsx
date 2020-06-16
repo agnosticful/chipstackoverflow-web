@@ -63,7 +63,7 @@ export default function NewPostPage() {
         <ItemTitle>Game Type</ItemTitle>
         <GameTypeSelect />
 
-        <ItemTitle>Number of Player</ItemTitle>
+        <ItemTitle>Number of Players</ItemTitle>
         <PlayerLengthSelect />
 
         <SectionTitle>Stack Sizes</SectionTitle>
@@ -186,7 +186,7 @@ const Content = styled.section`
 `;
 
 const Headline = styled.h2`
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   font-size: 40px;
 `;
 
