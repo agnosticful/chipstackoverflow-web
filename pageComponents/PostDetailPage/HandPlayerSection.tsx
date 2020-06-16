@@ -17,7 +17,7 @@ export default function HandPlayerSection({
   defaultSnapshotIndex = 0,
   ...props
 }: Props) {
-  const { post, isLoading } = usePost(postId);
+  const { post, isLoading } = usePost({ postId });
 
   let player = <HandPlayerContentLoader />;
 

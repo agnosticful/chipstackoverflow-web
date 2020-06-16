@@ -4,31 +4,29 @@ import AnswerCard, {
   AnswerCardCommentForm,
   AnswerCardCommentFormFilling,
 } from "@@/components/AnswerCard";
+import useAnswerReaction from "@@/hooks/useAnswerReaction";
 import useAuthentication from "@@/hooks/useAuthentication";
 import useMyself from "@@/hooks/useMyself";
 import Answer from "@@/models/Answer";
-import Comment from "@@/models/Comment";
+import { PostId } from "@@/models/Post";
+import useAnalytics from "@@/hooks/useAnalytics";
+import CommentListItem from "./CommentListItem";
 
 interface Props extends React.Attributes {
+  postId: PostId;
   answer: Answer;
-  onAnswerLikeClick?: React.MouseEventHandler;
-  onAnswerDislikeClick?: React.MouseEventHandler;
-  onCommentLikeClick?: (e: React.MouseEvent, comment: Comment) => void;
-  onCommentDislikeClick?: (e: React.MouseEvent, comment: Comment) => void;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function PostAnswer({
-  answer,
-  onAnswerLikeClick,
-  onAnswerDislikeClick,
-  onCommentLikeClick = () => {},
-  onCommentDislikeClick = () => {},
-  ...props
-}: Props) {
+export default function AnswerListItem({ postId, answer, ...props }: Props) {
   const { signIn } = useAuthentication();
+  const { trackEvent } = useAnalytics();
   const { myself } = useMyself();
+  const { like, dislike, unlike } = useAnswerReaction({
+    postId,
+    answerId: answer.id,
+  });
 
   return (
     <AnswerCard
@@ -41,21 +39,35 @@ export default function PostAnswer({
           dislikes={answer.dislikes}
           liked={answer.liked}
           disliked={answer.disliked}
-          onLikeClick={onAnswerLikeClick}
-          onDislikeClick={onAnswerDislikeClick}
+          onLikeClick={() => {
+            if (answer.liked) {
+              trackEvent("answer_like_click", { to: "unlike" });
+
+              unlike();
+            } else {
+              trackEvent("answer_like_click", { to: "like" });
+
+              like();
+            }
+          }}
+          onDislikeClick={() => {
+            if (answer.disliked) {
+              trackEvent("answer_dislike_click", { to: "unlike" });
+
+              unlike();
+            } else {
+              trackEvent("answer_dislike_click", { to: "dislike" });
+
+              dislike();
+            }
+          }}
         />
       }
       comments={answer.comments.map((comment) => (
-        <AnswerCardContent
-          user={comment.author}
-          body={comment.body}
-          createDate={comment.createdAt}
-          likes={comment.likes}
-          dislikes={comment.dislikes}
-          liked={comment.liked}
-          disliked={comment.disliked}
-          onLikeClick={(e) => onCommentLikeClick(e, comment)}
-          onDislikeClick={(e) => onCommentDislikeClick(e, comment)}
+        <CommentListItem
+          postId={postId}
+          answerId={answer.id}
+          comment={comment}
           key={comment.id}
         />
       ))}

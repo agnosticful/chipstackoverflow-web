@@ -11,7 +11,7 @@ interface Props extends React.Attributes {
 }
 
 export default function PostTitle({ postId, ...props }: Props) {
-  const { post, isLoading } = usePost(postId);
+  const { post, isLoading } = usePost({ postId });
 
   if (isLoading) {
     return (

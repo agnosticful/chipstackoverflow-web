@@ -15,7 +15,11 @@ export default async function getPostById(
   const { data } = await apolloClient.query({
     query: QUERY,
     variables: { postId },
-    context: { headers: { authorization: `Bearer ${authenticationToken}` } },
+    context: {
+      headers: authenticationToken
+        ? { authorization: `Bearer ${authenticationToken}` }
+        : {},
+    },
   });
 
   return data.post ? toPost(data.post) : data.post;
