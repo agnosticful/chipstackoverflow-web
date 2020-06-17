@@ -111,6 +111,7 @@ const Body = styled.div`
 
   > p {
     margin: 1em 0;
+    overflow-wrap: break-word;
 
     :first-of-type {
       margin-top: 0;
