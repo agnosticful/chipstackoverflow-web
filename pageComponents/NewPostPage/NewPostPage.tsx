@@ -186,13 +186,13 @@ const Content = styled.section`
 `;
 
 const Headline = styled.h2`
-  margin-bottom: 28px;
+  margin-bottom: 32px;
   font-size: 40px;
 `;
 
 const SectionTitle = styled.h3`
   margin: 64px 0 16px;
-  font-size: 32px;
+  font-size: 28px;
 
   ${MOBILE_MEDIA} {
     font-size: 24px;
