@@ -48,11 +48,13 @@ const Answer = styled.div`
 
 const Comments = styled.div`
   grid-area: comments;
+  display: flex;
+  flex-direction: column-reverse;
 
   > * {
     margin-top: 32px;
 
-    :first-of-type {
+    :last-of-type {
       margin-top: 64px;
     }
   }

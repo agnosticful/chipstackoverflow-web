@@ -36,8 +36,13 @@ export default function AnswerList({ postId, ...props }: Props) {
     ));
   }
 
-  return <div {...props}>{answerElements}</div>;
+  return <Root {...props}>{answerElements}</Root>;
 }
+
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const _AnswerListItem = styled(AnswerListItem)`
   &:nth-of-type(n + 2) {
