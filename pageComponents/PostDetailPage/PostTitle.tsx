@@ -11,7 +11,7 @@ interface Props extends React.Attributes {
 }
 
 export default function PostTitle({ postId, ...props }: Props) {
-  const { post, isLoading } = usePost(postId);
+  const { post, isLoading } = usePost({ postId });
 
   if (isLoading) {
     return (
@@ -33,6 +33,7 @@ const Root = styled.h1`
   margin: 0;
   color: #0f151c;
   font-size: 40px;
+  overflow-wrap: break-word;
 `;
 
 const Loader = styled(ContentLoader)`

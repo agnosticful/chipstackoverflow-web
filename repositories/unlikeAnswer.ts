@@ -1,25 +1,27 @@
 import { ApolloClient, gql } from "apollo-boost";
 import { AnswerId } from "@@/models/Answer";
+import { PostId } from "@@/models/Post";
 
-export default async function unlikeAnswer(
-  answerId: AnswerId,
-  {
-    apolloClient,
-    authenticationToken,
-  }: {
-    apolloClient: ApolloClient<any>;
-    authenticationToken: string | null;
-  }
-): Promise<void> {
+export default async function unlikeAnswer({
+  postId,
+  answerId,
+  apolloClient,
+  authenticationToken,
+}: {
+  postId: PostId;
+  answerId: AnswerId;
+  apolloClient: ApolloClient<any>;
+  authenticationToken: string;
+}): Promise<void> {
   await apolloClient.mutate({
     mutation: MUTATION,
-    variables: { answerId },
+    variables: { postId, answerId },
     context: { headers: { authorization: `Bearer ${authenticationToken}` } },
   });
 }
 
 const MUTATION = gql`
-  mutation($answerId: ID!) {
-    unlikeAnswer(id: $answerId)
+  mutation($postId: ID!, $answerId: ID!) {
+    unlikeAnswer(postId: $postId, answerId: $answerId)
   }
 `;

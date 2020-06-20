@@ -11,7 +11,7 @@ interface Props extends React.Attributes {
 }
 
 export default function PostBody({ postId, ...props }: Props) {
-  const { post, isLoading } = usePost(postId);
+  const { post, isLoading } = usePost({ postId });
 
   if (isLoading) {
     return (
@@ -53,6 +53,7 @@ export default function PostBody({ postId, ...props }: Props) {
 
 const Paragraph = styled.p`
   line-height: 1.333;
+  overflow-wrap: break-word;
 
   &:nth-of-type(n + 2) {
     margin-top: 16px;

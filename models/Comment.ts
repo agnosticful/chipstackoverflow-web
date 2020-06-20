@@ -1,4 +1,4 @@
-import User from "@@/models/UserProfile";
+import UserProfile from "@@/models/UserProfile";
 
 export default interface Comment {
   id: CommentId;
@@ -7,7 +7,7 @@ export default interface Comment {
   dislikes: number;
   liked: boolean;
   disliked: boolean;
-  author: User;
+  author: UserProfile;
   createdAt: Date;
   lastUpdatedAt: Date;
 }
