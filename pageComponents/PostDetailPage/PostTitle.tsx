@@ -33,6 +33,7 @@ const Root = styled.h1`
   margin: 0;
   color: #0f151c;
   font-size: 40px;
+  overflow-wrap: break-word;
 `;
 
 const Loader = styled(ContentLoader)`
