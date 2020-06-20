@@ -1,6 +1,6 @@
 import { ApolloClient, gql } from "apollo-boost";
 import Post from "@@/models/Post";
-import PostInputType from "@@/models/PostInputType";
+import PostInputType from "@@/models/PostInput";
 import { toPost } from "@@/serializers/graphql/post";
 
 export default async function createPost(
@@ -10,7 +10,7 @@ export default async function createPost(
     authenticationToken,
   }: {
     apolloClient: ApolloClient<any>;
-    authenticationToken: string | null;
+    authenticationToken: string;
   }
 ): Promise<Post> {
   const { data } = await apolloClient.mutate({

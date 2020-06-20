@@ -1,15 +1,15 @@
-import { HandAction } from "./Hand";
-import PlayingCard from "./PlayingCard";
-import { GameType } from "./Post";
+import { HandAction } from "@@/models/Hand";
+import PlayingCard from "@@/models/PlayingCard";
+import { GameType } from "@@/models/Post";
 
-export default interface PostInputType {
+export default interface PostInput {
   title: string;
   body: string;
   gameType: GameType;
   playerLength: number;
   playerStackSizes: number[];
-  playerCards: PlayingCard[][];
-  communityCards: PlayingCard[];
+  playerCards: (PlayingCard | null)[][];
+  communityCards: (PlayingCard | null)[];
   heroIndex: number;
   smallBlindSize: number;
   antiSize: number;
