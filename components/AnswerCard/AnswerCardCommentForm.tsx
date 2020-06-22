@@ -60,7 +60,7 @@ export default function AnswerCardCommentForm({
       <_TextArea
         placeholder="Leave your comment ..."
         defaultValue={defaultValue}
-        disabled={submitting || invalid}
+        disabled={submitting}
         onChange={onBodyChange}
         key={textAreaId}
       />
