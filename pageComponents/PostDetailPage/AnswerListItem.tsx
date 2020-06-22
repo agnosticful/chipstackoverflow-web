@@ -11,6 +11,9 @@ import Answer from "@@/models/Answer";
 import { PostId } from "@@/models/Post";
 import useAnalytics from "@@/hooks/useAnalytics";
 import CommentListItem from "./CommentListItem";
+import useCommentCreation, {
+  CommentBodyValidationErrorType,
+} from "@@/hooks/useCommentCreation";
 
 interface Props extends React.Attributes {
   postId: PostId;
@@ -24,6 +27,17 @@ export default function AnswerListItem({ postId, answer, ...props }: Props) {
   const { trackEvent } = useAnalytics();
   const { myself } = useMyself();
   const { like, dislike, unlike } = useAnswerReaction({
+    postId,
+    answerId: answer.id,
+  });
+  const {
+    body,
+    isValid,
+    bodyValidationErrorTypes,
+    isSubmitting,
+    setBody,
+    submit,
+  } = useCommentCreation({
     postId,
     answerId: answer.id,
   });
@@ -73,7 +87,20 @@ export default function AnswerListItem({ postId, answer, ...props }: Props) {
       ))}
       form={
         myself ? (
-          <AnswerCardCommentForm user={myself} />
+          <AnswerCardCommentForm
+            user={myself}
+            submitting={isSubmitting}
+            invalid={!isValid}
+            invalidReason={
+              bodyValidationErrorTypes.length === 0 || body.length === 0
+                ? undefined
+                : BODY_VALIDATION_ERROR_MESSAGE.get(
+                    bodyValidationErrorTypes[0]
+                  )!
+            }
+            onChange={(_, body) => setBody(body)}
+            onSubmit={() => submit()}
+          />
         ) : (
           <AnswerCardCommentFormFilling onSignUpButtonClick={() => signIn()} />
         )
@@ -82,3 +109,11 @@ export default function AnswerListItem({ postId, answer, ...props }: Props) {
     />
   );
 }
+
+const BODY_VALIDATION_ERROR_MESSAGE = new Map([
+  [CommentBodyValidationErrorType.tooShort, "Too short to post."],
+  [
+    CommentBodyValidationErrorType.tooLong,
+    "Your wonderful comment is too much long! Can you shave it down little bit?",
+  ],
+]);
