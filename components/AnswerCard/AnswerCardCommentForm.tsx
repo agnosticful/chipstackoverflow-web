@@ -111,8 +111,10 @@ const _TextArea = styled(TextArea)`
 const HelpfulMessage = styled.div`
   grid-area: helpful-message;
   margin-top: 16px;
+  padding-right: 16px;
   color: #576574;
   font-size: 12px;
+  line-height: 1.333;
 `;
 
 const SubmitButton = styled(Button)`
