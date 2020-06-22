@@ -27,7 +27,7 @@ export default function useCommentCreation({
   const [isSubmitting, setSubmitting] = React.useState(false);
 
   const _setBody = (body: string) => {
-    let validationErrorTypes = [];
+    const validationErrorTypes = [];
 
     if (body.length < 8) {
       validationErrorTypes.push(CommentBodyValidationErrorType.tooShort);
