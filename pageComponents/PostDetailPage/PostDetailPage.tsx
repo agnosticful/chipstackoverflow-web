@@ -9,6 +9,7 @@ import HandPlayerSection from "./HandPlayerSection";
 import AnswerList from "./AnswerList";
 import PostBody from "./PostBody";
 import PostTitle from "./PostTitle";
+import NewAnswerForm from "./NewAnswerForm";
 
 interface Props extends React.Attributes {
   postId: PostId;
@@ -55,6 +56,12 @@ export default function PostDetailPage({
 
         <_PostBody postId={postId} />
 
+        <Rule />
+
+        <_NewAnswerForm postId={postId} />
+
+        <SectionHeading>Answers</SectionHeading>
+
         <_AnswerList postId={postId} />
       </Content>
     </Root>
@@ -88,6 +95,22 @@ const _PostBody = styled(PostBody)`
   margin-top: 64px;
 `;
 
-const _AnswerList = styled(AnswerList)`
+const Rule = styled.hr`
+  margin: 64px 0;
+  border: none;
+  border-top: 1px #c8d6e5 solid;
+`;
+
+const _NewAnswerForm = styled(NewAnswerForm)`
   margin-top: 64px;
+`;
+
+const SectionHeading = styled.h2`
+  margin-top: 32px;
+  font-size: 28px;
+  font-weight: bold;
+`;
+
+const _AnswerList = styled(AnswerList)`
+  margin-top: 32px;
 `;

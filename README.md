@@ -1,16 +1,23 @@
 # chipstackoverflow
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+Next.js application
 
-## Getting Started
+## Development
 
-First, run the development server:
+After `npm install`, you can hit `npm run dev` to start development server out-of-the-box.
 
-```bash
-npm run dev
-# or
-yarn dev
 ```
+npm install
+npm run dev
+```
+
+## Deployment
+
+
+
+## Application Architecture
+
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

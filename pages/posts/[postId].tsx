@@ -1,5 +1,4 @@
 import { GetStaticPropsContext } from "next";
-import Error from "next/error";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -8,6 +7,7 @@ import PostDetailPage from "@@/pageComponents/PostDetailPage";
 import { getSingletonServerSideApolloClient } from "@@/repositories/apolloClient";
 import getPostById from "@@/repositories/getPostById";
 import { fromPost, toPost } from "@@/serializers/json/post";
+import NotFoundPage from "@@/pageComponents/NotFoundPage";
 
 interface Props {
   prerenderedPostJSON: Record<string, any> | null;
@@ -19,7 +19,7 @@ export default ({ prerenderedPostJSON }: Props) => {
   const post = prerenderedPostJSON ? toPost(prerenderedPostJSON) : null;
 
   if (post === null && !isFallback) {
-    return <Error statusCode={404} />;
+    return <NotFoundPage />;
   }
 
   return (
@@ -53,6 +53,5 @@ export async function getStaticProps({
     props: {
       prerenderedPostJSON: post ? fromPost(post) : null,
     },
-    unstable_revalidate: 1,
   };
 }
