@@ -38,7 +38,7 @@ export default function usePost({ postId }: { postId: PostId }) {
         isInitialized: true,
       }));
     });
-  }, [postId, post, apolloClient, authenticationToken]);
+  }, [postId, post, apolloClient, authenticationToken, isLoading]);
 
   const updateLocally = React.useCallback(
     (updater: (post: Post | null) => Post | null) =>

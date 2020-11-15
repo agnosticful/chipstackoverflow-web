@@ -76,6 +76,7 @@ const Root = styled.textarea<{
   ::placeholder {
     color: #c8d6e5;
     font-size: 16px;
+    user-select: none;
   }
 
   :hover,
